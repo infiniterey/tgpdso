@@ -49,8 +49,9 @@
 					$_SESSION["id"] = strip_tags($validation["userID"]);
 
 
-					?><script>alert('Welcome to TGP - Insular Life');
-						window.location="home.php"
+					?><script>
+					//alert('Welcome to TGP - Insular Life');
+						window.location="production/home.php"
 					</script><?php
 				}
 				else
@@ -71,7 +72,7 @@
 <html>
 
 <head>
-  <title>TGP - Login</title>
+  <title>TMS - TGPDSO Monitoring System</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
@@ -80,8 +81,8 @@
 <body style="background-image: url('../OJT/Insular-Life-Banner.png');background-size:cover; background-repeat; no-repeat;">
   <nav class="navbar navbar-expand-md navbar-dark bg-secondary">
     <div class="container">
-      <a class="navbar-brand" href="images/tgplogo.png">
-        <img src="images/tgplogo.png" width="50" class="d-inline-block align-top" alt="" height="50"> </a>
+      <a class="navbar-brand" href="production/images/tgplogo.png">
+        <img src="production/images/tgplogo.png" width="50" class="d-inline-block align-top" alt="" height="50"> </a>
       <a class="navbar-brand" href="#">
         <b class="">
           <b> The Great Provider</b>
@@ -104,7 +105,7 @@
       </div>
     </div>
   </nav>
-  <div class="py-5" style="background-image: url('images/InsularBackground1.png');background-size:cover;background-repeat:no-repeat;">
+  <div class="py-5" style="background-image: url('production/images/InsularBackground1.png');background-size:cover;background-repeat:no-repeat;">
     <div class="container">
       <div class="row">
         <div class="col-md-3"> </div>
@@ -154,7 +155,7 @@
           </p>
           <p class="text-dark">
             <a href="https://www.google.com" class="text-dark">
-              <i class="fa d-inline mr-3 text-secondary fa-envelope-o"></i>info@greatprovider.com</a>
+              <i class="fa d-inline mr-3 text-secondary fa-envelope-o"></i>thegreatprovider@gmail.com</a>
           </p>
           <p class="text-dark">
             <a href="" class="text-dark" target="_blank">

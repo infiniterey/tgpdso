@@ -22,7 +22,7 @@
     }
     ?>
     &nbsp;
-    <a style="color: lightgreen" name="logout" id="logout" href="index.php"><u>Logout</u></a>
+    <a href="../index.php" style="color: lightgreen" name="logout" id="logout"><u>Logout</u></a>
     <div class="clearfix"></div>
   </div>
 </div>
