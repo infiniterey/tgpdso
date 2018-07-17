@@ -1,0 +1,167 @@
+@font-face {
+    font-family: 'Fira Sans';
+    src: url('../fonts/FiraSans-Light.eot');
+    src: local('Fira Sans Light'),
+         url('../fonts/FiraSans-Light.eot') format('embedded-opentype'),
+         url('../fonts/FiraSans-Light.woff') format('woff'),
+         url('../fonts/FiraSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Fira Sans';
+    src: url('../fonts/FiraSans-Regular.eot');
+    src: local('Fira Sans Regular'),
+         url('../fonts/FiraSans-Regular.eot') format('embedded-opentype'),
+         url('../fonts/FiraSans-Regular.woff') format('woff'),
+         url('../fonts/FiraSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'Fira Sans';
+    src: url('../fonts/FiraSans-Bold.eot');
+    src: local('Fira Sans Bold'),
+         url('../fonts/FiraSans-Bold.eot') format('embedded-opentype'),
+         url('../fonts/FiraSans-Bold.woff') format('woff'),
+         url('../fonts/FiraSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+body, p, a, li, dl, .form-control { font: normal normal 300 18px/2em 'Fira Sans';}
+b, strong, dt { font-weight: 400;}
+h1, h2, h3, h4, h5, h6 { line-height: 2em;}
+
+
+.mainlog {
+    background-color:rgba(0,0,0,0.6);
+	width: 50%;
+	height:55%;
+    border-radius: 15px;
+	-webkit-box-shadow: 2px 1px 6px 2px #000000;
+	border: 1px solid white;
+	box-shadow: 2px 1px 4px 2px #000000;
+	margin-right: 40px;
+	margin-left: 40px;
+	padding-right: 50px;
+    padding-left: 50px;
+    padding-top: 5px;
+	clear: both;
+}
+
+.head {
+    font-family: 'Fira Sans';
+    src: url('../fonts/FiraSans-Bold.eot');
+    src: local('Fira Sans Bold'),
+         url('../fonts/FiraSans-Bold.eot') format('embedded-opentype'),
+         url('../fonts/FiraSans-Bold.woff') format('woff'),
+         url('../fonts/FiraSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-size: 65px;
+    font-style: normal;
+}
+
+.login {
+    font-family: 'Fira Sans';
+    src: url('../fonts/FiraSans-Regular.eot');
+    src: local('Fira Sans Regular'),
+         url('../fonts/FiraSans-Regular.eot') format('embedded-opentype'),
+         url('../fonts/FiraSans-Regular.woff') format('woff'),
+         url('../fonts/FiraSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.input {
+    color: black;
+    font-family: 'Fira Sans';
+    src: url('../fonts/FiraSans-Regular.eot');
+    src: local('Fira Sans Regular'),
+         url('../fonts/FiraSans-Regular.eot') format('embedded-opentype'),
+         url('../fonts/FiraSans-Regular.woff') format('woff'),
+         url('../fonts/FiraSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-size: 15px;
+    font-style: normal;
+}
+
+.maincontainer {
+	width:80%;    
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    border-radius: 20px;
+    border: 3px solid #999;
+    -webkit-box-shadow: 2px 1px 6px 2px #000000;
+    box-shadow: 2px 1px 6px 2px #000000; 
+    background:rgba(0,0,0,0.8);
+}
+
+.table, tr, th, td {
+    font-family: 'Fira Sans';
+    src: url('../fonts/FiraSans-Regular.eot');
+    src: local('Fira Sans Regular'),
+         url('../fonts/FiraSans-Regular.eot') format('embedded-opentype'),
+         url('../fonts/FiraSans-Regular.woff') format('woff'),
+         url('../fonts/FiraSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-size: 15px;
+    font-style: normal;
+}
+
+.formstyle {
+    background-color: transparent;
+    border-color: transparent;
+	width: 180px;
+}
+
+.formstyle1 {
+    background-color: transparent;
+    border-color: transparent;
+    width: 35px;
+}
+
+.formstyle2 {
+    background-color: transparent;
+    border-color: transparent;
+	width: 50%;
+}
+
+.formwidth {
+    width: 100px;
+}
+
+.table-border {
+    border-color: black;
+    border-width: medium;
+}
+
+.design {
+
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+table {
+    
+    color: white;
+}
+
+th {
+    font-weight: bolder;
+}
+
+.tb {
+    width: 40%;
+}
+
+.tb1 {
+    width: 20%;
+}
+
+.container-style {
+	width: 50%;
+}

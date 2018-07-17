@@ -1,0 +1,37 @@
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tgpdso_db";
+
+$conn = new mysqli ($servername, $username, $password, $dbname);
+
+if(mysqli_connect_error())
+{
+	die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+}
+else
+{
+	if(isset($_POST['delete']))
+	{
+		$policyNo = $_POST['policyNo1'];
+
+			$result=mysqli_query($conn,"DELETE FROM 'production' WHERE 'policyNo' = $policyNo");
+
+			if($result)
+			{
+				echo "Success";
+			}
+			else {
+				echo "not";
+			}
+
+	}
+
+}
+
+
+
+
+?>
