@@ -72,34 +72,33 @@
 <html>
 
 <head>
-  <title>TMS - TGPDSO Monitoring System</title>
+	<link rel="icon" href="production/images/favicon.png" type="image/png" sizes="16x16">
+	<title>TMS - TGPDSO Monitoring System</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="css/logintheme.css" type="text/css"> </head>
+  <link rel="stylesheet" href="css/logintheme.css" type="text/css">
+
+</head>
 
 <body style="background-image: url('../OJT/Insular-Life-Banner.png');background-size:cover; background-repeat; no-repeat;">
-  <nav class="navbar navbar-expand-md navbar-dark bg-secondary">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="production/images/tgplogo.png">
-        <img src="production/images/tgplogo.png" width="50" class="d-inline-block align-top" alt="" height="50"> </a>
-      <a class="navbar-brand" href="#">
-        <b class="">
-          <b> The Great Provider</b>
-        </b>
-      </a>
+        <!-- <img src="production/images/tgplogo.png" width="50" class="d-inline-block align-top" alt="" height="50"> </a> -->
+				  <a class="navbar-brand" href="#">
+						<img src="production/images/logowidth.png" height="50"></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
-        <ul class="navbar-nav text-white">
-          <li class="nav-item text-white">
+        <ul class="navbar-nav text-dark">
+          <li class="nav-item text-dark">
             <a class="nav-link" href="#">
-              <i class="fa d-inline fa-lg fa-bookmark-o text-white"></i> Bookmarks</a>
+              <i class="fa d-inline fa-lg fa-bookmark-o text-dark"></i> Bookmarks</a>
           </li>
-          <li class="nav-item text-light">
+          <li class="nav-item text-dark">
             <a class="nav-link" href="#">
-              <i class="fa d-inline fa-lg fa-envelope-o text-white"></i> Contacts</a>
+              <i class="fa d-inline fa-lg fa-envelope-o text-dark"></i> Contacts</a>
           </li>
         </ul>
       </div>
