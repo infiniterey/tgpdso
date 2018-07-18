@@ -55,26 +55,24 @@ if(isset($_POST['logout']))
     				<div class="left_col scroll-view">
     					<div class="clearfix"></div>
 
-    					<!-- menu profile quick info -->
-    					<div class="profile clearfix">
-  							<div class="profile_pic">
-  								<img class="img-circle img1 profile_img" src="images/user.png">
-  							</div>
-  							<div class="profile_info">
-									<span>Magandang Araw!</span>
-  								<h2><b><?php echo $_SESSION['firstname']; ?></b></h2>
-									<br>
-									<a name="logout" id="logout" href="index.php" style="color: white"><u>Logout</u></a>
-  								<div class="clearfix"></div>
-  							</div>
-  						</div>
-  						<!-- /menu profile quick info -->
+							<!-- menu profile quick info -->
+								<?php include 'base/sessionsidebar.php';?>
+							<!-- /menu profile quick info -->
 
-    					<br />
+							 <br />
 
-    					<!-- sidebar menu -->
-              <?php include 'base/sidebar.php'; ?>
-              <!-- /sidebar menu -->
+							<?php
+
+							$usertype1 = $_SESSION['usertype'];
+							if($usertype1 == 'secretary' || $usertype1 == 'Secretary')
+							{
+								 include 'base/sidebar.php';
+							}
+							else
+							{
+								 include 'base/sidebarAdmin.php';
+							}
+							?>
 
     				</div>
     			</div>
@@ -105,7 +103,7 @@ if(isset($_POST['logout']))
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2><b>STATEMENT OF ACCOUNT</b></h2>
+                      <h2><b>DASHBOARD</b></h2>
 
                       <div class="clearfix"></div>
                     </div>
@@ -113,23 +111,6 @@ if(isset($_POST['logout']))
                         <div class="row">
 													<div class="col-sm-3">
 															<form method="post" action="<?php $_PHP_SELF ?>">
-				                          Username: <span class="required">*</span>
-				                          <input name="username" id="username" style="width: 195px;" class="date-picker form-control" required="required" type="text" required><br>
-				                          First Name: <span class="required">*</span>
-				                          <input type="text" id="firstname" placeholder="" name="firstname" required="required" class="form-control" required><br/>
-																  Last Name: <span class="required">*</span>
-				                          <input type="text" id="lastname" placeholder="" name="lastname" required="required" class="form-control" required><br/>
-																	New Password: <span class="required">*</span>
-																	<input type="text" id="npassword" placeholder="" name="npassword" required="required" class="form-control" value="" required><br/>
-																	<br><br>
-																	<center>
-																	<button type="submit" class="btn btn-primary" id="SaveButton" name="SaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-
-
-																		<button type="submit" class="btn btn-primary" id="UpdateButton" name="UpdateButton"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																		<button type="reset" id="reset" name="reset" value="Reset" class="btn btn-default" onclick="disableUpdateButton()">Cancel</button>
-
-																	</center>
 																</form>
 														</div>
                           <div class="col-sm-9">
@@ -138,52 +119,11 @@ if(isset($_POST['logout']))
 
                             <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
                               <thead>
-                                <tr role="row">
-                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username" style="width: 25px;text-align:center;">Username</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Firstname" style="width: 100px;text-align:center;">First Name</th>
-                                  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Last Name</th>
-
-																</tr>
                               </thead>
 
                               <tbody>
-
-                                  <?php
-                                    $DB_con = Database::connect();
-                                    $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                                    $sql = "SELECT * FROM users";
-
-                                    $result = $DB_con->query($sql);
-                                    if($result->rowCount()>0){
-                                      while($row=$result->fetch(PDO::FETCH_ASSOC)){
-                                        ?>
-                                        <tr>
-                                          <td><?php print($row['username']); ?></td>
-                                          <td><?php print($row['ufirstname']);?></td>
-                                          <td><?php print($row['ulastname']); ?></td>
-                                        </tr>
-                                        <?php
-                                      }
-                                    }
-                                    else{}
-                                  ?>
                                 </tbody>
                             </table>
-														<script>
-
-
-															var table = document.getElementById('datatable-fixed-header');
-															for(var counter = 1; counter < table.rows.length; counter++)
-															{
-																table.rows[counter].onclick = function()
-																{
-
-																 document.getElementById("username1").value = this.cells[0].innerHTML;
-
-																	};
-																}
-
-																</script>
 
                         </div>
                       </div>

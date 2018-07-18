@@ -41,10 +41,6 @@ if(isset($_POST['logout']))
 
 #edit, #deleted, #UpdateButton, #ModalEdit, #ModalDelete { display: none;}
 
-
-
-
-
 </style>
 
 

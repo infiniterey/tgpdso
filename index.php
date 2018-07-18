@@ -93,11 +93,11 @@
       <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
         <ul class="navbar-nav text-dark">
           <li class="nav-item text-dark">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#" style="color: black;">
               <i class="fa d-inline fa-lg fa-bookmark-o text-dark"></i> Bookmarks</a>
           </li>
           <li class="nav-item text-dark">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#" style="color: black;">
               <i class="fa d-inline fa-lg fa-envelope-o text-dark"></i> Contacts</a>
           </li>
         </ul>

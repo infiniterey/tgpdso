@@ -3,7 +3,24 @@
 	include 'pdo.php';
 	include_once 'createdb.php';
 
+session_Start();
 ?>
+
+<?php
+if(isset($_POST['logout']))
+{
+	session_destroy();
+	unset($_SESSION['logout']);
+	?>
+	<script>
+	alert('Successfully logout - TGP');
+	window.location="index.php";
+	</script>
+
+	<?php
+}
+ ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,20 +62,26 @@
   					<div class="clearfix"></div>
 
   					<!-- menu profile quick info -->
-  					<div class="profile clearfix">
-							<div class="profile_pic">
-								<img class="img-circle img1 profile_img" src="images/user.png">
-							</div>
-							<div class="profile_info">
-								<span>Magandang</span>
-								<h2><b>ARAW!</b></h2>
-								<div class="clearfix"></div>
-							</div>
-						</div>
+							<?php include 'base/sessionsidebar.php';?>
 						<!-- /menu profile quick info -->
 
+						 <br />
+
+						<?php
+
+						$usertype1 = $_SESSION['usertype'];
+						if($usertype1 == 'secretary' || $usertype1 == 'Secretary')
+						{
+							 include 'base/sidebar.php';
+						}
+						else
+						{
+							 include 'base/sidebarAdmin.php';
+						}
+						?>
+
   					<!-- sidebar menu -->
-            <?php include 'base/sidebar.php'; ?>
+
             <!-- /sidebar menu -->
 
   				</div>
