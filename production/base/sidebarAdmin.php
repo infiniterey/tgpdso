@@ -13,6 +13,22 @@
                         <br>
         </ul>
       </li>
+      <li><a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-list-alt"></i> Agent <span class="fa fa-chevron-down"></span></a>
+        <ul class="collapse list-unstyled" id="homeSubmenu2">
+          &nbsp;&nbsp;<li><a href="payment.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:red;"class="fa fa-money"></i>Payment</a></li>
+          &nbsp;&nbsp;<li><a href="dueDate.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:red;" class="fa fa-calendar"></i>Due Date</a></li>
+          &nbsp;&nbsp;<li><a href="SOA.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:red;" class="fa fa-cog"></i>SOA</a></li>
+                        <br>
+        </ul>
+      </li>
+      <li><a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-list-alt"></i> Report <span class="fa fa-chevron-down"></span></a>
+        <ul class="collapse list-unstyled" id="homeSubmenu3">
+          &nbsp;&nbsp;<li><a href="payment.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:red;"class="fa fa-money"></i>Payment</a></li>
+          &nbsp;&nbsp;<li><a href="dueDate.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:red;" class="fa fa-calendar"></i>Due Date</a></li>
+          &nbsp;&nbsp;<li><a href="SOA.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:red;" class="fa fa-cog"></i>SOA</a></li>
+                        <br>
+        </ul>
+      </li>
       <li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-cog"></i> Setings <span class="fa fa-chevron-down"></span></a>
         <ul class="collapse list-unstyled" id="homeSubmenu1">
           &nbsp;&nbsp;<li><a href="add_agent.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i>Add Agent</a></li>
