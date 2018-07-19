@@ -326,7 +326,6 @@ if(isset($_POST['logout']))
 						                      <input type="text" id="policyNo" name="policyNo" placeholder="Policy No." required="required" class="form-control" required><br>
 				                          Plan <span class="required">*</span> <br>
 				                          <input name="plan" id="plan" class="form-control" value="" placeholder="" style="width: 150px;" required readonly>
-
 																	<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button><br>
 																	Official Receipt No.
 																	<input type="text" id="receiptNo" name="receiptNo" required="required" class="form-control" required><br>
