@@ -246,6 +246,7 @@
 				public function dropdown_team() {
 					$DB_con = Database::connect();
 					$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 					$result = $DB_con->prepare("SELECT * FROM team ");
 					$result->execute();
 

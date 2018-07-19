@@ -101,7 +101,7 @@ if(isset($_POST['logout']))
 																Application Date<span class="required">*</span> <br>
 																<input name="appDate" style="width:195px" placeholder="Application Date" class="date-picker form-control" required="required" type="date" required><br>
 																Team<span class="required">*</span> <br>
-																<select style = "width:195px" name="team" class="form-control">
+																<select style = "width:195px" name="team" class="form-control" readonly>
 																<?php tgpdso::dropdown_team(); ?>
 																</select>
 																<br>Position <span class="required">*</span><br>
@@ -127,26 +127,54 @@ if(isset($_POST['logout']))
 														</thead>
 														<tbody>
 															<?php
+															if($_SESSION['usertype'] == 'Secretary' || $_SESSION['usertype'] == 'secretary')
+															{
+																$team = $_SESSION['team'];
+
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																$sql = "SELECT * FROM agents	";
+																$sql = "SELECT * FROM agents, team WHERE agentTeam = teamID AND teamName = '$team'";
 
 																$result = $DB_con->query($sql);
 																if($result->rowCount()>0){
+
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																		<tr>
 																			<td><?php print($row['agentCode']); ?></td>
-																			<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. ", " .$row['agentMiddlename']); ?></td>
+																			<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
 																			<td><?php print($row['agentBirthdate']); ?></td>
 																			<td><?php print($row['agentApptDate']); ?></td>
-																			<td><?php print($row['agentTeam']); ?></td>
+																			<td><?php print($row['teamName']); ?></td>
 																			<td><?php print($row['agentPosition']); ?></td>
 																		</tr>
 																		<?php
 																	}
 																}
 																else{}
+																}
+																else {
+																	$DB_con = Database::connect();
+																	$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																	$sql = "SELECT * FROM agents";
+
+																	$result = $DB_con->query($sql);
+																	if($result->rowCount()>0){
+
+																		while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																			?>
+																			<tr>
+																				<td><?php print($row['agentCode']); ?></td>
+																				<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
+																				<td><?php print($row['agentBirthdate']); ?></td>
+																				<td><?php print($row['agentApptDate']); ?></td>
+																				<td><?php print($row['agentTeam']); ?></td>
+																				<td><?php print($row['agentPosition']); ?></td>
+																			</tr>
+																			<?php
+																		}
+																	}
+																}
 															?>
 
 															</tbody>
