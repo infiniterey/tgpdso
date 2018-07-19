@@ -51,7 +51,7 @@
 
 					?><script>
 					//alert('Welcome to TGP - Insular Life');
-						window.location="production/home.php"
+						window.location="production/dashboard.php"
 					</script><?php
 				}
 				else
