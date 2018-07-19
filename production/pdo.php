@@ -254,5 +254,281 @@
 						    echo "<option value='" . $row['teamID'] . "'>" . $row['teamName'] . "</option>";
 					}
 				}
+				public function updateIssuedate(){
+					$host = "localhost";
+					$dbusername = "root";
+					$dbpassword = "";
+					$dbname = "tgpdso_db";
+					$sql ="";
+					$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+					if(mysqli_connect_error())
+					{
+						die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+					}
+					else {
+						if(isset($_POST['iupdateko']))
+						{
+						if(isset($_POST['uprod'])){	?>
+							<?php
+							$ProdID = $_POST['uprod'];
+						$planplan = $_POST['uplan'];
+						$policy =$_POST['upolicy'];
+						$upissuedate = $_POST['modalissuedate'];}
+							$sql = "UPDATE production SET issuedDate = '$upissuedate' where prodID = '$ProdID' and plan ='$planplan' and policyNo = '$policy'";
+							if($conn->query($sql))
+							{
+								?>
+								<script>
+									alert('Issue Date successfully updated!');
+								</script>
+								<?php
+							}
+							else {
+								echo "Error:". $sql."<br>".$conn->error;
+							}
+						}
+
+
+						$conn->close();
+
+					}
+				}
+				public function deleteIssuedate(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['btn-deleteRow']))
+					{
+					$policy = $_POST['inputvaluedelete'];
+					$ProdID = $_POST['inputvaluedelete2'];
+
+					?>
+						<script>
+								alert('halaa <?php echo $ProdID?>');
+						</script>
+					<?php
+					$sql = "UPDATE production SET issuedDate = $policy WHERE policyNo = '$policy' and prodID = '$ProdID'";
+					}
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Issue Date successfully Deleted!');
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function addTraining(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['btn-addrEquirements']))
+					{
+						$trainingName = $_POST['TrainingName'];
+						$trainingRequired = $_POST['TrainingRequired'];
+
+						$sql = "INSERT Into training (TrainingName, TrainingRequired) values ('$trainingName','$trainingRequired')";
+					}
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Training successfully added!');
+							window.location="add_training.php";
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function deleteTraining(){
+
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['deleted']))
+					{
+						$trainid = $_POST['temp'];
+						$trainname = $_POST['temp2'];
+						?>
+						<script>
+								alert('haloooooooooooooooooooooooooo <?php echo $trainid?>');
+						</script>
+						<?php
+						$sql = "DELETE FROM training WHERE trainingNo = '$trainid' AND	trainingName = '$trainname'";
+					}
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Training successfully deleted!');
+						window.location="add_training.php";
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function updateTraining(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['iupdateko']))
+					{
+					if(isset($_POST['uprod'])){	?>
+						<?php
+						$ProdID = $_POST['uprod'];
+					$planplan = $_POST['uplan'];
+					$policy =$_POST['upolicy'];
+					$upissuedate = $_POST['modalissuedate'];}
+						$sql = "UPDATE production SET issuedDate = '$upissuedate' where prodID = '$ProdID' and plan ='$planplan' and policyNo = '$policy'";
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert('Issue Date successfully updated!');
+							</script>
+							<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+					}
+
+
+					$conn->close();
+
+				}
+			}
+			public function addAgentToTraining(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+				?>
+				<script>
+					alert('haaayyynaaakooo!');
+				</script>
+				<?php
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['apply']))
+					{
+						$ATagentID = $_POST['agentName'];
+						$ATagentName= $_POST['contain1'];
+						$ATtrainingName = $_POST['trainingNameko'];
+						$ATtrainingID =  $_POST['contain2'];
+						$ATdate = $_POST['DateAdded'];
+
+						$sql = "INSERT Into agentstraining (ATagentID, ATagentName, ATtrainingName, ATrequiredPosition, ATdate) values ('$ATagentID','$ATagentName','$ATtrainingName','$ATtrainingID', '$ATdate')";
+					}
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Agent successfully added to the training!');
+							window.location="add_agent_training.php";
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function deleteAgentToTraining(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+				?>
+				<script>
+					alert('haaayyynaaakooo!');
+				</script>
+				<?php
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['apply']))
+					{
+						$ATagentID = $_POST['contain1'];
+						$ATagentName= $_POST['agentName'];
+						$ATtrainingName = $_POST['trainingNameko'];
+						$ATtrainingID =  $_POST['contain2'];
+						$ATdate = $_POST['DateAdded'];
+						$sql = "DELETE from agentstraining WHERE ATagentID = ''$ATagentID' AND ATtrainingName= '$ATagentID'";
+					}
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Agent successfully added to the training!');
+							window.location="add_agent_training.php";
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
 	}
 ?>
