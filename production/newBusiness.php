@@ -26,12 +26,23 @@ if(isset($_POST['logout']))
 
 <!DOCTYPE html>
 <html lang="en">
+<?php include 'base/header.php'; ?>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
 </head>
 
 <style type="text/css">
+
+.scrollbar{
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+::-webkit-scrollbar {
+    width: 1px;
+}
+
 
 .highlight { background-color: lightgreen; color: green}
 .highlightBack { background-color: white; color: gray}
@@ -42,17 +53,13 @@ if(isset($_POST['logout']))
 #edit, #deleted, #UpdateButton, #ModalEdit, #ModalDelete { display: none;}
 
 </style>
-
-
-
-	<?php include 'base/header.php'; ?>
   <body class="nav-md footer_fixed">
     <form method="post">
     	<div class="container body">
     		<div class="main_container">
 
     			<div class="col-md-3 left_col menu_fixed">
-    				<div class="left_col scroll-view">
+    				<div class="left_col scroll-view scrollbar">
     					<div class="clearfix"></div>
 
     					<!-- menu profile quick info -->

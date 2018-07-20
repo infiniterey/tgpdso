@@ -48,8 +48,18 @@ if(isset($_POST['logout']))
     content: "";
     display: table;
     clear: both;
+
 }
 #formko,#inputvaluedelete,#inputvaluedelete2,#modalprod,#modalcode,#modalplan{display:none}
+
+.scrollbar{
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+::-webkit-scrollbar {
+    width: 1px;
+}
 
 </style>
 	<?php include 'base/header.php';?>
@@ -58,7 +68,7 @@ if(isset($_POST['logout']))
   		<div class="main_container">
 
   			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view">
+  				<div class="left_col scroll-view scrollbar">
   					<div class="clearfix"></div>
 
   					<!-- menu profile quick info -->

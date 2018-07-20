@@ -49,6 +49,16 @@ if(isset($_POST['logout']))
     display: table;
     clear: both;
 }
+
+.scrollbar{
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+::-webkit-scrollbar {
+    width: 1px;
+}
+
 #formko,#inputvaluedelete,#inputvaluedelete2,#modalprod,#modalcode,#modalplan{display:none}
 
 </style>
@@ -58,7 +68,7 @@ if(isset($_POST['logout']))
   		<div class="main_container">
 
   			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view">
+  				<div class="left_col scroll-view scrollbar">
   					<div class="clearfix"></div>
 
   					<!-- menu profile quick info -->
@@ -188,66 +198,43 @@ if(isset($_POST['logout']))
 																		</div>
 														 <div class="x_content">
 				                       <br>
-
+													<div class="row">
 													 <div class="form-group">
-														 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-		                           Last Name
-														 </label>
 												 			 <div class="col-md-3 col-sm-3 col-xs-12">
 																 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
 															 </div>
-															 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-																First Name
-															</label>
 														 	 <div class="col-md-3 col-sm-3 col-xs-12">
 																 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
 															 </div>
 		                        </div>
 
 														<div class="form-group">
-												 		 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-												 			 Policy No
-												 		 </label>
 												 			 <div class="col-md-3 col-sm-3 col-xs-12">
 												 				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mypolicy" disabled="disabled" id="mypolicy" value='<?php echo $Pno; ?>'>
 												 		 </div>
-												 		 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-												 			 Official Receipt
-												 		 </label>
 												 			 <div class="col-md-3 col-sm-3 col-xs-12">
 												 				 <input style="cursor:auto" style="border:none" type="text" class="form-control" disabled="disabled" name="myofficialReceipt" id="myofficialReceipt" value='<?php echo $Rno; ?>'>
 												 				</div>
 												 			</div>
 
 														<div class="form-group">
-															<label class="control-label col-md-3 col-sm-3 col-xs-12">
-															 Agent
-															</label>
 															<div class="col-md-3 col-sm-3 col-xs-12">
 																<input style="cursor:auto" style="border:none" type="text" class="form-control" name="myAgent" id="myAgent" disabled="disabled" value='<?php echo $Aagent; ?>'>
 															</div>
-																<label class="control-label col-md-3 col-sm-3 col-xs-12">
-																Plan
-															 </label>
 															 <div class="col-md-3 col-sm-3 col-xs-12">
  																 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myplan" id="myplan" disabled="disabled" value='<?php echo $Pplan; ?>'>
   															</div>
 														 </div>
 
 														 <div class="form-group">
-															 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-																Transaction Date
-															 </label>
 															 <div class="col-md-3 col-sm-3 col-xs-12">
 																 <input style="cursor:auto" style="border:none" disabled="disabled" type="text" class="form-control" name="mydate" id="mydate" value='<?php echo $Tdate; ?>'>
 															 </div>
-																 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-																 Mode of Payment
-																</label>
 																<div class="col-md-3 col-sm-3 col-xs-12">
 																	<input style="cursor:auto" style="border:none" type="text" class="form-control"disabled="disabled"  name="myModeOfPayment" id="myModeOfPayment" value='<?php echo $MOP; ?>'>
 															 	 </div>
 															</div>
+														</div>
 
 																</div>
 														</div>

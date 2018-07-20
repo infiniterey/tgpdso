@@ -28,6 +28,16 @@ if(isset($_POST['logout']))
 <style>
 .highlight { background-color: lightgreen; color: green}
 #formko1{display:none}
+
+.scrollbar{
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+::-webkit-scrollbar {
+    width: 1px;
+}
+
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +48,7 @@ if(isset($_POST['logout']))
   		<div class="main_container">
 
   			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view">
+  				<div class="left_col scroll-view scrollbar">
   					<div class="clearfix"></div>
 
   					<!-- menu profile quick info -->

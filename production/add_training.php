@@ -27,6 +27,16 @@ if(isset($_POST['logout']))
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 <style  type="text/css">
+
+.scrollbar{
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+::-webkit-scrollbar {
+    width: 1px;
+}
+
 .highlight { background-color: lightgreen; color: green}
 .highlightBack { background-color: white; color: gray}
 
@@ -41,7 +51,7 @@ if(isset($_POST['logout']))
   		<div class="main_container">
 
   			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view">
+  				<div class="left_col scroll-view scrollbar">
   					<div class="clearfix"></div>
 
   					<!-- menu profile quick info -->

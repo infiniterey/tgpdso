@@ -22,6 +22,18 @@ if(isset($_POST['logout']))
 }
  ?>
 
+ <style>
+ .scrollbar{
+ 	height: 100%;
+ 	width: 100%;
+ 	overflow: auto;
+ }
+ ::-webkit-scrollbar {
+     width: 1px;
+ }
+
+ </style>
+
 <!DOCTYPE html>
 <html lang="en">
 	<?php include 'base/header.php'; ?>
@@ -31,7 +43,7 @@ if(isset($_POST['logout']))
   		<div class="main_container">
 
   			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view">
+  				<div class="left_col scroll-view scrollbar">
   					<div class="clearfix"></div>
 
   					<!-- menu profile quick info -->
