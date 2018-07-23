@@ -25,7 +25,7 @@
       </li>
       <li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-cog"></i> Setings <span class="fa fa-chevron-down"></span></a>
         <ul class="collapse list-unstyled" id="homeSubmenu1">
-                    &nbsp;&nbsp;<li><a style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i> Add Client</a></li>
+                    &nbsp;&nbsp;<li><a href="add_client.php" style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i> Add Client</a></li>
           &nbsp;&nbsp;<li><a href="add_agent.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i>Add Agent</a></li>
           &nbsp;&nbsp;<li><a href="add_plan.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Add Plan</a></li>
           &nbsp;&nbsp;<li><a href="add_training.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Add Training</a></li>
