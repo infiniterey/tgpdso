@@ -137,7 +137,7 @@ Date <span class="required">*</span><br>
 	<form method='post' name='myform' onsubmit="CheckForm()">
 		<?php if(isset($_POST['deleted']))
 		{
-			tgpdso::deleteTraining();}?>
+			tgpdso::deleteAgentToTraining();}?>
 		<div method="post" class="modal-body">
 	</div>
 	<div  name="divnako" id="divnako">
@@ -304,7 +304,7 @@ Date <span class="required">*</span><br>
 		table.rows[counter].onclick = function()
 		{;
 			document.getElementById("agentName").value =this.cells[1].innerHTML;
-			document.getElementById("contain1").value =this.cells[0	].innerHTML;
+			document.getElementById("contain1").value =this.cells[0].innerHTML;
 			};
 		}
 

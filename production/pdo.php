@@ -505,20 +505,23 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['apply']))
+					if(isset($_POST['deleted']))
 					{
 						$ATagentID = $_POST['contain1'];
 						$ATagentName= $_POST['agentName'];
 						$ATtrainingName = $_POST['trainingNameko'];
 						$ATtrainingID =  $_POST['contain2'];
 						$ATdate = $_POST['DateAdded'];
-						$sql = "DELETE from agentstraining WHERE ATagentID = ''$ATagentID' AND ATtrainingName= '$ATagentID'";
+						?>
+							<script>alert('echo lalalala <?php $ATagentID?>')</script>
+						<?php
+						$sql = "DELETE from agentstraining WHERE ATagentID = '$ATagentID' AND ATtrainingName= '$ATtrainingName'";
 					}
 					if($conn->query($sql))
 					{
 						?>
 						<script>
-							alert('Agent successfully added to the training!');
+							alert('Agent successfully deleted the training!');
 							window.location="add_agent_training.php";
 						</script>
 						<?php
