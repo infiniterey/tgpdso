@@ -6,8 +6,8 @@
       <li><a href="newBusiness.php"><i class="fa fa-plus"></i> New Business </a></li>
       <li><a href="add_requirements.php"><i class="fa fa-certificate"></i> Policy Requirements </a></li>
       <li><a href="records.php" style="color: red;"><i class="fa fa-list"></i> Records (Not done) </a></li>
-      <li><a href="" style="color: red;"><i class="fa fa-calendar"></i>Due Date (Not done)</a></li>
-      <li><a href=""  style="color: red;"><i class="fa fa-cog"></i>SOA (Not done)</a></li>
+      <li><a href="dueDate.php" style="color: red;"><i class="fa fa-calendar"></i>Due Date (Not done)</a></li>
+      <li><a href="soa.php"  style="color: red;"><i class="fa fa-cog"></i>SOA (Not done)</a></li>
       <li><a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-user"></i> Agent <span class="fa fa-chevron-down"></span></a>
         <ul class="collapse list-unstyled" id="homeSubmenu4">
           &nbsp;&nbsp;<li><a style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i>Agent Profile</a></li>

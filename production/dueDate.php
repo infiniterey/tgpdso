@@ -1,4 +1,4 @@
-<?php
+	<?php
 	include 'confg.php';
 	include 'pdo.php';
 	include_once 'createdb.php';
@@ -63,18 +63,7 @@ if(isset($_POST['logout']))
     					<div class="clearfix"></div>
 
     					<!-- menu profile quick info -->
-    					<div class="profile clearfix">
-  							<div class="profile_pic">
-  								<img class="img-circle img1 profile_img" src="images/user.png">
-  							</div>
-  							<div class="profile_info">
-									<span>Magandang Araw!</span>
-  								<h2><b><?php echo $_SESSION['firstname']; ?></b></h2>
-									<br>
-									<a name="logout" id="logout" href="index.php" style="color: white"><u>Logout</u></a>
-  								<div class="clearfix"></div>
-  							</div>
-  						</div>
+    					<?php include 'base/sessionsidebar.php';?>
   						<!-- /menu profile quick info -->
 
     					<br />
@@ -116,40 +105,33 @@ if(isset($_POST['logout']))
 
                       <div class="clearfix"></div>
                     </div>
-                      <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="row">
-													<div class="col-sm-3">
-															<form method="post" action="<?php $_PHP_SELF ?>">
-				                          Username: <span class="required">*</span>
-				                          <input name="username" id="username" style="width: 195px;" class="date-picker form-control" required="required" type="text" required><br>
-				                          First Name: <span class="required">*</span>
-				                          <input type="text" id="firstname" placeholder="" name="firstname" required="required" class="form-control" required><br/>
-																  Last Name: <span class="required">*</span>
-				                          <input type="text" id="lastname" placeholder="" name="lastname" required="required" class="form-control" required><br/>
-																	New Password: <span class="required">*</span>
-																	<input type="text" id="npassword" placeholder="" name="npassword" required="required" class="form-control" value="" required><br/>
-																	<br><br>
-																	<center>
-																	<button type="submit" class="btn btn-primary" id="SaveButton" name="SaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-
-
-																		<button type="submit" class="btn btn-primary" id="UpdateButton" name="UpdateButton"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																		<button type="reset" id="reset" name="reset" value="Reset" class="btn btn-default" onclick="disableUpdateButton()">Cancel</button>
-
-																	</center>
-																</form>
-														</div>
-                          <div class="col-sm-9">
+													<div class="x_title">
+														<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No."></input>
+														<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
+														<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
+														<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Payment</button>
+														<br	><br>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+                          <div class="col-sm-12">
 
           <!-- table-striped dataTable-->
 
                             <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
                               <thead>
                                 <tr role="row">
-                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username" style="width: 25px;text-align:center;">Username</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Firstname" style="width: 100px;text-align:center;">First Name</th>
-                                  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Last Name</th>
-
+                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username" style="width: 25px;text-align:center;">Policy #</th>
+	                                <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Firstname" style="width: 200px;text-align:center;">Policy Owner</th>
+                                  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Plan</th>
+																	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Policy Status</th>
+																	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Issue Date</th>
+																	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Premium</th>
+																	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Next Due</th>
+																	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 200px;text-align:center;">Agent</th>
+																	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Action</th>
 																</tr>
                               </thead>
 
@@ -168,6 +150,17 @@ if(isset($_POST['logout']))
                                           <td><?php print($row['username']); ?></td>
                                           <td><?php print($row['ufirstname']);?></td>
                                           <td><?php print($row['ulastname']); ?></td>
+																					<td><?php print($row['ulastname']); ?></td>
+																					<td><?php print($row['ulastname']); ?></td>
+																					<td><?php print($row['ulastname']); ?></td>
+																					<td><?php print($row['ulastname']); ?></td>
+																					<td><?php print($row['ulastname']); ?></td>
+																					<td>
+																						<div class="row">
+																							<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-danger" name="btn-addPlan"><i class="fa fa-trash" hidden></i></button>
+																							<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-pencil" hidden></i></button>
+																						</div>
+																					</td>
                                         </tr>
                                         <?php
                                       }
