@@ -49,6 +49,8 @@ if(isset($_POST['logout']))
 		width: 1px;
 }
 
+#update {display: none}
+
 
 
 </style>
@@ -115,7 +117,7 @@ if(isset($_POST['logout']))
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2><b>USERS</b></h2>
+                      <h2><b>ADD CLIENT</b></h2>
 
                       <div class="clearfix"></div>
                     </div>
@@ -123,19 +125,24 @@ if(isset($_POST['logout']))
                         <div class="row">
 													<div class="col-sm-3">
 															<form method="post" action="<?php $_PHP_SELF ?>">
-				                          Username: <span class="required">*</span>
-				                          <input name="username" id="username" style="width: 195px;" class="date-picker form-control" required="required" type="text" required readonly><br/>
-				                          First Name: <span class="required">*</span>
-				                          <input type="text" id="firstname" placeholder="" name="firstname" required="required" class="form-control" required disabled><br/>
-																  Last Name: <span class="required">*</span>
-				                          <input type="text" id="lastname" placeholder="" name="lastname" required="required" class="form-control" required disabled><br/>
-																	New Password: <span class="required">*</span>
-																	<input type="text" id="npassword" placeholder="" name="npassword" required="required" class="form-control" value="" maxlength="25" required><br/>
+				                          First Name:
+				                          <input name="firstname" id="firstname" style="width: 195px;" class="date-picker form-control" type="text" required><br/>
+				                          Middle Name:
+				                          <input type="text" id="middlename" placeholder="" name="middlename" required="required" class="form-control" required><br/>
+																  Last Name:
+				                          <input type="text" id="lastname" placeholder="" name="lastname" required="required" class="form-control" required><br/>
+																 	Birthdate:
+																	<input type="date" id="birthdate" style="width: 195px;" placeholder="" name="birthdate" required="required" class="form-control" required><br/>
+																	Address:
+																	<input type="text" id="address" placeholder="" name="address" required="required" class="form-control" required><br/>
+																	Cell No.:
+																	<input type="text" id="cellno" placeholder="" name="cellno" required="required" class="form-control" required><br/>
+
 																	<br><br>
 																	<center>
 
 
-
+																		<button type="submit" class="btn btn-primary" id="save" name="save"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
 																		<button type="submit" class="btn btn-primary" id="update" name="update"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
 																		<button type="reset" id="reset" name="reset" value="Reset" class="btn btn-default" onclick="disableUpdateButton()">Cancel</button>
 
@@ -149,10 +156,13 @@ if(isset($_POST['logout']))
                             <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
                               <thead>
                                 <tr role="row">
-                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username" style="width: 25px;text-align:center;">Username</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Firstname" style="width: 100px;text-align:center;">First Name</th>
+																	<th hidden class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="clientID" style="width: 25px;text-align:center;">Client ID</th>
+                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Firstname" style="width: 25px;text-align:center;">Firstname</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Middlename" style="width: 100px;text-align:center;">Middlename</th>
                                   <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Last Name</th>
-
+																	<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Birthdate" style="width: 25px;text-align:center;">Birtdate</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Address" style="width: 100px;text-align:center;">Address</th>
+                                  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="cellno" style="width: 100px;text-align:center;">Cell No.</th>
 																</tr>
                               </thead>
 
@@ -161,16 +171,20 @@ if(isset($_POST['logout']))
                                   <?php
                                     $DB_con = Database::connect();
                                     $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                                    $sql = "SELECT * FROM users";
+                                    $sql = "SELECT * FROM client";
 
                                     $result = $DB_con->query($sql);
                                     if($result->rowCount()>0){
                                       while($row=$result->fetch(PDO::FETCH_ASSOC)){
                                         ?>
                                         <tr>
-                                          <td><?php print($row['username']); ?></td>
-                                          <td><?php print($row['ufirstname']);?></td>
-                                          <td><?php print($row['ulastname']); ?></td>
+																					<td hidden><?php print($row['clientID']);?></td>
+                                          <td><?php print($row['cFirstname']);?></td>
+                                          <td><?php print($row['cMiddlename']); ?></td>
+																					<td><?php print($row['cLastname']); ?></td>
+																					<td><?php print($row['cBirthdate']); ?></td>
+																					<td><?php print($row['cAddress']); ?></td>
+																					<td><?php print($row['cCellno']); ?></td>
                                         </tr>
                                         <?php
                                       }
@@ -188,7 +202,7 @@ if(isset($_POST['logout']))
 																table.rows[counter].onclick = function()
 																{
 
-																 document.getElementById("username1").value = this.cells[0].innerHTML;
+																 document.getElementById("clientID").value = this.cells[0].innerHTML;
 
 																	};
 																}
@@ -217,6 +231,7 @@ if(isset($_POST['logout']))
 
 						<input type="text" name="username1" id="username1" hidden>
 
+																	<input type="text" id="clientID" name="clientID" hidden><br/>
 						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Edit Data" class="btn btn-primary" id="edit" name="edit" formnovalidate hide><i class="fa fa-pencil"/></i>&nbsp;&nbsp;&nbsp;Edit Data</button>
 						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Delete Data" class="btn btn-primary" id="deleted" name="deleted" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" hidden><i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;Delete Data</button>
 
@@ -329,11 +344,65 @@ function disableUpdateButton()
 {
 				document.getElementById("username1").value = "";
 				$('#edit, #deleted').hide("highlight");
+				$('#update').hide();
+				$('#save').show();
 }
 
 </script>
 
+<?php
 
+$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "tgpdso_db";
+
+
+$conn = new mysqli($host, $dbusername, $dbpassword, $dbname);
+
+
+if(mysqli_connect_error())
+{
+	die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+}
+else {
+	if(isset($_POST['save']))
+	{
+
+		$clientID = rand(1, 100000);
+		$firstname = $_POST['firstname'];
+		$middlename = $_POST['middlename'];
+		$lastname = $_POST['lastname'];
+		$birthdate = $_POST['birthdate'];
+		$address = $_POST['address'];
+		$cellno = $_POST['cellno'];
+
+
+		$sql = "INSERT INTO client (clientID, cFirstname, cMiddlename, cLastname, cBirthdate, cAddress, cCellno)
+		VALUES ($clientID, '$firstname', '$middlename', '$lastname', '$birthdate' , '$address', '$cellno')";
+
+		if($conn->query($sql))
+		{
+			?>
+			<script>
+				alert("Client is succesfully added.");
+				window.location="add_client.php";
+				</script>
+				<?php
+		}
+		else {
+			echo "Error:". $sql."<br>".$conn->error;
+		}
+		$conn->close();
+	}
+	}
+?>
+
+
+
+
+
+ ?>
 
 
 <?php
@@ -354,20 +423,24 @@ else {
 	if(isset($_POST['update']))
 	{
 
-		$userName = $_POST['username'];
-		$password = $_POST['npassword'];
+		$clientID = $_POST['clientID'];
 
+		$firstname = $_POST['firstname'];
+		$middlename = $_POST['middlename'];
+		$lastname = $_POST['lastname'];
+		$birthdate = $_POST['birthdate'];
+		$address = $_POST['address'];
+		$cellno = $_POST['cellno'];
 
-
-		$sql = "UPDATE users SET password = '$password' WHERE username = '$userName'";
+		$sql = "UPDATE client SET clientID = '$clientID' , cFirstname = '$firstname', cMiddlename = '$middlename', cLastname = '$lastname', cBirthdate = '$birthdate', cAddress = '$address', cCellno = '$cellno' WHERE clientID = '$clientID'";
 
 
 		if($conn->query($sql))
 		{
 			?>
 			<script>
-				alert("User is updated.");
-				window.location="users.php";
+				alert("Client information is updated.");
+				window.location = "add_client.php";
 				</script>
 				<?php
 		}
@@ -397,15 +470,15 @@ else {
 	if(isset($_POST['deleted']))
 	{
 
-		$username1 = $_POST['username1'];
+		$clientID = $_POST['clientID'];
 
-		$sql = "DELETE FROM users WHERE username = '$username1'";
+		$sql = "DELETE FROM client WHERE clientID = '$clientID'";
 
 		if($conn->query($sql) === TRUE)
 		{
 			?>
 			<script>
-			window.location="users.php";
+			window.location="add_client.php";
 			</script>
 			<?php
 		}
@@ -435,22 +508,33 @@ else
 		if(isset($_POST['edit']))
 		{
 
-				$username1 = $_POST['username1'];
+				$clientID = $_POST['clientID'];
 
-					$result=mysqli_query($conn,"SELECT * from users WHERE username = '$username1'");
+					$result=mysqli_query($conn,"SELECT * from client WHERE clientID = '$clientID'");
 
 					while($row=mysqli_fetch_Array($result))
 					{
 						?>
-						<script> document.getElementById('username').value = '<?php echo $row['username'];?>';</script>
-						<script> document.getElementById('firstname').value = '<?php echo $row['ufirstname'];?>';</script>
-						<script> document.getElementById('lastname').value = '<?php echo $row['ulastname'];?>';</script>
-						<script> document.getElementById('npassword').value = Math.floor(Math.random() * 10000);</script>
+						<script> document.getElementById('firstname').value = '<?php echo $row['cFirstname'];?>';</script>
+						<script> document.getElementById('middlename').value = '<?php echo $row['cMiddlename'];?>';</script>
+						<script> document.getElementById('lastname').value = '<?php echo $row['cLastname'];?>';</script>
+						<script> document.getElementById('birthdate').value = '<?php echo $row['cBirthdate'];?>';</script>
+						<script> document.getElementById('address').value = '<?php echo $row['cAddress'];?>';</script>
+						<script> document.getElementById('cellno').value = '<?php echo $row['cCellno'];?>';</script>
 						}
 
 					<?php
 				};
 				$conn->close();
+
+				?>
+				<script>
+
+							$('#save').hide();
+							$('#update').show();
+
+				</script>
+				<?php
 	}
 }
 

@@ -26,12 +26,23 @@ if(isset($_POST['logout']))
 
 <!DOCTYPE html>
 <html lang="en">
+<?php include 'base/header.php'; ?>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
 </head>
 
 <style type="text/css">
+
+.scrollbar{
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+::-webkit-scrollbar {
+    width: 1px;
+}
+
 
 .highlight { background-color: lightgreen; color: green}
 .highlightBack { background-color: white; color: gray}
@@ -42,17 +53,13 @@ if(isset($_POST['logout']))
 #edit, #deleted, #UpdateButton, #ModalEdit, #ModalDelete { display: none;}
 
 </style>
-
-
-
-	<?php include 'base/header.php'; ?>
   <body class="nav-md footer_fixed">
     <form method="post">
     	<div class="container body">
     		<div class="main_container">
 
     			<div class="col-md-3 left_col menu_fixed">
-    				<div class="left_col scroll-view">
+    				<div class="left_col scroll-view scrollbar">
     					<div class="clearfix"></div>
 
     					<!-- menu profile quick info -->
@@ -242,20 +249,26 @@ if(isset($_POST['logout']))
 													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Name" style="width: 100px;text-align:center;">Full Name</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Birthdate" style="width: 50px;text-align:center;">Birthdate</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Appointment Date" style="width: 50px;text-align:center;">Appointment Date</th>
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Unit" style="width: 15px;text-align:center;">Unit</th>
+													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team" style="width: 15px;text-align:center;">Team</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Position" style="width: 50px;text-align:center;">Position</th>
 
 												</tr>
 											</thead>
 											<tbody>
 
+
 													<?php
+													if($_SESSION['usertype'] == 'Secretary' || $_SESSION['usertype'] == 'secretary')
+													{
+														$team = $_SESSION['team'];
+
 														$DB_con = Database::connect();
 														$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-														$sql = "SELECT * FROM agents";
+														$sql = "SELECT * FROM agents, team WHERE agentTeam = teamID AND teamName = '$team'";
 
 														$result = $DB_con->query($sql);
 														if($result->rowCount()>0){
+
 															while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																?>
 																<tr>
@@ -263,13 +276,36 @@ if(isset($_POST['logout']))
                                   <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
 																	<td><?php print($row['agentBirthdate']); ?></td>
 																	<td><?php print($row['agentApptDate']); ?></td>
-																	<td><?php print($row['agentTeam']); ?></td>
+																	<td><?php print($row['teamName']); ?></td>
 																	<td><?php print($row['agentPosition']); ?></td>
 																</tr>
 																<?php
 															}
 														}
 														else{}
+														}
+														else {
+															$DB_con = Database::connect();
+															$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+															$sql = "SELECT * FROM agents";
+
+															$result = $DB_con->query($sql);
+															if($result->rowCount()>0){
+
+																while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																	?>
+																	<tr>
+																		<td><?php print($row['agentCode']); ?></td>
+																		<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
+																		<td><?php print($row['agentBirthdate']); ?></td>
+																		<td><?php print($row['agentApptDate']); ?></td>
+																		<td><?php print($row['agentTeam']); ?></td>
+																		<td><?php print($row['agentPosition']); ?></td>
+																	</tr>
+																	<?php
+																}
+															}
+														}
 													?>
 												</tbody>
 										</table>
@@ -283,6 +319,7 @@ if(isset($_POST['logout']))
 												table.rows[counter].onclick = function()
 												{;
 												 document.getElementById("agent").value = this.cells[1].innerHTML;
+												 document.getElementById("agentCode").value = this.cells[0].innerHTML;
 													};
 												}
 
@@ -343,6 +380,7 @@ if(isset($_POST['logout']))
 			                            <option value="Annualy" id="modeOfPayment">Annualy</option>
 																	</select><br>
 						                      Agent <span class="required">*</span><br>
+																	<input type="text" id="agentCode" name="agentCode" hidden>
 				                          <input type="text" id="agent" name="agent" required="required" class="form-control" required style="width: 150px;" readonly>
 																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"><i class="fa fa-search"></i></button>
 				                          Remarks <span class="required">*</span><br>
@@ -388,32 +426,74 @@ if(isset($_POST['logout']))
                               <tbody>
 
                                   <?php
-                                    $DB_con = Database::connect();
-                                    $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                                    $sql = "SELECT * FROM production";
+																		if($_SESSION['usertype'] == 'Secretary')
+																		{
+																			$team = $_SESSION['team'];
+																			$usertype = $_SESSION['usertype'];
 
-                                    $result = $DB_con->query($sql);
-                                    if($result->rowCount()>0){
-                                      while($row=$result->fetch(PDO::FETCH_ASSOC)){
+	                                    $DB_con = Database::connect();
+	                                    $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-																				$originalDate = $row['transDate'];
-																				$newDate = date("m/d/Y", strtotime($originalDate));
-                                        ?>
-                                        <tr>
-                                          <td><?php print($newDate); ?></td>
-                                          <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
-                                          <td><?php print($row['policyNo']); ?></td>
-                                          <td><?php print($row['receiptNo']); ?></td>
-                                          <td><?php print($row['premium']); ?></td>
-                                          <td><?php print($row['modeOfPayment']); ?></td>
-                                          <td><?php print($row['agent']);?></td>
-                                          <td><?php print($row['remarks']); ?></td>
+	                                    	$sql = "SELECT * FROM production, agents, team WHERE agentCode = agent AND agentTeam = teamID AND teamName = '$team'";
 
-                                        </tr>
-                                        <?php
-                                      }
-                                    }
-                                    else{}
+
+	                                    $result = $DB_con->query($sql);
+	                                    if($result->rowCount()>0)
+																			{
+	                                      while($row=$result->fetch(PDO::FETCH_ASSOC))
+																				{
+																					$originalDate = $row['transDate'];
+																					$newDate = date("m/d/Y", strtotime($originalDate));
+	                                        ?>
+	                                        <tr>
+	                                          <td><?php print($newDate); ?></td>
+	                                          <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
+	                                          <td><?php print($row['policyNo']); ?></td>
+	                                          <td><?php print($row['receiptNo']); ?></td>
+	                                          <td><?php print($row['premium']); ?></td>
+	                                          <td><?php print($row['modeOfPayment']); ?></td>
+	                                          <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
+	                                          <td><?php print($row['remarks']); ?></td>
+
+	                                        </tr>
+
+	                                        <?php
+
+	                                      }
+																			}
+																		}
+																		else{
+
+																			$DB_con = Database::connect();
+	                                    $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+	                                    $sql = "SELECT * FROM production, agents WHERE agentCode = agent";
+
+
+	                                    $result = $DB_con->query($sql);
+	                                    if($result->rowCount()>0)
+																			{
+	                                      while($row=$result->fetch(PDO::FETCH_ASSOC))
+																				{
+																					$originalDate = $row['transDate'];
+																					$newDate = date("m/d/Y", strtotime($originalDate));
+	                                        ?>
+	                                        <tr>
+	                                          <td><?php print($newDate); ?></td>
+	                                          <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
+	                                          <td><?php print($row['policyNo']); ?></td>
+	                                          <td><?php print($row['receiptNo']); ?></td>
+	                                          <td><?php print($row['premium']); ?></td>
+	                                          <td><?php print($row['modeOfPayment']); ?></td>
+	                                          <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
+	                                          <td><?php print($row['remarks']); ?></td>
+
+	                                        </tr>
+																					<?php
+																		}
+																	}
+																}
+
                                   ?>
                                 </tbody>
                             </table>
@@ -694,7 +774,7 @@ else
 
 				$policyNo = $_GET['policyNo1'];
 
-					$result=mysqli_query($conn,"SELECT * from production WHERE policyNo = '$policyNo'");
+					$result=mysqli_query($conn,"SELECT * from production, agents WHERE agentCode = agent AND policyNo = '$policyNo'");
 
 					while($row=mysqli_fetch_Array($result))
 					{
@@ -708,7 +788,8 @@ else
 						<script> document.getElementById('faceAmount').value = '<?php echo $row['faceAmount'];?>';</script>
 						<script> document.getElementById('premium').value = '<?php echo $row['premium'];?>';</script>
 						<script> document.getElementById('rate').value = '<?php echo $row['rate'];?>';</script>
-						<script> document.getElementById('agent').value = '<?php echo $row['agent'];?>';</script>
+						<script> document.getElementById('agentCode').value = '<?php echo $row['agent'];?>';</script>
+						<script> document.getElementById('agent').value = '<?php echo $row['agentLastname'].",".$row['agentFirstname'];?>';</script>
 						<script> document.getElementById('remarks').value = '<?php echo $row['remarks'];?>';</script>
 						<script> document.getElementById('transDate').value = '<?php echo $row['transDate'];?>';</script>
 						<script> document.getElementById('plan').value = '<?php echo $row['plan'];?>';</script>
@@ -822,7 +903,7 @@ else {
   $premium = filter_input(INPUT_POST, 'premium');
   $rate = filter_input(INPUT_POST, 'rate');
   $modeOfPayment = filter_input(INPUT_POST, 'modeOfPayment');
-  $agent = filter_input(INPUT_POST, 'agent');
+  $agent = filter_input(INPUT_POST, 'agentCode');
   $remarks = filter_input(INPUT_POST, 'remarks');
   $plan = filter_input(INPUT_POST, 'plan');
 
@@ -908,7 +989,7 @@ $faceAmount = filter_input(INPUT_POST, 'faceAmount');
 $premium = filter_input(INPUT_POST, 'premium');
 $rate = filter_input(INPUT_POST, 'rate');
 $modeOfPayment = filter_input(INPUT_POST, 'modeOfPayment');
-$agent = filter_input(INPUT_POST, 'agent');
+$agent = filter_input(INPUT_POST, 'agentCode');
 $remarks = filter_input(INPUT_POST, 'remarks');
 $plan = filter_input(INPUT_POST, 'plan');
 $host = "localhost";
