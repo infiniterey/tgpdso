@@ -138,6 +138,8 @@ if(isset($_POST['logout']))
 																	Cell No.:
 																	<input type="text" id="cellno" placeholder="" name="cellno" required="required" class="form-control" required><br/>
 
+																	<input type="text" id="clientID2" name="clientID2" hidden>
+
 																	<br><br>
 																	<center>
 
@@ -368,8 +370,6 @@ if(mysqli_connect_error())
 else {
 	if(isset($_POST['save']))
 	{
-
-		$clientID = rand(1, 100000);
 		$firstname = $_POST['firstname'];
 		$middlename = $_POST['middlename'];
 		$lastname = $_POST['lastname'];
@@ -378,8 +378,8 @@ else {
 		$cellno = $_POST['cellno'];
 
 
-		$sql = "INSERT INTO client (clientID, cFirstname, cMiddlename, cLastname, cBirthdate, cAddress, cCellno)
-		VALUES ($clientID, '$firstname', '$middlename', '$lastname', '$birthdate' , '$address', '$cellno')";
+		$sql = "INSERT INTO client (cFirstname, cMiddlename, cLastname, cBirthdate, cAddress, cCellno)
+		VALUES ('$firstname', '$middlename', '$lastname', '$birthdate' , '$address', '$cellno')";
 
 		if($conn->query($sql))
 		{
@@ -423,7 +423,7 @@ else {
 	if(isset($_POST['update']))
 	{
 
-		$clientID = $_POST['clientID'];
+		$clientID = $_POST['clientID2'];
 
 		$firstname = $_POST['firstname'];
 		$middlename = $_POST['middlename'];
@@ -521,6 +521,7 @@ else
 						<script> document.getElementById('birthdate').value = '<?php echo $row['cBirthdate'];?>';</script>
 						<script> document.getElementById('address').value = '<?php echo $row['cAddress'];?>';</script>
 						<script> document.getElementById('cellno').value = '<?php echo $row['cCellno'];?>';</script>
+						<script> document.getElementById('clientID2').value = '<?php echo $row['clientID'];?>';</script>
 						}
 
 					<?php

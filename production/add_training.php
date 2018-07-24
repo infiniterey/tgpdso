@@ -65,9 +65,11 @@ if(isset($_POST['logout']))
 								<div class="clearfix"></div>
 							</div>
 						</div>
-						<!-- menu profile quick info -->
-						<?php include 'base/sessionsidebar.php';?>
 						<!-- /menu profile quick info -->
+							<br />
+					<!-- sidebar menu -->
+						<?php include 'base/sidebar.php'; ?>
+						<!-- /sidebar menu -->
 
 						<br />
 

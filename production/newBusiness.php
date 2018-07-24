@@ -235,22 +235,22 @@ if(isset($_POST['logout']))
 
 
 						      <div class="modal-header">
-						        <h2 class="modal-title">Search agent</h2>
-						        <button type="button" class="close" data-dismiss="modal">x</button>
+						        <h2 class="modal-title">Search agent<button type="button" class="close" data-dismiss="modal">x</button></h2>
 						      </div>
 
 									<form style="margin-bottom: 10px;">
 						      <div class="modal-body">
 
-										<table id="datatable-fixed-header2" align="right" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
+										<table id="datatable-fixed-header2" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 											<thead>
 												<tr role="row">
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Code" style="width: 10px;text-align:center;">Agent Code</th>
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Name" style="width: 100px;text-align:center;">Full Name</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Birthdate" style="width: 50px;text-align:center;">Birthdate</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Appointment Date" style="width: 50px;text-align:center;">Appointment Date</th>
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team" style="width: 15px;text-align:center;">Team</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Position" style="width: 50px;text-align:center;">Position</th>
+													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Code">Agent Code</th>
+													<th style="width:" class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Name">Full Name</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Birthdate" hidden>Birthdate</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Appointment Date">Appointment Date</th>
+													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team">Team</th>
+													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team" hidden>Team</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Position" hidden>Position</th>
 
 												</tr>
 											</thead>
@@ -274,10 +274,11 @@ if(isset($_POST['logout']))
 																<tr>
 																	<td><?php print($row['agentCode']); ?></td>
                                   <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
-																	<td><?php print($row['agentBirthdate']); ?></td>
+																	<td hidden><?php print($row['agentBirthdate']); ?></td>
 																	<td><?php print($row['agentApptDate']); ?></td>
-																	<td><?php print($row['teamName']); ?></td>
-																	<td><?php print($row['agentPosition']); ?></td>
+																		<td><?php print($row['teamName']); ?></td>
+																	<td hidden><?php print($row['teamName']); ?></td>
+																	<td hidden><?php print($row['agentPosition']); ?></td>
 																</tr>
 																<?php
 															}
@@ -287,7 +288,7 @@ if(isset($_POST['logout']))
 														else {
 															$DB_con = Database::connect();
 															$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-															$sql = "SELECT * FROM agents";
+															$sql = "SELECT * FROM agents, team WHERE agentTeam = teamID";
 
 															$result = $DB_con->query($sql);
 															if($result->rowCount()>0){
@@ -297,10 +298,11 @@ if(isset($_POST['logout']))
 																	<tr>
 																		<td><?php print($row['agentCode']); ?></td>
 																		<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
-																		<td><?php print($row['agentBirthdate']); ?></td>
+																		<td hidden><?php print($row['agentBirthdate']); ?></td>
 																		<td><?php print($row['agentApptDate']); ?></td>
-																		<td><?php print($row['agentTeam']); ?></td>
-																		<td><?php print($row['agentPosition']); ?></td>
+																		<td><?php print($row['teamName']); ?></td>
+																		<td hidden><?php print($row['agentTeam']); ?></td>
+																		<td hidden><?php print($row['agentPosition']); ?></td>
 																	</tr>
 																	<?php
 																}
@@ -336,6 +338,83 @@ if(isset($_POST['logout']))
 						  </div>
 						</div>
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
+<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
+						<div class="modal fade" id="clientSearch" name-"clientSearch">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+
+
+						      <div class="modal-header">
+						        <h2 class="modal-title">Search Client <button type="button" class="close" data-dismiss="modal">x</button></h2>
+						      </div>
+
+									<form style="margin-bottom: 10px;">
+						      <div class="modal-body">
+
+										<table id="datatable-fixed-header3" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
+											<thead>
+												<tr role="row">
+													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ClientID" hidden>ClientID</th>
+													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="FullName" style="width: 200px">Full Name</th>
+													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Birthdate">Birthdate</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Address">Address</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="CellNo">Cellphone No.</th>
+												</tr>
+											</thead>
+											<tbody>
+
+
+
+													<?php
+															$DB_con = Database::connect();
+															$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+															$sql = "SELECT * FROM client";
+
+															$result = $DB_con->query($sql);
+															if($result->rowCount()>0){
+
+																while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																	?>
+																	<tr>
+																		<td hidden><?php print($row['clientID']); ?></td>
+																		<td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
+																		<td><?php print($row['cBirthdate']); ?></td>
+																		<td><?php print($row['cAddress']); ?></td>
+																		<td><?php print($row['cCellno']); ?></td>
+																	</tr>
+																	<?php
+																}
+															}
+													?>
+												</tbody>
+										</table>
+
+										<script>
+
+
+											var table = document.getElementById('datatable-fixed-header3');
+											for(var counter = 1; counter < table.rows.length; counter++)
+											{
+												table.rows[counter].onclick = function()
+												{;
+												 document.getElementById("client").value = this.cells[1].innerHTML;
+												 document.getElementById("clientIDModal").value = this.cells[0].innerHTML;
+												 $('#clientSearch').modal('hide');
+													};
+												}
+
+												</script>
+											</form>
+						      </div>
+
+
+						      <div class="modal-footer">
+						      </div>
+
+						    </div>
+						  </div>
+						</div>
+<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
 
 					</div>
 					<form method="post" style="margin-top: 40px;">
@@ -355,10 +434,13 @@ if(isset($_POST['logout']))
 													<div class="col-sm-3">
 				                          Transaction Date <span class="required">*</span>
 				                          <input name="transDate" id="transDate" style="width: 195px;" class="date-picker form-control" required="required" type="date" required><br>
-				                          Last Name <span class="required">*</span>
-				                          <input type="text" id="firstname" placeholder="Firstname" name="firstname" required="required" class="form-control" required><br/>
-																  First Name<span class="required">*</span>
-				                          <input type="text" id="lastname" placeholder="Lastname" name="lastname" required="required" class="form-control" required><br/>
+				                          Client Name <span class="required">*</span>
+				                          <input name="client" id="client" style="width: 150px;" class="date-picker form-control" required="required" type="text" required readonly>
+																	<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#clientSearch"><span class='glyphicon glyphicon-search'></span></button><br>
+
+				                          <input type="text" id="firstname" placeholder="Firstname" name="firstname"hidden>
+				                          <input type="text" id="lastname" placeholder="Lastname" name="lastname"hidden>
+
 						                      Policy No. <span class="required">*</span>
 						                      <input type="text" id="policyNo" name="policyNo" placeholder="Policy No." required="required" class="form-control" required><br>
 				                          Plan <span class="required">*</span> <br>
@@ -387,15 +469,11 @@ if(isset($_POST['logout']))
 				                          <select name="remarks" id="remarks" class="select2_gender form-control" style="width: 195px" tabindex="-1">
 				                            <option value="New" id="remarks">New</option>
 				                          </select><br><br>
+
 																	<center>
 
-
-
-
+																		<input name="clientIDModal" id="clientIDModal" type="text" hidden><br>
 																		<button type="submit" class="btn btn-primary" id="SaveButton" name="SaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-
-
-
 
 																		<button type="submit" class="btn btn-primary" id="UpdateButton" name="UpdateButton"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
 																		<button type="reset" id="reset" name="reset" value="Reset" class="btn btn-default" data-dismiss="modal" onclick="disableUpdateButton()">Cancel</button>
@@ -434,7 +512,7 @@ if(isset($_POST['logout']))
 	                                    $DB_con = Database::connect();
 	                                    $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-	                                    	$sql = "SELECT * FROM production, agents, team WHERE agentCode = agent AND agentTeam = teamID AND teamName = '$team'";
+	                                    	$sql = "SELECT * FROM production, client, agents, team WHERE prodclientID = clientID AND agentCode = agent AND agentTeam = teamID AND teamName = '$team'";
 
 
 	                                    $result = $DB_con->query($sql);
@@ -447,7 +525,7 @@ if(isset($_POST['logout']))
 	                                        ?>
 	                                        <tr>
 	                                          <td><?php print($newDate); ?></td>
-	                                          <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
+	                                          <td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
 	                                          <td><?php print($row['policyNo']); ?></td>
 	                                          <td><?php print($row['receiptNo']); ?></td>
 	                                          <td><?php print($row['premium']); ?></td>
@@ -467,7 +545,7 @@ if(isset($_POST['logout']))
 																			$DB_con = Database::connect();
 	                                    $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-	                                    $sql = "SELECT * FROM production, agents WHERE agentCode = agent";
+	                                    $sql = "SELECT * FROM production, agents, client WHERE prodclientID = clientID AND agentCode = agent";
 
 
 	                                    $result = $DB_con->query($sql);
@@ -480,7 +558,7 @@ if(isset($_POST['logout']))
 	                                        ?>
 	                                        <tr>
 	                                          <td><?php print($newDate); ?></td>
-	                                          <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
+	                                          <td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
 	                                          <td><?php print($row['policyNo']); ?></td>
 	                                          <td><?php print($row['receiptNo']); ?></td>
 	                                          <td><?php print($row['premium']); ?></td>
@@ -554,7 +632,6 @@ if(isset($_POST['logout']))
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
-
 		<!-- The Modal -->
   </body>
 </html>
@@ -585,6 +662,14 @@ $("#datatable-fixed-header1 tr").click(function() {
 $("#datatable-fixed-header2 tr").click(function() {
 	var selected = $(this).hasClass("highlight1");
 	$("#datatable-fixed-header2 tr").removeClass("highlight1");
+	if(!selected)
+					$(this).addClass("highlight1");
+
+});
+
+$("#datatable-fixed-header3 tr").click(function() {
+	var selected = $(this).hasClass("highlight1");
+	$("#datatable-fixed-header3 tr").removeClass("highlight1");
 	if(!selected)
 					$(this).addClass("highlight1");
 
@@ -689,6 +774,12 @@ $(document).ready(function() {
 } );
 
 $(document).ready(function() {
+    $('#datatable-fixed-header3').DataTable( {
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
+
+$(document).ready(function() {
     $('#datatable-fixed-header1').DataTable( {
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
     } );
@@ -774,13 +865,12 @@ else
 
 				$policyNo = $_GET['policyNo1'];
 
-					$result=mysqli_query($conn,"SELECT * from production, agents WHERE agentCode = agent AND policyNo = '$policyNo'");
+					$result=mysqli_query($conn,"SELECT * from production, agents, client WHERE clientID = prodclientID AND agentCode = agent AND policyNo = '$policyNo'");
 
 					while($row=mysqli_fetch_Array($result))
 					{
 						?>
-						<script> document.getElementById('firstname').value = '<?php echo $row['firstName'];?>';</script>
-						<script> document.getElementById('lastname').value = '<?php echo $row['lastName'];?>';</script>
+						<script> document.getElementById('client').value = '<?php echo $row['cLastname'].",".$row['cFirstname']." ".$row['cMiddlename'];?>';</script>
 						<script> document.getElementById('policyNo').value = '<?php echo $row['policyNo'];?>';</script>
 						<script> document.getElementById('policyNo1').value = '<?php echo $row['policyNo'];?>';</script>
 						<script> document.getElementById('receiptNo').value = '<?php echo $row['receiptNo'];?>';</script>
@@ -793,6 +883,7 @@ else
 						<script> document.getElementById('remarks').value = '<?php echo $row['remarks'];?>';</script>
 						<script> document.getElementById('transDate').value = '<?php echo $row['transDate'];?>';</script>
 						<script> document.getElementById('plan').value = '<?php echo $row['plan'];?>';</script>
+						<script> document.getElementById('clientIDModal').value = '<?php echo $row['clientID'];?>';</script>
 
 
 					<?php
@@ -879,7 +970,7 @@ else {
 		}
 		?>
 		<script>
-		window.location="home.php";
+		window.location="newBusiness.php";
 		</script>
 		<?php
 		$conn->close();
@@ -895,8 +986,7 @@ else {
   $edit_state = false;
 
   $transDate = filter_input(INPUT_POST, 'transDate');
-  $lastName = filter_input(INPUT_POST, 'firstname');
-  $firstName = filter_input(INPUT_POST, 'lastname');
+	$clientID = filter_input(INPUT_POST, 'clientIDModal');
   $policyNo = filter_input(INPUT_POST, 'policyNo');
   $receiptNo = filter_input(INPUT_POST, 'receiptNo');
   $faceAmount = filter_input(INPUT_POST, 'faceAmount');
@@ -940,15 +1030,15 @@ else {
 					}
 					else {
 
-						$sql = "INSERT INTO production (transDate, lastName, firstName, policyNo, receiptNo, faceAmount, premium, rate, modeOfPayment, agent, remarks)
-						values ('$transDate', '$lastName', '$firstName', '$policyNo', '$receiptNo', '$faceAmount', '$premium', '$rate', '$modeOfPayment', '$agent', '$remarks')";
+						$sql = "INSERT INTO production (transDate, prodclientID, policyNo, plan, receiptNo, faceAmount, premium, rate, modeOfPayment, agent, remarks)
+						values ('$transDate', '$clientID', '$policyNo', '$plan', '$receiptNo', '$faceAmount', '$premium', '$rate', '$modeOfPayment', '$agent', '$remarks')";
 
 						if($conn->query($sql))
 						{
 							?>
 							<script>
 								alert("New record production successfully added");
-								window.location = 'home.php';
+								window.location = 'newBusiness.php';
 								</script>
 								<?php
 						}
@@ -981,8 +1071,7 @@ else {
 
 
 $transDate = filter_input(INPUT_POST, 'transDate');
-$lastName = filter_input(INPUT_POST, 'firstname');
-$firstName = filter_input(INPUT_POST, 'lastname');
+$clientID = filter_input(INPUT_POST, 'clientIDModal');
 $policyNo = filter_input(INPUT_POST, 'policyNo');
 $receiptNo = filter_input(INPUT_POST, 'receiptNo');
 $faceAmount = filter_input(INPUT_POST, 'faceAmount');
@@ -1011,8 +1100,7 @@ else {
 
 		$sql = "UPDATE production SET
 		transDate='$transDate',
-		lastName='$firstName',
-		firstName='$lastName',
+		prodclientID='$clientID',
 		policyNo='$policyNo',
 		plan='$plan',
 		premium='$premium',
@@ -1031,7 +1119,7 @@ else {
 			?>
 			<script>
 				alert("Record production successfully updated");
-				window.location = 'home.php';
+				window.location = 'newBusiness.php';
 				</script>
 				<?php
 		}
