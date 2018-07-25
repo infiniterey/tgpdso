@@ -169,16 +169,16 @@ if(isset($_POST['logout']))
 															<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No."></input>
 														 	<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
 													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
-															<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Payment</button>
+															<button  type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Payment</button>
 															<br	><br>
 															<div class="clearfix"></div>
 														</div>
 														<div class="x_content">
-																<div class="tab ">
-																	<div class="col-xs-12"><h4>
-																	<a onclick="openPolicy(event, 'Policy')"><b>Policy Details</b></a>
-																	<a onclick="openPolicy(event, 'Payment')"><b>Payment Details</b></a></h4>
-																	</div>
+																<div class="tab col-xs-12" id="div2"><h4>
+																	<a class="col-sm-3" href="javascript:void(0)" class="tablinks"
+																			onclick="openPolicy(event, 'Policy')" id="defaultOpen"><b>Policy Details</b></a>
+																	<a href="javascript:void(0)" class="tablinks"
+																		  onclick="openPolicy(event, 'Payment')"><b>Payment Details</b></a></h4>
 																</div>
 																<div id="Policy" class="tabcontent">
 																	<form>
@@ -370,199 +370,113 @@ if(isset($_POST['logout']))
 																							Contact #
 																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
 																						</div>
-																						<button  type="button" data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i></button>
+																						<button  type="button" data-toggle="modal" data-target="#" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i></button>
 																				 </div>
-																				 <div class="row">
-																					 <table  id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
-			 																			<thead>
-			 																				<tr role="row">
-			 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Transaction Date</th>
-			 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;">Requirements</th>
-			 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Status</th>
-			 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Submit Date</th>
-			 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Production ID</th>
-			 																					</tr>
-			 																			</thead>
-			 																			<div id="momodal"name="momodal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-			 																				<div class="modal-dialog modal-sm">
-			 																					<div class="modal-content">
+
+			 																			<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+																							<div class="modal-dialog" role="document">
+																								<div class="modal-content">
 			 																						<div class="modal-header">
 			 																							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 			 																							<h4 class="modal-title" id="myModalLabel2">Add Payment</h4>
 			 																						</div>
 			 																						<form method='post' name='myform' onsubmit="CheckForm()">
 			 																							<div class="modal-body">
-
-			 																								<?php
-			 																									if(isset($_POST['btn-addrEquirements'])){
-			 																										$RRRequirements = $_POST['requirement'];
-			 																										tgpdso::addRequirements();
-			 																									}
-
-			 																								?>
-			 																								Production ID:<br><input type="text" readonly="readonly" class="form-control" name="ProdId" value="<?php echo $prodID?>"hidden><br>
-			 																								Agent Code: <br><input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><br>
-			 																								Plan Code: <br><input  type="text" class="form-control" readonly="readonly" name="planCode" value="<?php echo $Pplan?>"hidden><br>
-			 																								Requirement: <br><Textarea type="text" class="form-control" name="requirement" style="width:200px;height:40px" ></Textarea><br>
-			 																								Transaction Date: <br><input class="form-control" name="TTransactDate" style = "width:195px" class="date-picker form-control" required="required" type="date" value=""><br>
-			 																								Status: <br><input type="text" class="form-control" name="stats"><br>
-			 																								Submit Date: <br> <input name="submitdate" style = "width:195px" class="date-picker form-control" required="required" type="date" required><br>
+																										 	<label class="control-label">
+											 		                            Policy #:
+											 														 	 	</label>
+										 																 <input type="text" readonly="readonly" class="form-control" name="ProdId" value="<?php echo $prodID?>">
+																										 	<label class="control-label">
+																										 	Amount:
+																											</label>
+																											<input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><hr>
+																											<label class="control-label">
+																										 	Transaction Date:
+																											</label><input type="date" class="form-control" name="stats"><br>
+																											<label class="control-label">
+																										 	OR #:
+																											</label><input type="text" class="form-control" name="stats"><br>
+																											<label class="control-label">
+																										 	APR #:
+																											</label><input type="text" class="form-control" name="stats"><br>
+																											<label class="control-label">
+																										 	Next Due Date:
+																											</label><input type="date" class="form-control" name="stats"><br>
 			 																							 <br>
-			 																						</div>
+			 																							</div>
 			 																							<div class="modal-footer">
-			 																								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			 																									<button type="submit" class="btn btn-primary" name="btn-addrEquirements"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+			 																								<button type="submit" class="btn btn-primary" name="btn-addrEquirements"><i class="fa fa-plus"></i>&nbsp;&nbsp;Save</button>
+																											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			 																							</div>
 			 																						</form>
 			 																					</div>
-			 																				</div>
+																							</div>
 			 																			</div>
-			 																			<tbody>
-			 																					<?php
-
-			 																						$DB_con = Database::connect();
-			 																						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-			 																						$sql = "SELECT * FROM requirements WHERE '$prodID' = RProdID";
-			 																						$result = $DB_con->query($sql);
-
-			 																							while($row=$result->fetch(PDO::FETCH_ASSOC)){
-			 																								?>
-			 																									<tr>
-			 																										<td><?php print($row['RtransDate']); ?></td>
-			 																										<td><?php print($row['Rrequirements']); ?></td>
-			 																										<td><?php print($row['Status']); ?></td>
-			 																										<td><?php print($row['SubmitDate']); ?></td>
-			 																										<td hidden><?php print($row['RProdID']); ?></td>
-			 																								</tr>
-			 																									<?php
-			 																								}
-			 																					?>
-			 																				</tbody>
-			 																			</table>
-																				 </div>
 																			 </div>
 																			 <div class="form-group">
 																				 <hr>
-																				 <button  type="button" style='float:left' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Save</button>
-																				 <button  type="button" style='float:left' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Cancel</button>
+																				 <button type="button" style='float:left' data-toggle="modal" data-target="#" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>Save</button>
+																				 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 																	 	 </div>
 																		</div>
 																	</div>
 																</div>
  																</form>
 															<div id="Payment" class="tabcontent">
-															<!--table content policy for adding requirements-->
-																<h5><b>Payment Details</b></h5><hr>
+
+																<div class="form-group">
+																	<br>	<h5><b>Payment Details</b></h5><hr/>
 															 <div class="row">
-																<form name="formko" id="formko" method="post" onsubmit="CheckForm()">
-																	<?php 	if(isset($_POST['btn-deleteRow']))
-																	{tgpdso::deleteRequirements();}?>
-																	<?php 	if(isset($_POST['iupdateko']))
-																		{tgpdso::updateRequirements();}?>
-																	<br>
-																	<div class="col-md-5">
-																			<input style = "width:130px;"  style="border:none" readonly="readonly" type="text" class="form-control" name="inputvaluedelete" id="inputvaluedelete" value='' hidden/>
-																	</div>
-																	<div class="col-md-6">
-																				<form>
-																			<input style = "width:130px;"  readonly="readonly"  style="border:none"  type="text" class="form-control" name="inputvaluedelete2" id="inputvaluedelete2" value='' hidden/>
-																	</div>
-																	<div class="col-md-12">
-																			<button  type="submit" style='float:center' class="btn btn-primary" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete </button>
-																			<button type="button" class="btn btn-primary" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2"><i class="fa fa-file-text"></i>&nbsp;&nbsp; Update	</button>
-																			<button type="submit"  class="btn btn-primary" id="cancel" name="cancel"><i class="fa fa-close" onclick="ClickCancel()"></i>Cancel</button>
-																	</div>
-																			</form>
-																</form>
-																<div class="clearfix"></div>
-																</div>
-																<div class="row">
-																	<div class="col-md-12">
-																		<table  id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
-																			<thead>
-																				<tr role="row">
-																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Transaction Date</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;">Requirements</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Status</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Submit Date</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Production ID</th>
-																					</tr>
-																			</thead>
-																			<div id="momodal"name="momodal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-																				<div class="modal-dialog modal-sm">
-																					<div class="modal-content">
-																						<div class="modal-header">
-																							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-																							<h4 class="modal-title" id="myModalLabel2">Add Payment</h4>
-																						</div>
-																						<form method='post' name='myform' onsubmit="CheckForm()">
-																							<div class="modal-body">
+																 <table id="datatable-fixed-header1" align="right" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
+ 																		<thead>
+ 																			<tr role="row">
+ 																				<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 15px;text-align:center;">Plan Code</th>
+ 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 155px;text-align:center;">Plan Description</th>
+ 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
+ 																			</tr>
+ 																		</thead>
+ 																		<tbody>
 
-																								<?php
-																									if(isset($_POST['btn-addrEquirements'])){
-																										$RRRequirements = $_POST['requirement'];
-																										tgpdso::addRequirements();
-																									}
+ 																				<?php
+ 																					$DB_con = Database::connect();
+ 																					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+ 																					$sql = "SELECT * FROM plans";
 
-																								?>
-																								Production ID:<br><input type="text" readonly="readonly" class="form-control" name="ProdId" value="<?php echo $prodID?>"hidden><br>
-																								Agent Code: <br><input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><br>
-																								Plan Code: <br><input  type="text" class="form-control" readonly="readonly" name="planCode" value="<?php echo $Pplan?>"hidden><br>
-																								Requirement: <br><Textarea type="text" class="form-control" name="requirement" style="width:200px;height:40px" ></Textarea><br>
-																								Transaction Date: <br><input class="form-control" name="TTransactDate" style = "width:195px" class="date-picker form-control" required="required" type="date" value=""><br>
-																								Status: <br><input type="text" class="form-control" name="stats"><br>
-																								Submit Date: <br> <input name="submitdate" style = "width:195px" class="date-picker form-control" required="required" type="date" required><br>
-																							 <br>
-																						</div>
-																							<div class="modal-footer">
-																								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																									<button type="submit" class="btn btn-primary" name="btn-addrEquirements"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-																							</div>
-																						</form>
-																					</div>
-																				</div>
-																			</div>
-																			<tbody>
-																					<?php
+ 																					$result = $DB_con->query($sql);
+ 																					if($result->rowCount()>0){
+ 																						while($row=$result->fetch(PDO::FETCH_ASSOC)){
+ 																							?>
+ 																							<tr>
+ 																								<td><?php print($row['planCode']); ?></td>
+ 																								<td><?php print($row['planDesc']); ?></td>
+ 																								<td><?php print($row['planRate']); ?></td>
 
-																						$DB_con = Database::connect();
-																						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																						$sql = "SELECT * FROM requirements WHERE '$prodID' = RProdID";
-																						$result = $DB_con->query($sql);
+ 																							</tr>
+ 																							<?php
+ 																						}
+ 																					}
+ 																					else{}
+ 																				?>
+ 																			</tbody>
+ 																	</table>
+ 																	<script>
+ 																		var table = document.getElementById('datatable-fixed-header1');
+ 																		for(var counter = 1; counter < table.rows.length; counter++)
+ 																		{
+ 																			table.rows[counter].onclick = function()
+ 																			{;
+ 																			 document.getElementById("planCode").value = this.cells[0].innerHTML;
+ 																			 document.getElementById("planC").value = this.cells[0].innerHTML;
+ 																			 document.getElementById("planDesc").value = this.cells[1].innerHTML;
+ 																			 document.getElementById("planRate").value = this.cells[2].innerHTML;
+ 																			 document.getElementById("plan").value = this.cells[0].innerHTML;
 
-																							while($row=$result->fetch(PDO::FETCH_ASSOC)){
-																								?>
-																									<tr>
-																										<td><?php print($row['RtransDate']); ?></td>
-																										<td><?php print($row['Rrequirements']); ?></td>
-																										<td><?php print($row['Status']); ?></td>
-																										<td><?php print($row['SubmitDate']); ?></td>
-																										<td hidden><?php print($row['RProdID']); ?></td>
-																								</tr>
-																									<?php
-																								}
-																					?>
-																				</tbody>
-																			</table>
-																			<script>
-																					var table = document.getElementById('tablekoto');
-
-																					for(var counter = 1; counter < table.rows.length; counter++)
-																					{
-																						table.rows[counter].onclick = function()
-																						{;
-																						 	document.getElementById("inputvaluedelete").value =this.cells[4].innerHTML;
-																					 	 	document.getElementById("inputvaluedelete2").value =this.cells[1].innerHTML;
-																				  	  document.getElementById("modalprod").value =this.cells[4].innerHTML;
-																						 	document.getElementById("modalreq").value =this.cells[1].innerHTML;
-																						 	document.getElementById("modaltrans").value =this.cells[0].innerHTML;
-																							document.getElementById("modalstats").value =this.cells[2].innerHTML;
-																						 	document.getElementById("modalsubdate").value =this.cells[3].innerHTML;
-																						 	};
-																						}
-																						</script>
-																	</div>
+ 																				};
+ 																			}
+ 																		</script>
+ 																</div>
 															</div>
+														</div>
 														</div>
 													</div>
 												</div>
@@ -587,20 +501,15 @@ if(isset($_POST['logout']))
 							<form style="margin-bottom: 10px;">
 							<div class="modal-body">
 
-								<table name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
+							<table name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
  							 <thead>
 								 <tr role="row">
  									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
  									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 100px;text-align:center;">Name</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending" style="width: 50px;text-align:center;name="PolicyNoCell"">Agent</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Issued Date</th>
-
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Lastname</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Firstname</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Receipt</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Plan</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Transadate</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	MOD</th>
+ 				 					 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Issued Date</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Plan</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Premium</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Receipt #</th>
  									 </tr>
  							 </thead>
  							 <tbody>
@@ -616,16 +525,10 @@ if(isset($_POST['logout']))
  											 <tr>
  												 <td><?php print($row['policyNo']); ?></td>
  												 <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
- 												 <td><?php print($row['agent']); ?></td>
 												 <td><?php print($row['issuedDate']); ?></td>
-
- 												 <td hidden><?php print($row['lastName']); ?></td>
-												 <td hidden><?php print($row['firstName']); ?></td>
-												 <td hidden><?php print($row['receiptNo']); ?></td>
-												 <td hidden><?php print($row['agent']); ?></td>
-												 <td hidden><?php print($row['plan']); ?></td>
-												 <td hidden><?php print($row['transDate']); ?></td>
-												 <td hidden><?php print($row['modeOfPayment']); ?></td>
+												 <td><?php print($row['plan']); ?></td>
+												 <td><?php print($row['premium']); ?></td>
+												 <td><?php print($row['receiptNo']); ?></td>
 												 </tr>
  											 <?php
  										 }
@@ -668,40 +571,6 @@ if(isset($_POST['logout']))
 				<!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search-->
 
 					<!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements-->
-					<div class="modal fade bs-example-modal-sm" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
-						<div class="modal-dialog modal-sm">
-							<div class="modal-content">
-								<div class="modal-header">
-							<h2 class="modal-title">Update Requirements</h2>
-							<button type="button" class="close" data-dismiss="modal">x</button>
-						</div>
-
-							<form method='post' name='myform' onsubmit="CheckForm()">
-						<div class="modal-body">
-
-							<input type="text" style="width:195px" class="form-control" name="modalprod" id="modalprod" value="" >
-							<input  type="text" style="width:195px" class="form-control" id="modalcode" name="modalcode" value="<?php echo $Aagent?>">
-							<input  type="text" class="form-control" style="width:195px" name="modalplan" id="modalplan" value="<?php echo $Pplan?>">
-							Requirement: <br><Textarea type="text" class="form-control" name="modalreq" style="width:195px" id="modalreq" style="width:200px;height:40px" ></Textarea><br>
-							Transaction Date: <br><input class="form-control" name="modaltrans" id="modaltrans" style="width:195px" style = "width:195px" class="date-picker form-control" required="required" type="date" value=""><br>
-							Status: <br><input type="text" class="form-control" name="modalstats" style="width:195px" id="modalstats"><br>
-							Submit Date: <br> <input name="modalsubdate" id="modalsubdate" style = "width:195px" style="width:195px" class="date-picker form-control" required="required" type="date" required><br>
-
-
-						</div>
-						<form method="POST" action="<?php $_PHP_SELF ?>">
-						<div  class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary" id="iupdateko" name="iupdateko"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
-						</div>
-					</form>
-						<div class="modal-footer">
-						</div>
-							</form>
-					</div>
-				</div>
-			</div>
-
 			<!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements-->
 			</form>
 			<footer>
@@ -717,92 +586,32 @@ if(isset($_POST['logout']))
   </body>
 </html>
 <script>
+window.onload = function () {
+								startTab();
+							};
 
-	$("#tableko tr").click(function() {
-		var selected = $(this).hasClass("highlight");
-		$("#tableko tr").removeClass("highlight");
+function startTab() {
+								document.getElementById("defaultOpen").click();
+							}
 
+function openPolicy(evt, tabName) {
+                // Declare all variables
+                var i, tabcontent, tablinks;
 
-		if(!selected)
-							$(this).addClass("highlight");
-				});
-$(document).on("dblclick","#tableko tr",function() {
-							$("#tableko tr").removeClass("highlight1");
-});
+                // Get all elements with class="tabcontent" and hide them
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
 
-$("#tablekoto tr").click(function() {
-	var selected = $(this).hasClass("highlight");
-	$("#tablekoto tr").removeClass("highlight");
-					$('#formko').hide("highlight");
-	if(!selected)
-						$(this).addClass("highlight");
-					$('#formko').show("highlight");
-});
-$(document).on("dblclick","#tablekoto tr",function() {
-					$('#formko').hide();
-						$("#tablekoto tr").removeClass("highlight1");
-});
+                // Get all elements with class="tablinks" and remove the class "active"
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
 
-
-
-
-$("#searchT").enter(function()
-{
-	$('#formko').show();
-	if(!selected)
-	$(this).addClass("highlight");
-	$('#formko').hide();
-});
-$("#buttonshowall").click(function()
-{
-$('#tableko').show();
-if(!selected)
-$(this).addClass("highlight");
-$('#tableko	').hide();
-});
-function ClickCancel()
-{
-$('#formko').hide();
-}
-function closemodal()
-{
-	$('#myModal').close();
-}
-function showForm()
-{
-$('#formko).show()');
-}
-function hideForm()
-{
-$('#formko').hide("highlight1");
-}
-function showdiv()
-{
-	$('#addreqvid).show()')
-}
-function hidediv()
-{
-$('#addreqdiv').hide();
-}
-function showtable()
-{
-$('#tableko').show("highlight");
-}
-function hidetable()
-{
-$('#tableko').hide("highlight1");
-}
-function openPolicy(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
+                // Show the current tab, and add an "active" class to the link that opened the tab
+                document.getElementById(tabName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
 </script>
