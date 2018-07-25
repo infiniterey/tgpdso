@@ -129,11 +129,10 @@ if(isset($_POST['logout']))
 															cursor:pointer;transition: all .25s	ease-in-out;
 														}
 													</style>
-													<form>
+													<form method="get">
 														<h4 style="float:left">Policy No <input type="text" name="searchT" id="searchT" placeholder="Search"></input>
 													 <button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
 												 <button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h4>
-
 													 <?php
 												 	 $Tdate = "";
 													 $Lname = "";
@@ -156,7 +155,6 @@ if(isset($_POST['logout']))
 														$bool = False;
 														if(isset($_GET['searchT']))
 														{$valueToSearch = $_GET['searchT'];}
-
 														try {
 														$DB_con = Database::connect();
 														 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

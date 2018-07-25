@@ -359,6 +359,7 @@ if(isset($_POST['logout']))
 													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Birthdate">Birthdate</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Address">Address</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="CellNo">Cellphone No.</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Action">Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -377,10 +378,16 @@ if(isset($_POST['logout']))
 																	?>
 																	<tr>
 																		<td hidden><?php print($row['clientID']); ?></td>
-																		<td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
+																		<td class="nr"><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
 																		<td><?php print($row['cBirthdate']); ?></td>
 																		<td><?php print($row['cAddress']); ?></td>
 																		<td><?php print($row['cCellno']); ?></td>
+																		<td>
+																			<div align="center">
+																					<button type="button" id="retrieve" data-dismiss="modal" name="retrieve" title="Edit Data" class="buttonHere btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button>
+																			</div>
+																		</td>
+
 																	</tr>
 																	<?php
 																}
@@ -392,16 +399,15 @@ if(isset($_POST['logout']))
 										<script>
 
 
-											var table = document.getElementById('datatable-fixed-header3');
-											for(var counter = 1; counter < table.rows.length; counter++)
-											{
-												table.rows[counter].onclick = function()
-												{;
-												 document.getElementById("client").value = this.cells[1].innerHTML;
-												 document.getElementById("clientIDModal").value = this.cells[0].innerHTML;
-												 $('#clientSearch').modal('hide');
-													};
-												}
+									var table = document.getElementById('datatable-fixed-header3')
+									for(var counter = 1; counter < table.rows.length; counter++)
+									{
+											table.rows[counter].onclick = function()
+											{;
+												document.getElementById("client").value = this.cells[1].innerHTML;
+												document.getElementById("clientIDModal").value = this.cells[0].innerHTML;
+											};
+										}
 
 												</script>
 											</form>
@@ -476,7 +482,7 @@ if(isset($_POST['logout']))
 																		<button type="submit" class="btn btn-primary" id="SaveButton" name="SaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
 
 																		<button type="submit" class="btn btn-primary" id="UpdateButton" name="UpdateButton"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																		<button type="reset" id="reset" name="reset" value="Reset" class="btn btn-default" data-dismiss="modal" onclick="disableUpdateButton()">Cancel</button>
+																		<a  class="btn btn-default" href="newBusiness.php" onclick="disableUpdateButton();">Cancel</a>
 
 																	</center>
 														</div>
@@ -487,6 +493,7 @@ if(isset($_POST['logout']))
                             <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
                               <thead>
                                 <tr role="row">
+																	  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;" hidden>ProdID</th>
                                   <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Trans. Date</th>
 	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Name of Insured</th>
                                   <th class="sorting" tabindex="0" id="policyNum" name="policyNum" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending" style="width: 35px;text-align:center;">Policy No.</th>
@@ -495,13 +502,13 @@ if(isset($_POST['logout']))
                                   <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Mode of Payment: activate to sort column ascending" style="width: 15px;text-align:center;">M.O.P</th>
                                   <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Issued Date: activate to sort column ascending" style="width: 100px;text-align:center;">Agent</th>
                                   <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Agent: activate to sort column ascending" style="width: 15px;text-align:center;">Status</th>
-
+                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 15px;text-align:center;">Action</th>
 																</tr>
                               </thead>
 
 
 
-                              <tbody>
+															<tbody>
 
                                   <?php
 																		if($_SESSION['usertype'] == 'Secretary')
@@ -524,6 +531,7 @@ if(isset($_POST['logout']))
 																					$newDate = date("m/d/Y", strtotime($originalDate));
 	                                        ?>
 	                                        <tr>
+																						<td hidden><?php print($row['prodID']); ?></td>
 	                                          <td><?php print($newDate); ?></td>
 	                                          <td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
 	                                          <td><?php print($row['policyNo']); ?></td>
@@ -532,6 +540,10 @@ if(isset($_POST['logout']))
 	                                          <td><?php print($row['modeOfPayment']); ?></td>
 	                                          <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
 	                                          <td><?php print($row['remarks']); ?></td>
+																						<td>
+																									<a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
+																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?product=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																						</td>
 
 	                                        </tr>
 
@@ -557,6 +569,7 @@ if(isset($_POST['logout']))
 																					$newDate = date("m/d/Y", strtotime($originalDate));
 	                                        ?>
 	                                        <tr>
+																						<td hidden><?php print($row['prodID']); ?></td>
 	                                          <td><?php print($newDate); ?></td>
 	                                          <td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
 	                                          <td><?php print($row['policyNo']); ?></td>
@@ -565,6 +578,12 @@ if(isset($_POST['logout']))
 	                                          <td><?php print($row['modeOfPayment']); ?></td>
 	                                          <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
 	                                          <td><?php print($row['remarks']); ?></td>
+																						<td style="width: 100%; align:center">
+																							<div class="row">
+																									<a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																							<div>
+																						</td>
 
 	                                        </tr>
 																					<?php
@@ -606,23 +625,9 @@ if(isset($_POST['logout']))
 	<form>
 	</form>
     <footer style="margin-bottom: -15px;">
-
 				<center>
-					<form>
-						<input readonly="readonly" type="text" id="policyNo1" name="policyNo1" hidden>
-					  <input readonly="readonly" type="text" id="receiptNo1" name="receiptNo1" hidden>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-
-						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Edit Data" class="btn btn-primary" id="edit" name="edit" formnovalidate onclick="enableUpdateButton()" hide><i class="fa fa-pencil"/></i>&nbsp;&nbsp;&nbsp;Edit Data</button>
-						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Delete Data" class="btn btn-primary" id="deleted" name="deleted" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" hidden><i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;Delete Data</button>
-
-					</form><br>
-					<div style="font-size: 8px;">
-
-        COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE
-			</div>
-			</center>
+        	COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE
+				</center>
     </footer>
 
     <?php include 'java.php'; ?>
@@ -641,14 +646,7 @@ if(isset($_POST['logout']))
 <script>
 
 
-$("#datatable-fixed-header tr").click(function() {
-	var selected = $(this).hasClass("highlight");
-	$("#datatable-fixed-header tr").removeClass("highlight");
-				  $('#edit, #deleted').hide("highlight");
-	if(!selected)
-						$(this).addClass("highlight");
-					$('#edit, #deleted').show("highlight");
-});
+
 
 $("#datatable-fixed-header1 tr").click(function() {
 	var selected = $(this).hasClass("highlight1");
@@ -675,10 +673,6 @@ $("#datatable-fixed-header3 tr").click(function() {
 
 });
 
-$(document).on("dblclick","#datatable-fixed-header tr",function() {
-						$('#edit, #deleted').hide();
-							$("#datatable-fixed-header tr").removeClass("highlight1");
-});
 
 
 </script>
@@ -688,17 +682,14 @@ $(document).on("dblclick","#datatable-fixed-header tr",function() {
 
 		function disableUpdateButton()
 		{
-			document.getElementById("UpdateButton").disabled = true;
-			document.getElementById("SaveButton").disabled = false;
-
 			document.getElementById("receiptNo1").value = "";
 			document.getElementById("policyNo1").value = "";
+
+			window.location="newBusiness.php";
 
 
 						$('#UpdateButton').hide();
 						$('#SaveButton').show();
-
-							$('#edit, #deleted').hide("highlight");
 
 		}
 		function ClickCancel()
@@ -716,20 +707,6 @@ $(document).on("dblclick","#datatable-fixed-header tr",function() {
 		function disableSaveButton()
 		{
 				document.getElementById("SaveButton").disabled = true;
-
-		}
-
-		function showButtons()
-		{
-
-				$('#edit, #deleted').show("highlight");
-
-		}
-
-		function hideButtons()
-		{
-
-				$('#edit, #deleted').hide("highlight");
 
 		}
 
@@ -861,11 +838,9 @@ else
 {
 		if(isset($_GET['edit']))
 		{
+				$edit = $_GET['edit'];
 
-
-				$policyNo = $_GET['policyNo1'];
-
-					$result=mysqli_query($conn,"SELECT * from production, agents, client WHERE clientID = prodclientID AND agentCode = agent AND policyNo = '$policyNo'");
+					$result=mysqli_query($conn,"SELECT * from production, agents, client WHERE clientID = prodclientID AND agentCode = agent AND prodID = '$edit'");
 
 					while($row=mysqli_fetch_Array($result))
 					{
@@ -954,12 +929,12 @@ if($conn->connect_error)
 		die("Connection failed:" .$conn->connect_error);
 }
 else {
-	if(isset($_GET['deleted']))
+	if(isset($_GET['delete']))
 	{
 
-		$receiptNo = $_GET['receiptNo1'];
+		$delete= $_GET['delete'];
 
-		$sql = "DELETE FROM production WHERE receiptNo = '$receiptNo'";
+		$sql = "DELETE FROM production WHERE prodID= '$delete'";
 
 		if($conn->query($sql) === TRUE)
 		{
