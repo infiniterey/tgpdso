@@ -372,7 +372,7 @@ if(isset($_POST['logout']))
 
 											  									 $DB_con = Database::connect();
 											  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-											  									 $sql = "SELECT * FROM agentstraining";
+											  									 $sql = "SELECT * FROM agentstraining  ";
 																					 ?>
 																					 	<script>alert('Agent Code: <?php echo $valueToSearch ?>');</script>
 																					 <?php
@@ -395,7 +395,6 @@ if(isset($_POST['logout']))
 											  										 }
 											  									 }
 											  									 else{}
-
 																					 ?>
 																			</table>
 																			<script>
