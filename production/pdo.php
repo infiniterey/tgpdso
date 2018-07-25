@@ -466,8 +466,8 @@
 				else {
 					if(isset($_POST['apply']))
 					{
-						$ATagentID = $_POST['agentName'];
-						$ATagentName= $_POST['contain1'];
+						$ATagentID = $_POST['contain1'];
+						$ATagentName= $_POST['agentName'];
 						$ATtrainingName = $_POST['trainingNameko'];
 						$ATtrainingID =  $_POST['contain2'];
 						$ATdate = $_POST['DateAdded'];
@@ -514,7 +514,7 @@
 						$ATtrainingID =  $_POST['contain2'];
 						$ATdate = $_POST['DateAdded'];
 						?>
-							<script>alert('echo lalalala <?php $ATagentID?>')</script>
+							<script>alert('echo lalalala <?php $prodID?>')</script>
 						<?php
 						$sql = "DELETE from agentstraining WHERE ATagentID = '$ATagentID' AND ATtrainingName= '$ATtrainingName'";
 					}

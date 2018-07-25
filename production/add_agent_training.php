@@ -74,6 +74,7 @@
 <div class="row">
 	<div class = "col-sm-3">
 		<?php
+		$contain="";$contain2="";
 		if(isset($_POST['contain1'])){$contain=$_POST['contain1'];}
 		if(isset($_POST['contain2'])){$contain2=$_POST['contain2'];}
 		?><script>alert('Hiii <?php echo $contain?>');</script><?php

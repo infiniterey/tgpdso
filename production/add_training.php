@@ -2,24 +2,8 @@
 	include 'confg.php';
 	include 'pdo.php';
 	include_once 'createdb.php';
-
-session_start();
 ?>
 
-<?php
-if(isset($_POST['logout']))
-{
-	session_destroy();
-	unset($_SESSION['logout']);
-	?>
-	<script>
-	alert('Successfully logout - TGP');
-	window.location="index.php";
-	</script>
-
-	<?php
-}
- ?>
 <!DOCTYPE html>
 <html lang="en">
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
@@ -74,40 +58,10 @@ if(isset($_POST['logout']))
 						<br />
 
 						<!-- sidebar menu -->
-						<?php
-
-						$usertype1 = $_SESSION['usertype'];
-						if($usertype1 == 'secretary' || $usertype1 == 'Secretary')
-						{
-							 include 'base/sidebar.php';
-						}
-						else
-						{
-							 include 'base/sidebarAdmin.php';
-						}
-						?>
 
 						<!-- /sidebar menu -->
         <!-- top navigation -->
-				<div class="top_nav">
-					<div class="nav_menu">
-						<nav>
-							<div class="nav toggle">
-								<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-							</div>
-						</nav>
-								<nav class="col-md-6"></nav>
-						<nav class="col-md-5" style="margin-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</nav>
-					</div>
-				</div>
+			
         <!-- /top navigation -->
 				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->
 				<div class="right_col" role="main">

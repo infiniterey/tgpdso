@@ -152,10 +152,10 @@ if(isset($_POST['logout']))
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2><b>POLICIES RECORD</b></h2>
+										<h2><b>AGENT PROFILE</b></h2>
 											<div class="clearfix"></div>
 									</div>
-								<div cellpadding=100 border= 1 style='float:center' id="datatable-fixed-header_wrapper" class="form-form">
+								<div method="post" cellpadding=100 border= 1 style='float:center' id="datatable-fixed-header_wrapper" class="form-form">
 									<div class="row">
 										<div class="col-md-push-5">
 											<style>
@@ -166,7 +166,7 @@ if(isset($_POST['logout']))
 
 												<div class="col-md-12 col-sm-12 col-xs-12">
 														<div class="x_title">
-															<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No."></input>
+															<h2><input type="text" name="searchT" id="searchT" placeholder="Agent ID"></input>
 														 	<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
 													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
 															<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Payment</button>
@@ -176,8 +176,8 @@ if(isset($_POST['logout']))
 														<div class="x_content">
 																<div class="tab ">
 																	<div class="col-xs-12"><h4>
-																	<a onclick="openPolicy(event, 'Policy')"><b>Policy Details</b></a>
-																	<a onclick="openPolicy(event, 'Payment')"><b>Payment Details</b></a></h4>
+																	<a  class="col-sm-3" onclick="openPolicy(event, 'Policy')"><b>Agent Profile</b></a>
+																	<a  onclick="openPolicy(event, 'Payment')"><b>Trainings</b></a></h4>
 																	</div>
 																</div>
 																<div id="Policy" class="tabcontent">
@@ -201,6 +201,16 @@ if(isset($_POST['logout']))
 																		$RRRequirements ="";
 																		$prodID="";
 																		$valueToSearch="";
+
+																		$Aagentcode ="";
+																		$ALastname = "";
+																		$AFirstname = "";
+																		$AMiddlename = "";
+																		$ABirthday = "";
+																		$AApplicationdate = "";
+																		$ATeam = "";
+																		$APosition = "";
+
 																		$bool = False;
 																		if(isset($_GET['searchT']))
 																		{$valueToSearch = $_GET['searchT'];}
@@ -208,7 +218,7 @@ if(isset($_POST['logout']))
 																		$DB_con = Database::connect();
 																		 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 																		 //$stmt->bindValue(':search', '%' . $var1 . '%', PDO::PARAM_INT);
-																		 $sql="SELECT * FROM production WHERE policyNo = '$valueToSearch'";
+																		 $sql="SELECT * FROM agents WHERE agentCode = '$valueToSearch'";
 																		 $q = $DB_con->prepare($sql);
 																		 $q->execute();
 																		 $result =  $q->fetchall();
@@ -239,7 +249,7 @@ if(isset($_POST['logout']))
 																	<div class="row">
 																		<div class="col-md-12">
 																	 <div class="form-group">
-																		 <h5><b>Policy Owner Details</b></h5>
+																		 <h5><b>Information	</b></h5>
 																		 <hr/>
 																		 <div class="row">
 																 			 <div class="col-xs-3">
@@ -256,191 +266,24 @@ if(isset($_POST['logout']))
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Birthday
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myBirthday" id="myBirthday" value='<?php echo $Fname; ?>'>
 																			 </div>
 																		 </div>
 																		 <div class="row">
 																			 <div class="col-xs-3">
-																				 Address
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																				 	Application Date
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myAppdate" id="myAppdate" value='<?php echo $Fname; ?>'>
 																			 </div>
 																			 <div class="col-xs-3">
-																				 Contact #
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																				 Team
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myTeam" id="myTeam" value='<?php echo $Fname; ?>'>
+																			 </div>
+																			 <div class="col-xs-3">
+																				 Position
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myPosition" id="myPosition" value='<?php echo $Fname; ?>'>
 																			 </div>
 																			</div>
 																		</div><br/>
-																		<div class="form-group">
-																			 <h5><b>Insured Policy Details</b></h5>
-																			 <hr/>
-																			 <div class="row">
-																	 			 <div class="col-xs-3">
-																					 Last Name
-																					 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
-																				 </div>
-																			 	 <div class="col-xs-3">
-																					 First Name
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
-																				 </div>
-																				 <div class="col-xs-3">
-																					 Middle Name
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																				 </div>
-																				 <div class="col-xs-3">
-																					 Birthday
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																				 </div>
-																			 </div>
-																			 <div class="row">
-																				 <div class="col-xs-3">
-																					 Address
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																				 </div>
-																				 <div class="col-xs-3">
-																					 Contact #
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																				 </div>
-																			 </div>
-																		 </div><br/>
-																		 <div class="form-group">
-																			 <h5><b>Policy Details</b></h5><hr>
-																			 <div class="row">
-																		 			 <div class="col-xs-3">
-																						 Plan
-																						 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
-																					 </div>
-																				 	 <div class="col-md-3">
-																						 Face Amount
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
-																					 </div>
-																					 <div class="col-sm-3 ">
-																						 Mode of Payment
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																					 </div>
-																				 <div class="col-sm-3 ">
-																						 Issue Date
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																					 </div>
-																	 	 		</div>
-																				<div class="row">
-																					<div class="col-xs-3">
-																						Premium
-																						<input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
-																					</div>
-																					<div class="col-md-3">
-																						Fund
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
-																					</div>
-																					<div class="col-sm-3 ">
-																						Policy Status
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																					</div>
-																					<div class="col-sm-3 ">
-																						Next Due Date
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																					</div>
-																			 </div>
-																 			</div><br>
-																			<div class="form-group">
-																	 			<h5><b>Beneficiary Details</b></h5><hr>
-																					<div class="row">
-																						<div class="col-xs-3">
-																							Last Name
-																							<input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
-																						</div>
-																						<div class="col-xs-3">
-																							First Name
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
-																						</div>
-																						<div class="col-xs-3">
-																							Middle Name
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																						</div>
-																						<div class="col-xs-3">
-																							Birthday
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																						</div>
-																					</div>
-																					<div class="row">
-																						<div class="col-xs-3">
-																							Address
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																						</div>
-																						<div class="col-xs-3">
-																							Contact #
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
-																						</div>
-																						<button  type="button" data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i></button>
-																				 </div>
-																				 <div class="row">
-																					 <table  id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
-			 																			<thead>
-			 																				<tr role="row">
-			 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Transaction Date</th>
-			 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;">Requirements</th>
-			 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Status</th>
-			 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Submit Date</th>
-			 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Production ID</th>
-			 																					</tr>
-			 																			</thead>
-			 																			<div id="momodal"name="momodal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-			 																				<div class="modal-dialog modal-sm">
-			 																					<div class="modal-content">
-			 																						<div class="modal-header">
-			 																							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-			 																							<h4 class="modal-title" id="myModalLabel2">Add Payment</h4>
-			 																						</div>
-			 																						<form method='post' name='myform' onsubmit="CheckForm()">
-			 																							<div class="modal-body">
-
-			 																								<?php
-			 																									if(isset($_POST['btn-addrEquirements'])){
-			 																										$RRRequirements = $_POST['requirement'];
-			 																										tgpdso::addRequirements();
-			 																									}
-
-			 																								?>
-			 																								Production ID:<br><input type="text" readonly="readonly" class="form-control" name="ProdId" value="<?php echo $prodID?>"hidden><br>
-			 																								Agent Code: <br><input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><br>
-			 																								Plan Code: <br><input  type="text" class="form-control" readonly="readonly" name="planCode" value="<?php echo $Pplan?>"hidden><br>
-			 																								Requirement: <br><Textarea type="text" class="form-control" name="requirement" style="width:200px;height:40px" ></Textarea><br>
-			 																								Transaction Date: <br><input class="form-control" name="TTransactDate" style = "width:195px" class="date-picker form-control" required="required" type="date" value=""><br>
-			 																								Status: <br><input type="text" class="form-control" name="stats"><br>
-			 																								Submit Date: <br> <input name="submitdate" style = "width:195px" class="date-picker form-control" required="required" type="date" required><br>
-			 																							 <br>
-			 																						</div>
-			 																							<div class="modal-footer">
-			 																								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			 																									<button type="submit" class="btn btn-primary" name="btn-addrEquirements"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-			 																							</div>
-			 																						</form>
-			 																					</div>
-			 																				</div>
-			 																			</div>
-			 																			<tbody>
-			 																					<?php
-
-			 																						$DB_con = Database::connect();
-			 																						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-			 																						$sql = "SELECT * FROM requirements WHERE '$prodID' = RProdID";
-			 																						$result = $DB_con->query($sql);
-
-			 																							while($row=$result->fetch(PDO::FETCH_ASSOC)){
-			 																								?>
-			 																									<tr>
-			 																										<td><?php print($row['RtransDate']); ?></td>
-			 																										<td><?php print($row['Rrequirements']); ?></td>
-			 																										<td><?php print($row['Status']); ?></td>
-			 																										<td><?php print($row['SubmitDate']); ?></td>
-			 																										<td hidden><?php print($row['RProdID']); ?></td>
-			 																								</tr>
-			 																									<?php
-			 																								}
-			 																					?>
-			 																				</tbody>
-			 																			</table>
-																				 </div>
-																			 </div>
 																			 <div class="form-group">
 																				 <hr>
 																				 <button  type="button" style='float:left' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Save</button>
@@ -478,14 +321,15 @@ if(isset($_POST['logout']))
 																</div>
 																<div class="row">
 																	<div class="col-md-12">
-																		<table  id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
+																		<table style="text-align:center" id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
 																			<thead>
 																				<tr role="row">
-																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Transaction Date</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;">Requirements</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Status</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Submit Date</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Production ID</th>
+																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Training ID</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;"hidden>Agent ID</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Agent Name</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Training Name</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Training Required position</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Date</th>
 																					</tr>
 																			</thead>
 																			<div id="momodal"name="momodal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
@@ -523,26 +367,36 @@ if(isset($_POST['logout']))
 																				</div>
 																			</div>
 																			<tbody>
-																					<?php
-
-																						$DB_con = Database::connect();
-																						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																						$sql = "SELECT * FROM requirements WHERE '$prodID' = RProdID";
-																						$result = $DB_con->query($sql);
-
-																							while($row=$result->fetch(PDO::FETCH_ASSOC)){
-																								?>
-																									<tr>
-																										<td><?php print($row['RtransDate']); ?></td>
-																										<td><?php print($row['Rrequirements']); ?></td>
-																										<td><?php print($row['Status']); ?></td>
-																										<td><?php print($row['SubmitDate']); ?></td>
-																										<td hidden><?php print($row['RProdID']); ?></td>
-																								</tr>
-																									<?php
-																								}
-																					?>
 																				</tbody>
+																				<?php
+
+											  									 $DB_con = Database::connect();
+											  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+											  									 $sql = "SELECT * FROM agentstraining";
+																					 ?>
+																					 	<script>alert('Agent Code: <?php echo $valueToSearch ?>');</script>
+																					 <?php
+											  									 $result = $DB_con->query($sql);
+											  									 if($result->rowCount()>0){
+											  										 while($row=$result->fetch(PDO::FETCH_ASSOC)){
+											  											 ?>
+											  											 <tr>
+											  												 <td><?php print($row['ATagentName']); ?></td>
+											  												 <td><?php print($row['ATtrainingName']); ?></td>
+
+											  												 <td hidden><?php print($row['ATagentTrainingID']); ?></td>
+											 												 <td hidden><?php print($row['ATagentID']); ?></td>
+											 												 <td hidden><?php print($row['ATagentName']); ?></td>
+											 												 <td hidden><?php print($row['ATtrainingName']); ?></td>
+											 												 <td hidden><?php print($row['ATrequiredPosition']); ?></td>
+											 												 <td hidden><?php print($row['ATdate']); ?></td>
+											 												 </tr>
+											  											 <?php
+											  										 }
+											  									 }
+											  									 else{}
+
+																					 ?>
 																			</table>
 																			<script>
 																					var table = document.getElementById('tablekoto');
@@ -590,42 +444,39 @@ if(isset($_POST['logout']))
 								<table name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
  							 <thead>
 								 <tr role="row">
- 									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 100px;text-align:center;">Name</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending" style="width: 50px;text-align:center;name="PolicyNoCell"">Agent</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Issued Date</th>
+ 									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Agent Code</th>
+ 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 100px;text-align:center;">Agent Name</th>
 
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Lastname</th>
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Firstname</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Receipt</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Plan</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Transadate</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	MOD</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Middlename</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Birthdate</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	applicationDate</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Team</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Position</th>
  									 </tr>
  							 </thead>
  							 <tbody>
  								 <?php
  									 $DB_con = Database::connect();
  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
- 									 $sql = "SELECT * FROM production";
+ 									 $sql = "SELECT * FROM agents";
 
  									 $result = $DB_con->query($sql);
  									 if($result->rowCount()>0){
  										 while($row=$result->fetch(PDO::FETCH_ASSOC)){
  											 ?>
  											 <tr>
- 												 <td><?php print($row['policyNo']); ?></td>
- 												 <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
- 												 <td><?php print($row['agent']); ?></td>
-												 <td><?php print($row['issuedDate']); ?></td>
+ 												 <td><?php print($row['agentCode']); ?></td>
+ 												 <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
 
- 												 <td hidden><?php print($row['lastName']); ?></td>
-												 <td hidden><?php print($row['firstName']); ?></td>
-												 <td hidden><?php print($row['receiptNo']); ?></td>
-												 <td hidden><?php print($row['agent']); ?></td>
-												 <td hidden><?php print($row['plan']); ?></td>
-												 <td hidden><?php print($row['transDate']); ?></td>
-												 <td hidden><?php print($row['modeOfPayment']); ?></td>
+ 												 <td hidden><?php print($row['agentLastname']); ?></td>
+												 <td hidden><?php print($row['agentFirstname']); ?></td>
+												 <td hidden><?php print($row['agentMiddlename']); ?></td>
+												 <td hidden><?php print($row['agentBirthdate']); ?></td>
+												 <td hidden><?php print($row['agentApptDate']); ?></td>
+												 <td hidden><?php print($row['agentTeam']); ?></td>
+												 <td hidden><?php print($row['agentPosition']); ?></td>
 												 </tr>
  											 <?php
  										 }
@@ -645,14 +496,13 @@ if(isset($_POST['logout']))
 										table.rows[counter].onclick = function()
 										{;
 										 document.getElementById("searchT").value = this.cells[0].innerHTML;
-										 document.getElementById("mylastname").value = this.cells[4].innerHTML;
-										 document.getElementById("myfirstname").value = this.cells[5].innerHTML;
-										 document.getElementById("mypolicy").value = this.cells[0].innerHTML;
-										 document.getElementById("myofficialReceipt").value = this.cells[6].innerHTML;
-										 document.getElementById("myAgent").value = this.cells[7].innerHTML;
-										 document.getElementById("myplan").value = this.cells[8].innerHTML;
-										 document.getElementById("mydate").value = this.cells[9].innerHTML;
-										 document.getElementById("myModeOfPayment").value = this.cells[10].innerHTML;
+										 document.getElementById("mylastname").value = this.cells[2].innerHTML;
+										 document.getElementById("myfirstname").value = this.cells[3].innerHTML;
+										 document.getElementById("myMiddleName").value = this.cells[4].innerHTML;
+										 document.getElementById("myBirthday").value = this.cells[5].innerHTML;
+										 document.getElementById("myAppdate").value = this.cells[6].innerHTML;
+										 document.getElementById("myTeam").value = this.cells[7].innerHTML;
+										 document.getElementById("myPosition").value = this.cells[8].innerHTML;
 										 };
 									}
 										</script>
