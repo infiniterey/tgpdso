@@ -6,27 +6,15 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 <style  type="text/css">
-
-.scrollbar{
-	height: 100%;
-	width: 100%;
-	overflow: auto;
-}
-::-webkit-scrollbar {
-    width: 1px;
-}
-
 .highlight { background-color: lightgreen; color: green}
 .highlightBack { background-color: white; color: gray}
 
 .highlight1 { background-color: lightgreen; color: green}
 .disablehighlight { background-color: transparent;}
-#divnako,#temp,#temp2,#temp3,#contain1,#contain2{ display: none;}
+#temp,#temp2,#temp3,#contain1,#contain2{ display: none;}
 </style>
 	<?php include 'base/header.php'; ?>
   <body class="nav-md footer_fixed">
@@ -35,7 +23,7 @@
   		<div class="main_container">
 
   			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view scrollbar">
+  				<div class="left_col scroll-view">
   					<div class="clearfix"></div>
 
   					<!-- menu profile quick info -->
@@ -50,18 +38,24 @@
 							</div>
 						</div>
 						<!-- /menu profile quick info -->
-							<br />
-					<!-- sidebar menu -->
-						<?php include 'base/sidebar.php'; ?>
-						<!-- /sidebar menu -->
+  						<br />
+ 					<!-- sidebar menu -->
+            <?php include 'base/sidebar.php'; ?>
+            <!-- /sidebar menu -->
 
-						<br />
+  				</div>
+  			</div>
 
-						<!-- sidebar menu -->
-
-						<!-- /sidebar menu -->
         <!-- top navigation -->
-			
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+            </nav>
+          </div>
+        </div>
         <!-- /top navigation -->
 				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->
 				<div class="right_col" role="main">
@@ -72,7 +66,7 @@
 								<div class="x_panel">
 									<div class="x_title">
 										<form method='post' name='myform' onsubmit="CheckForm()">
-											<?php $pat=""; $pot=""; $pit=""; $tempAgentName=""; $tempAgentID=""; $tempTrainingID=""; $tempTrainingName=""; $contain=""; $contain1="";?>
+												<?php $pat=""; $pot=""; $pit=""; $tempAgentName=""; $tempAgentID=""; $tempTrainingID=""; $tempTrainingName=""; $contain=""; $contain1="";?>
 
 											<input style = "width:130px;"  style="border:none" type="text" class="form-control" name="temp" id="temp">
 											<input style = "width:130px;"  style="border:none" type="text" class="form-control" name="temp2" id="temp2">
@@ -82,11 +76,15 @@
 												<?php if(isset($_POST['temp2'])) { $pot = $_POST['temp2']; } ?>
 												<?php if(isset($_POST['temp3'])) { $pit = $_POST['temp3']; } ?>
 												<script>alert('hiiiiiiiiii <?php echo $pat ?>')</script>
-
 											</div>
 										<h2><b>Add Training</b></h2>
 										<div class="clearfix"></div>
 
+										<?php
+											if(isset($_POST['btn-deleteRow'])){
+												tgpdso::deleteTraining();
+											}
+									?>
 				<button style="float:left" type="button" class="btn btn-primary" id="addTraining" name="addTraining" data-toggle="modal" data-target="#momodal"><i class="fa fa-file-text"></i>Add training</button>
 				<table method="post" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
 				<thead>
@@ -94,6 +92,7 @@
 									<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Training ID</th>
 						<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Training Name</th>
 							<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Required Position</th>
+							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 						</tr>
 				</thead>
 				<tbody>
@@ -110,6 +109,16 @@
 									<td><?php print($row['trainingNo']); ?></td>
 									<td><?php print($row['trainingName']); ?></td>
 									<td><?php print($row['trainingRequired']); ?></td>
+									<td>
+										<div class="row">
+											<center>
+												<form method='post' name='myform' onsubmit="CheckForm()">
+												<button  type="button" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" hidden></i></button>
+													<button  type="submit" data-toggle="modal" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow" class="btn btn-danger"><i class="fa fa-trash" hidden></i></button>
+												</form>
+											</center>
+										</div>
+									</td>
 							</tr>
 								<?php
 							}
@@ -126,11 +135,6 @@
 				</form>
 				</table>
 				<br><br>
-				<div  name="divnako" id="divnako">
-					<button type="submit"  title="Delete Data" class="btn btn-primary" name ="deleted" id="deleted" name="deleted" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" hidden><i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;Delete Data</button>
-					<button type="button" class="btn btn-primary" id="UpdateButton" name="UpdateButton"  data-toggle="modal" data-target="#myModal2"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-					<button type="button"  class="btn btn-primary" id="cancel" name="cancel"><i class="fa fa-close" onclick="ClickCancel()"></i>Cancel</button></td>
-				</div>
 			</form>
 				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->				<!-- /Add training -->
 
@@ -183,11 +187,11 @@
 		<form method='post' name='myform' onsubmit="CheckForm()">
 			<?php 	if(isset($_POST['iupdateko']))
 			{tgpdso::updateTraining();}?>
-				<div method="post" class="modal-body">
+				<div class="modal-body">
 			<br><br>
-		 	Training ID<input type="text" readonly="readonly" style="width:195px" class="form-control" name="uprod" id="utrainid" value="<?php echo $pat ?>" >
-			Training Name <input  type="text" style="width:195px" class="form-control" id="uplan" name="utrainname" value="<?php echo $pot?>">
-			Required Position<input  type="text" class="form-control" style="width:195px" name="upolicy" id="utrainposition" value="<?php echo $pit?>">
+		 	Training ID<input type="text" readonly="readonly" style="width:195px" class="form-control"  name="utrainid" id="utrainid" value="<?php echo $pat?>" >
+			Training Name <input  type="text" style="width:195px" class="form-control" id="utrainname" name="utrainname" value="<?php echo $pot?>">
+			Required Position<input  type="text" class="form-control" style="width:195px" name="utrainposition" id="utrainposition" value="<?php echo $pit?>">
 
 		</div>
 
@@ -349,6 +353,9 @@
 			document.getElementById("temp").value =this.cells[0].innerHTML;
 			document.getElementById("temp2").value =this.cells[1].innerHTML;
 			document.getElementById("temp3").value =this.cells[2].innerHTML;
+			document.getElementById("utrainid").value = this.cells[0].innerHTML;
+			document.getElementById("utrainname").value = this.cells[1].innerHTML;
+			document.getElementById("utrainposition").value = this.cells[2].innerHTML;
 			};
 		}
 
@@ -377,14 +384,14 @@
 	$("#datatable-fixed-header tr").click(function() {
 		var selected = $(this).hasClass("highlight");
 		$("#datatable-fixed-header tr").removeClass("highlight");
-						$('#divnako').hide("highlight");
+
 		if(!selected)
 							$(this).addClass("highlight");
-						$('#divnako').show("highlight");
+
 	});
 
 	$(document).on("dblclick","#datatable-fixed-header tr",function() {
-						$('#divnako').hide();
+
 							$("#datatable-fixed-header tr").removeClass("highlight1");
 	});
 
@@ -433,7 +440,7 @@ function ClickCancel()
 function showButtons()
 {
 
-		$('#divnako').show("highlight");
+
 
 }
 </script>

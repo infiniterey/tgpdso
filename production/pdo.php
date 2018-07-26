@@ -381,7 +381,7 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['deleted']))
+					if(isset($_POST['btn-deleteRow']))
 					{
 						$trainid = $_POST['temp'];
 						$trainname = $_POST['temp2'];
@@ -506,7 +506,7 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['deleted']))
+					if(isset($_POST['btn-deleteRow']))
 					{
 						$ATagentID = $_POST['contain1'];
 						$ATagentName= $_POST['agentName'];

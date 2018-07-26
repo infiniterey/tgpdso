@@ -274,7 +274,7 @@ if(isset($_POST['logout']))
 
 																<?phpif(isset($_POST['searchAgentCodeText']))
 															{?>
-																<script>alert('gagagagagaga');</script>
+															       	<script>alert('gagagagagaga');</script>
 															<div id="Payment" class="tabcontent">
 															<!--table content policy for adding requirements-->
 																<h5><b>Payment Details</b></h5><hr>

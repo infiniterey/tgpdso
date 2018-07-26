@@ -350,12 +350,15 @@ if(isset($_POST['logout']))
 													</div>
 													<tbody>
 															<?php
-
+																if(isset($_GET['searchT']))
+																{
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 																$sql = "SELECT * FROM requirements WHERE '$prodID' = RProdID";
 																$result = $DB_con->query($sql);
-
+																?>
+																	<script>alert('Prod id : <?php echo $prodID?>');</script>
+																<?php
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																			<tr>
@@ -375,7 +378,9 @@ if(isset($_POST['logout']))
 																		</tr>
 																			<?php
 																		}
+																	}
 															?>
+
 														</tbody>
 													</table>
 													<script>

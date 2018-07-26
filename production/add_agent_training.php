@@ -70,11 +70,11 @@
 
 <br><br>
   <div method="post" id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-		<form method='post' name='myform' onsubmit="CheckForm()">
+		<form name='myform' onsubmit="CheckForm()">
 <div class="row">
 	<div class = "col-sm-3">
 		<?php
-		$contain="";$contain2="";
+		$contain=""; $contain2="";
 		if(isset($_POST['contain1'])){$contain=$_POST['contain1'];}
 		if(isset($_POST['contain2'])){$contain2=$_POST['contain2'];}
 		?><script>alert('Hiii <?php echo $contain?>');</script><?php
@@ -111,6 +111,7 @@ Date <span class="required">*</span><br>
 					<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Agent Name</th>
 		<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Agent Training</th>
 			<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Date added</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 		</tr>
 </thead>
 <tbody>
@@ -127,6 +128,16 @@ Date <span class="required">*</span><br>
 					<td><?php print($row['ATagentName']); ?></td>
 					<td><?php print($row['ATtrainingName']); ?></td>
 					<td><?php print($row['ATdate']); ?></td>
+					<td>
+						<div class="row">
+							<center>
+								<form method='post' name='myform' onsubmit="CheckForm()">
+								<button  type="button"  data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" hidden></i></button>
+								<button  type="submit" data-toggle="modal" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow" class="btn btn-danger"><i class="fa fa-trash" hidden></i></button>
+							</form>
+							</center>
+						</div>
+					</td>
 			</tr>
 				<?php
 			}
@@ -136,7 +147,7 @@ Date <span class="required">*</span><br>
 	?>
 	</tbody>
 	<form method='post' name='myform' onsubmit="CheckForm()">
-		<?php if(isset($_POST['deleted']))
+		<?php if(isset($_POST['btn-deleteRow']))
 		{
 			tgpdso::deleteAgentToTraining();}?>
 		<div method="post" class="modal-body">
@@ -171,6 +182,7 @@ Date <span class="required">*</span><br>
 												<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Agent Code</th>
 									<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Agent Name</th>
 										<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Agent Position</th>
+										<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Action</th>
 									</tr>
 							</thead>
 							<tbody>
@@ -187,6 +199,7 @@ Date <span class="required">*</span><br>
 												<td><?php print($row['agentCode']); ?></td>
 												<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']);?></td>
 												<td><?php print($row['agentPosition']); ?></td>
+
 										</tr>
 											<?php
 										}
@@ -243,6 +256,7 @@ Date <span class="required">*</span><br>
 													<td><?php print($row['trainingNo']); ?></td>
 													<td><?php print($row['trainingName']); ?></td>
 													<td><?php print($row['trainingRequired']); ?></td>
+
 											</tr>
 												<?php
 											}
