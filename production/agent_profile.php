@@ -168,7 +168,7 @@ if(isset($_POST['logout']))
 														<div class="x_title">
 															<form method='get' name='myform' onsubmit="CheckForm()">
 															<h2><input type="text" name="searchAgentCodeText" id="searchAgentCodeText" placeholder="Agent ID"></input>
-														 	<button type="button" name="buttonShowAllAgent" id="buttonShowAllAgent" class="fa fa-table"	  data-toggle="modal" data-target="#agentTableModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
+														 	<button type="button" name="buttonShowAllAgent" id="buttonShowAllAgent" class="fa fa-table" data-toggle="modal" data-target="#agentTableModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
 
 															<br	><br>
 															<div class="clearfix"></div>
@@ -185,12 +185,43 @@ if(isset($_POST['logout']))
 																<div id="Policy" class="tabcontent">
 																	<form>
 																	 <?php
-																		$valueToSearch="";
+																	 $variableAgentCode=" ";;
+																	 $variableLastName =" ";
+																	 $variableFirstName =" ";
+																	 $variableMiddleName =" ";
+																	 $variableBirthdate = " ";
+																	 $variableApplicationDate =" ";
+																	 $variableTeam = " ";
+																	 $variablePositon =" ";
+																		$valueToSearch=" ";
 																		$bool = False;
 																		if(isset($_GET['searchAgentCodeText']))
 																		{
 																			$valueToSearch = $_GET['searchAgentCodeText'];
 																			}
+																			try {
+																			$DB_con = Database::connect();
+																			 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+																			 //$stmt->bindValue(':search', '%' . $var1 . '%', PDO::PARAM_INT);
+																			 $sql="SELECT * FROM agents WHERE agentCode = '$valueToSearch'";
+																			 $q = $DB_con->prepare($sql);
+																			 $q->execute();
+																			 $result =  $q->fetchall();
+																			 foreach($result as $row)
+																				 {
+																					$variableAgentCode = $row['agentCode'];
+																					$variableLastName = $row['agentLastname'];
+																					$variableFirstName = $row['agentFirstname'];
+																					$variableMiddleName = $row['agentMiddlename'];
+																					$variableBirthdate = $row['agentBirthdate'];
+																					$variableApplicationDate = $row['agentApptDate'];
+																					$variableTeam = $row['agentTeam'];
+																					$variablePositon = $row['agentPosition'];
+																				}
+																			}
+																		 catch (PDOException $msg) {
+																			 die("Connection Failed : " . $msg->getMessage());
+																		 }
 																 ?>
 																	<div class="row">
 																		<div class="col-md-12">
@@ -200,34 +231,34 @@ if(isset($_POST['logout']))
 																		 <div class="row">
 																 			 <div class="col-xs-3">
 																				 Last Name
-																				 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="lastNameInputBox" id="lastNameInputBox" value=''><br>
+																				 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="lastNameInputBox" id="lastNameInputBox" value='<?php echo $variableLastName ?>'><br>
 																			 </div>
 																		 	 <div class="col-xs-3">
 																				 First Name
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="firstNameInputBox" id="firstNameInputBox" value=''>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="firstNameInputBox" id="firstNameInputBox" value='<?php echo $variableFirstName ?>'>
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Middle Name
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="middleNameInputBox" id="middleNameInputBox" value=''>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="middleNameInputBox" id="middleNameInputBox" value='<?php echo $variableMiddleName ?>'>
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Birthday
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="birthdayInputBox" id="birthdayInputBox" value=''>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="birthdayInputBox" id="birthdayInputBox" value='<?php echo $variableBirthdate ?>'>
 																			 </div>
 																		 </div>
 																		 <div class="row">
 																			 <div class="col-xs-3">
 																				 	Application Date
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="applicationInputBox" id="applicationInputBox" value=''>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="applicationInputBox" id="applicationInputBox" value='<?php echo $variableApplicationDate ?>'>
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Team
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="teamInputTextBox" id="teamInputTextBox" value=''>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="teamInputTextBox" id="teamInputTextBox" value='<?php echo $variableTeam ?>'>
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Position
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="positionInputText" id="positionInputText" value=''>
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="codeInputTextBox" id="codeInputTextBox" value=''>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="positionInputText" id="positionInputText" value='<?php echo $variablePositon ?>'>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="codeInputTextBox" id="codeInputTextBox" value='<?php echo $variableAgentCode ?>'>
 																			 </div>
 																			</div>
 																		</div><br/>
@@ -243,6 +274,7 @@ if(isset($_POST['logout']))
 
 																<?phpif(isset($_POST['searchAgentCodeText']))
 															{?>
+																<script>alert('gagagagagaga');</script>
 															<div id="Payment" class="tabcontent">
 															<!--table content policy for adding requirements-->
 																<h5><b>Payment Details</b></h5><hr>
@@ -263,8 +295,8 @@ if(isset($_POST['logout']))
 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Date</th>
 																					</tr>
 																			</thead>
-																																					<tbody>
-																				</tbody>
+																				<tbody>
+																			</tbody>
 
 																				<?php
 																				if(isset($_GET['searchAgentCodeText']))
@@ -388,29 +420,11 @@ if(isset($_POST['logout']))
 
  								 </tbody>
  						 </table>
-
 						 		<?php
 									?>
  								 <script>alert('hooooy<?php $valueToSearch ?>');</script>
 
- 								<script>
-									var table = document.getElementById('agentTable');
-									for(var counter = 1; counter < table.rows.length; counter++)
-									{
-										table.rows[counter].onclick = function()
-										{
-										 document.getElementById("searchAgentCodeText").value = this.cells[0].innerHTML;
-										 document.getElementById("lastNameInputBox").value = this.cells[2].innerHTML;
-										 document.getElementById("firstNameInputBox").value = this.cells[3].innerHTML;
-										 document.getElementById("middleNameInputBox").value = this.cells[4].innerHTML;
-										 document.getElementById("birthdayInputBox").value = this.cells[5].innerHTML;
-										 document.getElementById("applicationInputBox").value = this.cells[6].innerHTML;
-										 document.getElementById("teamInputTextBox").value = this.cells[7].innerHTML;
-										 document.getElementById("positionInputText").value = this.cells[8].innerHTML;
-										 document.getElementById("codeInputTextBox").value=this.cells[0].innerHTML;
-										 };
-									}
-										</script>
+
 										<?php
 									?>
 									</form>
@@ -444,6 +458,24 @@ if(isset($_POST['logout']))
   </body>
 </html>
 <script>
+	var table = document.getElementById('agentTable');
+	for(var counter = 1; counter < table.rows.length; counter++)
+	{
+		table.rows[counter].onclick = function()
+		{
+		 document.getElementById("searchAgentCodeText").value = this.cells[0].innerHTML;
+		 document.getElementById("lastNameInputBox").value = this.cells[2].innerHTML;
+		 document.getElementById("firstNameInputBox").value = this.cells[3].innerHTML;
+		 document.getElementById("middleNameInputBox").value = this.cells[4].innerHTML;
+		 document.getElementById("birthdayInputBox").value = this.cells[5].innerHTML;
+		 document.getElementById("applicationInputBox").value = this.cells[6].innerHTML;
+		 document.getElementById("teamInputTextBox").value = this.cells[7].innerHTML;
+		 document.getElementById("positionInputText").value = this.cells[8].innerHTML;
+		 document.getElementById("codeInputTextBox").value=this.cells[0].innerHTML;
+		 };
+	}
+		</script>
+<script>
 
 	$("#agentTable tr").click(function() {
 		var selected = $(this).hasClass("highlight");
@@ -469,8 +501,6 @@ $(document).on("dblclick","#agentTrainingTable tr",function() {
 
 						$("#agentTrainingTable tr").removeClass("highlight1");
 });
-
-
 
 
 $("#searchAgentCodeText").enter(function()
