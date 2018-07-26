@@ -110,11 +110,23 @@ if(isset($_POST['logout']))
           <!-- /top navigation -->
 
           <!-- page content -->
-					<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addplanmodal">
+					<script>
+
+						function cancelInfoAgent()
+						{
+							document.getElementById("planCode").value = "";
+							document.getElementById("planC").value = "";
+							document.getElementById("planDesc").value = "";
+							document.getElementById("planRate").value = "";
+							document.getElementById("plan").value = "";
+						}
+
+					</script>
+					<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addplanmodal" data-keyboard="false" data-backdrop="static">
 						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
 								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+									<button type="button" onclick="cancelInfoAgent();" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 									<h4 class="modal-title" id="myModalLabel2">Add new plan</h4>
 								</div>
 								<form method='post' name='myform' onsubmit="CheckForm()">
@@ -143,7 +155,7 @@ if(isset($_POST['logout']))
 														<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 15px;text-align:center;">Plan Code</th>
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 155px;text-align:center;">Plan Description</th>
 														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
-
+														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action" style="width: 35px;text-align:center;">Action</th>
 													</tr>
 												</thead>
 
@@ -164,6 +176,7 @@ if(isset($_POST['logout']))
 																		<td><?php print($row['planCode']); ?></td>
 																		<td><?php print($row['planDesc']); ?></td>
 																		<td><?php print($row['planRate']); ?></td>
+																		<td><button style="width: 100%; height: 100%;" onclick="" type="button" id="retrieveAgent" name="retrieveAgent" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
 
 																	</tr>
 																	<?php
@@ -182,11 +195,11 @@ if(isset($_POST['logout']))
 												for(var counter = 1; counter < table.rows.length; counter++)
 												{
 													table.rows[counter].onclick = function()
-													{;
-													 document.getElementById("planCode").value = this.cells[0].innerHTML;
+												{;
+											//		 document.getElementById("planCode").value = this.cells[0].innerHTML;
 													 document.getElementById("planC").value = this.cells[0].innerHTML;
-													 document.getElementById("planDesc").value = this.cells[1].innerHTML;
-													 document.getElementById("planRate").value = this.cells[2].innerHTML;
+											//		 document.getElementById("planDesc").value = this.cells[1].innerHTML;
+											//		 document.getElementById("planRate").value = this.cells[2].innerHTML;
 													 document.getElementById("plan").value = this.cells[0].innerHTML;
 
 														};
@@ -208,7 +221,6 @@ if(isset($_POST['logout']))
 														&nbsp;
 												</div>
 												<div class="col-md-8">
-													<button type="button" class="btn btn-success" name="close" id="close" data-dismiss="modal">Close</button>
 											</div>
 											<form method="post" action="<?php $_PHP_SELF ?>">
 
@@ -235,7 +247,7 @@ if(isset($_POST['logout']))
 
 
 						      <div class="modal-header">
-						        <h2 class="modal-title">Search agent<button type="button" class="close" data-dismiss="modal">x</button></h2>
+						        <h2 class="modal-title">Search agent<button type="button" class="close" data-dismiss="modal" onclick="RemoveTextAgent();">x</button></h2>
 						      </div>
 
 									<form style="margin-bottom: 10px;">
@@ -251,7 +263,7 @@ if(isset($_POST['logout']))
 													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team">Team</th>
 													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team" hidden>Team</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Position" hidden>Position</th>
-
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Action">Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -279,6 +291,7 @@ if(isset($_POST['logout']))
 																		<td><?php print($row['teamName']); ?></td>
 																	<td hidden><?php print($row['teamName']); ?></td>
 																	<td hidden><?php print($row['agentPosition']); ?></td>
+																	<td><button style="width: 100%; height: 100%;" onclick="" type="button" id="retrieveAgentInfo" name="retrieveAgentInfo" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
 																</tr>
 																<?php
 															}
@@ -303,6 +316,7 @@ if(isset($_POST['logout']))
 																		<td><?php print($row['teamName']); ?></td>
 																		<td hidden><?php print($row['agentTeam']); ?></td>
 																		<td hidden><?php print($row['agentPosition']); ?></td>
+																		<td><button style="width: 100%; height: 100%;" onclick="AgentInfo();" type="button" id="retrieveAgentInfo" name="retrieveAgentInfo" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
 																	</tr>
 																	<?php
 																}
@@ -314,7 +328,7 @@ if(isset($_POST['logout']))
 
 										<script>
 
-
+										function AgentInfo(){
 											var table = document.getElementById('datatable-fixed-header2');
 											for(var counter = 1; counter < table.rows.length; counter++)
 											{
@@ -324,6 +338,13 @@ if(isset($_POST['logout']))
 												 document.getElementById("agentCode").value = this.cells[0].innerHTML;
 													};
 												}
+											}
+
+											function RemoveTextAgent()
+											{
+												document.getElementById("agent").value = "";
+												document.getElementById("agentCode").value = "";
+											}
 
 												</script>
 											</form>
@@ -331,7 +352,6 @@ if(isset($_POST['logout']))
 
 
 						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						      </div>
 
 						    </div>
@@ -339,18 +359,17 @@ if(isset($_POST['logout']))
 						</div>
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
-						<div class="modal fade" id="clientSearch" name-"clientSearch">
+						<div class="modal fade" id="clientSearch" name-"clientSearch" data-keyboard="false" data-backdrop="static">
 						  <div class="modal-dialog">
 						    <div class="modal-content">
 
 
 						      <div class="modal-header">
-						        <h2 class="modal-title">Search Client <button type="button" class="close" data-dismiss="modal">x</button></h2>
+						        <h2 class="modal-title">Search Client <button type="button" class="close" data-dismiss="modal" onclick="cancelDetail();">x</button></h2>
 						      </div>
 
 									<form style="margin-bottom: 10px;">
 						      <div class="modal-body">
-
 										<table id="datatable-fixed-header3" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 											<thead>
 												<tr role="row">
@@ -378,14 +397,14 @@ if(isset($_POST['logout']))
 																	?>
 																	<tr>
 																		<td hidden><?php print($row['clientID']); ?></td>
-																		<td class="nr"><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
+																		<td readonly><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
 																		<td><?php print($row['cBirthdate']); ?></td>
 																		<td><?php print($row['cAddress']); ?></td>
 																		<td><?php print($row['cCellno']); ?></td>
 																		<td>
-																			<div align="center">
-																					<button type="button" id="retrieve" data-dismiss="modal" name="retrieve" title="Edit Data" class="buttonHere btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button>
-																			</div>
+																					<!--<button data-id="<?php print($row['clientID'])?>" type="button" id="retrieve" data-dismiss="modal" name="retrieve" title="Edit Data" class="buttonHere btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button>-->
+																					<button style="width: 100%; height: 100%;" onclick="clickMe();" type="button" id="retrieve" name="retrieve" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button>
+																					<!--<a title="Edit Data" href="newBusiness.php?client=<?php echo $row['clientID']?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>-->
 																		</td>
 
 																	</tr>
@@ -395,26 +414,92 @@ if(isset($_POST['logout']))
 													?>
 												</tbody>
 										</table>
-
 										<script>
 
+	//								document.getElementById("retrieve").addEventListener("click", clickMe);
 
-									var table = document.getElementById('datatable-fixed-header3')
-									for(var counter = 1; counter < table.rows.length; counter++)
+									function cancelDetail()
 									{
-											table.rows[counter].onclick = function()
-											{;
+										document.getElementById("client").value = "";
+										document.getElementById("clientIDModal").value = "";
+									}
+
+									function clickMe() {
+										var value = document.getElementById('client');
+										var table = document.getElementById('datatable-fixed-header3');
+										for(var counter = 1; counter < table.rows.length; counter++)
+										{
+												table.rows[counter].onclick = function()
+												{
 												document.getElementById("client").value = this.cells[1].innerHTML;
 												document.getElementById("clientIDModal").value = this.cells[0].innerHTML;
 											};
 										}
+									}
 
-												</script>
+											</script>
+
+
+<!--											<?php
+											$servername = "localhost";
+											$username = "root";
+											$password = "";
+											$dbname = "tgpdso_db";
+
+											$conn = new mysqli ($servername, $username, $password, $dbname);
+
+											if(mysqli_connect_error())
+											{
+												die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+											}
+											else
+											{
+													if(isset($_GET['client']))
+													{
+															$client = $_GET['client'];
+
+																$result=mysqli_query($conn,"SELECT * FROM client WHERE clientID = '$client'");
+
+																while($row=mysqli_fetch_Array($result))
+																{
+																	?>
+																	<script> document.getElementById('client').value = '<?php echo $row['cLastname'].",".$row['cFirstname']." ".$row['cMiddlename'];?>';</script>
+																<?php
+															};
+												}
+											}
+
+											?>
+-->
+
+
+
+
+	<!--		//							$(document).on("click", "retrieve", function()
+			//							{
+			//								var row=$(this);
+			//								var id=$(this).attr("data-id");
+			//								$("#client").val(id);
+
+			//							});
+
+				//					var table = document.getElementById('datatable-fixed-header3')
+				//					for(var counter = 1; counter < table.rows.length; counter++)
+				//					{
+				//							table.rows[counter].onclick = function()
+				//							{;
+				//								document.getElementById("client").value = this.cells[1].innerHTML;
+				//								document.getElementById("clientIDModal").value = this.cells[0].innerHTML;
+				//							};
+				//						}
+-->
+
 											</form>
 						      </div>
 
 
 						      <div class="modal-footer">
+										<a href="add_client.php" name="addClient" id="addClient" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Add Client</a>
 						      </div>
 
 						    </div>
@@ -648,28 +733,28 @@ if(isset($_POST['logout']))
 
 
 
-$("#datatable-fixed-header1 tr").click(function() {
-	var selected = $(this).hasClass("highlight1");
-	$("#datatable-fixed-header1 tr").removeClass("highlight1");
-	if(!selected)
-					$(this).addClass("highlight1");
+//$("#datatable-fixed-header1 tr").click(function() {
+//	var selected = $(this).hasClass("highlight1");
+//	$("#datatable-fixed-header1 tr").removeClass("highlight1");
+//	if(!selected)
+//					$(this).addClass("highlight1");
 
-});
+//});
 
 
-$("#datatable-fixed-header2 tr").click(function() {
-	var selected = $(this).hasClass("highlight1");
-	$("#datatable-fixed-header2 tr").removeClass("highlight1");
-	if(!selected)
-					$(this).addClass("highlight1");
+//$("#datatable-fixed-header2 tr").click(function() {
+//	var selected = $(this).hasClass("highlight1");
+//	$("#datatable-fixed-header2 tr").removeClass("highlight1");
+//	if(!selected)
+//					$(this).addClass("highlight1");
 
-});
+//});
 
-$("#datatable-fixed-header3 tr").click(function() {
-	var selected = $(this).hasClass("highlight1");
-	$("#datatable-fixed-header3 tr").removeClass("highlight1");
-	if(!selected)
-					$(this).addClass("highlight1");
+//$("#datatable-fixed-header3 tr").click(function() {
+//	var selected = $(this).hasClass("highlight1");
+//	$("#datatable-fixed-header3 tr").removeClass("highlight1");
+//	if(!selected)
+//					$(this).addClass("highlight1");
 
 });
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2018 at 11:10 AM
+-- Generation Time: Jul 26, 2018 at 10:58 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -51,8 +51,8 @@ CREATE TABLE `production` (
 --
 
 INSERT INTO `production` (`prodID`, `transDate`, `prodclientID`, `policyNo`, `plan`, `premium`, `receiptNo`, `faceAmount`, `rate`, `FYC`, `modeOfPayment`, `issuedDate`, `SOAdate`, `agent`, `remarks`) VALUES
-(222, '2018-07-26', 85859, '983475', 'W100', '98734258907', '098234092384', '0907234897', '984375987', '', 'Monthly', NULL, NULL, 111, 'New'),
-(221, '2018-07-17', 85860, 'wyeriuweyr', 'W100', '239479', '36587346', '32984732', '2384', '', 'Monthly', NULL, NULL, 111, 'New');
+(232, '2018-07-28', 85860, '678678', 'w120', '6786', '67876', '67', '678678', '', 'Monthly', NULL, NULL, 567, 'New'),
+(229, '2018-07-31', 0, '21213', 'W100', '234234', '324234', '234234', '234234', '', 'Monthly', NULL, NULL, 567, 'New');
 
 --
 -- Indexes for dumped tables
@@ -72,7 +72,7 @@ ALTER TABLE `production`
 -- AUTO_INCREMENT for table `production`
 --
 ALTER TABLE `production`
-  MODIFY `prodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
+  MODIFY `prodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
