@@ -38,7 +38,7 @@ if(isset($_POST['logout']))
 .highlight1 { background-color: lightgreen; color: green}
 .disablehighlight { background-color: transparent;}
 
-#edit, #deleted{ display: none;}
+
 
 .scrollbar{
  height: 100%;
@@ -146,7 +146,7 @@ if(isset($_POST['logout']))
 
 																		<button type="submit" class="btn btn-primary" id="save" name="save"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
 																		<button type="submit" class="btn btn-primary" id="update" name="update"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																		<button type="reset" id="reset" name="reset" value="Reset" class="btn btn-default" onclick="disableUpdateButton()">Cancel</button>
+																		<a type="submit" id="reset" name="reset" value="Reset" class="btn btn-default" href="add_client.php">Cancel</a>
 
 																	</center>
 																</form>
@@ -165,6 +165,7 @@ if(isset($_POST['logout']))
 																	<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Birthdate" style="width: 25px;text-align:center;">Birtdate</th>
 	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Address" style="width: 100px;text-align:center;">Address</th>
                                   <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="cellno" style="width: 100px;text-align:center;">Cell No.</th>
+																	  <th width="120px" align="center" class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="action" width="100%" align="center" style="width: 100px;text-align:center;">Action</th>
 																</tr>
                               </thead>
 
@@ -187,11 +188,20 @@ if(isset($_POST['logout']))
 																					<td><?php print($row['cBirthdate']); ?></td>
 																					<td><?php print($row['cAddress']); ?></td>
 																					<td><?php print($row['cCellno']); ?></td>
+																					<td>
+																						<div align="center" class="row">
+																								<a title="Edit Data" href="add_client.php?addclient=<?php echo $row['clientID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_client.php?deleteclient=<?php echo $row['clientID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																						</div>
+																					</td>
                                         </tr>
                                         <?php
                                       }
                                     }
-                                    else{}
+                                    else
+																		{
+
+																		}
                                   ?>
                                 </tbody>
                             </table>
@@ -203,9 +213,7 @@ if(isset($_POST['logout']))
 															{
 																table.rows[counter].onclick = function()
 																{
-
 																 document.getElementById("clientID").value = this.cells[0].innerHTML;
-
 																	};
 																}
 
@@ -229,19 +237,10 @@ if(isset($_POST['logout']))
     <footer style="margin-bottom: -15px;">
 
 				<center>
-					<form method="post" action="<?php $_PHP_SELF ?>">
-
 						<input type="text" name="username1" id="username1" hidden>
-
-																	<input type="text" id="clientID" name="clientID" hidden><br/>
-						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Edit Data" class="btn btn-primary" id="edit" name="edit" formnovalidate hide><i class="fa fa-pencil"/></i>&nbsp;&nbsp;&nbsp;Edit Data</button>
-						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Delete Data" class="btn btn-primary" id="deleted" name="deleted" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" hidden><i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;Delete Data</button>
-
-					</form><br>
-					<div style="font-size: 8px;">
+						<input type="text" id="clientID" name="clientID" hidden><br/>
 
         COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE
-			</div>
 			</center>
     </footer>
 
@@ -262,47 +261,10 @@ if(isset($_POST['logout']))
 <script>
 
 
-$("#datatable-fixed-header tr").click(function() {
-	var selected = $(this).hasClass("highlight");
-	$("#datatable-fixed-header tr").removeClass("highlight");
-				  $('#edit, #deleted').hide("highlight");
-	if(!selected)
-						$(this).addClass("highlight");
-					$('#edit, #deleted').show("highlight");
-});
-
-$(document).on("dblclick","#datatable-fixed-header tr",function() {
-						$('#edit, #deleted').hide();
-							$("#datatable-fixed-header tr").removeClass("highlight1");
-});
-
 
 </script>
 
 <script>
-
-
-		function ClickCancel()
-		{
-			$('#deleted, #edit').hide("highlight1");
-		}
-
-		}
-
-
-		function showButtons()
-		{
-
-				$('#edit, #deleted').show("highlight");
-
-		}
-
-		function hideButtons()
-		{
-
-				$('#edit, #deleted').hide("highlight");
-
-		}
 
 
 
@@ -341,14 +303,6 @@ $(document).ready(function() {
 } );
 
 
-
-function disableUpdateButton()
-{
-				document.getElementById("username1").value = "";
-				$('#edit, #deleted').hide("highlight");
-				$('#update').hide();
-				$('#save').show();
-}
 
 </script>
 
@@ -397,13 +351,6 @@ else {
 	}
 	}
 ?>
-
-
-
-
-
- ?>
-
 
 <?php
 $host = "localhost";
@@ -467,10 +414,10 @@ if($conn->connect_error)
 		die("Connection failed:" .$conn->connect_error);
 }
 else {
-	if(isset($_POST['deleted']))
+	if(isset($_GET['deleteclient']))
 	{
 
-		$clientID = $_POST['clientID'];
+		$clientID = $_GET['deleteclient'];
 
 		$sql = "DELETE FROM client WHERE clientID = '$clientID'";
 
@@ -505,10 +452,10 @@ if(mysqli_connect_error())
 }
 else
 {
-		if(isset($_POST['edit']))
+		if(isset($_GET['addclient']))
 		{
 
-				$clientID = $_POST['clientID'];
+				$clientID = $_GET['addclient'];
 
 					$result=mysqli_query($conn,"SELECT * from client WHERE clientID = '$clientID'");
 

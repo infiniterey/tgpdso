@@ -135,6 +135,7 @@ if(isset($_POST['logout']))
 																<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Application Date</th>
 																<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 15px;text-align:center;">Team</th>
 																<th class="sorting" tabin	dex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Mode of Payment: activate to sort column ascending" style="width: 15px;text-align:center;">Position</th>
+																
 																</tr>
 														</thead>
 														<tbody>
@@ -159,6 +160,8 @@ if(isset($_POST['logout']))
 																			<td><?php print($row['agentApptDate']); ?></td>
 																			<td><?php print($row['teamName']); ?></td>
 																			<td><?php print($row['agentPosition']); ?></td>
+
+
 																		</tr>
 																		<?php
 																	}
