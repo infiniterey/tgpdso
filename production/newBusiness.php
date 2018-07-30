@@ -15,7 +15,7 @@ if(isset($_POST['logout']))
 		?>
 		<script>
 		alert('Successfully logout - TGP');
-		window.location="index.php";
+		window.location="tgpdso/index.php";
 		</script>
 
 		<?php
@@ -49,6 +49,13 @@ if(isset($_POST['logout']))
 
 .highlight1 { background-color: lightgreen; color: green}
 .disablehighlight { background-color: transparent;}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
 #edit, #deleted, #UpdateButton, #ModalEdit, #ModalDelete { display: none;}
 
@@ -112,10 +119,17 @@ if(isset($_POST['logout']))
           <!-- page content -->
 					<script>
 
+					$(function () {
+    			$('#modal-container').on('hidden.bs.modal', function () {
+        	$(this).removeData('bs.modal');
+        	$('#modal-container .modal-content').empty();
+    				});
+					});
+
 						function cancelInfoAgent()
 						{
 							document.getElementById("planCode").value = "";
-							document.getElementById("planC").value = "";
+							document.getElementById("planCodePass").value = "";
 							document.getElementById("planDesc").value = "";
 							document.getElementById("planRate").value = "";
 							document.getElementById("plan").value = "";
@@ -133,7 +147,7 @@ if(isset($_POST['logout']))
 									<div class="modal-body">
 
 										<div class="row">
-											<div class="col-md-3">
+											<div class="col-md-4">
 
 										<?php
 											if(isset($_POST['btn-addPlan'])){
@@ -144,18 +158,27 @@ if(isset($_POST['logout']))
 										Plan Description: <input id="planDesc" type="text" class="form-control" name="planDesc">
 										Plan Rate: <input id="planRate" type="text" class="form-control" name="planRate">
 
+										<br/><br/>
+
+										<input type="text" name="planC" id="planC" hidden>
+										<button type="submit" class="btn btn-primary" id="btn-addPlan" name="btn-addPlan"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+										<button type="reset" class="btn btn-default" name="cancel" id="cancel" onclick="ClickCancel()">Cancel</button>
+										&nbsp;
+
 										</div>
 
-										<div class="col-md-8">
+										<div class="col-md-6">
 
 
-											<table id="datatable-fixed-header1" align="right" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
+											<table id="datatable-fixed-header1" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 												<thead>
 													<tr role="row">
-														<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 15px;text-align:center;">Plan Code</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 155px;text-align:center;">Plan Description</th>
+															<th hidden tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="PlanID"></th>
+														<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 50px;text-align:center;">Plan Code</th>
+															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 600px;">Plan Description</th>
 														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
 														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action" style="width: 35px;text-align:center;">Action</th>
+
 													</tr>
 												</thead>
 
@@ -173,6 +196,8 @@ if(isset($_POST['logout']))
 																while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																	?>
 																	<tr>
+
+																		<td hidden><?php print($row['planID']); ?></td>
 																		<td><?php print($row['planCode']); ?></td>
 																		<td><?php print($row['planDesc']); ?></td>
 																		<td><?php print($row['planRate']); ?></td>
@@ -197,10 +222,10 @@ if(isset($_POST['logout']))
 													table.rows[counter].onclick = function()
 												{;
 											//		 document.getElementById("planCode").value = this.cells[0].innerHTML;
-													 document.getElementById("planC").value = this.cells[0].innerHTML;
+													 document.getElementById("planCodePass").value = this.cells[0].innerHTML;
 											//		 document.getElementById("planDesc").value = this.cells[1].innerHTML;
 											//		 document.getElementById("planRate").value = this.cells[2].innerHTML;
-													 document.getElementById("plan").value = this.cells[0].innerHTML;
+													 document.getElementById("plan").value = this.cells[1].innerHTML;
 
 														};
 													}
@@ -215,10 +240,6 @@ if(isset($_POST['logout']))
 																				<div>
 												<div class="row">
 													<div class="col-md-3">
-														<input type="text" name="planC" id="planC" hidden>
-														<button type="submit" class="btn btn-primary" id="btn-addPlan" name="btn-addPlan"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-														<button type="reset" class="btn btn-default" name="cancel" id="cancel" onclick="ClickCancel()">Cancel</button>
-														&nbsp;
 												</div>
 												<div class="col-md-8">
 											</div>
@@ -291,7 +312,7 @@ if(isset($_POST['logout']))
 																		<td><?php print($row['teamName']); ?></td>
 																	<td hidden><?php print($row['teamName']); ?></td>
 																	<td hidden><?php print($row['agentPosition']); ?></td>
-																	<td><button style="width: 100%; height: 100%;" onclick="" type="button" id="retrieveAgentInfo" name="retrieveAgentInfo" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
+																	<td><button style="width: 100%; height: 100%;" onclick="AgentInfo();" type="button" id="retrieveAgentInfo" name="retrieveAgentInfo" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
 																</tr>
 																<?php
 															}
@@ -359,17 +380,89 @@ if(isset($_POST['logout']))
 						</div>
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
-						<div class="modal fade" id="clientSearch" name-"clientSearch" data-keyboard="false" data-backdrop="static">
-						  <div class="modal-dialog">
+						<div class="modal fade" tabindex="-1" role="dialog" id="clientSearch" name-"clientSearch" data-keyboard="false" data-backdrop="static">
+								<div class="modal-dialog modal-lg">
 						    <div class="modal-content">
 
 
 						      <div class="modal-header">
 						        <h2 class="modal-title">Search Client <button type="button" class="close" data-dismiss="modal" onclick="cancelDetail();">x</button></h2>
 						      </div>
-
-									<form style="margin-bottom: 10px;">
 						      <div class="modal-body">
+										<div class="row">
+											<div class="col-md-3">
+
+												<?php
+
+												$host = "localhost";
+												$dbusername = "root";
+												$dbpassword = "";
+												$dbname = "tgpdso_db";
+
+
+												$conn = new mysqli($host, $dbusername, $dbpassword, $dbname);
+
+
+												if(mysqli_connect_error())
+												{
+													die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+												}
+												else {
+													if(isset($_POST['saveClient']))
+													{
+														$firstname = $_POST['firstnameClient'];
+														$middlename = $_POST['middlenameClient'];
+														$lastname = $_POST['lastnameClient'];
+														$birthdate = $_POST['birthdateClient'];
+														$address = $_POST['addressClient'];
+														$cellno = $_POST['cellnoClient'];
+
+
+														$sql = "INSERT INTO client (cFirstname, cMiddlename, cLastname, cBirthdate, cAddress, cCellno)
+														VALUES ('$firstname', '$middlename', '$lastname', '$birthdate' , '$address', '$cellno')";
+
+														if($conn->query($sql))
+														{
+															?>
+															<script>
+																alert("Client is succesfully added.");
+																window.location="newBusiness.php";
+																</script>
+																<?php
+														}
+														else {
+															echo "Error:". $sql."<br>".$conn->error;
+														}
+														$conn->close();
+													}
+													}
+												?>
+
+
+											<form method="post" action="<?php $_PHP_SELF ?>">
+												First Name:
+												<input name="firstnameClient" id="firstnameClient" class="date-picker form-control" type="text" required><br/>
+												Middle Name:
+												<input type="text" id="middlenameClient" placeholder="" name="middlenameClient" required="required" class="form-control" required><br/>
+												Last Name:
+												<input type="text" id="lastnameClient" placeholder="" name="lastnameClient" required="required" class="form-control" required><br/>
+												Birthdate:
+												<input type="date" id="birthdateClient" placeholder="" name="birthdateClient" required="required" class="form-control" required><br/>
+												Address:
+												<input type="text" id="addressClient" placeholder="" name="addressClient" required="required" class="form-control" required><br/>
+												Cell No.:
+												<input type="text" id="cellnoClient" placeholder="" name="cellnoClient" required="required" class="form-control" required><br/>
+
+												<br/>
+													<button type="submit" name="saveClient" id="saveClient" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Add</button>
+													<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
+
+											</form>
+
+										</div>
+
+										<div class="col-md-8">
+
 										<table id="datatable-fixed-header3" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 											<thead>
 												<tr role="row">
@@ -492,21 +585,26 @@ if(isset($_POST['logout']))
 				//								document.getElementById("clientIDModal").value = this.cells[0].innerHTML;
 				//							};
 				//						}
--->
 
-											</form>
-						      </div>
+-->
+														</div>
+													</div>
+												</div>
 
 
 						      <div class="modal-footer">
-										<a href="add_client.php" name="addClient" id="addClient" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Add Client</a>
+										<div class="col-md-3">
+											<form method="post">
+										</form>
+
+									</div>
 						      </div>
 
-						    </div>
-						  </div>
-						</div>
-<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
 
+						</div>
+					</div>
+				</div>
+<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
 					</div>
 					<form method="post" style="margin-top: 40px;">
           <div class="right_col" role="main">
@@ -536,6 +634,7 @@ if(isset($_POST['logout']))
 						                      <input type="text" id="policyNo" name="policyNo" placeholder="Policy No." required="required" class="form-control" required><br>
 				                          Plan <span class="required">*</span> <br>
 				                          <input name="plan" id="plan" class="form-control" value="" placeholder="" style="width: 150px;" required readonly>
+																	<input hidden name="planCodePass" id="planCodePass" value="" placeholder="" style="width: 150px;">
 																	<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button><br>
 																	Official Receipt No.
 																	<input type="text" id="receiptNo" name="receiptNo" required="required" class="form-control" required><br>
@@ -627,7 +726,7 @@ if(isset($_POST['logout']))
 	                                          <td><?php print($row['remarks']); ?></td>
 																						<td>
 																									<a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
-																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?product=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																						</td>
 
 	                                        </tr>
@@ -925,7 +1024,7 @@ else
 		{
 				$edit = $_GET['edit'];
 
-					$result=mysqli_query($conn,"SELECT * from production, agents, client WHERE clientID = prodclientID AND agentCode = agent AND prodID = '$edit'");
+					$result=mysqli_query($conn,"SELECT * from production, agents, plans, client WHERE plan = planID AND clientID = prodclientID AND agentCode = agent AND prodID = '$edit'");
 
 					while($row=mysqli_fetch_Array($result))
 					{
@@ -942,7 +1041,8 @@ else
 						<script> document.getElementById('agent').value = '<?php echo $row['agentLastname'].",".$row['agentFirstname'];?>';</script>
 						<script> document.getElementById('remarks').value = '<?php echo $row['remarks'];?>';</script>
 						<script> document.getElementById('transDate').value = '<?php echo $row['transDate'];?>';</script>
-						<script> document.getElementById('plan').value = '<?php echo $row['plan'];?>';</script>
+						<script> document.getElementById('plan').value = '<?php echo $row['planCode'];?>';</script>
+						<script> document.getElementById('planCodePass').value = '<?php echo $row['planID'];?>';</script>
 						<script> document.getElementById('clientIDModal').value = '<?php echo $row['clientID'];?>';</script>
 
 
@@ -1055,7 +1155,7 @@ else {
   $modeOfPayment = filter_input(INPUT_POST, 'modeOfPayment');
   $agent = filter_input(INPUT_POST, 'agentCode');
   $remarks = filter_input(INPUT_POST, 'remarks');
-  $plan = filter_input(INPUT_POST, 'plan');
+  $plan = filter_input(INPUT_POST, 'planCodePass');
 
   $policyNo1 = filter_input(INPUT_POST, 'policyNo1');
 
@@ -1084,7 +1184,7 @@ else {
 						?>
 						<script>
 						alert('The data is already inserted, kindly submit a non-duplicate data before saving');
-						window.location="home.php";
+						window.location="newBusiness.php";
 						</script>
 						<?php
 					}
@@ -1126,7 +1226,6 @@ else {
 ?>
 
 
-
 <?php
 
 
@@ -1140,7 +1239,7 @@ $rate = filter_input(INPUT_POST, 'rate');
 $modeOfPayment = filter_input(INPUT_POST, 'modeOfPayment');
 $agent = filter_input(INPUT_POST, 'agentCode');
 $remarks = filter_input(INPUT_POST, 'remarks');
-$plan = filter_input(INPUT_POST, 'plan');
+$plan = filter_input(INPUT_POST, 'planCodePass');
 $host = "localhost";
 $dbusername = "root";
 $dbpassword = "";

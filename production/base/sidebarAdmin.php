@@ -7,7 +7,7 @@
       <li><a href="add_requirements.php"><i class="fa fa-certificate"></i> Policy Requirements </a></li>
       <li><a href="records.php" style="color: red;"><i class="fa fa-list"></i> Records (Not done) </a></li>
       <li><a href="dueDate.php" style="color: red;"><i class="fa fa-calendar"></i>Due Date (Not done)</a></li>
-      <li><a href="soa.php"  style="color: red;"><i class="fa fa-cog"></i>SOA (Not done)</a></li>
+      <li><a href="soa.php"  style="color: lightgreen;"><i class="fa fa-cog"></i>SOA (Started)</a></li>
       <li><a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-user"></i> Agent <span class="fa fa-chevron-down"></span></a>
         <ul class="collapse list-unstyled" id="homeSubmenu4">
           &nbsp;&nbsp;<li><a href="agent_profile.php"  style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i>Agent Profile</a></li>
@@ -25,7 +25,7 @@
       </li>
       <li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-cog"></i> Setings <span class="fa fa-chevron-down"></span></a>
         <ul class="collapse list-unstyled" id="homeSubmenu1">
-                    &nbsp;&nbsp;<li><a href="add_client.php" style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i> Add Client</a></li>
+                    &nbsp;&nbsp;<li><a href="add_client.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i> Add Client</a></li>
           &nbsp;&nbsp;<li><a href="add_agent.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i>Add Agent</a></li>
           &nbsp;&nbsp;<li><a href="add_plan.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Add Plan</a></li>
           &nbsp;&nbsp;<li><a href="add_training.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Add Training</a></li>

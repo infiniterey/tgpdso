@@ -31,12 +31,6 @@ if(isset($_POST['logout']))
 
 <style type="text/css">
 
-.highlight { background-color: lightgreen; color: green}
-.highlightBack { background-color: white; color: gray}
-
-.highlight1 { background-color: lightgreen; color: green}
-.disablehighlight { background-color: transparent;}
-
 #edit, #deleted, #UpdateButton{ display: none;}
 
 .scrollbar{
@@ -132,7 +126,7 @@ if(isset($_POST['logout']))
 
 
 																		<button type="submit" class="btn btn-primary" id="UpdateButton" name="UpdateButton"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																		<button type="reset" id="reset" name="reset" value="Reset" class="btn btn-default" onclick="disableUpdateButton()">Cancel</button>
+																		<a href="add_plan.php" class="btn btn-default" onclick="disableUpdateButton()">Cancel</a>
 
 																	</center>
 																</form>
@@ -144,9 +138,10 @@ if(isset($_POST['logout']))
                             <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
                               <thead>
                                 <tr role="row">
-                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 15px;text-align:center;">Plan Code</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 155px;text-align:center;">Plan Description</th>
-                                  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
+                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 50px;text-align:center;">Plan Code</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 250px;text-align:center;">Plan Description</th>
+                                  	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 50px;text-align:center;">Plan Rate</th>
+																	  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Action" style="width: 10px;text-align:center;">Action</th>
 
 																</tr>
                               </thead>
@@ -166,6 +161,10 @@ if(isset($_POST['logout']))
                                           <td><?php print($row['planCode']); ?></td>
                                           <td><?php print($row['planDesc']);?></td>
                                           <td><?php print($row['planRate']); ?></td>
+																					<td align="center">
+																								<a title="Edit Data" href="add_plan.php?edit=<?php echo $row['planCode'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_plan.php?delete=<?php echo $row['planCode'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																					</td>
                                         </tr>
                                         <?php
                                       }
@@ -208,18 +207,7 @@ if(isset($_POST['logout']))
     <footer style="margin-bottom: -15px;">
 
 				<center>
-					<form method="post" action="<?php $_PHP_SELF ?>">
-
-						<input type="text" name="planC" id="planC" hidden>
-
-						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Edit Data" class="btn btn-primary" id="edit" name="edit" formnovalidate onclick="enableUpdateButton()" hide><i class="fa fa-pencil"/></i>&nbsp;&nbsp;&nbsp;Edit Data</button>
-						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Delete Data" class="btn btn-primary" id="deleted" name="deleted" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" hidden><i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;Delete Data</button>
-
-					</form><br>
-					<div style="font-size: 8px;">
-
         COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE
-			</div>
 			</center>
     </footer>
 
@@ -239,31 +227,9 @@ if(isset($_POST['logout']))
 
 <script>
 
-
-$("#datatable-fixed-header tr").click(function() {
-	var selected = $(this).hasClass("highlight");
-	$("#datatable-fixed-header tr").removeClass("highlight");
-				  $('#edit, #deleted').hide("highlight");
-	if(!selected)
-						$(this).addClass("highlight");
-					$('#edit, #deleted').show("highlight");
-});
-
-$(document).on("dblclick","#datatable-fixed-header tr",function() {
-						$('#edit, #deleted').hide();
-							$("#datatable-fixed-header tr").removeClass("highlight1");
-});
-
-
 </script>
 
 <script>
-
-		function ClickCancel()
-		{
-			$('#deleted, #edit').hide("highlight1");
-		}
-
 
 		function enableUpdateButton()
 		{
@@ -277,19 +243,6 @@ $(document).on("dblclick","#datatable-fixed-header tr",function() {
 
 		}
 
-		function showButtons()
-		{
-
-				$('#edit, #deleted').show("highlight");
-
-		}
-
-		function hideButtons()
-		{
-
-				$('#edit, #deleted').hide("highlight");
-
-		}
 
 
 
@@ -335,9 +288,6 @@ function disableUpdateButton()
 
 				$('#UpdateButton').hide();
 				$('#SaveButton').show();
-
-				$('#edit, #deleted').hide("highlight");
-
 }
 
 </script>
@@ -405,10 +355,9 @@ if($conn->connect_error)
 		die("Connection failed:" .$conn->connect_error);
 }
 else {
-	if(isset($_POST['deleted']))
+	if(isset($_GET['delete']))
 	{
-
-		$plancode = $_POST['planC'];
+		$plancode = $_GET['delete'];
 
 		$sql = "DELETE FROM plans WHERE planCode = '$plancode'";
 
@@ -482,11 +431,11 @@ if(mysqli_connect_error())
 }
 else
 {
-		if(isset($_POST['edit']))
+		if(isset($_GET['edit']))
 		{
 
 
-				$plancode = $_POST['planC'];
+				$plancode = $_GET['edit'];
 
 					$result=mysqli_query($conn,"SELECT * from plans WHERE planCode = '$plancode'");
 
