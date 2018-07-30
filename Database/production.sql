@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2018 at 10:58 AM
+-- Generation Time: Jul 30, 2018 at 11:08 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -51,8 +51,7 @@ CREATE TABLE `production` (
 --
 
 INSERT INTO `production` (`prodID`, `transDate`, `prodclientID`, `policyNo`, `plan`, `premium`, `receiptNo`, `faceAmount`, `rate`, `FYC`, `modeOfPayment`, `issuedDate`, `SOAdate`, `agent`, `remarks`) VALUES
-(232, '2018-07-28', 85860, '678678', 'w120', '6786', '67876', '67', '678678', '', 'Monthly', NULL, NULL, 567, 'New'),
-(229, '2018-07-31', 0, '21213', 'W100', '234234', '324234', '234234', '234234', '', 'Monthly', NULL, NULL, 567, 'New');
+(236, '2018-07-25', 85860, '324234', '83', '12412', '12314', '12412', '1231', '', 'Monthly', NULL, NULL, 567, 'New');
 
 --
 -- Indexes for dumped tables
@@ -72,7 +71,7 @@ ALTER TABLE `production`
 -- AUTO_INCREMENT for table `production`
 --
 ALTER TABLE `production`
-  MODIFY `prodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+  MODIFY `prodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
