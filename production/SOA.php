@@ -1,91 +1,21 @@
-<?php
-include 'confg.php';
-include 'pdo.php';
-include_once 'createdb.php';
-
-session_start();
-?>
-
-<?php
-if(isset($_POST['logout']))
-{
-	session_destroy();
-	unset($_SESSION['logout']);
-	?>
-	<script>
-	alert('Successfully logout - TGP');
-	window.location="index.php";
-	</script>
-
-	<?php
-}
- ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-</head>
-
-<style type="text/css">
-
-.highlight { background-color: lightgreen; color: green}
-.highlightBack { background-color: white; color: gray}
-
-.highlight1 { background-color: lightgreen; color: green}
-.disablehighlight { background-color: transparent;}
-
-#edit, #deleted, #UpdateButton{ display: none;}
-
-.scrollbar{
-height: 100%;
-width: 100%;
-overflow: auto;
-}
-::-webkit-scrollbar {
-	width: 1px;
-}
-
-</style>
-
-
-
 <?php include 'base/header.php'; ?>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+</head>
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
 			<div class="main_container">
-
 				<div class="col-md-3 left_col menu_fixed">
 					<div class="left_col scroll-view scrollbar">
-						<div class="clearfix"></div>
-
-						<!-- menu profile quick info -->
-						<?php include 'base/sessionsidebar.php';?>
-						<!-- /menu profile quick info -->
-
-						<br />
-
-						<!-- sidebar menu -->
-						<?php include 'base/sidebar.php'; ?>
-						<!-- /sidebar menu -->
-
+						<?php include 'base/sidemenu.php';?>
 					</div>
 				</div>
 
-				<!-- top navigation -->
-				<div class="top_nav">
-					<div class="nav_menu">
-						<nav>
-							<div class="nav toggle">
-								<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-							</div>
-						</nav>
-					</div>
-				</div>
-				<!-- /top navigation -->
+	      <!-- top navigation -->
 
 				<!-- page content -->
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
