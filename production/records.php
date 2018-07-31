@@ -237,7 +237,7 @@ if(isset($_POST['logout']))
 																		 die("Connection Failed : " . $msg->getMessage());
 																	 }?>
 																	<div class="row">
-																		<div class="col-md-12">
+																	<div class="col-md-12">
 																	 <div class="form-group">
 																		 <h5><b>Policy Owner Details</b></h5>
 																		 <hr/>
@@ -342,7 +342,10 @@ if(isset($_POST['logout']))
 																			 </div>
 																 			</div><br>
 																			<div class="form-group">
-																	 			<h5><b>Beneficiary Details</b></h5><hr>
+																				<div class="row">
+																	 			<h5><b>Beneficiary Details</b>
+																				<button type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Beneficiary</button></h5>
+																				</div>		<hr>
 																					<div class="row">
 																						<div class="col-xs-3">
 																							Last Name
@@ -370,7 +373,6 @@ if(isset($_POST['logout']))
 																							Contact #
 																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
 																						</div>
-																						<button  type="button" data-toggle="modal" data-target="#" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i></button>
 																				 </div>
 
 			 																			<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -423,60 +425,61 @@ if(isset($_POST['logout']))
 																</div>
  																</form>
 															<div id="Payment" class="tabcontent">
+																<div class="row">
+																	<div class="col-md-12">
+																	 <div class="form-group">
+																		 	<h5><b>Payment Details</b></h5><hr/>
+																		 <div class="row">
+																			 <table id="datatable-fixed-header1" align="right" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
+			 																		<thead>
+			 																			<tr role="row">
+			 																				<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 15px;text-align:center;">Plan Code</th>
+			 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 155px;text-align:center;">Plan Description</th>
+			 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
+			 																			</tr>
+			 																		</thead>
+			 																		<tbody>
 
-																<div class="form-group">
-																	<br>	<h5><b>Payment Details</b></h5><hr/>
-															 <div class="row">
-																 <table id="datatable-fixed-header1" align="right" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
- 																		<thead>
- 																			<tr role="row">
- 																				<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 15px;text-align:center;">Plan Code</th>
- 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 155px;text-align:center;">Plan Description</th>
- 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
- 																			</tr>
- 																		</thead>
- 																		<tbody>
+			 																				<?php
+			 																					$DB_con = Database::connect();
+			 																					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			 																					$sql = "SELECT * FROM plans";
 
- 																				<?php
- 																					$DB_con = Database::connect();
- 																					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
- 																					$sql = "SELECT * FROM plans";
+			 																					$result = $DB_con->query($sql);
+			 																					if($result->rowCount()>0){
+			 																						while($row=$result->fetch(PDO::FETCH_ASSOC)){
+			 																							?>
+			 																							<tr>
+			 																								<td><?php print($row['planCode']); ?></td>
+			 																								<td><?php print($row['planDesc']); ?></td>
+			 																								<td><?php print($row['planRate']); ?></td>
 
- 																					$result = $DB_con->query($sql);
- 																					if($result->rowCount()>0){
- 																						while($row=$result->fetch(PDO::FETCH_ASSOC)){
- 																							?>
- 																							<tr>
- 																								<td><?php print($row['planCode']); ?></td>
- 																								<td><?php print($row['planDesc']); ?></td>
- 																								<td><?php print($row['planRate']); ?></td>
+			 																							</tr>
+			 																							<?php
+			 																						}
+			 																					}
+			 																					else{}
+			 																				?>
+			 																			</tbody>
+			 																	</table>
+			 																	<script>
+			 																		var table = document.getElementById('datatable-fixed-header1');
+			 																		for(var counter = 1; counter < table.rows.length; counter++)
+			 																		{
+			 																			table.rows[counter].onclick = function()
+			 																			{;
+			 																			 document.getElementById("planCode").value = this.cells[0].innerHTML;
+			 																			 document.getElementById("planC").value = this.cells[0].innerHTML;
+			 																			 document.getElementById("planDesc").value = this.cells[1].innerHTML;
+			 																			 document.getElementById("planRate").value = this.cells[2].innerHTML;
+			 																			 document.getElementById("plan").value = this.cells[0].innerHTML;
 
- 																							</tr>
- 																							<?php
- 																						}
- 																					}
- 																					else{}
- 																				?>
- 																			</tbody>
- 																	</table>
- 																	<script>
- 																		var table = document.getElementById('datatable-fixed-header1');
- 																		for(var counter = 1; counter < table.rows.length; counter++)
- 																		{
- 																			table.rows[counter].onclick = function()
- 																			{;
- 																			 document.getElementById("planCode").value = this.cells[0].innerHTML;
- 																			 document.getElementById("planC").value = this.cells[0].innerHTML;
- 																			 document.getElementById("planDesc").value = this.cells[1].innerHTML;
- 																			 document.getElementById("planRate").value = this.cells[2].innerHTML;
- 																			 document.getElementById("plan").value = this.cells[0].innerHTML;
-
- 																				};
- 																			}
- 																		</script>
- 																</div>
-															</div>
-														</div>
+			 																				};
+			 																			}
+			 																		</script>
+			 																</div>
+																		</div>
+																</div>
 														</div>
 													</div>
 												</div>
@@ -516,24 +519,26 @@ if(isset($_POST['logout']))
  								 <?php
  									 $DB_con = Database::connect();
  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
- 									 $sql = "SELECT * FROM production";
-
- 									 $result = $DB_con->query($sql);
- 									 if($result->rowCount()>0){
- 										 while($row=$result->fetch(PDO::FETCH_ASSOC)){
+ 									 $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
+									 c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
+									 ON p.prodclientID = c.clientID");
+									 $sql->execute();
+ 									  // $result = $DB_con->query($sql);
+ 									 // if($result->rowCount()>0){
+ 										 while($row=$sql->fetchAll(PDO::FETCH_ASSOC)){
  											 ?>
  											 <tr>
- 												 <td><?php print($row['policyNo']); ?></td>
- 												 <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
-												 <td><?php print($row['issuedDate']); ?></td>
-												 <td><?php print($row['plan']); ?></td>
-												 <td><?php print($row['premium']); ?></td>
-												 <td><?php print($row['receiptNo']); ?></td>
+ 												 <td><?php echo $row['policyNo']; ?></td>
+ 												 <td><?php echo $row['cLastname']. ", " .$row['cFirstname']; ?></td>
+												 <td><?php echo $row['issuedDate']; ?></td>
+												 <td><?php echo $row['plan']; ?></td>
+												 <td><?php echo $row['premium']; ?></td>
+												 <td><?php echo $row['receiptNo']; ?></td>
 												 </tr>
  											 <?php
  										 }
- 									 }
- 									 else{}
+ 									  // }
+
 
  								 ?>
 
