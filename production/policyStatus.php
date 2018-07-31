@@ -24,10 +24,10 @@
 
 					<?php
 						if(isset($_POST['btn-save'])){
-							tgpdso::addFund();
+							tgpdso::addPolicyStatus();
 						}
 						if(isset($_POST['ButtonUpdate'])){
-							tgpdso::updateFund();
+							tgpdso::updatePolicyStatus();
 						}
 					?>
 				<div class="right_col" role="main">
@@ -37,18 +37,18 @@
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2><b>Add Fund</b></h2>
+										<h2><b>Add Policy Status</b></h2>
 										<div class="clearfix"></div>
 									</div>
 										<div id="datatable-fixed-header_wrapper"  class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 											<div class="row">
 												<div class="col-sm-3">
-																Fund ID<span class="required">*</span>
-																<input type="text" name="fundID" id="fundID" required="required" class="form-control" required><br>
-																Fund Name<span class="required">*</span>
-																<input type="text" style="margin-bottom:50px" name="fundName" id="fundName" required="required" class="form-control" required><br>
+																Policy ID<span class="required">*</span>
+																<input type="text" name="policyID" id="policyID" required="required" class="form-control" required><br>
+																Policy Status<span class="required">*</span>
+																<input type="text" style="margin-bottom:50px" name="policyStatus" id="policyStatus	" required="required" class="form-control" required><br>
 																<center>
-			                    	<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
+			                          <button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
 	                             <button	style="float:left" type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
 													</div>
 												<div class="col-sm-9">
@@ -60,8 +60,8 @@
 														<table method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 														<thead>
 															<tr role="row">
-																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Fund ID</th>
-																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Fund Name</th>
+																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Policy ID</th>
+																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Policy Status</th>
 																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Action</th>
 																</tr>
 														</thead>
@@ -70,21 +70,21 @@
 
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																$sql = "SELECT * FROM fund";
+																	$sql = "SELECT * FROM policyStatus";
 
 																$result = $DB_con->query($sql);
 																if($result->rowCount()>0){
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																		<tr>
-																			<td><?php print($row['fundID']); ?></td>
-																			<td><?php print($row['fundName']); ?></td>
+																			<td><?php print($row['policyID']); ?></td>
+																			<td><?php print($row['policyStatus']); ?></td>
 																			<td>
 																				<div class="row">
 																					<center>
 																						<form method='post' name='myform' onsubmit="CheckForm()">
 																							<button  type="button" id="update" name="update" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
-																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="fund.php?delete=<?php echo $row['fundID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="policyStatus.php?delete=<?php echo $row['policyID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																						</form>
 																					</center>
 																				</div>
@@ -110,8 +110,8 @@
 															<form method="post" name='myform' onsubmit="CheckForm()">
 														<div method="post" class="modal-body">
 
-															New fund ID: <br><input type="text" readonly="readonly" class="form-control" name="newFundID" style="width:195px" id="newFundID" value="" ><br>
-															New fund Name: <br><input type="text" class="form-control" name="newFundName" style="width:195px" id="newFundName" value=""><br>
+															New policy ID: <br><input type="text" readonly="readonly" class="form-control" name="newPolicyID" style="width:195px" id="newPolicyID" value="" ><br>
+															New policy Name: <br><input type="text" class="form-control" name="newPolicyStatus" style="width:195px" id="newPolicyStatus" value=""><br>
 
 														</div>
 														<form method="post" action="<?php $_PHP_SELF ?>">
@@ -136,8 +136,8 @@
 															{
 																table.rows[counter].onclick = function()
 																{;
-																 document.getElementById("newFundID").value = this.cells[0].innerHTML;
-																 document.getElementById("newFundName").value = this.cells[1].innerHTML;
+																 document.getElementById("newPolicyID").value = this.cells[0].innerHTML;
+																 document.getElementById("newPolicyStatus").value = this.cells[1].innerHTML;
 																	};
 																}
 																</script>
@@ -213,7 +213,7 @@ else {
 
 		$delete= $_GET['delete'];
 		?><script>alert('<?php echo $delete?>');</script><?php
-		$sql = "DELETE FROM fund WHERE fundID = '$delete'";
+		$sql = "DELETE FROM policyStatus WHERE policyID = '$delete'";
 
 		if($conn->query($sql) === TRUE)
 		{
@@ -224,7 +224,7 @@ else {
 		}
 		?>
 		<script>
-		window.location="fund.php";
+		window.location="policyStatus.php";
 		</script>
 		<?php
 		$conn->close();

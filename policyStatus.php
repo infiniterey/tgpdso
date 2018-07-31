@@ -37,19 +37,19 @@
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2><b>Add Fund</b></h2>
+										<h2><b>Add Policy Status</b></h2>
 										<div class="clearfix"></div>
 									</div>
 										<div id="datatable-fixed-header_wrapper"  class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 											<div class="row">
 												<div class="col-sm-3">
-																Fund ID<span class="required">*</span>
-																<input type="text" name="fundID" id="fundID" required="required" class="form-control" required><br>
-																Fund Name<span class="required">*</span>
-																<input type="text" style="margin-bottom:50px" name="fundName" id="fundName" required="required" class="form-control" required><br>
+																Policy ID<span class="required">*</span>
+																<input type="text" name="policyID" id="policyID" required="required" class="form-control" required><br>
+																Policy Name<span class="required">*</span>
+																<input type="text" style="margin-bottom:50px" name="polcyName" id="polcyName" required="required" class="form-control" required><br>
 																<center>
-			                    	<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
-	                             <button	style="float:left" type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
+			                          <a href="fund.php.php"  style="float:left"class="btn btn-primary"><i class="fa fa-close"></i>&nbsp;Cancel</a>
+	                             <button	style="float:left" type="submit" class="btn btn-success" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
 													</div>
 												<div class="col-sm-9">
 													<style>
@@ -70,21 +70,21 @@
 
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																$sql = "SELECT * FROM fund";
+																	$sql = "SELECT * FROM policyStatus";
 
 																$result = $DB_con->query($sql);
 																if($result->rowCount()>0){
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																		<tr>
-																			<td><?php print($row['fundID']); ?></td>
-																			<td><?php print($row['fundName']); ?></td>
+																			<td><?php print($row['policyID']); ?></td>
+																			<td><?php print($row['policyName']); ?></td>
 																			<td>
 																				<div class="row">
 																					<center>
 																						<form method='post' name='myform' onsubmit="CheckForm()">
 																							<button  type="button" id="update" name="update" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
-																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="fund.php?delete=<?php echo $row['fundID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="fund.php?delete=<?php echo $row['policyID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																						</form>
 																					</center>
 																				</div>
@@ -110,8 +110,8 @@
 															<form method="post" name='myform' onsubmit="CheckForm()">
 														<div method="post" class="modal-body">
 
-															New fund ID: <br><input type="text" readonly="readonly" class="form-control" name="newFundID" style="width:195px" id="newFundID" value="" ><br>
-															New fund Name: <br><input type="text" class="form-control" name="newFundName" style="width:195px" id="newFundName" value=""><br>
+															New policy ID: <br><input type="text" readonly="readonly" class="form-control" name="newPolicyID" style="width:195px" id="newFundID" value="" ><br>
+															New policy Name: <br><input type="text" class="form-control" name="newPolicyName" style="width:195px" id="newFundName" value=""><br>
 
 														</div>
 														<form method="post" action="<?php $_PHP_SELF ?>">
@@ -136,8 +136,8 @@
 															{
 																table.rows[counter].onclick = function()
 																{;
-																 document.getElementById("newFundID").value = this.cells[0].innerHTML;
-																 document.getElementById("newFundName").value = this.cells[1].innerHTML;
+																 document.getElementById("newPolicyID").value = this.cells[0].innerHTML;
+																 document.getElementById("newPolicyName").value = this.cells[1].innerHTML;
 																	};
 																}
 																</script>
@@ -213,7 +213,7 @@ else {
 
 		$delete= $_GET['delete'];
 		?><script>alert('<?php echo $delete?>');</script><?php
-		$sql = "DELETE FROM fund WHERE fundID = '$delete'";
+		$sql = "DELETE FROM policyStatus WHERE policyID = '$delete'";
 
 		if($conn->query($sql) === TRUE)
 		{
@@ -224,7 +224,7 @@ else {
 		}
 		?>
 		<script>
-		window.location="fund.php";
+		window.location="policyStatus.php";
 		</script>
 		<?php
 		$conn->close();

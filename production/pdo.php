@@ -633,12 +633,11 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['updateButton']))
+					if(isset($_POST['ButtonUpdate']))
 					{
 						$newFundNo = $_POST['newFundID'];
 					$newFundName = $_POST['newFundName'];
-					?><script>alert('yoo <?php echo $fundID ?>');</script>
-					<?php
+
 						$sql = "UPDATE fund SET fundName = '$newFundName' where fundID = '$newFundNo'";
 						if($conn->query($sql)===true)
 						{
@@ -646,6 +645,80 @@
 							<script>
 								alert('Fund successfully updated!');
 								window.location='fund.php';
+							</script>
+							<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+					}
+
+
+					$conn->close();
+
+				}
+			}
+			public function addPolicyStatus(){
+
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+						if(isset($_POST['btn-save']))
+						{
+					$policyID=$_POST['policyID'];
+					$policyStatus=$_POST['policyStatus'];
+
+					$sql = "INSERT INTO policystatus (policyID, policyStatus)
+					values ('$policyID','$policyStatus')";
+				}
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Policy successfully added!');
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function updatePolicyStatus(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['ButtonUpdate']))
+					{
+						$newPolicyID = $_POST['newPolicyID'];
+					$newPolicyStatus = $_POST['newPolicyStatus'];
+
+						$sql = "UPDATE policystatus SET policyStatus = '$newPolicyStatus' where policyID = '$newPolicyID'";
+						if($conn->query($sql)===true)
+						{
+							?>
+							<script>
+								alert('Policy Status successfully updated!');
+								window.location='policyStatus.php';
 							</script>
 							<?php
 						}
