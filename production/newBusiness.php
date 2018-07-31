@@ -461,7 +461,7 @@ if(isset($_POST['logout']))
 
 										</div>
 
-										<div class="col-md-8">
+										<div class="col-md-9">
 
 										<table id="datatable-fixed-header3" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 											<thead>
