@@ -89,6 +89,7 @@
 				die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 			}
 			else {
+
 				$sql = "INSERT INTO requirements (RagentCode, Rrequirements, RProdID, RtransDate,SubmitDate,Status)
 				values ('$AgentCode','$Requirement','$PprodID','$TransactTdate','$SubmitDate','$Status')";
 
@@ -107,37 +108,84 @@
 			}
 		}
 
+
 			public function deleteRequirements(){
-				$reqtext = $_POST['inputvaluedelete2'];
-				$prodtext = $_POST['inputvaluedelete'];
-				$servername = "localhost";
-				$username = "root";
-				$password = "";
+
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
 				$dbname = "tgpdso_db";
 
-				$conn = new mysqli($servername, $username, $password, $dbname);
-				if($conn->connect_error)
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+				if(mysqli_connect_error())
 				{
-					die("Connection failed:" .$conn->connect_error);
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
+					if(isset($_POST['TrueDelete']))
+					{
+					$reqtext = $var1;
+					$prodtext = $_POST['inputvaluedelete'];
+					?><script>alert('<?php echo $reqtext ?>');</script><?php
 						$sql = "DELETE FROM requirements WHERE Rrequirements = '$reqtext' AND	RProdID = '$prodtext'";
-						if($conn->query($sql) == TRUE)
+					}
+			if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Requirements successfully deleted!');
+						window.location="add_requirements.php";
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function updateRequirements(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['iupdateko']))
+					{
+						$agentRequirementCode = $_POST['modalcode'];
+					  $newAgentRequirement = $_POST['modalreq'];
+					$newAgentRequirementTransDate =$_POST['modaltrans'];
+					$newAgentRequirementStatus = $_POST['modalstats'];
+					$newAgentRequirementSubmitDate = $_POST['modalsubdate'];
+					$requirementProdID= $prodID;
+					?><script>alert('good morning <?php echo $agentRequirementCode?>');</script><?php
+					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RProdID = '$requirementProdID' RagentCode = '$agentRequirementCode'";
+				}
+						if($conn->query($sql))
 						{
-							echo "Successful";
-						}
-						else {
-							echo "Error Deleting" .$conn->error;;
-							}
 							?>
 							<script>
-							window.location="add_requirements.php";
+								alert('Issue Date successfully updated!');
 							</script>
 							<?php
-							$conn->close();
-
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
 					}
-			}
+
+
+					$conn->close();
+
+				}
+
 			public function deleteTeam(){
 				$delteam = $_POST['inputvaluedelete3'];
 

@@ -117,6 +117,31 @@ if(isset($_POST['logout']))
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="x_panel">
 									<div class="x_title">
+										<form name="formko" id="formko" method="post" name='myform' onsubmit="CheckForm()">
+											 <?php $var1=""; $var2="";?>
+											 <input style = "width:130px;"  style="border:none" type="text" class="form-control" name="inputvaluedelete" id="inputvaluedelete">
+											 <input style = "width:130px;"  style="border:none"  type="text" class="form-control" name="inputvaluedelete2" id="inputvaluedelete2">
+								 			 <div method="post">
+											<?php if(isset($_POST['inputvaluedelete'])) { $var1 = $_POST['inputvaluedelete']; }?>
+											<?php if(isset($_POST['inputvaluedelete2'])) { $var2 = $_POST['inputvaluedelete2']; }?>
+											<script>alert('pa delete ko pleasse <?php echo $var1 ?>');</script>
+										</div>
+								<?php if(isset($_POST['TrueDelete']))
+												{
+												?><script>alert('pa delete ko pleasse <?php echo $var1 ?>');</script><?php
+												?><script>alert(document.getElementById('inputvaluedelete'));</script><?php
+												tgpdso::deleteRequirements();
+											}
+												?>
+											<?php 	if(isset($_POST['iupdateko']))
+												{tgpdso::updateRequirements();}?>
+											<br>
+											<div class="col-md-12">
+													<button  type="submit" style='float:center' class="btn btn-primary" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete </button>
+													<button type="button" class="btn btn-primary" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2"><i class="fa fa-file-text"></i>&nbsp;&nbsp; Update	</button>
+													<button type="submit"  class="btn btn-primary" id="cancel" name="cancel"><i class="fa fa-close" onclick="ClickCancel()"></i>Cancel</button>
+											</div>
+										</form>
 										<h2><b>POLICY REQUIREMENTS</b></h2>
 											<div class="clearfix"></div>
 									</div>
@@ -278,32 +303,14 @@ if(isset($_POST['logout']))
 												</div>
 									 <div class="x_content">
 										 <div class="row">
-											<form name="formko" id="formko" method="post" onsubmit="CheckForm()">
-												<?php 	if(isset($_POST['btn-deleteRow']))
-												{tgpdso::deleteRequirements();}?>
-												<?php 	if(isset($_POST['iupdateko']))
-													{tgpdso::updateRequirements();}?>
-												<br>
-												<div class="col-md-5">
-														<input style = "width:130px;"  style="border:none" readonly="readonly" type="text" class="form-control" name="inputvaluedelete" id="inputvaluedelete" value='' hidden/>
-												</div>
-												<div class="col-md-6">
-															<form>
-														<input style = "width:130px;"  readonly="readonly"  style="border:none"  type="text" class="form-control" name="inputvaluedelete2" id="inputvaluedelete2" value='' hidden/>
-												</div>
-												<div class="col-md-12">
-														<button  type="submit" style='float:center' class="btn btn-primary" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete </button>
-														<button type="button" class="btn btn-primary" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2"><i class="fa fa-file-text"></i>&nbsp;&nbsp; Update	</button>
-														<button type="submit"  class="btn btn-primary" id="cancel" name="cancel"><i class="fa fa-close" onclick="ClickCancel()"></i>Cancel</button>
-												</div>
-														</form>
-											</form>
+
+										</form>
 								<div class="clearfix"></div>
 								</div>
 									<div   cellpadding=100 border= 1 style='float:center' id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 										<div class="row"
 											<div class="col-sm-1">
-												<table  id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
+												<table method="post" id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
 													<thead>
 														<tr role="row">
 														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Transaction Date</th>
@@ -331,7 +338,7 @@ if(isset($_POST['logout']))
 																			}
 
 																		?>
-																		Production ID:<br><input type="text" readonly="readonly" class="form-control" name="ProdId" value="<?php echo $prodID?>"hidden><br>
+																		Production ID:<br><input type="text" readonly="readonly" class="form-control" id="ProdId" name="ProdId" value="<?php echo $prodID?>"hidden><br>
 																		Agent Code: <br><input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><br>
 																		Plan Code: <br><input  type="text" class="form-control" readonly="readonly" name="planCode" value="<?php echo $Pplan?>"hidden><br>
 																		Requirement: <br><Textarea type="text" class="form-control" name="requirement" style="width:200px;height:40px" ></Textarea><br>
@@ -356,9 +363,6 @@ if(isset($_POST['logout']))
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 																$sql = "SELECT * FROM requirements WHERE '$prodID' = RProdID";
 																$result = $DB_con->query($sql);
-																?>
-																	<script>alert('Prod id : <?php echo $prodID?>');</script>
-																<?php
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																			<tr>
@@ -369,8 +373,10 @@ if(isset($_POST['logout']))
 																				<td>
 																					<div class="row">
 																						<center>
-																							<button  type="button" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" hidden></i></button>
-																								<button  type="button" data-toggle="modal" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow" class="btn btn-danger"><i class="fa fa-trash" hidden></i></button>
+																							<form method='post' name='myform' onsubmit="CheckForm()">
+																							<button  type="button" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+																								<button  type="submit" data-toggle="modal" id="TrueDelete" name="TrueDelete" formnovalidate onclick="return confirm('Are you sure do you want to delete?')"  class="btn btn-danger"><i class="fa fa-trash"></i></button>
+																									</form>
 																						</center>
 																					</div>
 																				</td>
@@ -383,23 +389,6 @@ if(isset($_POST['logout']))
 
 														</tbody>
 													</table>
-													<script>
-															var table = document.getElementById('tablekoto');
-
-															for(var counter = 1; counter < table.rows.length; counter++)
-															{
-																table.rows[counter].onclick = function()
-																{;
-																 	document.getElementById("inputvaluedelete").value =this.cells[4].innerHTML;
-															 	 	document.getElementById("inputvaluedelete2").value =this.cells[1].innerHTML;
-														  	  document.getElementById("modalprod").value =this.cells[4].innerHTML;
-																 	document.getElementById("modalreq").value =this.cells[1].innerHTML;
-																 	document.getElementById("modaltrans").value =this.cells[0].innerHTML;
-																	document.getElementById("modalstats").value =this.cells[2].innerHTML;
-																 	document.getElementById("modalsubdate").value =this.cells[3].innerHTML;
-																 	};
-																}
-																</script>
 
 													</div>
 											</div>
@@ -477,8 +466,6 @@ if(isset($_POST['logout']))
 
  								 </tbody>
  						 </table>
-
-
 								<script>
 									var table = document.getElementById('tableko');
 									for(var counter = 1; counter < table.rows.length; counter++)
@@ -563,6 +550,25 @@ if(isset($_POST['logout']))
 
   </body>
 </html>
+<script method="POST">
+		var table = document.getElementById('tablekoto');
+
+		for(var counter = 1; counter < table.rows.length; counter++)
+		{
+			table.rows[counter].onclick = function()
+			{;
+				document.getElementById("inputvaluedelete").value =this.cells[5].innerHTML;
+				document.getElementById("inputvaluedelete2").value =this.cells[1].innerHTML;
+				document.getElementById("modalprod").value =this.cells[5].innerHTML;
+				alert(document.getElementById("inputvaluedelete").value);
+				document.getElementById("modalreq").value =this.cells[1].innerHTML;
+				document.getElementById("modaltrans").value =this.cells[0].innerHTML;
+				document.getElementById("modalstats").value =this.cells[2].innerHTML;
+				document.getElementById("modalsubdate").value =this.cells[3].innerHTML;
+				};
+			}
+			</script>
+
 <script>
 
 	$("#tableko tr").click(function() {

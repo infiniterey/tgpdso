@@ -75,7 +75,7 @@
 												<?php if(isset($_POST['temp'])) { $pat = $_POST['temp']; } ?>
 												<?php if(isset($_POST['temp2'])) { $pot = $_POST['temp2']; } ?>
 												<?php if(isset($_POST['temp3'])) { $pit = $_POST['temp3']; } ?>
-												<script>alert('hiiiiiiiiii <?php echo $pat ?>')</script>
+												<script>alert('hiiiiiiiiiilooooo <?php echo $pat ?>')</script>
 											</div>
 										<h2><b>Add Training</b></h2>
 										<div class="clearfix"></div>
