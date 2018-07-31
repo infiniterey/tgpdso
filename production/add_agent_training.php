@@ -14,7 +14,7 @@
 
 .highlight1 { background-color: lightgreen; color: green}
 .disablehighlight { background-color: transparent;}
-#divnako,#temp,#temp2,#temp3,#contain1,#contain2{ display: none;}
+#dvnako,#temp,#temp2,#temp3,#contain1,#contain2{ display: none;}
 </style>
 	<?php include 'base/header.php'; ?>
   <body class="nav-md footer_fixed">
@@ -164,7 +164,7 @@ Date <span class="required">*</span><br>
 </form>
 </div>
 </div>
-<!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
+<!-- The Modal add agent to train	ing--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addAgentToTrain">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">

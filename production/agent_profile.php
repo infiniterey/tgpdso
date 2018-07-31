@@ -59,9 +59,11 @@
 
 																	</div>
 																</div>
-																<div id="Policy" class="tabcontent">
-																	<form>
+																<form name="policyForm" id="policyForm">
+																<div name="Policy" id="Policy" class="tabcontent">
+
 																	 <?php
+
 																	 $variableAgentCode=" ";;
 																	 $variableLastName =" ";
 																	 $variableFirstName =" ";
@@ -176,6 +178,7 @@
 																			</tbody>
 
 																				<?php
+
 																				if(isset($_GET['searchAgentCodeText']))
 																				{
 																					 $DB_con = Database::connect();
@@ -292,9 +295,7 @@
  									 }
 
  									 else{}
-
  								 ?>
-
  								 </tbody>
  						 </table>
 						 		<?php
@@ -404,7 +405,7 @@ function closemodal()
 }
 function showForm()
 {
-
+	$('#policyForm').show();
 }
 function hideForm()
 {
