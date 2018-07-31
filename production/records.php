@@ -3,6 +3,12 @@
 <?php include 'base/header.php'; ?>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<style>
+
+#insuredPolicy{ display: none};
+
+</style>
 <head>
 </head>
 <body class="nav-md footer_fixed">
@@ -144,8 +150,9 @@
 																			</div>
 																		</div><br/>
 																		<div class="form-group">
-																			 <h5><b>Insured Policy Details</b></h5>
+																			 <h5><b>Insured Policy Details</b> &nbsp;&nbsp;&nbsp;Same as insured: <input type="checkbox" name="box" id="box"></h5>
 																			 <hr/>
+																			 <div name="insuredPolicy" id="insuredPolicy">
 																			 <div class="row">
 																	 			 <div class="col-xs-3">
 																					 Last Name
@@ -174,6 +181,7 @@
 																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
 																				 </div>
 																			 </div>
+																		 </div>
 																		 </div><br/>
 																		 <div class="form-group">
 																			 <h5><b>Policy Details</b></h5><hr>
@@ -217,7 +225,7 @@
 																			<div class="form-group">
 																				<div class="row">
 																	 			<h5><b>Beneficiary Details</b>
-																				<button type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Beneficiary</button></h5>
+																				<button type="button" style='float:right' class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Beneficiary</button></h5>
 																				</div>		<hr>
 																					<div class="row">
 																						<div class="col-xs-3">
@@ -246,9 +254,68 @@
 																							Contact #
 																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
 																						</div>
+																						<div class="col-xs-3">
+																							Relationship
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																						</div>
 																				 </div>
 
-			 																			<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+																				 <br><br><br>
+
+																				 <table name="datatable-fixed-header2" id="datatable-fixed-header2" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
+																						<thead>
+																						<tr role="row">
+																								<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Last Name.</th>
+																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 100px;text-align:center;">First Name</th>
+																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="APR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Middle Name</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="NextDueDate: activate to sort column ascending" style="width: 30px;text-align:center;">Address</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Birthdate</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Contact#</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Relationship</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																							<?php
+																							$DB_con = Database::connect();
+																							$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																							$sql = "SELECT * FROM beneficiary";
+
+
+																						$result = $DB_con->query($sql);
+																						if($result->rowCount()>0)
+																						{
+																							while($row=$result->fetch(PDO::FETCH_ASSOC))
+																							{
+																								// $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
+																							// c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
+																							// ON p.prodclientID = c.clientID");
+																							// $sql->execute();
+																								//  // $result = $DB_con->query($sql);
+																								// // if($result->rowCount()>0){
+																								 //  while($row=$sql->fetchAll(PDO::FETCH_ASSOC)){
+																										?>
+																										<tr>
+																										<td><?php echo $row['bene_lastName']?></td>
+																										<td><?php echo $row['bene_firstName']; ?></td>
+																										<td><?php echo $row['bene_middleName']; ?></td>
+																										<td><?php echo $row['bene_address']; ?></td>
+																										<td><?php echo $row['bene_birthDate']; ?></td>
+																										<td><?php echo $row['bene_contactNo']; ?></td>
+																										<td><?php echo $row['bene_relationShip']; ?></td>
+																								 </tr>
+																										<?php
+																									}
+																							}
+																								 // }
+
+
+																							?>
+
+																							</tbody>
+																					</table>
+
+
+			 																			<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 																							<div class="modal-dialog" role="document">
 																								<div class="modal-content">
 			 																						<div class="modal-header">
@@ -264,24 +331,37 @@
 																										 	<label class="control-label">
 																										 	Amount:
 																											</label>
-																											<input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><hr>
+																											<input  type="text" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden>
+																											<label class="control-label">
+																											Issue Date:
+																										</label><input type="date" class="form-control" name="issuedate" readonly><br>
+																										<label class="control-label">
+																										Mode of Payment:
+																									</label>
+																										<select name="modeOfPayment" id="modeOfPayment" class="form-control">
+																										<option value="Monthly" id="modeOfPayment">Monthly</option>
+																										<option value="Quarterly" id="modeOfPayment">Quarterly</option>
+																										<option value="Semi-Annual" id="modeOfPayment">Semi-Annual</option>
+																										<option value="Annualy" id="modeOfPayment">Annualy</option>
+																										</select><br>
+																											<hr>
 																											<label class="control-label">
 																										 	Transaction Date:
-																											</label><input type="date" class="form-control" name="stats"><br>
+																										</label><input type="date" class="form-control" name="transdate"><br>
 																											<label class="control-label">
 																										 	OR #:
-																											</label><input type="text" class="form-control" name="stats"><br>
+																										</label><input type="text" class="form-control" name="orno"><br>
 																											<label class="control-label">
 																										 	APR #:
-																											</label><input type="text" class="form-control" name="stats"><br>
+																										</label><input type="text" class="form-control" name="aprno"><br>
 																											<label class="control-label">
 																										 	Next Due Date:
-																											</label><input type="date" class="form-control" name="stats"><br>
+																										</label><input type="date" class="form-control" name="nextdue"><br>
 			 																							 <br>
 			 																							</div>
 			 																							<div class="modal-footer">
-			 																								<button type="submit" class="btn btn-primary" name="btn-addrEquirements"><i class="fa fa-plus"></i>&nbsp;&nbsp;Save</button>
-																											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			 																								<button type="submit" class="btn btn-primary" style="width: 100px;" name="btn-addrEquirements"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+																											<button type="button" class="btn btn-default" style="width: 100px;" data-dismiss="modal">Close</button>
 			 																							</div>
 			 																						</form>
 			 																					</div>
@@ -290,8 +370,10 @@
 																			 </div>
 																			 <div class="form-group">
 																				 <hr>
-																				 <button type="button" style='float:left' data-toggle="modal" data-target="#" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>Save</button>
-																				 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																				 		<div style='float:right'>
+																				 				<button type="button" data-toggle="modal" data-target="#"  style="width: 100px;"class="btn btn-primary" name="btn-addPlan"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+																				 				<button type="button" class="btn btn-default"  style="width: 100px;" data-dismiss="modal">Close</button>
+																							</div>
 																	 	 </div>
 																		</div>
 																	</div>
@@ -303,38 +385,53 @@
 																	 <div class="form-group">
 																		 	<h5><b>Payment Details</b></h5><hr/>
 																		 <div class="row">
-																			 <table id="datatable-fixed-header1" align="right" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
-			 																		<thead>
-			 																			<tr role="row">
-			 																				<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 15px;text-align:center;">Plan Code</th>
-			 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 155px;text-align:center;">Plan Description</th>
-			 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
-			 																			</tr>
-			 																		</thead>
-			 																		<tbody>
+																			 <table name="datatable-fixed-header1" id="datatable-fixed-header1" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
+																					<thead>
+																					<tr role="row">
+																							<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Transaction No.</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 100px;text-align:center;">O.R.#</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="APR No.: activate to sort column ascending" style="width: 30px;text-align:center;">APR#</th>
+																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="NextDueDate: activate to sort column ascending" style="width: 30px;text-align:center;">Next Due Date</th>
+																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Remarks</th>
+																						</tr>
+																					</thead>
+																					<tbody>
+																						<?php
+																						$DB_con = Database::connect();
+																						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																						$sql = "SELECT * FROM production, client, plans WHERE prodclientID = clientID AND plan = planID";
 
-			 																				<?php
-			 																					$DB_con = Database::connect();
-			 																					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-			 																					$sql = "SELECT * FROM plans";
 
-			 																					$result = $DB_con->query($sql);
-			 																					if($result->rowCount()>0){
-			 																						while($row=$result->fetch(PDO::FETCH_ASSOC)){
-			 																							?>
-			 																							<tr>
-			 																								<td><?php print($row['planCode']); ?></td>
-			 																								<td><?php print($row['planDesc']); ?></td>
-			 																								<td><?php print($row['planRate']); ?></td>
+																					$result = $DB_con->query($sql);
+																					if($result->rowCount()>0)
+																					{
+																						while($row=$result->fetch(PDO::FETCH_ASSOC))
+																						{
+																							// $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
+																						// c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
+																						// ON p.prodclientID = c.clientID");
+																						// $sql->execute();
+																							//  // $result = $DB_con->query($sql);
+																							// // if($result->rowCount()>0){
+																							 //  while($row=$sql->fetchAll(PDO::FETCH_ASSOC)){
+																									?>
+																									<tr>
+																										<td><?php echo $row['policyNo']; ?></td>
+																										<td><?php echo $row['cLastname']. ", " .$row['cFirstname']; ?></td>
+																									<td><?php echo $row['issuedDate']; ?></td>
+																									<td><?php echo $row['planCode']; ?></td>
+																									<td><?php echo $row['premium']; ?></td>
+																							 </tr>
+																									<?php
+																								}
+																						}
+																							 // }
 
-			 																							</tr>
-			 																							<?php
-			 																						}
-			 																					}
-			 																					else{}
-			 																				?>
-			 																			</tbody>
-			 																	</table>
+
+																						?>
+
+																						</tbody>
+																				</table>
 			 																	<script>
 			 																		var table = document.getElementById('datatable-fixed-header1');
 			 																		for(var counter = 1; counter < table.rows.length; counter++)
@@ -368,16 +465,17 @@
 		</div>
 					<!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search-->
 					<div class="modal fade" id="myModal">
-					<div class="modal-dialog">
+					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+								<h2 class="modal-title">Search Record<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></h2>
+
 							</div>
 
 							<form style="margin-bottom: 10px;">
 							<div class="modal-body">
 
-							<table name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
+							<table name="datatable-fixed-header" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
  							 <thead>
 								 <tr role="row">
  									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
@@ -391,18 +489,16 @@
  							 </thead>
  							 <tbody>
  								 <?php
-								 	 $team = $_SESSION['team'];
-									 $usertype = $_SESSION['usertype'];
-
 									 $DB_con = Database::connect();
 									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-									 $sql = "SELECT * FROM production, client WHERE prodclientID = clientID";
+									 $sql = "SELECT * FROM production, client, plans WHERE prodclientID = clientID AND plan = planID";
 
 
 								 $result = $DB_con->query($sql);
 								 if($result->rowCount()>0)
 								 {
 									 while($row=$result->fetch(PDO::FETCH_ASSOC))
+									 {
  									 // $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
 									 // c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
 									 // ON p.prodclientID = c.clientID");
@@ -415,18 +511,19 @@
  												 <td><?php echo $row['policyNo']; ?></td>
  												 <td><?php echo $row['cLastname']. ", " .$row['cFirstname']; ?></td>
 												 <td><?php echo $row['issuedDate']; ?></td>
-												 <td><?php echo $row['plan']; ?></td>
+												 <td><?php echo $row['planCode']; ?></td>
 												 <td><?php echo $row['premium']; ?></td>
 												 <td><?php echo $row['receiptNo']; ?></td>
 												 <td>
-													 <div class = "row">
-															 <a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
+													 <div class = "row" align="center">
+															 <a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 															 <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 														</div>
 												 </td>
-												 </tr>
+											</tr>
  											 <?php
  										 }
+									 }
  									  // }
 
 
@@ -509,4 +606,47 @@ function openPolicy(evt, tabName) {
                 document.getElementById(tabName).style.display = "block";
                 evt.currentTarget.className += " active";
             }
+
+						function myFunction() {
+
+						  var input, filter, table, tr, td, i;
+						  input = document.getElementById("myInput");
+						  filter = input.value.toUpperCase();
+						  table = document.getElementById("datatable-fixed-header");
+						  tr = table.getElementsByTagName("tr");
+
+
+						  for (i = 0; i < tr.length; i++) {
+						    td = tr[i].getElementsByTagName("td")[0];
+						    if (td) {
+						      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+						        tr[i].style.display = "";
+						      } else {
+						        tr[i].style.display = "none";
+						      }
+						    }
+						  }
+						}
+
+						$(document).ready(function() {
+						    $('#datatable-fixed-header').DataTable( {
+						        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+						    } );
+						} );
+						$(document).ready(function() {
+								$('#datatable-fixed-header1').DataTable( {
+										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+								} );
+						} );
+
+						$(document).ready(function () {
+    					$('#box').change(function () {
+        				if (this.checked)
+           			$('#insuredPolicy').fadeIn('slow');
+        				else
+            		$('#insuredPolicy').fadeOut('slow');
+    });
+});
+
+
 </script>
