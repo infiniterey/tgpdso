@@ -89,6 +89,7 @@
 				die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 			}
 			else {
+
 				$sql = "INSERT INTO requirements (RagentCode, Rrequirements, RProdID, RtransDate,SubmitDate,Status)
 				values ('$AgentCode','$Requirement','$PprodID','$TransactTdate','$SubmitDate','$Status')";
 
@@ -107,37 +108,83 @@
 			}
 		}
 
-			public function deleteRequirements(){
-				$reqtext = $_POST['inputvaluedelete2'];
-				$prodtext = $_POST['inputvaluedelete'];
-				$servername = "localhost";
-				$username = "root";
-				$password = "";
-				$dbname = "tgpdso_db";
 
-				$conn = new mysqli($servername, $username, $password, $dbname);
-				if($conn->connect_error)
+			public function deleteRequirements(){
+
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+				if(mysqli_connect_error())
 				{
-					die("Connection failed:" .$conn->connect_error);
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-						$sql = "DELETE FROM requirements WHERE Rrequirements = '$reqtext' AND	RProdID = '$prodtext'";
-						if($conn->query($sql) == TRUE)
+					if(isset($_POST['btn-deleteRow']))
+					{
+					$reqtext =  $_POST['inputvaluedelete2'];
+					$prodtext = $_POST['inputvaluedelete'];
+					?><script>alert('<?php echo $reqtext ?>');</script><?php
+					$sql = "DELETE FROM requirements WHERE Rrequirements = '$reqtext' AND	RProdID = '$prodtext'";
+					}
+			if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Requirements successfully deleted!');
+						window.location="add_requirements.php";
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function updateRequirements(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['iupdateko']))
+					{
+						$agentRequirementCode = $_POST['modalcode'];
+					  $newAgentRequirement = $_POST['modalreq'];
+					$newAgentRequirementTransDate =$_POST['modaltrans'];
+					$newAgentRequirementStatus = $_POST['modalstats'];
+					$newAgentRequirementSubmitDate = $_POST['modalsubdate'];
+					$requirementProdID=  $_POST['modalprod'];
+					?><script>alert('good morning <?php echo $requirementProdID?>');</script><?php
+					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RProdID = '$requirementProdID' and RagentCode = '$agentRequirementCode'";
+				}
+						if($conn->query($sql))
 						{
-							echo "Successful";
-						}
-						else {
-							echo "Error Deleting" .$conn->error;;
-							}
 							?>
 							<script>
-							window.location="add_requirements.php";
+								alert('Issue Date successfully updated!');
 							</script>
 							<?php
-							$conn->close();
-
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
 					}
-			}
+
+
+					$conn->close();
+
+				}
+
 			public function deleteTeam(){
 				$delteam = $_POST['inputvaluedelete3'];
 
@@ -422,18 +469,21 @@
 				else {
 					if(isset($_POST['iupdateko']))
 					{
-					if(isset($_POST['uprod'])){	?>
-						<?php
-						$ProdID = $_POST['uprod'];
-					$planplan = $_POST['uplan'];
-					$policy =$_POST['upolicy'];
-					$upissuedate = $_POST['modalissuedate'];}
-						$sql = "UPDATE production SET issuedDate = '$upissuedate' where prodID = '$ProdID' and plan ='$planplan' and policyNo = '$policy'";
+						$newTrainingNo = $_POST['utrainid'];
+					$newTrainingName = $_POST['utrainname'];
+					$newTrainingPosition = $_POST['utrainposition'];
+					?>
+					<script>
+						alert('yahoooo!<?php echo $newTrainingNo  ?>');
+					</script>
+					<?php
+						$sql = "UPDATE training SET trainingNo = '$newTrainingNo', trainingName = '$newTrainingName', trainingRequired = '$newTrainingPosition' where trainingNo = '$newTrainingNo'";
 						if($conn->query($sql))
 						{
 							?>
 							<script>
 								alert('Issue Date successfully updated!');
+								window.location='add_training.php';
 							</script>
 							<?php
 						}
