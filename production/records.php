@@ -513,19 +513,30 @@ if(isset($_POST['logout']))
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Plan</th>
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Premium</th>
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Receipt #</th>
- 									 </tr>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
+									 </tr>
  							 </thead>
  							 <tbody>
  								 <?php
- 									 $DB_con = Database::connect();
- 									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
- 									 $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
-									 c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
-									 ON p.prodclientID = c.clientID");
-									 $sql->execute();
- 									  // $result = $DB_con->query($sql);
- 									 // if($result->rowCount()>0){
- 										 while($row=$sql->fetchAll(PDO::FETCH_ASSOC)){
+								 	 $team = $_SESSION['team'];
+									 $usertype = $_SESSION['usertype'];
+
+									 $DB_con = Database::connect();
+									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+									 $sql = "SELECT * FROM production, client WHERE prodclientID = clientID";
+
+
+								 $result = $DB_con->query($sql);
+								 if($result->rowCount()>0)
+								 {
+									 while($row=$result->fetch(PDO::FETCH_ASSOC))
+ 									 // $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
+									 // c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
+									 // ON p.prodclientID = c.clientID");
+									 // $sql->execute();
+ 									 //  // $result = $DB_con->query($sql);
+ 									 // // if($result->rowCount()>0){
+ 										//  while($row=$sql->fetchAll(PDO::FETCH_ASSOC)){
  											 ?>
  											 <tr>
  												 <td><?php echo $row['policyNo']; ?></td>
@@ -534,6 +545,12 @@ if(isset($_POST['logout']))
 												 <td><?php echo $row['plan']; ?></td>
 												 <td><?php echo $row['premium']; ?></td>
 												 <td><?php echo $row['receiptNo']; ?></td>
+												 <td>
+													 <div class = "row">
+															 <a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
+															 <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+														</div>
+												 </td>
 												 </tr>
  											 <?php
  										 }
