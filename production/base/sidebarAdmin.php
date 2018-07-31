@@ -25,12 +25,14 @@
       </li>
       <li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-cog"></i> Setings <span class="fa fa-chevron-down"></span></a>
         <ul class="collapse list-unstyled" id="homeSubmenu1">
-                    &nbsp;&nbsp;<li><a href="add_client.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i> Add Client</a></li>
-          &nbsp;&nbsp;<li><a href="add_agent.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i>Add Agent</a></li>
-          &nbsp;&nbsp;<li><a href="add_plan.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Add Plan</a></li>
-          &nbsp;&nbsp;<li><a href="add_training.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Add Training</a></li>
+          &nbsp;&nbsp;<li><a href="add_agent.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i>Agent</a></li>
+          &nbsp;&nbsp;<li><a href="add_client.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-user"></i>Client</a></li>
+          &nbsp;&nbsp;<li><a href="fund.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-group"></i>Fund</a></li>
+          &nbsp;&nbsp;<li><a href="add_plan.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Plan</a></li>
+          &nbsp;&nbsp;<li><a href="policyStatus.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Policy Status</a></li>
           &nbsp;&nbsp;<li><a href="add_team.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-group"></i>Team</a></li>
-                    &nbsp;&nbsp;<li><a href="users.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-user"></i>User</a></li>
+          &nbsp;&nbsp;<li><a href="add_training.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Training</a></li>
+          &nbsp;&nbsp;<li><a href="users.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-user"></i>User</a></li>
                         <br>
         </ul>
       </li>
