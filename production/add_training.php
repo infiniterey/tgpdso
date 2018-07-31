@@ -77,7 +77,7 @@
 												<?php if(isset($_POST['temp3'])) { $pit = $_POST['temp3']; } ?>
 												<script>alert('hiiiiiiiiiilooooo <?php echo $pat ?>')</script>
 											</div>
-										<h2><b>Add Training</b></h2>
+										<h2><b>Add Training</b></h2><br><br><br>
 										<div class="clearfix"></div>
 
 										<?php
@@ -115,6 +115,7 @@
 												<form method='post' name='myform' onsubmit="CheckForm()">
 												<button  type="button" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" hidden></i></button>
 													<button  type="submit" data-toggle="modal" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow" class="btn btn-danger"><i class="fa fa-trash" hidden></i></button>
+															<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_training.php?delete=<?php echo $row['trainingNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 												</form>
 											</center>
 										</div>
@@ -444,3 +445,40 @@ function showButtons()
 
 }
 </script>
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tgpdso_db";
+
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if($conn->connect_error)
+{
+		die("Connection failed:" .$conn->connect_error);
+}
+else {
+	if(isset($_GET['delete']))
+	{
+
+		$delete= $_GET['delete'];
+		?><script>alert('<?php echo $delete?>');</script><?php
+		$sql = "DELETE FROM training WHERE trainingNo = '$delete'";
+
+		if($conn->query($sql) === TRUE)
+		{
+			echo "Successful";
+		}
+		else {
+			echo "Error Deleting" .$conn->error;;
+		}
+		?>
+		<script>
+		window.location="add_training	.php";
+		</script>
+		<?php
+		$conn->close();
+	}
+}
+?>

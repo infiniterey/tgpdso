@@ -115,19 +115,18 @@
 				$dbusername = "root";
 				$dbpassword = "";
 				$dbname = "tgpdso_db";
-
 				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 				if(mysqli_connect_error())
 				{
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['TrueDelete']))
+					if(isset($_POST['btn-deleteRow']))
 					{
-					$reqtext = $var1;
+					$reqtext =  $_POST['inputvaluedelete2'];
 					$prodtext = $_POST['inputvaluedelete'];
 					?><script>alert('<?php echo $reqtext ?>');</script><?php
-						$sql = "DELETE FROM requirements WHERE Rrequirements = '$reqtext' AND	RProdID = '$prodtext'";
+					$sql = "DELETE FROM requirements WHERE Rrequirements = '$reqtext' AND	RProdID = '$prodtext'";
 					}
 			if($conn->query($sql))
 					{
@@ -164,9 +163,9 @@
 					$newAgentRequirementTransDate =$_POST['modaltrans'];
 					$newAgentRequirementStatus = $_POST['modalstats'];
 					$newAgentRequirementSubmitDate = $_POST['modalsubdate'];
-					$requirementProdID= $prodID;
-					?><script>alert('good morning <?php echo $agentRequirementCode?>');</script><?php
-					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RProdID = '$requirementProdID' RagentCode = '$agentRequirementCode'";
+					$requirementProdID=  $_POST['modalprod'];
+					?><script>alert('good morning <?php echo $requirementProdID?>');</script><?php
+					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RProdID = '$requirementProdID' and RagentCode = '$agentRequirementCode'";
 				}
 						if($conn->query($sql))
 						{
@@ -470,18 +469,21 @@
 				else {
 					if(isset($_POST['iupdateko']))
 					{
-					if(isset($_POST['uprod'])){	?>
-						<?php
-						$ProdID = $_POST['uprod'];
-					$planplan = $_POST['uplan'];
-					$policy =$_POST['upolicy'];
-					$upissuedate = $_POST['modalissuedate'];}
-						$sql = "UPDATE production SET issuedDate = '$upissuedate' where prodID = '$ProdID' and plan ='$planplan' and policyNo = '$policy'";
+						$newTrainingNo = $_POST['utrainid'];
+					$newTrainingName = $_POST['utrainname'];
+					$newTrainingPosition = $_POST['utrainposition'];
+					?>
+					<script>
+						alert('yahoooo!<?php echo $newTrainingNo  ?>');
+					</script>
+					<?php
+						$sql = "UPDATE training SET trainingNo = '$newTrainingNo', trainingName = '$newTrainingName', trainingRequired = '$newTrainingPosition' where trainingNo = '$newTrainingNo'";
 						if($conn->query($sql))
 						{
 							?>
 							<script>
 								alert('Issue Date successfully updated!');
+								window.location='add_training.php';
 							</script>
 							<?php
 						}

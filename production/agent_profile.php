@@ -182,9 +182,11 @@ if(isset($_POST['logout']))
 
 																	</div>
 																</div>
-																<div id="Policy" class="tabcontent">
-																	<form>
+																<form name="policyForm" id="policyForm">
+																<div name="Policy" id="Policy" class="tabcontent">
+
 																	 <?php
+
 																	 $variableAgentCode=" ";;
 																	 $variableLastName =" ";
 																	 $variableFirstName =" ";
@@ -299,6 +301,7 @@ if(isset($_POST['logout']))
 																			</tbody>
 
 																				<?php
+
 																				if(isset($_GET['searchAgentCodeText']))
 																				{
 																					 $DB_con = Database::connect();
@@ -415,9 +418,7 @@ if(isset($_POST['logout']))
  									 }
 
  									 else{}
-
  								 ?>
-
  								 </tbody>
  						 </table>
 						 		<?php
@@ -527,7 +528,7 @@ function closemodal()
 }
 function showForm()
 {
-
+	$('#policyForm').show();
 }
 function hideForm()
 {

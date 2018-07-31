@@ -3,24 +3,7 @@
 	include 'pdo.php';
 	include_once 'createdb.php';
 
-session_Start();
 ?>
-
-<?php
-if(isset($_POST['logout']))
-{
-	session_destroy();
-	unset($_SESSION['logout']);
-	?>
-	<script>
-	alert('Successfully logout - TGP');
-	window.location="index.php";
-	</script>
-
-	<?php
-}
- ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,18 +31,8 @@ if(isset($_POST['logout']))
     content: "";
     display: table;
     clear: both;
-
 }
 #formko,#inputvaluedelete,#inputvaluedelete2,#modalprod,#modalcode,#modalplan{display:none}
-
-.scrollbar{
-	height: 100%;
-	width: 100%;
-	overflow: auto;
-}
-::-webkit-scrollbar {
-    width: 1px;
-}
 
 </style>
 	<?php include 'base/header.php';?>
@@ -68,30 +41,24 @@ if(isset($_POST['logout']))
   		<div class="main_container">
 
   			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view scrollbar">
+  				<div class="left_col scroll-view">
   					<div class="clearfix"></div>
 
   					<!-- menu profile quick info -->
-							<?php include 'base/sessionsidebar.php';?>
+  					<div class="profile clearfix">
+							<div class="profile_pic">
+								<img class="img-circle img1 profile_img" src="images/user.png">
+							</div>
+							<div class="profile_info">
+								<span>Magandang</span>
+								<h2><b>ARAW!</b></h2>
+								<div class="clearfix"></div>
+							</div>
+						</div>
 						<!-- /menu profile quick info -->
 
-						 <br />
-
-						<?php
-
-						$usertype1 = $_SESSION['usertype'];
-						if($usertype1 == 'secretary' || $usertype1 == 'Secretary')
-						{
-							 include 'base/sidebar.php';
-						}
-						else
-						{
-							 include 'base/sidebarAdmin.php';
-						}
-						?>
-
   					<!-- sidebar menu -->
-
+            <?php include 'base/sidebar.php'; ?>
             <!-- /sidebar menu -->
 
   				</div>
@@ -117,31 +84,6 @@ if(isset($_POST['logout']))
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="x_panel">
 									<div class="x_title">
-										<form name="formko" id="formko" method="post" name='myform' onsubmit="CheckForm()">
-											 <?php $var1=""; $var2="";?>
-											 <input style = "width:130px;"  style="border:none" type="text" class="form-control" name="inputvaluedelete" id="inputvaluedelete">
-											 <input style = "width:130px;"  style="border:none"  type="text" class="form-control" name="inputvaluedelete2" id="inputvaluedelete2">
-								 			 <div method="post">
-											<?php if(isset($_POST['inputvaluedelete'])) { $var1 = $_POST['inputvaluedelete']; }?>
-											<?php if(isset($_POST['inputvaluedelete2'])) { $var2 = $_POST['inputvaluedelete2']; }?>
-											<script>alert('pa delete ko pleasse <?php echo $var1 ?>');</script>
-										</div>
-								<?php if(isset($_POST['TrueDelete']))
-												{
-												?><script>alert('pa delete ko pleasse <?php echo $var1 ?>');</script><?php
-												?><script>alert(document.getElementById('inputvaluedelete'));</script><?php
-												tgpdso::deleteRequirements();
-											}
-												?>
-											<?php 	if(isset($_POST['iupdateko']))
-												{tgpdso::updateRequirements();}?>
-											<br>
-											<div class="col-md-12">
-													<button  type="submit" style='float:center' class="btn btn-primary" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete </button>
-													<button type="button" class="btn btn-primary" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2"><i class="fa fa-file-text"></i>&nbsp;&nbsp; Update	</button>
-													<button type="submit"  class="btn btn-primary" id="cancel" name="cancel"><i class="fa fa-close" onclick="ClickCancel()"></i>Cancel</button>
-											</div>
-										</form>
 										<h2><b>POLICY REQUIREMENTS</b></h2>
 											<div class="clearfix"></div>
 									</div>
@@ -154,10 +96,11 @@ if(isset($_POST['logout']))
 															cursor:pointer;transition: all .25s	ease-in-out;
 														}
 													</style>
-													<form method="get">
+													<form>
 														<h4 style="float:left">Policy No <input type="text" name="searchT" id="searchT" placeholder="Search"></input>
 													 <button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
 												 <button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h4>
+
 													 <?php
 												 	 $Tdate = "";
 													 $Lname = "";
@@ -180,6 +123,7 @@ if(isset($_POST['logout']))
 														$bool = False;
 														if(isset($_GET['searchT']))
 														{$valueToSearch = $_GET['searchT'];}
+
 														try {
 														$DB_con = Database::connect();
 														 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -222,72 +166,52 @@ if(isset($_POST['logout']))
 																		</div>
 														 <div class="x_content">
 				                       <br>
-
+															 <div class="row">
+															 <div class="col-md-12">
 													 <div class="form-group">
-														 <label class="control-label col-md-3 col-sm-3 col-xs-12">
+														 <div class="col-xs-3">
 		                           Last Name
-														 </label>
-												 			 <div class="col-md-3 col-sm-3 col-xs-12">
-																 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
-															 </div>
-															 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-																First Name
-															</label>
-														 	 <div class="col-md-3 col-sm-3 col-xs-12">
+														 		 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
+													 </div>
+												  	 <div class="col-xs-3">
+	 		                      			First Name
 																 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
-															 </div>
-		                        </div>
-
-														<div class="form-group">
-												 		 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-												 			 Policy No
-												 		 </label>
-												 			 <div class="col-md-3 col-sm-3 col-xs-12">
+													  </div>
+	 												<div class="col-xs-3">
+		 												Policy No
 												 				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mypolicy" disabled="disabled" id="mypolicy" value='<?php echo $Pno; ?>'>
-												 		 </div>
-												 		 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-												 			 Official Receipt
-												 		 </label>
-												 			 <div class="col-md-3 col-sm-3 col-xs-12">
+												 	 </div>
+												 	 <div class="col-xs-3">
+														 			 Official Receipt
 												 				 <input style="cursor:auto" style="border:none" type="text" class="form-control" disabled="disabled" name="myofficialReceipt" id="myofficialReceipt" value='<?php echo $Rno; ?>'>
-												 				</div>
-												 			</div>
-
-														<div class="form-group">
-															<label class="control-label col-md-3 col-sm-3 col-xs-12">
-															 Agent
-															</label>
-															<div class="col-md-3 col-sm-3 col-xs-12">
+												 		</div>
+													</div><br><br><br><br>
+													 <div class="form-group">
+	 													<div class="col-xs-3">
+		 		 										Agent
 																<input style="cursor:auto" style="border:none" type="text" class="form-control" name="myAgent" id="myAgent" disabled="disabled" value='<?php echo $Aagent; ?>'>
-															</div>
-																<label class="control-label col-md-3 col-sm-3 col-xs-12">
+														</div>
+														 <div class="col-xs-3">
 																Plan
-															 </label>
-															 <div class="col-md-3 col-sm-3 col-xs-12">
- 																 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myplan" id="myplan" disabled="disabled" value='<?php echo $Pplan; ?>'>
-  															</div>
-														 </div>
+																 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myplan" id="myplan" disabled="disabled" value='<?php echo $Pplan; ?>'>
+  													 </div>
 
-														 <div class="form-group">
-															 <label class="control-label col-md-3 col-sm-3 col-xs-12">
+														 	 <div class="col-xs-3">
 																Transaction Date
-															 </label>
-															 <div class="col-md-3 col-sm-3 col-xs-12">
 																 <input style="cursor:auto" style="border:none" disabled="disabled" type="text" class="form-control" name="mydate" id="mydate" value='<?php echo $Tdate; ?>'>
 															 </div>
-																 <label class="control-label col-md-3 col-sm-3 col-xs-12">
-																 Mode of Payment
-																</label>
-																<div class="col-md-3 col-sm-3 col-xs-12">
-																	<input style="cursor:auto" style="border:none" type="text" class="form-control"disabled="disabled"  name="myModeOfPayment" id="myModeOfPayment" value='<?php echo $MOP; ?>'>
+															 <div class="col-xs-3">
+														 		 Mode of Payment
+																<input style="cursor:auto" style="border:none" type="text" class="form-control"disabled="disabled"  name="myModeOfPayment" id="myModeOfPayment" value='<?php echo $MOP; ?>'>
 															 	 </div>
 															</div>
-
+																	</div>
+																</div>
 																</div>
 														</div>
 													</div>
 											</div>
-
+										</div>
 												  </form>
 											</div>
 										</div>
@@ -303,22 +227,36 @@ if(isset($_POST['logout']))
 												</div>
 									 <div class="x_content">
 										 <div class="row">
+											<form name="formko" id="formko" method="post" onsubmit="CheckForm()">
+													<?php 	if(isset($_POST['btn-deleteRow']))
+												{tgpdso::deleteRequirements();}?>
+												<?php 	if(isset($_POST['iupdateko']))
+													{tgpdso::updateRequirements();}?>
+												<br>
+												<div class="col-md-5">
+														<input style = "width:130px;"  style="border:none" readonly="readonly" type="text" class="form-control" name="inputvaluedelete" id="inputvaluedelete" value='' hidden/>
+												</div>
+												<div class="col-md-6">
+															<form>
+														<input style = "width:130px;"  readonly="readonly"  style="border:none"  type="text" class="form-control" name="inputvaluedelete2" id="inputvaluedelete2" value='' hidden/>
+												</div>
 
-										</form>
+														</form>
+											</form>
 								<div class="clearfix"></div>
 								</div>
 									<div   cellpadding=100 border= 1 style='float:center' id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 										<div class="row"
 											<div class="col-sm-1">
-												<table method="post" id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
+												<table  id="tablekoto" name ="tablekoto" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
 													<thead>
 														<tr role="row">
 														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Transaction Date</th>
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;">Requirements</th>
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Status</th>
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Submit Date</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Production ID</th>
+															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 															</tr>
 													</thead>
 													<div id="momodal"name="momodal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
@@ -357,12 +295,12 @@ if(isset($_POST['logout']))
 													</div>
 													<tbody>
 															<?php
-																if(isset($_GET['searchT']))
-																{
+
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 																$sql = "SELECT * FROM requirements WHERE '$prodID' = RProdID";
 																$result = $DB_con->query($sql);
+
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																			<tr>
@@ -370,25 +308,40 @@ if(isset($_POST['logout']))
 																				<td><?php print($row['Rrequirements']); ?></td>
 																				<td><?php print($row['Status']); ?></td>
 																				<td><?php print($row['SubmitDate']); ?></td>
+																				<td hidden><?php print($row['RProdID']); ?></td>
 																				<td>
 																					<div class="row">
 																						<center>
 																							<form method='post' name='myform' onsubmit="CheckForm()">
-																							<button  type="button" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-																								<button  type="submit" data-toggle="modal" id="TrueDelete" name="TrueDelete" formnovalidate onclick="return confirm('Are you sure do you want to delete?')"  class="btn btn-danger"><i class="fa fa-trash"></i></button>
-																									</form>
+																							<button  type="button" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" hidden></i></button>
+																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_requirements.php?delete=<?php echo $row['RequirementNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																							</form>
 																						</center>
 																					</div>
 																				</td>
-																				<td hidden><?php print($row['RProdID']); ?></td>
 																		</tr>
 																			<?php
 																		}
-																	}
 															?>
-
 														</tbody>
 													</table>
+													<script>
+															var table = document.getElementById('tablekoto');
+
+															for(var counter = 1; counter < table.rows.length; counter++)
+															{
+																table.rows[counter].onclick = function()
+																{;
+																 	document.getElementById("inputvaluedelete").value =this.cells[4].innerHTML;
+															 	 	document.getElementById("inputvaluedelete2").value =this.cells[1].innerHTML;
+														  	  document.getElementById("modalprod").value =this.cells[4].innerHTML;
+																 	document.getElementById("modalreq").value =this.cells[1].innerHTML;
+																 	document.getElementById("modaltrans").value =this.cells[0].innerHTML;
+																	document.getElementById("modalstats").value =this.cells[2].innerHTML;
+																 	document.getElementById("modalsubdate").value =this.cells[3].innerHTML;
+																 	};
+																}
+																</script>
 
 													</div>
 											</div>
@@ -404,7 +357,7 @@ if(isset($_POST['logout']))
 						</div>
 					</div>
 					<!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search-->
-					<div class="modal fade" id="myModal">
+					<div class="modal fade" name="myModal" id="myModal">
 					<div class="modal-dialog">
 						<div class="modal-content">
 
@@ -466,6 +419,8 @@ if(isset($_POST['logout']))
 
  								 </tbody>
  						 </table>
+
+
 								<script>
 									var table = document.getElementById('tableko');
 									for(var counter = 1; counter < table.rows.length; counter++)
@@ -550,25 +505,6 @@ if(isset($_POST['logout']))
 
   </body>
 </html>
-<script method="POST">
-		var table = document.getElementById('tablekoto');
-
-		for(var counter = 1; counter < table.rows.length; counter++)
-		{
-			table.rows[counter].onclick = function()
-			{;
-				document.getElementById("inputvaluedelete").value =this.cells[5].innerHTML;
-				document.getElementById("inputvaluedelete2").value =this.cells[1].innerHTML;
-				document.getElementById("modalprod").value =this.cells[5].innerHTML;
-				alert(document.getElementById("inputvaluedelete").value);
-				document.getElementById("modalreq").value =this.cells[1].innerHTML;
-				document.getElementById("modaltrans").value =this.cells[0].innerHTML;
-				document.getElementById("modalstats").value =this.cells[2].innerHTML;
-				document.getElementById("modalsubdate").value =this.cells[3].innerHTML;
-				};
-			}
-			</script>
-
 <script>
 
 	$("#tableko tr").click(function() {
@@ -603,7 +539,7 @@ $(document).on("dblclick","#tablekoto tr",function() {
 
 $("#searchT").enter(function()
 {
-$('#formko').show();
+
 if(!selected)
 $(this).addClass("highlight");
 $('#formko').hide();
@@ -625,7 +561,7 @@ $('#myModal').this.Close();
 }
 function showForm()
 {
-$('#formko).show()');
+
 }
 function hideForm()
 {
@@ -649,3 +585,40 @@ $('#tableko').hide("highlight1");
 }
 
 </script>
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tgpdso_db";
+
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if($conn->connect_error)
+{
+		die("Connection failed:" .$conn->connect_error);
+}
+else {
+	if(isset($_GET['delete']))
+	{
+
+		$delete= $_GET['delete'];
+		?><script>alert('<?php echo $delete?>');</script><?php
+		$sql = "DELETE FROM requirements WHERE RequirementNo = '$delete'";
+
+		if($conn->query($sql) === TRUE)
+		{
+			echo "Successful";
+		}
+		else {
+			echo "Error Deleting" .$conn->error;;
+		}
+		?>
+		<script>
+		window.location="add_requirements.php";
+		</script>
+		<?php
+		$conn->close();
+	}
+}
+?>
