@@ -1,53 +1,25 @@
-<?php
-	include 'confg.php';
-	include 'pdo.php';
-	include_once 'createdb.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
-	<?php include 'base/header.php'; ?>	
-  <body class="nav-md footer_fixed">
-  	<div class="container body">
-  		<div class="main_container">
+<?php include 'base/header.php'; ?>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+</head>
+<body class="nav-md footer_fixed">
+	<form method="post">
+		<div class="container body">
+			<div class="main_container">
+				<div class="col-md-3 left_col menu_fixed">
+					<div class="left_col scroll-view scrollbar">
+						<?php include 'base/sidemenu.php';?>
+					</div>
+				</div>
 
-  			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view">
-  					<div class="clearfix"></div>
-
-  					<!-- menu profile quick info -->
-  					<div class="profile clearfix">
-							<div class="profile_pic">
-								<img class="img-circle img1 profile_img" src="images/user.png">
-							</div>
-							<div class="profile_info">
-								<span>Magandang</span>
-								<h2><b>ARAW!</b></h2>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-						<!-- /menu profile quick info -->
-
-  					<br />
-
-  					<!-- sidebar menu -->
-            <?php include 'base/sidebar.php'; ?>
-            <!-- /sidebar menu -->
-
-  				</div>
-  			</div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
+	      <!-- top navigation -->
+	      <div class="top_nav">
+	        <?php include 'base/topNavigation.php';?>
+	      </div>
+	      <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main" style="min-height: 6026px;">

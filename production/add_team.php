@@ -1,91 +1,25 @@
-	<?php
-	include 'confg.php';
-	include 'pdo.php';
-	include_once 'createdb.php';
-
-session_start();
-?>
-
-<?php
-if(isset($_POST['logout']))
-{
-	session_destroy();
-	unset($_SESSION['logout']);
-	?>
-	<script>
-	alert('Successfully logout - TGP');
-	window.location="index.php";
-	</script>
-
-	<?php
-}
- ?>
-
-
-<head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-</head>
-<style>
-.highlight { background-color: lightgreen; color: green}
-#formko1{display:none}
-
-.scrollbar{
-	height: 100%;
-	width: 100%;
-	overflow: auto;
-}
-::-webkit-scrollbar {
-    width: 1px;
-}
-
-</style>
 <!DOCTYPE html>
 <html lang="en">
-	<?php include 'base/header.php'; ?>
-  <body class="nav-md footer_fixed">
+<?php include 'base/header.php'; ?>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+</head>
+<body class="nav-md footer_fixed">
+	<form method="post">
+		<div class="container body">
+			<div class="main_container">
+				<div class="col-md-3 left_col menu_fixed">
+					<div class="left_col scroll-view scrollbar">
+						<?php include 'base/sidemenu.php';?>
+					</div>
+				</div>
 
-  	<div class="container body">
-  		<div class="main_container">
-
-  			<div class="col-md-3 left_col menu_fixed">
-  				<div class="left_col scroll-view scrollbar">
-  					<div class="clearfix"></div>
-
-  					<!-- menu profile quick info -->
-							<?php include 'base/sessionsidebar.php';?>
-						<!-- /menu profile quick info -->
-
-  					<br />
-
-  					<!-- sidebar menu -->
-						<?php
-
-						$usertype1 = $_SESSION['usertype'];
-						if($usertype1 == 'secretary' || $usertype1 == 'Secretary')
-						{
-							 include 'base/sidebar.php';
-						}
-						else
-						{
-							 include 'base/sidebarAdmin.php';
-						}
-						?>
-            <!-- /sidebar menu -->
-
-  				</div>
-  			</div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
+	      <!-- top navigation -->
+	      <div class="top_nav">
+	        <?php include 'base/topNavigation.php';?>
+	      </div>
+	      <!-- /top navigation -->
 				<form method="POST" >
 					<?php
 						if(isset($_POST['btn-save'])){
