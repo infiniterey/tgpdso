@@ -258,8 +258,6 @@
 				}
 				public function addTeam(){
 
-					$teamID=$_POST['teamid'];
-					$teamName=$_POST['teamname'];
 
 					$host = "localhost";
 					$dbusername = "root";
@@ -273,6 +271,9 @@
 						die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 					}
 					else {
+						$teamID=$_POST['teamid'];
+						$teamName=$_POST['teamname'];
+
 						$sql = "INSERT INTO team (teamID, teamName)
 						values ('$teamID','$teamName')";
 
@@ -581,6 +582,81 @@
 						echo "Error:". $sql."<br>".$conn->error;
 					}
 					$conn->close();
+				}
+			}
+			public function addFund(){
+
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+						if(isset($_POST['btn-save']))
+						{
+					$fundID=$_POST['fundID'];
+					$fundName=$_POST['fundName'];
+
+					$sql = "INSERT INTO fund (fundID, fundName)
+					values ('$fundID','$fundName')";
+				}
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Team successfully added!');
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function updateFund(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['updateButton']))
+					{
+						$newFundNo = $_POST['newFundID'];
+					$newFundName = $_POST['newFundName'];
+					?><script>alert('yoo <?php echo $fundID ?>');</script>
+					<?php
+						$sql = "UPDATE fund SET fundName = '$newFundName' where fundID = '$newFundNo'";
+						if($conn->query($sql)===true)
+						{
+							?>
+							<script>
+								alert('Fund successfully updated!');
+								window.location='fund.php';
+							</script>
+							<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+					}
+
+
+					$conn->close();
+
 				}
 			}
 	}
