@@ -624,7 +624,7 @@ if(isset($_POST['logout']))
 				                          Transaction Date <span class="required">*</span>
 				                          <input name="transDate" id="transDate" style="width: 195px;" class="date-picker form-control" required="required" type="date" required><br>
 				                          Client Name <span class="required">*</span><br>
-				                          <input name="client" id="client" style="width: 150px;" class="date-picker form-control" required="required" type="text" required readonly>
+				                          <input name="client" placeholder="Client Name" id="client" style="width: 150px;" class="date-picker form-control" required="required" type="text" required readonly>
 																	<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#clientSearch"><span class='glyphicon glyphicon-search'></span></button><br>
 
 				                          <input type="text" id="firstname" placeholder="Firstname" name="firstname"hidden>
@@ -633,17 +633,17 @@ if(isset($_POST['logout']))
 						                      Policy No. <span class="required">*</span>
 						                      <input type="text" id="policyNo" name="policyNo" placeholder="Policy No." required="required" class="form-control" required><br>
 				                          Plan <span class="required">*</span> <br>
-				                          <input name="plan" id="plan" class="form-control" value="" placeholder="" style="width: 150px;" required readonly>
+				                          <input name="plan" id="plan" class="form-control" value="" placeholder="Plan" style="width: 150px;" required readonly>
 																	<input hidden name="planCodePass" id="planCodePass" value="" placeholder="" style="width: 150px;">
 																	<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button><br>
 																	Official Receipt No.
-																	<input type="text" id="receiptNo" name="receiptNo" required="required" class="form-control" required><br>
+																	<input type="text" id="receiptNo" name="receiptNo" required="required" placeholder="OR #" class="form-control" required><br>
 						                      Face Amount
-						                      <input type="text" id="faceAmount" name="faceAmount" required="required" class="form-control" required><br>
+						                      <input type="text" id="faceAmount" name="faceAmount" required="required" class="form-control" placeholder="Face Amount" required><br>
 						                      Premium <span class="required">*</span>
-				                          <input type="text" id="premium" name="premium" required="required" class="form-control" required><br>
+				                          <input type="text" id="premium" name="premium" required="required" class="form-control" placeholder="Premium" required><br>
 						                     	Rate <span class="required">*</span><br>
-						                      <input type="text" id="rate" name="rate" required="required" class="form-control" required><br>
+						                      <input type="text" id="rate" name="rate" required="required" class="form-control" placeholder="Rate" required><br>
 																	Mode of Payment <span class="required">*</span><br>
 				                          <select name="modeOfPayment" id="modeOfPayment" class="select2_gender form-control" style="width: 195px;" tabindex="-1">
 			                            <option value="Monthly" id="modeOfPayment">Monthly</option>
@@ -653,7 +653,7 @@ if(isset($_POST['logout']))
 																	</select><br>
 						                      Agent <span class="required">*</span><br>
 																	<input type="text" id="agentCode" name="agentCode" hidden>
-				                          <input type="text" id="agent" name="agent" required="required" class="form-control" required style="width: 150px;" readonly>
+				                          <input type="text" id="agent" name="agent" required="required" placeholder="Agent Name" class="form-control" required style="width: 150px;" readonly>
 																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"><i class="fa fa-search"></i></button>
 				                          Remarks <span class="required">*</span><br>
 				                          <select name="remarks" id="remarks" class="select2_gender form-control" style="width: 195px" tabindex="-1">
