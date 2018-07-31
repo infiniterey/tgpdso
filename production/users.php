@@ -32,12 +32,6 @@ if(isset($_POST['logout']))
 
 <style type="text/css">
 
-.highlight { background-color: lightgreen; color: green}
-.highlightBack { background-color: white; color: gray}
-
-.highlight1 { background-color: lightgreen; color: green}
-.disablehighlight { background-color: transparent;}
-
 #edit, #deleted{ display: none;}
 
 .scrollbar{
@@ -123,13 +117,15 @@ if(isset($_POST['logout']))
                         <div class="row">
 													<div class="col-sm-3">
 															<form method="post" action="<?php $_PHP_SELF ?>">
-				                          Username: <span class="required">*</span>
+				                          Username:
 				                          <input name="username" id="username" style="width: 195px;" class="date-picker form-control" required="required" type="text" required readonly><br/>
-				                          First Name: <span class="required">*</span>
+				                          First Name:
 				                          <input type="text" id="firstname" placeholder="" name="firstname" required="required" class="form-control" required disabled><br/>
-																  Last Name: <span class="required">*</span>
+																  Last Name:
 				                          <input type="text" id="lastname" placeholder="" name="lastname" required="required" class="form-control" required disabled><br/>
-																	New Password: <span class="required">*</span>
+																	User Type:
+																	<input type="text" id="usertype" placeholder="" name="usertype" required="required" class="form-control" required disabled><br/>
+																	New Password:
 																	<input type="text" id="npassword" placeholder="" name="npassword" required="required" class="form-control" value="" maxlength="25" required><br/>
 																	<br><br>
 																	<center>
@@ -149,10 +145,11 @@ if(isset($_POST['logout']))
                             <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
                               <thead>
                                 <tr role="row">
-                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username" style="width: 25px;text-align:center;">Username</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Firstname" style="width: 100px;text-align:center;">First Name</th>
-                                  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 100px;text-align:center;">Last Name</th>
-
+                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username" style="width: 10px;text-align:center;">Username</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Firstname" style="width: 120px;text-align:center;">First Name</th>
+                                  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 120px;text-align:center;">Last Name</th>
+																	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 50px;text-align:center;">User type</th>
+																	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Lastname" style="width: 10px;text-align:center;">Action</th>
 																</tr>
                               </thead>
 
@@ -171,6 +168,13 @@ if(isset($_POST['logout']))
                                           <td><?php print($row['username']); ?></td>
                                           <td><?php print($row['ufirstname']);?></td>
                                           <td><?php print($row['ulastname']); ?></td>
+																					<td><?php print($row['uusertype']); ?></td>
+																					<td>
+																						<div align="center" class="row">
+																								<a title="Edit Data" href="users.php?edit=<?php echo $row['username'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="users.php?delete=<?php echo $row['username'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																						</div>
+																					</td>
                                         </tr>
                                         <?php
                                       }
@@ -213,18 +217,7 @@ if(isset($_POST['logout']))
     <footer style="margin-bottom: -15px;">
 
 				<center>
-					<form method="post" action="<?php $_PHP_SELF ?>">
-
-						<input type="text" name="username1" id="username1" hidden>
-
-						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Edit Data" class="btn btn-primary" id="edit" name="edit" formnovalidate hide><i class="fa fa-pencil"/></i>&nbsp;&nbsp;&nbsp;Edit Data</button>
-						<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Delete Data" class="btn btn-primary" id="deleted" name="deleted" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" hidden><i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;Delete Data</button>
-
-					</form><br>
-					<div style="font-size: 8px;">
-
         COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE
-			</div>
 			</center>
     </footer>
 
@@ -239,60 +232,6 @@ if(isset($_POST['logout']))
 		<!-- The Modal -->
   </body>
 </html>
-
-
-
-<script>
-
-
-$("#datatable-fixed-header tr").click(function() {
-	var selected = $(this).hasClass("highlight");
-	$("#datatable-fixed-header tr").removeClass("highlight");
-				  $('#edit, #deleted').hide("highlight");
-	if(!selected)
-						$(this).addClass("highlight");
-					$('#edit, #deleted').show("highlight");
-});
-
-$(document).on("dblclick","#datatable-fixed-header tr",function() {
-						$('#edit, #deleted').hide();
-							$("#datatable-fixed-header tr").removeClass("highlight1");
-});
-
-
-</script>
-
-<script>
-
-
-		function ClickCancel()
-		{
-			$('#deleted, #edit').hide("highlight1");
-		}
-
-		}
-
-
-		function showButtons()
-		{
-
-				$('#edit, #deleted').show("highlight");
-
-		}
-
-		function hideButtons()
-		{
-
-				$('#edit, #deleted').hide("highlight");
-
-		}
-
-
-
-
-</script>
-
-
 
 <script>
 
@@ -323,13 +262,6 @@ $(document).ready(function() {
     } );
 } );
 
-
-
-function disableUpdateButton()
-{
-				document.getElementById("username1").value = "";
-				$('#edit, #deleted').hide("highlight");
-}
 
 </script>
 
@@ -394,10 +326,10 @@ if($conn->connect_error)
 		die("Connection failed:" .$conn->connect_error);
 }
 else {
-	if(isset($_POST['deleted']))
+	if(isset($_GET['delete']))
 	{
 
-		$username1 = $_POST['username1'];
+		$username1 = $_GET['delete'];
 
 		$sql = "DELETE FROM users WHERE username = '$username1'";
 
@@ -432,10 +364,10 @@ if(mysqli_connect_error())
 }
 else
 {
-		if(isset($_POST['edit']))
+		if(isset($_GET['edit']))
 		{
 
-				$username1 = $_POST['username1'];
+				$username1 = $_GET['edit'];
 
 					$result=mysqli_query($conn,"SELECT * from users WHERE username = '$username1'");
 
@@ -445,6 +377,7 @@ else
 						<script> document.getElementById('username').value = '<?php echo $row['username'];?>';</script>
 						<script> document.getElementById('firstname').value = '<?php echo $row['ufirstname'];?>';</script>
 						<script> document.getElementById('lastname').value = '<?php echo $row['ulastname'];?>';</script>
+						<script> document.getElementById('usertype').value = '<?php echo $row['uusertype'];?>';</script>
 						<script> document.getElementById('npassword').value = Math.floor(Math.random() * 10000);</script>
 						}
 
