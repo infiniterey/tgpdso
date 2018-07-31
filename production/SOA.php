@@ -89,7 +89,103 @@ overflow: auto;
 
 				<!-- page content -->
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="momodal" name="momodal" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog modal-small">
+		<div class="modal-content">
 
+
+			<div class="modal-header">
+				<h2 class="modal-title">Search Client <button type="button" class="close" data-dismiss="modal" onclick="cancelDetail();">x</button></h2>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+
+						<?php
+
+						$host = "localhost";
+						$dbusername = "root";
+						$dbpassword = "";
+						$dbname = "tgpdso_db";
+
+
+						$conn = new mysqli($host, $dbusername, $dbpassword, $dbname);
+
+
+						if(mysqli_connect_error())
+						{
+							die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+						}
+						else {
+							if(isset($_POST['saveClient']))
+							{
+								$firstname = $_POST['firstnameClient'];
+								$middlename = $_POST['middlenameClient'];
+								$lastname = $_POST['lastnameClient'];
+								$birthdate = $_POST['birthdateClient'];
+								$address = $_POST['addressClient'];
+								$cellno = $_POST['cellnoClient'];
+
+
+								$sql = "INSERT INTO client (cFirstname, cMiddlename, cLastname, cBirthdate, cAddress, cCellno)
+								VALUES ('$firstname', '$middlename', '$lastname', '$birthdate' , '$address', '$cellno')";
+
+								if($conn->query($sql))
+								{
+									?>
+									<script>
+										alert("Client is succesfully added.");
+										window.location="newBusiness.php";
+										</script>
+										<?php
+								}
+								else {
+									echo "Error:". $sql."<br>".$conn->error;
+								}
+								$conn->close();
+							}
+							}
+						?>
+
+
+					<form method="post" action="<?php $_PHP_SELF ?>">
+						First Name:
+						<input name="firstnameClient" id="firstnameClient" class="date-picker form-control" type="text" required><br/>
+						Middle Name:
+						<input type="text" id="middlenameClient" placeholder="" name="middlenameClient" required="required" class="form-control" required><br/>
+						Last Name:
+						<input type="text" id="lastnameClient" placeholder="" name="lastnameClient" required="required" class="form-control" required><br/>
+						Birthdate:
+						<input type="date" id="birthdateClient" placeholder="" name="birthdateClient" required="required" class="form-control" required><br/>
+						Address:
+						<input type="text" id="addressClient" placeholder="" name="addressClient" required="required" class="form-control" required><br/>
+						Cell No.:
+						<input type="text" id="cellnoClient" placeholder="" name="cellnoClient" required="required" class="form-control" required><br/>
+
+						<br/>
+							<button type="submit" name="saveClient" id="saveClient" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Add</button>
+							<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
+
+					</form>
+
+				</div>
+
+							</div>
+						</div>
+
+
+			<div class="modal-footer">
+				<div class="col-md-3">
+					<form method="post">
+				</form>
+
+			</div>
+			</div>
+
+
+</div>
+</div>
+</div>
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
 
 				</div>
@@ -169,22 +265,6 @@ overflow: auto;
 																?>
 															</tbody>
 													</table>
-													<script>
-
-
-														var table = document.getElementById('datatable-fixed-header');
-														for(var counter = 1; counter < table.rows.length; counter++)
-														{
-															table.rows[counter].onclick = function()
-															{
-
-															 document.getElementById("username1").value = this.cells[0].innerHTML;
-
-																};
-															}
-
-															</script>
-
 											</div>
 										</div>
 									</div>
@@ -201,20 +281,8 @@ overflow: auto;
 <form>
 </form>
 	<footer style="margin-bottom: -15px;">
-
-			<center>
-				<form method="post" action="<?php $_PHP_SELF ?>">
-
-					<input type="text" name="username1" id="username1" hidden>
-
-					<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Edit Data" class="btn btn-primary" id="edit" name="edit" formnovalidate onclick="enableUpdateButton(); Random();" hide><i class="fa fa-pencil"/></i>&nbsp;&nbsp;&nbsp;Edit Data</button>
-					<button type="submit" style="font-size: 10px; margin-bottom: -15px;" title="Delete Data" class="btn btn-primary" id="deleted" name="deleted" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" hidden><i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;Delete Data</button>
-
-				</form><br>
-				<div style="font-size: 8px;">
-
+		<center>
 			COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE
-		</div>
 		</center>
 	</footer>
 

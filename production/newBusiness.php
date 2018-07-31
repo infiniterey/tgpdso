@@ -655,10 +655,7 @@ if(isset($_POST['logout']))
 																	<input type="text" id="agentCode" name="agentCode" hidden>
 				                          <input type="text" id="agent" name="agent" required="required" placeholder="Agent Name" class="form-control" required style="width: 150px;" readonly>
 																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"><i class="fa fa-search"></i></button>
-				                          Remarks <span class="required">*</span><br>
-				                          <select name="remarks" id="remarks" class="select2_gender form-control" style="width: 195px" tabindex="-1">
-				                            <option value="New" id="remarks">New</option>
-				                          </select><br><br>
+																	<br><br>
 
 																	<center>
 
@@ -1154,7 +1151,7 @@ else {
   $rate = filter_input(INPUT_POST, 'rate');
   $modeOfPayment = filter_input(INPUT_POST, 'modeOfPayment');
   $agent = filter_input(INPUT_POST, 'agentCode');
-  $remarks = filter_input(INPUT_POST, 'remarks');
+  $remarks = "New";
   $plan = filter_input(INPUT_POST, 'planCodePass');
 
   $policyNo1 = filter_input(INPUT_POST, 'policyNo1');
