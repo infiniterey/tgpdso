@@ -76,8 +76,7 @@
 										<div class="row">
 											<center>
 												<form method='post' name='myform' onsubmit="CheckForm()">
-												<button  type="button" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" hidden></i></button>
-													<button  type="submit" data-toggle="modal" id="btn-deleteRow" formnovalidate onclick="return confirm('Are you sure do you want to delete?')" name="btn-deleteRow" class="btn btn-danger"><i class="fa fa-trash" hidden></i></button>
+												<button  type="button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
 															<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_training.php?delete=<?php echo $row['trainingNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 												</form>
 											</center>
