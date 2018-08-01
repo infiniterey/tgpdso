@@ -53,7 +53,7 @@
 																	<input type="date" id="birthdate" style="width: 195px;" placeholder="" name="birthdate" required="required" class="form-control" required><br/>
 																	Address:
 																	<input type="text" id="address" placeholder="" name="address" required="required" class="form-control" required><br/>
-																	Cell No.:
+																	Cell No.:<br>
 																	<input type="text" id="cellno" placeholder="" name="cellno" required="required" class="form-control" required><br/>
 
 																	<input type="text" id="clientID2" name="clientID2" hidden>
@@ -248,7 +248,6 @@ else {
 		$birthdate = $_POST['birthdate'];
 		$address = $_POST['address'];
 		$cellno = $_POST['cellno'];
-
 
 		$sql = "INSERT INTO client (cFirstname, cMiddlename, cLastname, cBirthdate, cAddress, cCellno)
 		VALUES ('$firstname', '$middlename', '$lastname', '$birthdate' , '$address', '$cellno')";

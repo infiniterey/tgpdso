@@ -34,7 +34,7 @@
 															cursor:pointer;transition: all .25s	ease-in-out;
 														}
 													</style>
-													<form>
+													<form method='post'>
 														<h4 style="float:left">Policy No <input type="text" name="searchT" id="searchT" placeholder="Search"></input>
 													 <button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
 												 <button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h4>
@@ -59,9 +59,9 @@
 														$prodID="";
 														$valueToSearch="";
 														$bool = False;
-														if(isset($_GET['searchT']))
-														{$valueToSearch = $_GET['searchT'];}
 
+														if(isset($_POST['searchT']))
+														{	 $valueToSearch = $_POST['searchT'];}
 														try {
 														$DB_con = Database::connect();
 														 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -193,7 +193,7 @@
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;">Requirements</th>
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Status</th>
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Submit Date</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Production ID</th>
+															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>RequirementNo</th>
 															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 															</tr>
 													</thead>
@@ -246,12 +246,12 @@
 																				<td><?php print($row['Rrequirements']); ?></td>
 																				<td><?php print($row['Status']); ?></td>
 																				<td><?php print($row['SubmitDate']); ?></td>
-																				<td hidden><?php print($row['RProdID']); ?></td>
+																				<td hidden><?php print($row['RequirementNo']); ?></td>
 																				<td>
 																					<div class="row">
 																						<center>
 																							<form method='post' name='myform' onsubmit="CheckForm()">
-																							<button  type="button" id="UpdateButton" name="UpdateButton" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" hidden></i></button>
+																							<button  type="button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
 																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_requirements.php?delete=<?php echo $row['RequirementNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																							</form>
 																						</center>
