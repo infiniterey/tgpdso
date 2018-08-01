@@ -520,7 +520,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2><b>DAILY PRODUCTION</b></h2>
-
+										<button  type="button" style='float:right' onclick="location.href = 'newBusinessForm.php';" class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;New Business</button>
 	                  <div class="clearfix"></div>
 	                </div>
 	                  <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -849,7 +849,6 @@ $(document).ready(function() {
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
     } );
 } );
-
 </script>
 
 

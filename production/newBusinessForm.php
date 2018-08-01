@@ -1,29 +1,3 @@
-<?php
-	include 'confg.php';
-	include 'pdo.php';
-	include_once 'createdb.php';
-
-
-	session_start();
-	?>
-
-	<?php
-if(isset($_POST['logout']))
-{
-		session_destroy();
-		unset($_SESSION['logout']);
-		?>
-		<script>
-		alert('Successfully logout - TGP');
-		window.location="tgpdso/index.php";
-		</script>
-
-		<?php
-}
-	 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <?php include 'base/header.php'; ?>
@@ -31,67 +5,17 @@ if(isset($_POST['logout']))
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
 </head>
+<body class="nav-md footer_fixed">
+	<form method="post">
+		<div class="container body">
+			<div class="main_container">
+				<div class="col-md-3 left_col menu_fixed">
+					<div class="left_col scroll-view scrollbar">
+						<?php include 'base/sidemenu.php';?>
+					</div>
+				</div>
 
-<style type="text/css">
-
-.scrollbar{
-	height: 100%;
-	width: 100%;
-	overflow: auto;
-}
-::-webkit-scrollbar {
-    width: 1px;
-}
-
-
-.highlight { background-color: lightgreen; color: green}
-.highlightBack { background-color: white; color: gray}
-
-.highlight1 { background-color: lightgreen; color: green}
-.disablehighlight { background-color: transparent;}
-
-.center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#edit, #deleted, #UpdateButton, #ModalEdit, #ModalDelete { display: none;}
-
-</style>
-  <body class="nav-md footer_fixed">
-    <form method="post">
-    	<div class="container body">
-    		<div class="main_container">
-
-    			<div class="col-md-3 left_col menu_fixed">
-    				<div class="left_col scroll-view scrollbar">
-    					<div class="clearfix"></div>
-
-    					<!-- menu profile quick info -->
-							<?php include 'base/sessionsidebar.php';?>
-  						<!-- /menu profile quick info -->
-
-    					<br />
-
-    					<!-- sidebar menu -->
-							<?php
-
-							$usertype1 = $_SESSION['usertype'];
-							if($usertype1 == 'secretary' || $usertype1 == 'Secretary')
-							{
-								 include 'base/sidebar.php';
-							}
-							else
-							{
-								 include 'base/sidebarAdmin.php';
-							}
-							?>
-    				</div>
-    			</div>
-
-          <!-- top navigation -->
+	      <!-- top navigation -->
           <div class="top_nav">
             <div class="nav_menu">
               <nav>
@@ -221,8 +145,9 @@ if(isset($_POST['logout']))
 											//		 document.getElementById("planCode").value = this.cells[0].innerHTML;
 													 document.getElementById("planCodePass").value = this.cells[0].innerHTML;
 											//		 document.getElementById("planDesc").value = this.cells[1].innerHTML;
-											//		 document.getElementById("planRate").value = this.cells[2].innerHTML;
+													document.getElementById("rate").value = this.cells[3].innerHTML;
 													 document.getElementById("plan").value = this.cells[1].innerHTML;
+
 
 														};
 													}
@@ -611,47 +536,102 @@ if(isset($_POST['logout']))
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2><b>DAILY PRODUCTION</b></h2>
-
-                      <div class="clearfix"></div>
+											<h2><b>
+											<ol class="breadcrumb">
+								        <li class="breadcrumb-item">
+								          <a href="newBusiness.php">New Business</a>
+								        </li>
+								        <li class="breadcrumb-item active">Add New Business</li>
+								      </ol></b></h2>
+											<div class="clearfix"></div>
                     </div>
-                      <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                        <div class="row">
-													<div class="col-sm-3">
-				                          Transaction Date <span class="required">*</span>
-				                          <input name="transDate" id="transDate" style="width: 195px;" class="date-picker form-control" required="required" type="date" required><br>
-				                          Client Name <span class="required">*</span><br>
-				                          <input name="client" placeholder="Client Name" id="client" style="width: 150px;" class="date-picker form-control" required="required" type="text" required readonly>
-																	<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#clientSearch"><span class='glyphicon glyphicon-search'></span></button><br>
+                        <div class="form-group">
+												    <label class="control-label col-sm-2" >
+																Transaction Date <span class="required">*</span>
+														</label>
+												    <div class="col-sm-10">
+												       <input name="transDate" id="transDate" class="date-picker form-control" required="required" type="date" required><br>
+												    </div>
+														<label class="control-label col-sm-2" >
+																 Client Name <span class="required">*</span>
+														</label>
+												    <div class="col-sm-10">
+															<input name="client" placeholder="Client Name" id="client"  class="date-picker form-control" required="required" type="text" required readonly>
+														  <button type="button" style='float:right' class="btn btn-primary form-inline"  data-toggle="modal" data-target="#clientSearch"><span class='glyphicon glyphicon-search'></span></button><br>
+														</div>
 
-				                          <input type="text" id="firstname" placeholder="Firstname" name="firstname"hidden>
-				                          <input type="text" id="lastname" placeholder="Lastname" name="lastname"hidden>
+															<input type="text" id="firstname" placeholder="Firstname" name="firstname"hidden>
+ 														 	<input type="text" id="lastname" placeholder="Lastname" name="lastname"hidden>
 
-						                      Policy No. <span class="required">*</span>
-						                      <input type="text" id="policyNo" name="policyNo" placeholder="Policy No." required="required" class="form-control" required><br>
-				                          Plan <span class="required">*</span> <br>
-				                          <input name="plan" id="plan" class="form-control" value="" placeholder="Plan" style="width: 150px;" required readonly>
-																	<input hidden name="planCodePass" id="planCodePass" value="" placeholder="" style="width: 150px;">
-																	<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button><br>
+														<label class="control-label col-sm-2" >
+																	Policy No. <span class="required">*</span>
+														</label>
+												    <div class="col-sm-10">
+												      <input type="text" id="policyNo" name="policyNo" placeholder="Policy No." required="required" class="form-control" required><br>
+												    </div>
+														<label class="control-label col-sm-2" >
+																	Plan <span class="required">*</span>
+														</label>
+												    <div class="col-sm-10">
+															<input name="plan" id="plan" class="form-control" value="" placeholder="Plan" required readonly>
+															<input hidden name="planCodePass" id="planCodePass" value="" placeholder="">
+														  <button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button><br>
+													  </div>
+														<label class="control-label col-sm-2" >
 																	Official Receipt No.
+														</label>
+														<div class="col-sm-10">
 																	<input type="text" id="receiptNo" name="receiptNo" required="required" placeholder="OR #" class="form-control" required><br>
-						                      Face Amount
-						                      <input type="text" id="faceAmount" name="faceAmount" required="required" class="form-control" placeholder="Face Amount" required><br>
-						                      Premium <span class="required">*</span>
-				                          <input type="text" id="premium" name="premium" required="required" class="form-control" placeholder="Premium" required><br>
-						                     	Rate <span class="required">*</span><br>
-						                      <input type="text" id="rate" name="rate" required="required" class="form-control" placeholder="Rate" required><br>
-																	Mode of Payment <span class="required">*</span><br>
-				                          <select name="modeOfPayment" id="modeOfPayment" class="select2_gender form-control" style="width: 195px;" tabindex="-1">
-			                            <option value="Monthly" id="modeOfPayment">Monthly</option>
-			                            <option value="Quarterly" id="modeOfPayment">Quarterly</option>
-			                            <option value="Semi-Annual" id="modeOfPayment">Semi-Annual</option>
-			                            <option value="Annualy" id="modeOfPayment">Annualy</option>
-																	</select><br>
-						                      Agent <span class="required">*</span><br>
-																	<input type="text" id="agentCode" name="agentCode" hidden>
-				                          <input type="text" id="agent" name="agent" required="required" placeholder="Agent Name" class="form-control" required style="width: 150px;" readonly>
-																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"><i class="fa fa-search"></i></button>
+														</div>
+														<label class="control-label col-sm-2" >
+																	Face Amount
+														</label>
+														<div class="col-sm-10">
+															<input type="text" id="faceAmount" name="faceAmount" required="required" class="form-control" placeholder="Face Amount" required><br>
+														</div>
+														<label class="control-label col-sm-2" >
+																	Premium <span class="required">*</span>
+														</label>
+														<div class="col-sm-10">
+															<input type="text" id="premium" name="premium" required="required" onchange="commission()" class="form-control" placeholder="Premium" required><br>
+														</div>
+														<label class="control-label col-sm-2" >
+															Rate <span class="required">*</span><br>
+														</label>
+														<div class="col-sm-10">
+															<input type="text" id="rate" name="rate" required="required" class="form-control" placeholder="Rate" required readonly><br>
+														</div>
+														<label class="control-label col-sm-2" >
+															FYC
+														</label>
+														<div class="col-sm-10">
+															<input type="text" id="fyc" name="fyc" class="form-control" placeholder="First Year Commission" required readonly><br>
+														</div>
+														<label class="control-label col-sm-2" >
+															<br>Mode of Payment <span class="required">*</span><br>
+														</label>
+														<div class="col-sm-10">
+															<select name="modeOfPayment" id="modeOfPayment" class="select2_gender form-control" tabindex="-1">
+															<option value="Monthly" id="modeOfPayment">Monthly</option>
+															<option value="Quarterly" id="modeOfPayment">Quarterly</option>
+															<option value="Semi-Annual" id="modeOfPayment">Semi-Annual</option>
+															<option value="Annualy" id="modeOfPayment">Annualy</option>
+															</select><br>
+														</div>
+														<label class="control-label col-sm-2" >
+															<br> Agent <span class="required">*</span><br>
+														</label>
+														<div class="col-sm-10">
+															<input type="text" id="agentCode" name="agentCode" hidden>
+															<input type="text" id="agent" name="agent" required="required" placeholder="Agent Name" class="form-control" required readonly>
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"><i class="fa fa-search"></i></button>
+														</div>
+</div>
+
+
+
+
+
 																	<br><br>
 
 																	<center>
@@ -663,134 +643,7 @@ if(isset($_POST['logout']))
 																		<a  class="btn btn-default" href="newBusiness.php" onclick="disableUpdateButton();">Cancel</a>
 
 																	</center>
-														</div>
-                          <div class="col-sm-9">
-
-          <!-- table-striped dataTable-->
-
-                            <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
-                              <thead>
-                                <tr role="row">
-																	  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;" hidden>ProdID</th>
-                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Trans. Date</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Name of Insured</th>
-                                  <th class="sorting" tabindex="0" id="policyNum" name="policyNum" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending" style="width: 35px;text-align:center;">Policy No.</th>
-                                  <th class="sorting" tabindex="0" id="receiptNum" name="receiptNum" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 10px;text-align:center;">OR No.</th>
-                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 15px;text-align:center;">Premium</th>
-                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Mode of Payment: activate to sort column ascending" style="width: 15px;text-align:center;">M.O.P</th>
-                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Issued Date: activate to sort column ascending" style="width: 100px;text-align:center;">Agent</th>
-                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Agent: activate to sort column ascending" style="width: 15px;text-align:center;">Status</th>
-                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 10px;text-align:center;">Action</th>
-																</tr>
-                              </thead>
-
-
-
-															<tbody>
-
-                                  <?php
-																		if($_SESSION['usertype'] == 'Secretary')
-																		{
-																			$team = $_SESSION['team'];
-																			$usertype = $_SESSION['usertype'];
-
-	                                    $DB_con = Database::connect();
-	                                    $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-	                                    	$sql = "SELECT * FROM production, client, agents, team WHERE prodclientID = clientID AND agentCode = agent AND agentTeam = teamID AND teamName = '$team'";
-
-
-	                                    $result = $DB_con->query($sql);
-	                                    if($result->rowCount()>0)
-																			{
-	                                      while($row=$result->fetch(PDO::FETCH_ASSOC))
-																				{
-																					$originalDate = $row['transDate'];
-																					$newDate = date("m/d/Y", strtotime($originalDate));
-	                                        ?>
-	                                        <tr>
-																						<td hidden><?php print($row['prodID']); ?></td>
-	                                          <td><?php print($newDate); ?></td>
-	                                          <td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
-	                                          <td><?php print($row['policyNo']); ?></td>
-	                                          <td><?php print($row['receiptNo']); ?></td>
-	                                          <td><?php print($row['premium']); ?></td>
-	                                          <td><?php print($row['modeOfPayment']); ?></td>
-	                                          <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
-	                                          <td><?php print($row['remarks']); ?></td>
-																						<td>
-																									<a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
-																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-																						</td>
-
-	                                        </tr>
-
-	                                        <?php
-
-	                                      }
-																			}
-																		}
-																		else{
-
-																			$DB_con = Database::connect();
-	                                    $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-	                                    $sql = "SELECT * FROM production, agents, client WHERE prodclientID = clientID AND agentCode = agent";
-
-
-	                                    $result = $DB_con->query($sql);
-	                                    if($result->rowCount()>0)
-																			{
-	                                      while($row=$result->fetch(PDO::FETCH_ASSOC))
-																				{
-																					$originalDate = $row['transDate'];
-																					$newDate = date("m/d/Y", strtotime($originalDate));
-	                                        ?>
-	                                        <tr>
-																						<td hidden><?php print($row['prodID']); ?></td>
-	                                          <td><?php print($newDate); ?></td>
-	                                          <td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
-	                                          <td><?php print($row['policyNo']); ?></td>
-	                                          <td><?php print($row['receiptNo']); ?></td>
-	                                          <td><?php print($row['premium']); ?></td>
-	                                          <td><?php print($row['modeOfPayment']); ?></td>
-	                                          <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
-	                                          <td><?php print($row['remarks']); ?></td>
-																						<td style="width: 100%; align:center">
-																							<div class="row">
-																									<a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-																							<div>
-																						</td>
-
-	                                        </tr>
-																					<?php
-																		}
-																	}
-																}
-
-                                  ?>
-                                </tbody>
-                            </table>
-														<script>
-
-
-															var table = document.getElementById('datatable-fixed-header');
-															for(var counter = 1; counter < table.rows.length; counter++)
-															{
-																table.rows[counter].onclick = function()
-																{;
-																 document.getElementById("policyNo1").value = this.cells[2].innerHTML;
-																 document.getElementById("receiptNo1").value = this.cells[3].innerHTML;
-																	};
-																}
-
-																</script>
-
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -893,13 +746,19 @@ if(isset($_POST['logout']))
 			window.location = "index.php";
 		}
 
-
-
-</script>
-
-
-
-<script>
+function commission()
+{
+	var premium = document.getElementById("premium").value;
+	var rate = document.getElementById("rate").value;
+	var rate2 = premium / 100;
+	var str = rate.slice(0, -1) ;
+	str = str/100;
+	var result = premium*str;
+	fyc.value = premium*str;
+	window.alert(str);
+	// window.alert(fyc.value);
+	// document.getElementById("myText").value
+}
 
 function myFunction() {
 
