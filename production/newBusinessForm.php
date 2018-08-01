@@ -514,13 +514,7 @@
 												</div>
 
 
-						      <div class="modal-footer">
-										<div class="col-md-3">
-											<form method="post">
-										</form>
 
-									</div>
-						      </div>
 
 
 						</div>
@@ -541,25 +535,29 @@
 								        <li class="breadcrumb-item">
 								          <a href="newBusiness.php">New Business</a>
 								        </li>
-								        <li class="breadcrumb-item active">Add New Business</li>
+								        <li class="breadcrumb-item active">	Add New Business</li>
 								      </ol></b></h2>
 											<div class="clearfix"></div>
                     </div>
-                        <div class="form-group">
+										<div class="x_content">
+                      <div class="form-group">
+												<div class="form-group">
 												    <label class="control-label col-sm-2" >
 																Transaction Date <span class="required">*</span>
 														</label>
 												    <div class="col-sm-10">
 												       <input name="transDate" id="transDate" class="date-picker form-control" required="required" type="date" required><br>
-												    </div>
-														<label class="control-label col-sm-2" >
-																 Client Name <span class="required">*</span>
-														</label>
-												    <div class="col-sm-10">
-															<input name="client" placeholder="Client Name" id="client"  class="date-picker form-control" required="required" type="text" required readonly>
-														  <button type="button" style='float:right' class="btn btn-primary form-inline"  data-toggle="modal" data-target="#clientSearch"><span class='glyphicon glyphicon-search'></span></button><br>
-														</div>
-
+												    </div></div>
+														<div class="form-group">
+															<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#clientSearch"><span class='glyphicon glyphicon-search'></span></button>
+															<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button> -->
+			                        <label class="control-label col-md-2 col-sm-1 col-xs-12">
+			                         	Client Name <span class="required">*</span>
+			                        </label>
+			                        <div class="col-md-9 col-sm-11 col-xs-12">
+			                          <input name="client" placeholder="Client Name" id="client"  class="date-picker form-control" required="required" type="text" required readonly>
+			                        </div>
+			                      </div>
 															<input type="text" id="firstname" placeholder="Firstname" name="firstname"hidden>
  														 	<input type="text" id="lastname" placeholder="Lastname" name="lastname"hidden>
 
@@ -569,14 +567,16 @@
 												    <div class="col-sm-10">
 												      <input type="text" id="policyNo" name="policyNo" placeholder="Policy No." required="required" class="form-control" required><br>
 												    </div>
-														<label class="control-label col-sm-2" >
-																	Plan <span class="required">*</span>
-														</label>
-												    <div class="col-sm-10">
-															<input name="plan" id="plan" class="form-control" value="" placeholder="Plan" required readonly>
-															<input hidden name="planCodePass" id="planCodePass" value="" placeholder="">
-														  <button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button><br>
-													  </div>
+														<div class="form-group">
+															<button type="button" class="btn btn-primary"  data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button>
+															<label class="control-label col-md-2 col-sm-1 col-xs-12">
+																Plan <span class="required">*</span>
+															</label>
+															<div class="col-md-9 col-sm-11 col-xs-12">
+																<input name="plan" id="plan" class="form-control" value="" placeholder="Plan" required readonly>
+																<input hidden name="planCodePass" id="planCodePass" value="" placeholder="">
+															</div>
+														</div>
 														<label class="control-label col-sm-2" >
 																	Official Receipt No.
 														</label>
@@ -608,7 +608,7 @@
 															<input type="text" id="fyc" name="fyc" class="form-control" placeholder="First Year Commission" required readonly><br>
 														</div>
 														<label class="control-label col-sm-2" >
-															<br>Mode of Payment <span class="required">*</span><br>
+															Mode of Payment <span class="required">*</span><br>
 														</label>
 														<div class="col-sm-10">
 															<select name="modeOfPayment" id="modeOfPayment" class="select2_gender form-control" tabindex="-1">
@@ -618,21 +618,19 @@
 															<option value="Annualy" id="modeOfPayment">Annualy</option>
 															</select><br>
 														</div>
-														<label class="control-label col-sm-2" >
-															<br> Agent <span class="required">*</span><br>
-														</label>
-														<div class="col-sm-10">
-															<input type="text" id="agentCode" name="agentCode" hidden>
-															<input type="text" id="agent" name="agent" required="required" placeholder="Agent Name" class="form-control" required readonly>
+														<div class="form-group">
 															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"><i class="fa fa-search"></i></button>
+															<label class="control-label col-md-2 col-sm-1 col-xs-12">
+																Agent <span class="required">*</span><br>
+															</label>
+															<div class="col-md-9 col-sm-11 col-xs-12">
+																<input type="text" id="agentCode" name="agentCode" hidden>
+																<input type="text" id="agent" name="agent" required="required" placeholder="Agent Name" class="form-control" required readonly>
+															</div>
 														</div>
-</div>
-
-
-
-
-
-																	<br><br>
+													</div>
+											</div>
+					<br><br>
 
 																	<center>
 
@@ -755,7 +753,6 @@ function commission()
 	str = str/100;
 	var result = premium*str;
 	fyc.value = premium*str;
-	window.alert(str);
 	// window.alert(fyc.value);
 	// document.getElementById("myText").value
 }
