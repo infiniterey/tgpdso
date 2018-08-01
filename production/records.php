@@ -123,62 +123,62 @@
 																		 <div class="row">
 																 			 <div class="col-xs-3">
 																				 Last Name
-																				 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
+																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-12" name="lastname1" id="lastname1"><br>
 																			 </div>
 																		 	 <div class="col-xs-3">
 																				 First Name
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
+																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-12"  name="firstname1" id="firstname1">
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Middle Name
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-4"  name="middlename1" id="middlename1">
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Birthday
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																				 <input style="cursor:auto" style="border:none" type="date" readonly class="form-control col-md-7 col-xs-4"  name="birthdate1" id="birthdate1">
 																			 </div>
 																		 </div>
 																		 <div class="row">
 																			 <div class="col-xs-3">
 																				 Address
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-4"  name="address1" id="address1">
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Contact #
-																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-4" name="contactno1" id="contactno1">
 																			 </div>
 																			</div>
 																		</div><br/>
 																		<div class="form-group">
-																			 <h5><b>Insured Policy Details</b> &nbsp;&nbsp;&nbsp;Same as insured: <input type="checkbox" name="box" id="box"></h5>
+																			 <h5><b>Insured Policy Details</b> &nbsp;&nbsp;&nbsp;Same as insured: <input type="checkbox" name="box" id="box" onclick="boxChecked();"></h5>
 																			 <hr/>
-																			 <div name="insuredPolicy" id="insuredPolicy">
+																			 <div>
 																			 <div class="row">
 																	 			 <div class="col-xs-3">
 																					 Last Name
-																					 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" readonly name="insuredLastName" id="insuredLastName"><br>
 																				 </div>
 																			 	 <div class="col-xs-3">
 																					 First Name
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" readonly name="insuredFirstName" id="insuredFirstName">
 																				 </div>
 																				 <div class="col-xs-3">
 																					 Middle Name
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="insuredMiddleName" id="insuredMiddleName">
 																				 </div>
 																				 <div class="col-xs-3">
 																					 Birthday
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																					 <input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" readonly name="insuredBirthdate" id="insuredBirthdate">
 																				 </div>
 																			 </div>
 																			 <div class="row">
 																				 <div class="col-xs-3">
 																					 Address
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="insuredAddress" id="insuredAddress">
 																				 </div>
 																				 <div class="col-xs-3">
 																					 Contact #
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="insuredContactno" id="insuredContactno">
 																				 </div>
 																			 </div>
 																		 </div>
@@ -230,33 +230,33 @@
 																					<div class="row">
 																						<div class="col-xs-3">
 																							Last Name
-																							<input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="beneLastName" id="beneLastName" value='<?php echo $Lname; ?>'><br>
 																						</div>
 																						<div class="col-xs-3">
 																							First Name
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12"  name="beneFirstName" id="beneFirtName" value='<?php echo $Fname; ?>'>
 																						</div>
 																						<div class="col-xs-3">
 																							Middle Name
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="beneMiddleName" id="beneMiddleName" value='<?php echo $Fname; ?>'>
 																						</div>
 																						<div class="col-xs-3">
 																							Birthday
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="beneBirthday" id="beneBirthday" value='<?php echo $Fname; ?>'>
 																						</div>
 																					</div>
 																					<div class="row">
 																						<div class="col-xs-3">
 																							Address
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="beneAddress" id="beneAddress" value='<?php echo $Fname; ?>'>
 																						</div>
 																						<div class="col-xs-3">
 																							Contact #
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="beneContact" id="beneContact" value='<?php echo $Fname; ?>'>
 																						</div>
 																						<div class="col-xs-3">
 																							Relationship
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="beneRelationship" id="beneRelationship" value='<?php echo $Fname; ?>'>
 																						</div>
 																				 </div>
 
@@ -516,7 +516,7 @@
 												 <td><?php echo $row['receiptNo']; ?></td>
 												 <td>
 													 <div class = "row" align="center">
-															 <a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+															 <a title="Edit Data" href="records.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 															 <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 														</div>
 												 </td>
@@ -577,6 +577,11 @@
 
   </body>
 </html>
+
+<?php include 'base/recordConnection.php';?>
+
+
+
 <script>
 window.onload = function () {
 								startTab();
@@ -639,14 +644,34 @@ function openPolicy(evt, tabName) {
 								} );
 						} );
 
-						$(document).ready(function () {
-    					$('#box').change(function () {
-        				if (this.checked)
-           			$('#insuredPolicy').fadeIn('slow');
-        				else
-            		$('#insuredPolicy').fadeOut('slow');
-    });
-});
+					function boxChecked() {
+  					var checkBox = document.getElementById("box");
+  					var firstname = document.getElementById("firstname1").value;
+						var lastname = document.getElementById("lastname1").value;
+						var middlename = document.getElementById("middlename1").value;
+						var birthdate = document.getElementById("birthdate1").value;
+						var address = document.getElementById("address1").value;
+						var contactno = document.getElementById("contactno1").value;
 
+
+  						if (checkBox.checked == true)
+								{
+									document.getElementById("insuredLastName").value = lastname;
+									document.getElementById("insuredFirstName").value = firstname;
+									document.getElementById("insuredMiddleName").value = middlename;
+									document.getElementById("insuredBirthdate").value = birthdate;
+									document.getElementById("insuredAddress").value = address;
+									document.getElementById("insuredContactno").value = contactno;
+  							}
+								else
+									{
+										document.getElementById("insuredLastName").value = "";
+										document.getElementById("insuredFirstName").value = "";
+										document.getElementById("insuredMiddleName").value = "";
+										document.getElementById("insuredBirthdate").value = "";
+										document.getElementById("insuredAddress").value = "";
+										document.getElementById("insuredContactno").value = "";
+  								}
+								}
 
 </script>
