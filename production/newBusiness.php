@@ -520,68 +520,22 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2><b>DAILY PRODUCTION</b></h2>
-
+										<button  type="button" style='float:right' onclick="location.href = 'newBusinessForm.php';" class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;New Business</button>
 	                  <div class="clearfix"></div>
 	                </div>
 	                  <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 	                    <div class="row">
-												<div class="col-sm-3">
-			                          Transaction Date <span class="required">*</span>
-			                          <input name="transDate" id="transDate" style="width: 195px;" class="date-picker form-control" required="required" type="date" required><br>
-			                          Client Name <span class="required">*</span><br>
-			                          <input name="client" placeholder="Client Name" id="client" style="width: 150px;" class="date-picker form-control" required="required" type="text" required readonly>
-																<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#clientSearch"><span class='glyphicon glyphicon-search'></span></button><br>
 
-			                          <input type="text" id="firstname" placeholder="Firstname" name="firstname"hidden>
-			                          <input type="text" id="lastname" placeholder="Lastname" name="lastname"hidden>
-
-					                      Policy No. <span class="required">*</span>
-					                      <input type="text" id="policyNo" name="policyNo" placeholder="Policy No." required="required" class="form-control" required><br>
-			                          Plan <span class="required">*</span> <br>
-			                          <input name="plan" id="plan" class="form-control" value="" placeholder="Plan" style="width: 150px;" required readonly>
-																<input hidden name="planCodePass" id="planCodePass" value="" placeholder="" style="width: 150px;">
-																<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target=".bs-example-modal-sm"><span class='glyphicon glyphicon-plus'></span></button><br>
-																Official Receipt No.
-																<input type="text" id="receiptNo" name="receiptNo" required="required" placeholder="OR #" class="form-control" required><br>
-					                      Face Amount
-					                      <input type="text" id="faceAmount" name="faceAmount" required="required" class="form-control" placeholder="Face Amount" required><br>
-					                      Premium <span class="required">*</span>
-			                          <input type="text" id="premium" name="premium" required="required" class="form-control" placeholder="Premium" required><br>
-					                     	Rate <span class="required">*</span><br>
-					                      <input type="text" id="rate" name="rate" required="required" class="form-control" placeholder="Rate" required><br>
-																Mode of Payment <span class="required">*</span><br>
-			                          <select name="modeOfPayment" id="modeOfPayment" class="select2_gender form-control" style="width: 195px;" tabindex="-1">
-		                            <option value="Monthly" id="modeOfPayment">Monthly</option>
-		                            <option value="Quarterly" id="modeOfPayment">Quarterly</option>
-		                            <option value="Semi-Annual" id="modeOfPayment">Semi-Annual</option>
-		                            <option value="Annualy" id="modeOfPayment">Annualy</option>
-																</select><br>
-					                      Agent <span class="required">*</span><br>
-																<input type="text" id="agentCode" name="agentCode" hidden>
-			                          <input type="text" id="agent" name="agent" required="required" placeholder="Agent Name" class="form-control" required style="width: 150px;" readonly>
-																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"><i class="fa fa-search"></i></button>
-																<br><br>
-
-																<center>
-
-																	<input name="clientIDModal" id="clientIDModal" type="text" hidden><br>
-																	<button type="submit" class="btn btn-primary" id="SaveButton" name="SaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-
-																	<button type="submit" class="btn btn-primary" id="UpdateButton" name="UpdateButton"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																	<a  class="btn btn-default" href="newBusiness.php" onclick="disableUpdateButton();">Cancel</a>
-
-																</center>
-													</div>
-	                      <div class="col-sm-9">
+	                      <div class="col-sm-12">
 
 	      <!-- table-striped dataTable-->
 
 	                        <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
 	                          <thead>
 	                            <tr role="row">
-																  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;" hidden>ProdID</th>
+																<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;" hidden>ProdID</th>
 	                              <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Trans. Date</th>
-	                                <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Name of Insured</th>
+	                              <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Name of Insured</th>
 	                              <th class="sorting" tabindex="0" id="policyNum" name="policyNum" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending" style="width: 35px;text-align:center;">Policy No.</th>
 	                              <th class="sorting" tabindex="0" id="receiptNum" name="receiptNum" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 10px;text-align:center;">OR No.</th>
 	                              <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 15px;text-align:center;">Premium</th>
@@ -627,7 +581,7 @@
 	                                        <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
 	                                        <td><?php print($row['remarks']); ?></td>
 																					<td>
-																								<a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
+																								<a title="Edit Data" href="newBusinessForm.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
 																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																					</td>
 
@@ -666,7 +620,7 @@
 	                                        <td><?php print($row['remarks']); ?></td>
 																					<td style="width: 100%; align:center">
 																						<div class="row">
-																								<a title="Edit Data" href="newBusiness.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																								<a title="Edit Data" href="newBusinessForm.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																						<div>
 																					</td>
@@ -849,7 +803,6 @@ $(document).ready(function() {
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
     } );
 } );
-
 </script>
 
 
