@@ -3,12 +3,6 @@
 <?php include 'base/header.php'; ?>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<style>
-
-#insuredPolicy{ display: none};
-
-</style>
 <head>
 </head>
 <body class="nav-md footer_fixed">
@@ -48,7 +42,7 @@
 															<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No."></input>
 														 	<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
 													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
-															<button  type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Payment</button>
+															<button  type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton" id="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Payment</button>
 															<br	><br>
 															<div class="clearfix"></div>
 														</div>
@@ -123,6 +117,7 @@
 																		 <div class="row">
 																 			 <div class="col-xs-3">
 																				 Last Name
+																				 <input type="text" name="policyNoOwner" id="policyNoOwner"hidden>
 																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-12" name="lastname1" id="lastname1"><br>
 																			 </div>
 																		 	 <div class="col-xs-3">
@@ -156,29 +151,29 @@
 																			 <div class="row">
 																	 			 <div class="col-xs-3">
 																					 Last Name
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" readonly name="insuredLastName" id="insuredLastName"><br>
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12"  name="insuredLastName" id="insuredLastName"><br>
 																				 </div>
 																			 	 <div class="col-xs-3">
 																					 First Name
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" readonly name="insuredFirstName" id="insuredFirstName">
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12"  name="insuredFirstName" id="insuredFirstName">
 																				 </div>
 																				 <div class="col-xs-3">
 																					 Middle Name
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="insuredMiddleName" id="insuredMiddleName">
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="insuredMiddleName" id="insuredMiddleName">
 																				 </div>
 																				 <div class="col-xs-3">
 																					 Birthday
-																					 <input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" readonly name="insuredBirthdate" id="insuredBirthdate">
+																					 <input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4"  name="insuredBirthdate" id="insuredBirthdate">
 																				 </div>
 																			 </div>
 																			 <div class="row">
 																				 <div class="col-xs-3">
 																					 Address
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="insuredAddress" id="insuredAddress">
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="insuredAddress" id="insuredAddress">
 																				 </div>
 																				 <div class="col-xs-3">
 																					 Contact #
-																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="insuredContactno" id="insuredContactno">
+																					 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="insuredContactno" id="insuredContactno">
 																				 </div>
 																			 </div>
 																		 </div>
@@ -188,131 +183,146 @@
 																			 <div class="row">
 																		 			 <div class="col-xs-3">
 																						 Plan
-																						 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
+																						 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="policyPlan" id="policyPlan"><br>
 																					 </div>
 																				 	 <div class="col-md-3">
 																						 Face Amount
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
+																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" readonly name="policyFaceAmount" id="policyFaceAmount">
 																					 </div>
 																					 <div class="col-sm-3 ">
 																						 Mode of Payment
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="policyMOP" id="policyMOP">
 																					 </div>
 																				 <div class="col-sm-3 ">
 																						 Issue Date
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																						 <input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" readonly name="policyIssueDate" id="policyIssueDate">
 																					 </div>
 																	 	 		</div>
 																				<div class="row">
 																					<div class="col-xs-3">
 																						Premium
-																						<input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
+																						<input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-12" name="policyPremium" id="policyPremium"><br>
 																					</div>
 																					<div class="col-md-3">
 																						Fund
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
+																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" readonly name="policyFund" id="policyFund">
 																					</div>
 																					<div class="col-sm-3 ">
 																						Policy Status
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="policyStatus" id="policyStatus">
 																					</div>
 																					<div class="col-sm-3 ">
 																						Next Due Date
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" disabled="disabled" name="myMiddleName" id="myMiddleName" value='<?php echo $Fname; ?>'>
+																						<input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" readonly name="policyDueDate" id="policyDueDate">
 																					</div>
 																			 </div>
 																 			</div><br>
+
 																			<div class="form-group">
 																				<div class="row">
 																	 			<h5><b>Beneficiary Details</b>
-																				<button type="button" style='float:right' class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Beneficiary</button></h5>
-																				</div>		<hr>
+																					</h5>
+																				</div>
+																				<hr>
 																					<div class="row">
 																						<div class="col-xs-3">
 																							Last Name
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="beneLastName" id="beneLastName" value='<?php echo $Lname; ?>'><br>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="beneLastName" id="beneLastName"><br>
 																						</div>
 																						<div class="col-xs-3">
 																							First Name
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12"  name="beneFirstName" id="beneFirtName" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12"  name="beneFirstName" id="beneFirstName" >
 																						</div>
 																						<div class="col-xs-3">
 																							Middle Name
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="beneMiddleName" id="beneMiddleName" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="beneMiddleName" id="beneMiddleName">
 																						</div>
 																						<div class="col-xs-3">
 																							Birthday
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="beneBirthday" id="beneBirthday" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4"  name="beneBirthday" id="beneBirthday" >
 																						</div>
 																					</div>
 																					<div class="row">
 																						<div class="col-xs-3">
 																							Address
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="beneAddress" id="beneAddress" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="beneAddress" id="beneAddress" >
 																						</div>
 																						<div class="col-xs-3">
 																							Contact #
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="beneContact" id="beneContact" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="beneContact" id="beneContact">
 																						</div>
 																						<div class="col-xs-3">
 																							Relationship
-																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="beneRelationship" id="beneRelationship" value='<?php echo $Fname; ?>'>
+																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="beneRelationship" id="beneRelationship">
 																						</div>
-																				 </div>
 
+																						<br><br><br>
+																				 </div>
+																				 <button style="float: right"class="btn btn-primary" type="submit" name="addBeneficiaryButton" id="addBeneficiaryButton"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Beneficiary</button>
 																				 <br><br><br>
 
 																				 <table name="datatable-fixed-header2" id="datatable-fixed-header2" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
 																						<thead>
 																						<tr role="row">
-																								<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Last Name.</th>
-																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 100px;text-align:center;">First Name</th>
-																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="APR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Middle Name</th>
-																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="NextDueDate: activate to sort column ascending" style="width: 30px;text-align:center;">Address</th>
+																								<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 80px;text-align:center;">Last Name.</th>
+																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 80px;text-align:center;">First Name</th>
+																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="APR No.: activate to sort column ascending" style="width: 5px;text-align:center;">Middle Name</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="NextDueDate: activate to sort column ascending" style="width: 120px;text-align:center;">Address</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Birthdate</th>
-																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Contact#</th>
-																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Relationship</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 20px;text-align:center;">Contact#</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 10px;text-align:center;">Relationship</th>
 																							</tr>
 																						</thead>
 																						<tbody>
+
 																							<?php
-																							$DB_con = Database::connect();
-																							$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																							$sql = "SELECT * FROM beneficiary";
+																							$servername = "localhost";
+																							$username = "root";
+																							$password = "";
+																							$dbname = "tgpdso_db";
 
+																							$conn = new mysqli ($servername, $username, $password, $dbname);
 
-																						$result = $DB_con->query($sql);
-																						if($result->rowCount()>0)
-																						{
-																							while($row=$result->fetch(PDO::FETCH_ASSOC))
+																							if(mysqli_connect_error())
 																							{
-																								// $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
-																							// c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
-																							// ON p.prodclientID = c.clientID");
-																							// $sql->execute();
-																								//  // $result = $DB_con->query($sql);
-																								// // if($result->rowCount()>0){
-																								 //  while($row=$sql->fetchAll(PDO::FETCH_ASSOC)){
-																										?>
-																										<tr>
-																										<td><?php echo $row['bene_lastName']?></td>
-																										<td><?php echo $row['bene_firstName']; ?></td>
-																										<td><?php echo $row['bene_middleName']; ?></td>
-																										<td><?php echo $row['bene_address']; ?></td>
-																										<td><?php echo $row['bene_birthDate']; ?></td>
-																										<td><?php echo $row['bene_contactNo']; ?></td>
-																										<td><?php echo $row['bene_relationShip']; ?></td>
-																								 </tr>
-																										<?php
-																									}
+																								die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 																							}
-																								 // }
+																							else
+																							{
+																									if(isset($_GET['edit']))
+																									{
+																											$edit = $_GET['edit'];
 
+																												$result=mysqli_query($conn,"SELECT * FROM beneficiary WHERE bene_policyNo = '$edit'");
+
+																												while($row=mysqli_fetch_Array($result))
+																												{
+																													?>
+																												<tr>
+																													<td><?php echo $row['bene_lastName']?></td>
+																													<td><?php echo $row['bene_firstName']; ?></td>
+																													<td><?php echo $row['bene_middleName']; ?></td>
+																													<td><?php echo $row['bene_address']; ?></td>
+																													<td><?php echo $row['bene_birthDate']; ?></td>
+																													<td><?php echo $row['bene_contactNo']; ?></td>
+																													<td><?php echo $row['bene_relationShip']; ?></td>
+																											 </tr>
+																													<?php
+																											}
+
+																										?>
+																										<script>
+
+																										</script>
+																										<?php
+																								}
+																							}
 
 																							?>
 
 																							</tbody>
 																					</table>
+																					<br><br>
 
 
 			 																			<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -407,13 +417,6 @@
 																					{
 																						while($row=$result->fetch(PDO::FETCH_ASSOC))
 																						{
-																							// $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
-																						// c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
-																						// ON p.prodclientID = c.clientID");
-																						// $sql->execute();
-																							//  // $result = $DB_con->query($sql);
-																							// // if($result->rowCount()>0){
-																							 //  while($row=$sql->fetchAll(PDO::FETCH_ASSOC)){
 																									?>
 																									<tr>
 																										<td><?php echo $row['policyNo']; ?></td>
@@ -516,7 +519,7 @@
 												 <td><?php echo $row['receiptNo']; ?></td>
 												 <td>
 													 <div class = "row" align="center">
-															 <a title="Edit Data" href="records.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+															 <a title="Edit Data" href="records.php?edit=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 															 <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 														</div>
 												 </td>
@@ -579,99 +582,3 @@
 </html>
 
 <?php include 'base/recordConnection.php';?>
-
-
-
-<script>
-window.onload = function () {
-								startTab();
-							};
-
-function startTab() {
-								document.getElementById("defaultOpen").click();
-							}
-
-function openPolicy(evt, tabName) {
-                // Declare all variables
-                var i, tabcontent, tablinks;
-
-                // Get all elements with class="tabcontent" and hide them
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                }
-
-                // Get all elements with class="tablinks" and remove the class "active"
-                tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-
-                // Show the current tab, and add an "active" class to the link that opened the tab
-                document.getElementById(tabName).style.display = "block";
-                evt.currentTarget.className += " active";
-            }
-
-						function myFunction() {
-
-						  var input, filter, table, tr, td, i;
-						  input = document.getElementById("myInput");
-						  filter = input.value.toUpperCase();
-						  table = document.getElementById("datatable-fixed-header");
-						  tr = table.getElementsByTagName("tr");
-
-
-						  for (i = 0; i < tr.length; i++) {
-						    td = tr[i].getElementsByTagName("td")[0];
-						    if (td) {
-						      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-						        tr[i].style.display = "";
-						      } else {
-						        tr[i].style.display = "none";
-						      }
-						    }
-						  }
-						}
-
-						$(document).ready(function() {
-						    $('#datatable-fixed-header').DataTable( {
-						        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-						    } );
-						} );
-						$(document).ready(function() {
-								$('#datatable-fixed-header1').DataTable( {
-										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-								} );
-						} );
-
-					function boxChecked() {
-  					var checkBox = document.getElementById("box");
-  					var firstname = document.getElementById("firstname1").value;
-						var lastname = document.getElementById("lastname1").value;
-						var middlename = document.getElementById("middlename1").value;
-						var birthdate = document.getElementById("birthdate1").value;
-						var address = document.getElementById("address1").value;
-						var contactno = document.getElementById("contactno1").value;
-
-
-  						if (checkBox.checked == true)
-								{
-									document.getElementById("insuredLastName").value = lastname;
-									document.getElementById("insuredFirstName").value = firstname;
-									document.getElementById("insuredMiddleName").value = middlename;
-									document.getElementById("insuredBirthdate").value = birthdate;
-									document.getElementById("insuredAddress").value = address;
-									document.getElementById("insuredContactno").value = contactno;
-  							}
-								else
-									{
-										document.getElementById("insuredLastName").value = "";
-										document.getElementById("insuredFirstName").value = "";
-										document.getElementById("insuredMiddleName").value = "";
-										document.getElementById("insuredBirthdate").value = "";
-										document.getElementById("insuredAddress").value = "";
-										document.getElementById("insuredContactno").value = "";
-  								}
-								}
-
-</script>

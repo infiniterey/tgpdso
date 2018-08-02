@@ -26,22 +26,44 @@
     	?>
 
     	<?php
-    if(isset($_POST['logout']))
-    {
-    		session_destroy();
-    		unset($_SESSION['logout']);
-    		?>
-    		<script>
-    		alert('Successfully logout - TGP');
-    		window.location="tgpdso/index.php";
-    		</script>
 
-    		<?php
-    }
+      if(isset($_POST['logout']))
+      {
+          unset($_SESSION['logout']);
+          ?>
+          <script>
+          alert('Successfully logout - TGP');
+          window.location="http://localhost/tgpdso/index.php";
+          </script>
+
+          <?php
+          session_destroy();
+      }
+
+      if(!isset($_SESSION['username']))
+      {
+        ?>
+        <script>  alert('Cannot proceed without login');
+                  window.location="http://localhost/tgpdso/index.php";
+        </script>
+        <?php
+          exit();
+      }
     	 ?>
 
 
 <style type="text/css">
+
+
+
+.astext {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}
+
    .scrollbar{
    	height: 100%;
    	width: 100%;
