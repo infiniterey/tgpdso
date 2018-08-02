@@ -43,6 +43,7 @@
 												 	 $Tdate = "";
 													 $Lname = "";
 													 $Fname = "";
+													 $clientID="";
 													 $Pno = "";
 													 $Pplan = "";
 													 $Premium = "";
@@ -66,7 +67,8 @@
 														$DB_con = Database::connect();
 														 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 														 //$stmt->bindValue(':search', '%' . $var1 . '%', PDO::PARAM_INT);
-														 $sql="SELECT * FROM production WHERE policyNo = '$valueToSearch'";
+														 	$sql="SELECT * FROM production, client WHERE clientID = '$clientID' and policyNo = '$valueToSearch'";
+
 														 $q = $DB_con->prepare($sql);
 														 $q->execute();
 														 $result =  $q->fetchall();
@@ -75,9 +77,10 @@
 																 $bool = True;
 																 $prodID = $row['prodID'];
 																 $Tdate = $row['transDate'];
-																 $Lname = $row['lastName'];
-																 $Fname = $row['firstName'];
-																 $Pno = $row['policyNo'];
+																 $clientID=$row['prodclientID'];
+																 $Lname = $row['cLastname'];
+																 $Fname = $row['cFirstname'];
+														 		 $Pno = $row['policyNo'];
 																 $Pplan = $row['plan'];
 																 $Premium = $row['premium'];
 																 $Rno = $row['receiptNo'];
@@ -214,13 +217,13 @@
 																			}
 
 																		?>
+																		Transaction Date: <br><input class="form-control" name="TTransactDate" style = "width:195px" class="date-picker form-control" required="required" type="date" value=""><br>
 																		Production ID:<br><input type="text" readonly="readonly" class="form-control" id="ProdId" name="ProdId" value="<?php echo $prodID?>"hidden><br>
 																		Agent Code: <br><input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><br>
 																		Plan Code: <br><input  type="text" class="form-control" readonly="readonly" name="planCode" value="<?php echo $Pplan?>"hidden><br>
 																		Requirement: <br><Textarea type="text" class="form-control" name="requirement" style="width:200px;height:40px" ></Textarea><br>
-																		Transaction Date: <br><input class="form-control" name="TTransactDate" style = "width:195px" class="date-picker form-control" required="required" type="date" value=""><br>
-																		Status: <br><input type="text" class="form-control" name="stats"><br>
-																		Submit Date: <br> <input name="submitdate" style = "width:195px" class="date-picker form-control" required="required" type="date" required><br>
+																		<!-- Status: <br><input type="text" class="form-control" name="stats"><br> -->
+																		<!-- Submit Date: <br> <input name="submitdate" style = "width:195px" class="date-picker form-control" required="required" type="date" required><br> -->
 																	 <br>
 																</div>
 																	<div class="modal-footer">
@@ -232,11 +235,14 @@
 														</div>
 													</div>
 													<tbody>
+														<form method='get' name='myform' onsubmit="CheckForm()">
 															<?php
-
+																if(isset($_GET['retrieveAgent']))
+																{
+																	?><script>alert('yahaloo');</script><?php
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																$sql = "SELECT * FROM requirements WHERE '$prodID' = RProdID";
+																$sql = "SELECT * FROM requirements WHERE RProdID = '$prodID'";
 																$result = $DB_con->query($sql);
 
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
@@ -260,7 +266,30 @@
 																		</tr>
 																			<?php
 																		}
+																		?>
+																		<script>
+																			var table = document.getElementById('tableko');
+																			for(var counter = 1; counter < table.rows.length; counter++)
+																			{
+																				table.rows[counter].onclick = function()
+																				{;
+																				 document.getElementById("searchT").value = this.cells[0].innerHTML;
+																				 document.getElementById("mylastname").value = this.cells[4].innerHTML;
+																				 document.getElementById("myfirstname").value = this.cells[5].innerHTML;
+																				 document.getElementById("mypolicy").value = this.cells[0].innerHTML;
+																				 document.getElementById("myofficialReceipt").value = this.cells[6].innerHTML;
+																				 document.getElementById("myAgent").value = this.cells[7].innerHTML;
+																				 document.getElementById("myplan").value = this.cells[8].innerHTML;
+																				 document.getElementById("mydate").value = this.cells[9].innerHTML;
+																				 document.getElementById("myModeOfPayment").value = this.cells[10].innerHTML;
+																				 };
+																			}
+
+																				</script>
+																				<?php
+																	}
 															?>
+														</form>
 														</tbody>
 													</table>
 													<script>
@@ -272,7 +301,7 @@
 																{;
 																 	document.getElementById("inputvaluedelete").value =this.cells[4].innerHTML;
 															 	 	document.getElementById("inputvaluedelete2").value =this.cells[1].innerHTML;
-														  	  document.getElementById("modalprod").value =this.cells[4].innerHTML;
+														  	  document.getElementById("modalRequirementNo").value =this.cells[4].innerHTML;
 																 	document.getElementById("modalreq").value =this.cells[1].innerHTML;
 																 	document.getElementById("modaltrans").value =this.cells[0].innerHTML;
 																	document.getElementById("modalstats").value =this.cells[2].innerHTML;
@@ -308,7 +337,7 @@
 							<form style="margin-bottom: 10px;">
 							<div class="modal-body">
 
-								<table name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
+								<table method = 'post' name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
  							 <thead>
 								 <tr role="row">
  									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
@@ -322,13 +351,15 @@
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Plan</th>
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Transadate</th>
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	MOD</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">	Action</th>
  									 </tr>
  							 </thead>
  							 <tbody>
  								 <?php
+
  									 $DB_con = Database::connect();
  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
- 									 $sql = "SELECT * FROM production";
+ 									 $sql = "SELECT * from production, client Where client.clientID = production.prodclientID";
 
  									 $result = $DB_con->query($sql);
  									 if($result->rowCount()>0){
@@ -336,7 +367,7 @@
  											 ?>
  											 <tr>
  												 <td><?php print($row['policyNo']); ?></td>
- 												 <td><?php print($row['lastName']. ", " .$row['firstName']); ?></td>
+ 												 <td><?php print($row['cLastname']. ", " .$row['cFirstname']); ?></td>
  												 <td><?php print($row['agent']); ?></td>
 												 <td><?php print($row['issuedDate']); ?></td>
 
@@ -347,6 +378,9 @@
 												 <td hidden><?php print($row['plan']); ?></td>
 												 <td hidden><?php print($row['transDate']); ?></td>
 												 <td hidden><?php print($row['modeOfPayment']); ?></td>
+												 <form method='get' name='myform' onsubmit="CheckForm()">
+												 	<td><button style="width: 100%; height: 100%;"  type="button" id="retrieveAgent" name="retrieveAgent" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
+												</form>
 												 </tr>
  											 <?php
  										 }
@@ -359,25 +393,7 @@
  						 </table>
 
 
-								<script>
-									var table = document.getElementById('tableko');
-									for(var counter = 1; counter < table.rows.length; counter++)
-									{
-										table.rows[counter].onclick = function()
-										{;
-										 document.getElementById("searchT").value = this.cells[0].innerHTML;
-										 document.getElementById("mylastname").value = this.cells[4].innerHTML;
-										 document.getElementById("myfirstname").value = this.cells[5].innerHTML;
-										 document.getElementById("mypolicy").value = this.cells[0].innerHTML;
-										 document.getElementById("myofficialReceipt").value = this.cells[6].innerHTML;
-										 document.getElementById("myAgent").value = this.cells[7].innerHTML;
-										 document.getElementById("myplan").value = this.cells[8].innerHTML;
-										 document.getElementById("mydate").value = this.cells[9].innerHTML;
-										 document.getElementById("myModeOfPayment").value = this.cells[10].innerHTML;
-										 };
-									}
 
-										</script>
 									</form>
 							</div>
 
@@ -403,7 +419,7 @@
 							<form method='post' name='myform' onsubmit="CheckForm()">
 						<div class="modal-body">
 
-							<input type="text" style="width:195px" class="form-control" name="modalprod" id="modalprod" value="" >
+							<input type="text" style="width:195px" class="form-control" name="modalRequirementNo" id="modalRequirementNo" value="" >
 							<input  type="text" style="width:195px" class="form-control" id="modalcode" name="modalcode" value="<?php echo $Aagent?>">
 							<input  type="text" class="form-control" style="width:195px" name="modalplan" id="modalplan" value="<?php echo $Pplan?>">
 							Requirement: <br><Textarea type="text" class="form-control" name="modalreq" style="width:195px" id="modalreq" style="width:200px;height:40px" ></Textarea><br>
