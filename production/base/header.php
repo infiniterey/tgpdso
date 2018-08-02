@@ -54,7 +54,6 @@
 
 <style type="text/css">
 
-<<<<<<< HEAD
 
 
 .astext {
@@ -65,8 +64,6 @@
     cursor: pointer;
 }
 
-=======
->>>>>>> 053caff4e0483507a98112fa259ff0e99941bab0
    .scrollbar{
    	height: 100%;
    	width: 100%;
