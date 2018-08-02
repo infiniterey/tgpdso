@@ -163,9 +163,9 @@
 					$newAgentRequirementTransDate =$_POST['modaltrans'];
 					$newAgentRequirementStatus = $_POST['modalstats'];
 					$newAgentRequirementSubmitDate = $_POST['modalsubdate'];
-					$requirementProdID=  $_POST['modalprod'];
+					$requirementNo=  $_POST['modalRequirementNo'];
 					?><script>alert('good morning <?php echo $requirementProdID?>');</script><?php
-					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RProdID = '$requirementProdID' and RagentCode = '$agentRequirementCode'";
+					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RequirementNo = '$requirementNo'";
 				}
 						if($conn->query($sql))
 						{
@@ -291,6 +291,44 @@
 						$conn->close();
 					}
 				}
+				public function updateTeam(){
+					$host = "localhost";
+					$dbusername = "root";
+					$dbpassword = "";
+					$dbname = "tgpdso_db";
+					$sql ="";
+					$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+					if(mysqli_connect_error())
+					{
+						die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+					}
+					else {
+						if(isset($_POST['ButtonUpdate']))
+						{
+							$newTeamID = $_POST['newTeamID'];
+						$newTeamName = $_POST['newTeamName'];
+							$sql = "UPDATE team SET teamName = '$newTeamName' where teamID = '$newTeamID'";
+							if($conn->query($sql)===true)
+							{
+								?>
+								<script>
+									alert('Team successfully updated!');
+									window.location='add_team.php';
+								</script>
+								<?php
+							}
+							else {
+								echo "Error:". $sql."<br>".$conn->error;
+							}
+						}
+
+
+						$conn->close();
+
+					}
+				}
+
 				public function dropdown_team() {
 					$DB_con = Database::connect();
 					$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -719,6 +757,78 @@
 							<script>
 								alert('Policy Status successfully updated!');
 								window.location='policyStatus.php';
+							</script>
+							<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+					}
+
+
+					$conn->close();
+
+				}
+			}
+			public function addPosition(){
+
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+						if(isset($_POST['btn-save']))
+						{
+					$positionName=$_POST['positionName'];
+
+					$sql = "INSERT INTO position (positionName)
+					values ('$positionName')";
+				}
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Position successfully added!');
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
+			public function updatePosition(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['ButtonUpdate']))
+					{
+					$newPositionName = $_POST['newPositionName'];
+					$newPositionID = $_POST['newPositionID'];
+						$sql = "UPDATE position SET positionName = '$newPositionName' where positionID = '$newPositionID'";
+						if($conn->query($sql)===true)
+						{
+							?>
+							<script>
+								alert('Position successfully updated!');
+								window.location='position.php';
 							</script>
 							<?php
 						}

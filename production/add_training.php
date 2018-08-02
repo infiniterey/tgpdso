@@ -122,11 +122,9 @@
 							?>
 								Training Name:<br><input type="text" class="form-control"  style="width: 195px" id="TrainingName" name="TrainingName" value=""hidden><br>
 								Training Required Position: <br>
-								<select name="TrainingRequired" id="TrainingRequired" style="width: 195px" class="form-control" style="width: 195px" tabindex="-1">
-									<option value="Junior" id="Junior">Junior</option>
-									<option value="Senior" id="Senior">Senior</option>
-									<option value="NCA" id="NCA">NCA</option>
-								</select><br><br>
+								<input type="text" id="TrainingRequired" name="TrainingRequired" placeholder="Position" style="width:155px;float:left;margin-bottom:30px" required="required" class="form-control col-md-7 col-xs-12" required>
+								<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#addAgentToTrain5"><span class='glyphicon glyphicon-plus'></span></button>
+							<br><br>
 							 <br>
 						</div>
 							<div class="modal-footer">
@@ -285,6 +283,119 @@
 		</div>
 		</div>
 		<!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
+		<!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table-->
+
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addAgentToTrain2">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<h4 class="modal-title" id="myModalLabel2">Add new plan</h4>
+					</div>
+					<form method='post' name='myform' onsubmit="CheckForm()">
+						<div class="modal-body">
+								<div class="row">
+								<div class="col-md-12">
+									<table id="myTable2" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="">
+									<thead>
+										<tr role="row">
+											<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Training No</th>
+											<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Training Name</th>
+											<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Training Required</th>
+											</tr>
+									</thead>
+									<tbody>
+										<?php
+											$DB_con = Database::connect();
+											$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+											$sql = "SELECT * FROM training";
+
+											$result = $DB_con->query($sql);
+											if($result->rowCount()>0){
+												while($row=$result->fetch(PDO::FETCH_ASSOC)){
+													?>
+													<tr>
+														<td><?php print($row['trainingNo']); ?></td>
+														<td><?php print($row['trainingName']); ?></td>
+														<td><?php print($row['trainingRequired']); ?></td>
+
+												</tr>
+													<?php
+												}
+											}
+											else{
+											}
+										?>
+
+										</tbody>
+									</table>
+									<br><br>
+									<button style="float:right" type="button" class="btn btn-primary" data-dismiss="modal"	><span class='fa fa-close'></span>Ok</button>
+							</form>
+
+								</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			</div>
+			</div>
+		<!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table-->
+		<!-- The Modal add agent to train	ing--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addAgentToTrain5">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<h4 class="modal-title" id="myModalLabel2">Add new plan</h4>
+					</div>
+					<form method='post' name='myform' onsubmit="CheckForm()">
+						<div class="modal-body">
+								<div class="row">
+								<div class="col-md-12">
+									<table id="myTable5" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="">
+									<thead>
+										<tr role="row">
+														<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Position ID</th>
+											<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Position Name</th>
+											</tr>
+									</thead>
+									<tbody>
+										<?php
+											$DB_con = Database::connect();
+											$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+											$sql = "SELECT * FROM position";
+
+											$result = $DB_con->query($sql);
+											if($result->rowCount()>0){
+												while($row=$result->fetch(PDO::FETCH_ASSOC)){
+													?>
+													<tr>
+														<td><?php print($row['positionID']); ?></td>
+														<td><?php print($row['positionName']); ?></td>
+
+												</tr>
+													<?php
+												}
+											}
+											else{
+											}
+										?>
+
+										</tbody>
+									</table>
+									<br><br>
+									<button style="float:right" type="button" class="btn btn-primary" data-dismiss="modal" id="ok" name="ok"><span class='fa fa-close'></span>Ok</button>
+							</form>
+
+								</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			</div>
+			</div>
+			<!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
 
 				</div>
 			</div>
@@ -307,6 +418,15 @@
   </body>
 </html>
 	<script method="POST">
+	var table = document.getElementById('myTable5');
+
+for(var counter = 1; counter < table.rows.length; counter++)
+{
+	table.rows[counter].onclick = function()
+	{;
+		document.getElementById("TrainingRequired").value =this.cells[1].innerHTML;
+		};
+	}
  		var table = document.getElementById('datatable-fixed-header');
 
 	for(var counter = 1; counter < table.rows.length; counter++)
@@ -390,7 +510,13 @@ $(document).ready(function() {
     } );
 } );
 
+$("#myTable5 tr").click(function() {
+	var selected = $(this).hasClass("highlight");
+	$("#myTable5 tr").removeClass("highlight");
 
+	if(!selected)
+						$(this).addClass("highlight");
+});
 $(document).ready(function() {
     $('#myTable').DataTable( {
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]

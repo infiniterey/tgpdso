@@ -141,7 +141,7 @@ Date <span class="required">*</span><br>
 												<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Agent Code</th>
 									<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Agent Name</th>
 										<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Agent Position</th>
-										<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Action</th>
+
 									</tr>
 							</thead>
 							<tbody>
@@ -181,8 +181,8 @@ Date <span class="required">*</span><br>
 	</div>
 	</div>
 	<!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
-	<!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table-->
-	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addAgentToTrain2">
+	<!-- The Modal add agent to train	ing--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
+	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addAgentToTrain5">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -193,28 +193,26 @@ Date <span class="required">*</span><br>
 					<div class="modal-body">
 							<div class="row">
 							<div class="col-md-12">
-								<table id="myTable2" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="">
+								<table id="myTable5" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="">
 								<thead>
 									<tr role="row">
-										<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Training No</th>
-										<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Training Name</th>
-										<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Training Required</th>
+													<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Position ID</th>
+										<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Position Name</th>
 										</tr>
 								</thead>
 								<tbody>
 									<?php
 										$DB_con = Database::connect();
 										$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-										$sql = "SELECT * FROM training";
+										$sql = "SELECT * FROM position";
 
 										$result = $DB_con->query($sql);
 										if($result->rowCount()>0){
 											while($row=$result->fetch(PDO::FETCH_ASSOC)){
 												?>
 												<tr>
-													<td><?php print($row['trainingNo']); ?></td>
-													<td><?php print($row['trainingName']); ?></td>
-													<td><?php print($row['trainingRequired']); ?></td>
+													<td><?php print($row['positionID']); ?></td>
+													<td><?php print($row['positionName']); ?></td>
 
 											</tr>
 												<?php
@@ -227,7 +225,7 @@ Date <span class="required">*</span><br>
 									</tbody>
 								</table>
 								<br><br>
-								<button style="float:right" type="button" class="btn btn-primary" data-dismiss="modal"	><span class='fa fa-close'></span>Ok</button>
+								<button style="float:right" type="button" class="btn btn-primary" data-dismiss="modal" id="ok" name="ok"><span class='fa fa-close'></span>Ok</button>
 						</form>
 
 							</div>
@@ -237,7 +235,8 @@ Date <span class="required">*</span><br>
 		</div>
 		</div>
 		</div>
-	<!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table--><!-- The Modal training table-->
+		<!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
+
 				</div>
 			</div>
 						</div>

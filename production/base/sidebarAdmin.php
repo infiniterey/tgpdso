@@ -30,6 +30,7 @@
           &nbsp;&nbsp;<li><a href="fund.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-group"></i>Fund</a></li>
           &nbsp;&nbsp;<li><a href="add_plan.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Plan</a></li>
           &nbsp;&nbsp;<li><a href="policyStatus.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Policy Status</a></li>
+          &nbsp;&nbsp;<li><a href="position.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Position</a></li>
           &nbsp;&nbsp;<li><a href="add_team.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-group"></i>Team</a></li>
           &nbsp;&nbsp;<li><a href="add_training.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-pencil"></i>Training</a></li>
           &nbsp;&nbsp;<li><a href="users.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-user"></i>User</a></li>
