@@ -118,29 +118,29 @@
 																 			 <div class="col-xs-3">
 																				 Last Name
 																				 <input type="text" name="policyNoOwner" id="policyNoOwner"hidden>
-																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-12" name="lastname1" id="lastname1"><br>
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="lastname1" id="lastname1"><br>
 																			 </div>
 																		 	 <div class="col-xs-3">
 																				 First Name
-																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-12"  name="firstname1" id="firstname1">
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12"  name="firstname1" id="firstname1">
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Middle Name
-																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-4"  name="middlename1" id="middlename1">
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="middlename1" id="middlename1">
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Birthday
-																				 <input style="cursor:auto" style="border:none" type="date" readonly class="form-control col-md-7 col-xs-4"  name="birthdate1" id="birthdate1">
+																				 <input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4"  name="birthdate1" id="birthdate1">
 																			 </div>
 																		 </div>
 																		 <div class="row">
 																			 <div class="col-xs-3">
 																				 Address
-																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-4"  name="address1" id="address1">
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="address1" id="address1">
 																			 </div>
 																			 <div class="col-xs-3">
 																				 Contact #
-																				 <input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-4" name="contactno1" id="contactno1">
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="contactno1" id="contactno1">
 																			 </div>
 																			</div>
 																		</div><br/>
@@ -183,37 +183,40 @@
 																			 <div class="row">
 																		 			 <div class="col-xs-3">
 																						 Plan
-																						 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="policyPlan" id="policyPlan"><br>
+																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyPlan" id="policyPlan"><br>
 																					 </div>
 																				 	 <div class="col-md-3">
 																						 Face Amount
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" readonly name="policyFaceAmount" id="policyFaceAmount">
+																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyFaceAmount" id="policyFaceAmount">
 																					 </div>
 																					 <div class="col-sm-3 ">
 																						 Mode of Payment
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="policyMOP" id="policyMOP">
+																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="policyMOP" id="policyMOP">
 																					 </div>
 																				 <div class="col-sm-3 ">
 																						 Issue Date
-																						 <input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" readonly name="policyIssueDate" id="policyIssueDate">
+																						 <input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" name="policyIssueDate" id="policyIssueDate" value="mm/dd/yyyy">
 																					 </div>
 																	 	 		</div>
 																				<div class="row">
 																					<div class="col-xs-3">
 																						Premium
-																						<input style="cursor:auto" style="border:none" type="text" readonly class="form-control col-md-7 col-xs-12" name="policyPremium" id="policyPremium"><br>
+																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyPremium" id="policyPremium"><br>
 																					</div>
-																					<div class="col-md-3">
+																					<div class="col-xs-3">
 																						Fund
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" readonly name="policyFund" id="policyFund">
+																						<div>
+																								<input style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyFund" id="policyFund">
+																								<button  style="cursor:auto; width: 40px;" style="border:none" type="button" data-toggle="" data-target="" class="form-control btn btn-primary" name="fundButton" id="fundButton"><i class="fa fa-plus" hidden></i></button>
+																					</div>
 																					</div>
 																					<div class="col-sm-3 ">
 																						Policy Status
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" readonly name="policyStatus" id="policyStatus">
+																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="policyStatus" id="policyStatus">
 																					</div>
 																					<div class="col-sm-3 ">
 																						Next Due Date
-																						<input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" readonly name="policyDueDate" id="policyDueDate">
+																						<input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" name="policyDueDate" id="policyDueDate">
 																					</div>
 																			 </div>
 																 			</div><br>
@@ -264,13 +267,14 @@
 																				 <table name="datatable-fixed-header2" id="datatable-fixed-header2" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
 																						<thead>
 																						<tr role="row">
-																								<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 80px;text-align:center;">Last Name.</th>
+																								<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 80px;text-align:center;">Last Name</th>
 																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 80px;text-align:center;">First Name</th>
 																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="APR No.: activate to sort column ascending" style="width: 5px;text-align:center;">Middle Name</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="NextDueDate: activate to sort column ascending" style="width: 120px;text-align:center;">Address</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Birthdate</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 20px;text-align:center;">Contact#</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 10px;text-align:center;">Relationship</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 10px;text-align:center;">Action</th>
 																							</tr>
 																						</thead>
 																						<tbody>
@@ -293,7 +297,7 @@
 																									{
 																											$edit = $_GET['edit'];
 
-																												$result=mysqli_query($conn,"SELECT * FROM beneficiary WHERE bene_policyNo = '$edit'");
+																												$result=mysqli_query($conn,"SELECT * FROM beneficiary, production WHERE policyNo = bene_policyNo AND bene_policyNo = '$edit'");
 
 																												while($row=mysqli_fetch_Array($result))
 																												{
@@ -306,6 +310,12 @@
 																													<td><?php echo $row['bene_birthDate']; ?></td>
 																													<td><?php echo $row['bene_contactNo']; ?></td>
 																													<td><?php echo $row['bene_relationShip']; ?></td>
+																													<td>
+																														<div class = "row" align="center">
+																																<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo']?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																																<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																														 </div>
+																													</td>
 																											 </tr>
 																													<?php
 																											}
@@ -381,7 +391,7 @@
 																			 <div class="form-group">
 																				 <hr>
 																				 		<div style='float:right'>
-																				 				<button type="button" data-toggle="modal" data-target="#"  style="width: 100px;"class="btn btn-primary" name="btn-addPlan"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+																				 				<button type="submit" style="width: 100px;"class="btn btn-primary" name="saveButton" id="saveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
 																				 				<button type="button" class="btn btn-default"  style="width: 100px;" data-dismiss="modal">Close</button>
 																							</div>
 																	 	 </div>

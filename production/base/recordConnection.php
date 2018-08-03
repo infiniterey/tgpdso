@@ -37,10 +37,67 @@ else
 						<script> document.getElementById('policyIssueDate').value = '<?php echo $row['issuedDate'];?>';</script>
 						<script> document.getElementById('policyPremium').value = '<?php echo $row['premium'];?>';</script>
 
+						<script> document.getElementById('insuredLastName').value = '<?php echo $row['insured_lastName'];?>';</script>
+						<script> document.getElementById('insuredFirstName').value = '<?php echo $row['insured_firstName'];?>';</script>
+						<script> document.getElementById('insuredMiddleName').value = '<?php echo $row['insured_middleName'];?>';</script>
+						<script> document.getElementById('insuredBirthdate').value = '<?php echo $row['insured_birthDate'];?>';</script>
+						<script> document.getElementById('insuredAddress').value = '<?php echo $row['insured_address'];?>';</script>
+						<script> document.getElementById('insuredContactno').value = '<?php echo $row['insured_contactNo'];?>';</script>
+
 
 
 					<?php
 				}
+
+
+			?>
+			<script>
+
+			</script>
+			<?php
+	}
+}
+?>
+<!---      Table                 -->
+<!---      Table                 -->
+<!---      Table                 -->
+<!--
+
+-->
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tgpdso_db";
+
+$conn = new mysqli ($servername, $username, $password, $dbname);
+
+if(mysqli_connect_error())
+{
+	die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+}
+else
+{
+		if(isset($_GET['edit']))
+		{
+				$edit = $_GET['edit'];
+
+					$result=mysqli_query($conn,"SELECT * from insuredpolicy, production WHERE policyNo = insured_policyNo AND policyNo = '$edit'");
+
+					while($row=mysqli_fetch_Array($result))
+					{
+						?>
+
+						<script> document.getElementById('insuredLastName').value = '<?php echo $row['insured_lastName'];?>';</script>
+						<script> document.getElementById('insuredFirstName').value = '<?php echo $row['insured_firstName'];?>';</script>
+						<script> document.getElementById('insuredMiddleName').value = '<?php echo $row['insured_middleName'];?>';</script>
+						<script> document.getElementById('insuredBirthdate').value = '<?php echo $row['insured_birthdate'];?>';</script>
+						<script> document.getElementById('insuredAddress').value = '<?php echo $row['insured_address'];?>';</script>
+						<script> document.getElementById('insuredContactno').value = '<?php echo $row['insured_contactNo'];?>';</script>
+
+					<?php
+				}
+				$conn->close();
 
 			?>
 			<script>
@@ -54,6 +111,46 @@ else
 <!---      Table                 -->
 <!---      Table                 -->
 <!---      Table                 -->
+
+
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_GET['deleteBene']) && isset($_GET['number']))
+				{
+					$delete = $_GET['deleteBene'];
+					$number = $_GET['number'];
+
+
+						$sql = "DELETE FROM beneficiary WHERE bene_policyNo = '$delete' AND bene_contactNo = '$number'";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert("delete record production successfully added");
+								window.location = "records.php?edit=<?php echo $delete ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
 <?php
   $host = "localhost";
   $dbusername = "root";
@@ -99,10 +196,102 @@ else
     }
 ?>
 
+<!---      Table                 -->
+<!---      Table                 -->
+<!---      Table                 -->
+
+<!--
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['saveButton']))
+				{
+					$add = $_POST['policyNoOwner'];
+
+						$sql = "DELETE FROM insuredpolicy WHERE insured_policyNo = '$add'";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert("New record production successfully added");
+								window.location = "records.php?edit=<?php echo $add ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+-->
+
+<!---      Table                 -->
+<!---      Table                 -->
+<!---      Table                 -->
+
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['saveButton']))
+				{
+					$insuredLastname = $_POST['insuredLastName'];
+					$insuredFirstname = $_POST['insuredFirstName'];
+					$insuredMiddlename = $_POST['insuredMiddleName'];
+					$insuredBirthdate = $_POST['insuredBirthdate'];
+					$insuredAddress = $_POST['insuredAddress'];
+					$insuredContact = $_POST['insuredContactno'];
+					$add = $_POST['policyNoOwner'];
+
+						$sql = "INSERT INTO insuredpolicy (insured_policyNo, insured_lastName, insured_firstName, insured_middleName, insured_birthDate, insured_address, insured_contactNo)
+						values ('$add','$insuredLastname','$insuredFirstname','$insuredMiddlename','$insuredBirthdate','$insuredAddress','$insuredContact')";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert("New record production successfully added");
+								window.location = "records.php?edit=<?php echo $add ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
 
 
 
 
+
+<!---      Table                 -->
+<!---      Table                 -->
+<!---      Table                 -->
 
 
 <script>
@@ -202,5 +391,14 @@ function openPolicy(evt, tabName) {
 								        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 								    } );
 								} );
+
+								$(document).ready(function(){
+									if(!$('#policyIssuedDate').val()){
+									    $('#paymentButton').show();
+									}
+									else {
+									    $('#paymentButton').show();
+									}
+								});
 
 </script>
