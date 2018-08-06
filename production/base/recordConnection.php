@@ -22,6 +22,20 @@ else
 
 					while($row=mysqli_fetch_Array($result))
 					{
+						if(!empty($row['issuedDate']))
+						{
+							?>
+							<script>$('#paymentButton').show();</script>
+
+							<?php
+						}
+						else
+						{
+							?>
+							<script>$('#paymentButton').hide();</script>
+
+							<?php
+						}
 						?>
 						<script> document.getElementById('policyNoOwner').value = '<?php echo $row['policyNo'];?>';</script>
 						<script> document.getElementById('lastname1').value = '<?php echo $row['cLastname'];?>';</script>
@@ -37,15 +51,13 @@ else
 						<script> document.getElementById('policyIssueDate').value = '<?php echo $row['issuedDate'];?>';</script>
 						<script> document.getElementById('policyPremium').value = '<?php echo $row['premium'];?>';</script>
 
-						<script> document.getElementById('insuredLastName').value = '<?php echo $row['insured_lastName'];?>';</script>
-						<script> document.getElementById('insuredFirstName').value = '<?php echo $row['insured_firstName'];?>';</script>
-						<script> document.getElementById('insuredMiddleName').value = '<?php echo $row['insured_middleName'];?>';</script>
-						<script> document.getElementById('insuredBirthdate').value = '<?php echo $row['insured_birthDate'];?>';</script>
-						<script> document.getElementById('insuredAddress').value = '<?php echo $row['insured_address'];?>';</script>
-						<script> document.getElementById('insuredContactno').value = '<?php echo $row['insured_contactNo'];?>';</script>
-
-
-
+						<script> document.getElementById('paymentPolicyNo').value = '<?php echo $row['policyNo'];?>';</script>
+						<script> document.getElementById('paymentAmount').value = '<?php echo $row['faceAmount'];?>';</script>
+						<script> document.getElementById('payemnIssuedDate').value = '<?php echo $row['issuedDate'];?>';</script>
+						<script> document.getElementById('modeOfPayment').value = '<?php echo $row['modeOfPayment'];?>';</script>
+						<script> document.getElementById('paymentTransDate').value = '<?php echo $row['transDate'];?>';</script>
+						<script> document.getElementById('paymentORNo').value = '<?php echo $row['receiptNo'];?>';</script>
+						<script> document.getElementById('policyRate').value = '<?php echo $row['rate'];?>';</script>
 					<?php
 				}
 
@@ -56,6 +68,40 @@ else
 			</script>
 			<?php
 	}
+	else if(isset($_GET['editBene']) && isset($_GET['number']))
+	{
+		$edit = $_GET['editBene'];
+		$number = $_GET['number'];
+
+			$result=mysqli_query($conn,"SELECT * from production, client, beneficiary WHERE clientID = prodclientID AND bene_policyNo = policyNo AND policyNo = '$edit' AND bene_contactNo = '$number'");
+
+			while($row=mysqli_fetch_Array($result))
+			{
+				?>
+				<script> document.getElementById('policyNoOwner').value = '<?php echo $row['policyNo'];?>';</script>
+				<script> document.getElementById('lastname1').value = '<?php echo $row['cLastname'];?>';</script>
+				<script> document.getElementById('firstname1').value = '<?php echo $row['cFirstname'];?>';</script>
+				<script> document.getElementById('middlename1').value = '<?php echo $row['cMiddlename'];?>';</script>
+				<script> document.getElementById('birthdate1').value = '<?php echo $row['cBirthdate'];?>';</script>
+				<script> document.getElementById('address1').value = '<?php echo $row['cAddress'];?>';</script>
+				<script> document.getElementById('contactno1').value = '<?php echo $row['cCellno'];?>';</script>
+
+				<script> document.getElementById('policyPlan').value = '<?php echo $row['plan'];?>';</script>
+				<script> document.getElementById('policyFaceAmount').value = '<?php echo $row['faceAmount'];?>';</script>
+				<script> document.getElementById('policyMOP').value = '<?php echo $row['modeOfPayment'];?>';</script>
+				<script> document.getElementById('policyIssueDate').value = '<?php echo $row['issuedDate'];?>';</script>
+				<script> document.getElementById('policyPremium').value = '<?php echo $row['premium'];?>';</script>
+
+				<script> document.getElementById('beneLastName').value = '<?php echo $row['bene_lastName'];?>';</script>
+				<script> document.getElementById('beneFirstName').value = '<?php echo $row['bene_firstName'];?>';</script>
+				<script> document.getElementById('beneMiddleName').value = '<?php echo $row['bene_middleName'];?>';</script>
+				<script> document.getElementById('beneBirthday').value = '<?php echo $row['bene_birthDate'];?>';</script>
+				<script> document.getElementById('beneAddress').value = '<?php echo $row['bene_address'];?>';</script>
+				<script> document.getElementById('beneContact').value = '<?php echo $row['bene_contactNo'];?>';</script>
+				<script> document.getElementById('beneRelationship').value = '<?php echo $row['bene_relationShip'];?>';</script>
+			<?php
+		}
+	}
 }
 ?>
 <!---      Table                 -->
@@ -64,6 +110,7 @@ else
 <!--
 
 -->
+
 <?php
 $servername = "localhost";
 $username = "root";
@@ -105,6 +152,33 @@ else
 			</script>
 			<?php
 	}
+	if(isset($_GET['editBene']) )
+	{
+			$edit = $_GET['editBene'];
+
+				$result=mysqli_query($conn,"SELECT * from insuredpolicy, production WHERE policyNo = insured_policyNo AND policyNo = '$edit'");
+
+				while($row=mysqli_fetch_Array($result))
+				{
+					?>
+
+					<script> document.getElementById('insuredLastName').value = '<?php echo $row['insured_lastName'];?>';</script>
+					<script> document.getElementById('insuredFirstName').value = '<?php echo $row['insured_firstName'];?>';</script>
+					<script> document.getElementById('insuredMiddleName').value = '<?php echo $row['insured_middleName'];?>';</script>
+					<script> document.getElementById('insuredBirthdate').value = '<?php echo $row['insured_birthdate'];?>';</script>
+					<script> document.getElementById('insuredAddress').value = '<?php echo $row['insured_address'];?>';</script>
+					<script> document.getElementById('insuredContactno').value = '<?php echo $row['insured_contactNo'];?>';</script>
+
+				<?php
+			}
+			$conn->close();
+
+		?>
+		<script>
+
+		</script>
+		<?php
+}
 }
 ?>
 
@@ -126,13 +200,14 @@ else
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_GET['deleteBene']) && isset($_GET['number']))
+				if(isset($_GET['deleteBene']) && isset($_GET['number'])&isset($_GET['name']))
 				{
 					$delete = $_GET['deleteBene'];
 					$number = $_GET['number'];
+					$name = $_GET['name'];
 
 
-						$sql = "DELETE FROM beneficiary WHERE bene_policyNo = '$delete' AND bene_contactNo = '$number'";
+						$sql = "DELETE FROM beneficiary WHERE bene_policyNo = '$delete' AND bene_contactNo = '$number' AND bene_lastName = '$name'";
 
 						if($conn->query($sql))
 						{
@@ -148,6 +223,27 @@ else
 						}
 						$conn->close();
       }
+			else if($_GET['deletePayment'] && $_GET['paymentReceiptNo'])
+			{
+				$delete = $_GET['deletePayment'];
+				$receiptNo = $_GET['paymentReceiptNo'];
+
+				$sql = "DELETE FROM payment WHERE payment_policyNo = $delete AND payment_OR = $receiptNo";
+
+				if($conn->query($sql))
+				{
+					?>
+					<script>
+						alert("delete record production successfully added");
+						window.location = "records.php?edit=<?php echo $delete ?>";
+						</script>
+						<?php
+				}
+				else {
+					echo "Error:". $sql."<br>".$conn->error;
+				}
+				$conn->close();
+			}
     }
 ?>
 
@@ -285,6 +381,105 @@ else
     }
 ?>
 
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['saveButton']))
+				{
+
+					$add = $_POST['policyNoOwner'];
+					$fundID = $_POST['getFundID'];
+					$rate = $_POST['policyRate'];
+
+					$sql = "INSERT INTO policyFund (polFund_policyNo, polFund_fund, polFund_rate)
+					values ('$add','$fundID','$rate')";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert("New record production successfully added");
+								window.location = "records.php?edit=<?php echo $add ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
+
+<!---      Table                 -->
+<!---      Table                 -->
+<!---      Table                 -->
+
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['paymentSaveButton']))
+				{
+					$paymentPolicyNo = $_POST['paymentPolicyNo'];
+					$paymentAmount = $_POST['paymentAmount'];
+					$paymentIssueDate = $_POST['paymentIssueDate'];
+					$paymentMOP = $_POST['paymentmodeOfPayment'];
+					$paymentTransDate = $_POST['paymentTransDate'];
+					$paymentORNo = $_POST['paymentORNo'];
+					$paymentAPR = $_POST['paymentAPR'];
+					$paymentNextDue = $_POST['paymentNextDue'];
+					$paymentRemarks = "New";
+
+						$sql = "INSERT INTO payment (payment_policyNo,
+							payment_Amount, payment_issueDate,
+							payment_MOP, payment_transDate,
+							payment_OR, payment_APR,
+							payment_nextDue, payment_remarks)
+						values ('$paymentPolicyNo','$paymentAmount',
+							'$payment_issueDate','$paymentMOP',
+							'$paymentTransDate','$paymentORNo',
+							'$paymentAPR', '$paymentNextDue',
+							'$paymentRemarks')";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert("New record production successfully added");
+								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
+
 
 
 
@@ -344,6 +539,12 @@ function openPolicy(evt, tabName) {
 						    }
 						  }
 						}
+
+						$(document).ready(function() {
+								$('#datatable-fixed-header0').DataTable( {
+										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+								} );
+						} );
 
 						$(document).ready(function() {
 						    $('#datatable-fixed-header').DataTable( {

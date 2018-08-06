@@ -35,6 +35,7 @@
 												table tr:not(:first-child){
 													cursor:pointer;transition: all .25s	ease-in-out;
 												}
+												#paymentButton{display: none};
 											</style>
 
 												<div class="col-md-12 col-sm-12 col-xs-12">
@@ -206,13 +207,34 @@
 																					<div class="col-xs-3">
 																						Fund
 																						<div>
+																								<input id="policyRate" name="policyRate" hidden>
+																								<input id="getFundID" name="getFundID" hidden>
 																								<input style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyFund" id="policyFund">
-																								<button  style="cursor:auto; width: 40px;" style="border:none" type="button" data-toggle="" data-target="" class="form-control btn btn-primary" name="fundButton" id="fundButton"><i class="fa fa-plus" hidden></i></button>
+																								<button  style="cursor:auto; width: 40px;" style="border:none" type="button" data-toggle="modal" data-target="#fundModal" class="form-control btn btn-primary" name="fundButton" id="fundButton"><i class="fa fa-plus" hidden></i></button>
 																					</div>
 																					</div>
 																					<div class="col-sm-3 ">
 																						Policy Status
-																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="policyStatus" id="policyStatus">
+																						<div>
+																						<select name="policyStatusSelect" id="policyStatusSelect" class="form-control col-md-7 col-xs-4">
+																							<option>Select a policy<option>
+																							<?php
+																							$DB_con = Database::connect();
+																							$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																							$sql = "SELECT * FROM policystatus";
+																						$result = $DB_con->query($sql);
+																						if($result->rowCount()>0)
+																						{
+																							while($row=$result->fetch(PDO::FETCH_ASSOC))
+																							{
+																								?>
+																								<option id="policyStatusSelect" name="policyStatusSelect" value="<?php echo $row['policyID']?>"><?php echo $row['policyStatus']?></option>
+																								<?php
+																							}
+																						}
+																						?>
+																						</select>
+																					</div>
 																					</div>
 																					<div class="col-sm-3 ">
 																						Next Due Date
@@ -312,8 +334,8 @@
 																													<td><?php echo $row['bene_relationShip']; ?></td>
 																													<td>
 																														<div class = "row" align="center">
-																																<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo']?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-																																<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																																<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																																<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo']?>&name=<?php echo $row['bene_lastName']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																														 </div>
 																													</td>
 																											 </tr>
@@ -326,6 +348,39 @@
 																										</script>
 																										<?php
 																								}
+																								if(isset($_GET['editBene']))
+																								{
+																										$edit = $_GET['editBene'];
+
+																											$result=mysqli_query($conn,"SELECT * FROM beneficiary, production WHERE policyNo = bene_policyNo AND bene_policyNo = '$edit'");
+
+																											while($row=mysqli_fetch_Array($result))
+																											{
+																												?>
+																											<tr>
+																												<td><?php echo $row['bene_lastName']?></td>
+																												<td><?php echo $row['bene_firstName']; ?></td>
+																												<td><?php echo $row['bene_middleName']; ?></td>
+																												<td><?php echo $row['bene_address']; ?></td>
+																												<td><?php echo $row['bene_birthDate']; ?></td>
+																												<td><?php echo $row['bene_contactNo']; ?></td>
+																												<td><?php echo $row['bene_relationShip']; ?></td>
+																												<td>
+																													<div class = "row" align="center">
+																															<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																															<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																													 </div>
+																												</td>
+																										 </tr>
+																												<?php
+																										}
+
+																									?>
+																									<script>
+
+																									</script>
+																									<?php
+																							}
 																							}
 
 																							?>
@@ -347,46 +402,120 @@
 																										 	<label class="control-label">
 											 		                            Policy #:
 											 														 	 	</label>
-										 																 <input type="text" readonly="readonly" class="form-control" name="ProdId" value="<?php echo $prodID?>">
+										 																 <input type="text" readonly="readonly" class="form-control" name="paymentPolicyNo" id="paymentPolicyNo">
 																										 	<label class="control-label">
 																										 	Amount:
 																											</label>
-																											<input  type="text" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden>
+																											<input  type="text" class="form-control" id="paymentAmount" name="paymentAmount">
 																											<label class="control-label">
 																											Issue Date:
-																										</label><input type="date" class="form-control" name="issuedate" readonly><br>
+																										</label><input type="date" class="form-control" name="paymentIssueDate" id="paymentIssueDate" readonly><br>
 																										<label class="control-label">
 																										Mode of Payment:
 																									</label>
-																										<select name="modeOfPayment" id="modeOfPayment" class="form-control">
-																										<option value="Monthly" id="modeOfPayment">Monthly</option>
-																										<option value="Quarterly" id="modeOfPayment">Quarterly</option>
-																										<option value="Semi-Annual" id="modeOfPayment">Semi-Annual</option>
-																										<option value="Annualy" id="modeOfPayment">Annualy</option>
+																										<select name="paymentmodeOfPayment" id="paymentmodeOfPayment" class="form-control">
+																										<option value="Monthly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Monthly</option>
+																										<option value="Quarterly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Quarterly</option>
+																										<option value="Semi-Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Semi-Annual</option>
+																										<option value="Annualy" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Annualy</option>
 																										</select><br>
 																											<hr>
 																											<label class="control-label">
 																										 	Transaction Date:
-																										</label><input type="date" class="form-control" name="transdate"><br>
+																										</label><input type="date" class="form-control" name="paymentTransDate" id="paymentTransDate"><br>
 																											<label class="control-label">
 																										 	OR #:
-																										</label><input type="text" class="form-control" name="orno"><br>
+																										</label><input type="text" class="form-control" name="paymentORNo" id="paymentORNo"><br>
 																											<label class="control-label">
 																										 	APR #:
-																										</label><input type="text" class="form-control" name="aprno"><br>
+																										</label><input type="text" class="form-control" name="paymentAPR" id="paymentAPR"><br>
 																											<label class="control-label">
 																										 	Next Due Date:
-																										</label><input type="date" class="form-control" name="nextdue"><br>
+																										</label><input type="date" class="form-control" name="paymentNextDue" id="paymentNextDue"><br>
 			 																							 <br>
 			 																							</div>
 			 																							<div class="modal-footer">
-			 																								<button type="submit" class="btn btn-primary" style="width: 100px;" name="btn-addrEquirements"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-																											<button type="button" class="btn btn-default" style="width: 100px;" data-dismiss="modal">Close</button>
+			 																								<button type="submit" class="btn btn-primary" style="width: 100px;" name="paymentSaveButton" id="paymentSaveButton" onclick="openPolicy(event, 'Payment')"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+																											<!--<button type="button" class="btn btn-default" style="width: 100px;" data-dismiss="modal">Close</button>-->
 			 																							</div>
 			 																						</form>
 			 																					</div>
 																							</div>
 			 																			</div>
+
+																						<div id="fundModal" name="fundModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+																							<div class="modal-dialog" role="document">
+																								<div class="modal-content">
+																									<div class="modal-header">
+																										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+																										<h4 class="modal-title" id="myFundModal">Add Fund</h4>
+																									</div>
+																									<form method='post' name='myFormModal' onsubmit="CheckForm()">
+																										<div class="modal-body">
+
+																											<table method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+																											<thead>
+																												<tr role="row">
+																													<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Fund ID</th>
+																														<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Fund Name</th>
+																														<th class="sorting" style="width:10px;" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending">Action</th>
+																													</tr>
+																											</thead>
+																											<tbody>
+																												<?php
+
+																													$DB_con = Database::connect();
+																													$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																													$sql = "SELECT * FROM fund";
+
+																													$result = $DB_con->query($sql);
+																													if($result->rowCount()>0){
+																														while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																															?>
+																															<tr>
+																																<td><?php print($row['fundID']); ?></td>
+																																<td><?php print($row['fundName']); ?></td>
+																																<td>
+																																	<div class="row">
+																																		<center>
+																																			<form method='post' name='myform' onsubmit="CheckForm()">
+																																				<button  type="button" id="fundEdit" name="fundEdit" data-dismiss="modal" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
+																																			</form>
+																																		</center>
+																																	</div>
+																																</td>
+																															</tr>
+																															<?php
+																														}
+																													}
+																													else{}
+																												?>
+
+																												</tbody>
+																										</table>
+
+																										<script>
+																										var table = document.getElementById('datatable-fixed-header');
+																										for(var counter = 1; counter < table.rows.length; counter++)
+																										{
+																											table.rows[counter].onclick = function()
+																											{;
+																											 document.getElementById("getFundID").value = this.cells[0].innerHTML;
+																											 document.getElementById("policyFund").value = this.cells[1].innerHTML;
+																												};
+																											}
+																										</script>
+
+																										</div>
+																										<div class="modal-footer">
+																											<!--<button type="submit" class="btn btn-primary" style="width: 100px;" name="paymentSaveButton" id="paymentSaveButton" onclick="openPolicy(event, 'Payment')"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>-->
+																											<!--<button type="button" class="btn btn-default" style="width: 100px;" data-dismiss="modal">Close</button>-->
+																										</div>
+																									</form>
+																								</div>
+																							</div>
+																						</div>
+
 																			 </div>
 																			 <div class="form-group">
 																				 <hr>
@@ -413,13 +542,14 @@
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="APR No.: activate to sort column ascending" style="width: 30px;text-align:center;">APR#</th>
 																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="NextDueDate: activate to sort column ascending" style="width: 30px;text-align:center;">Next Due Date</th>
 																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Remarks</th>
+																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 																						</tr>
 																					</thead>
 																					<tbody>
 																						<?php
 																						$DB_con = Database::connect();
 																						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																						$sql = "SELECT * FROM production, client, plans WHERE prodclientID = clientID AND plan = planID";
+																						$sql = "SELECT * FROM payment";
 
 
 																					$result = $DB_con->query($sql);
@@ -428,12 +558,17 @@
 																						while($row=$result->fetch(PDO::FETCH_ASSOC))
 																						{
 																									?>
-																									<tr>
-																										<td><?php echo $row['policyNo']; ?></td>
-																										<td><?php echo $row['cLastname']. ", " .$row['cFirstname']; ?></td>
-																									<td><?php echo $row['issuedDate']; ?></td>
-																									<td><?php echo $row['planCode']; ?></td>
-																									<td><?php echo $row['premium']; ?></td>
+																								<tr>
+																									<td><?php echo $row['payment_transDate']; ?></td>
+																									<td><?php echo $row['payment_OR']; ?></td>
+																									<td><?php echo $row['payment_APR']; ?></td>
+																									<td><?php echo $row['payment_nextDue']; ?></td>
+																									<td><?php echo $row['payment_remarks']; ?></td>
+																									<td>
+																										<div align="center">
+																											<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>&paymentReceiptNo=<?php echo $row['payment_OR']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																										</div>
+																									</td>
 																							 </tr>
 																									<?php
 																								}
@@ -488,7 +623,7 @@
 							<form style="margin-bottom: 10px;">
 							<div class="modal-body">
 
-							<table name="datatable-fixed-header" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
+							<table name="datatable-fixed-header0" id="datatable-fixed-header0" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
  							 <thead>
 								 <tr role="row">
  									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
@@ -530,7 +665,6 @@
 												 <td>
 													 <div class = "row" align="center">
 															 <a title="Edit Data" href="records.php?edit=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-															 <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 														</div>
 												 </td>
 											</tr>
