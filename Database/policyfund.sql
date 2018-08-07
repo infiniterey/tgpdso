@@ -25,42 +25,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fund`
+-- Table structure for table `policyfund`
 --
 
-CREATE TABLE `fund` (
-  `fundID` int(11) NOT NULL,
-  `fundName` varchar(20) NOT NULL
+CREATE TABLE `policyfund` (
+  `polFund_policyNo` text NOT NULL,
+  `polFund_fund` text NOT NULL,
+  `polFund_rate` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `fund`
+-- Dumping data for table `policyfund`
 --
 
-INSERT INTO `fund` (`fundID`, `fundName`) VALUES
-(123, 'yaya'),
-(321, 'pipi'),
-(322, 'sdfsdf');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `fund`
---
-ALTER TABLE `fund`
-  ADD PRIMARY KEY (`fundID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `fund`
---
-ALTER TABLE `fund`
-  MODIFY `fundID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=323;
+INSERT INTO `policyfund` (`polFund_policyNo`, `polFund_fund`, `polFund_rate`) VALUES
+('2324323', '321', '2323'),
+('2324323', 'www', '90%');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

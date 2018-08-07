@@ -58,6 +58,9 @@ else
 						<script> document.getElementById('paymentTransDate').value = '<?php echo $row['transDate'];?>';</script>
 						<script> document.getElementById('paymentORNo').value = '<?php echo $row['receiptNo'];?>';</script>
 						<script> document.getElementById('policyRate').value = '<?php echo $row['rate'];?>';</script>
+
+						<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
+
 					<?php
 				}
 
@@ -99,6 +102,8 @@ else
 				<script> document.getElementById('beneAddress').value = '<?php echo $row['bene_address'];?>';</script>
 				<script> document.getElementById('beneContact').value = '<?php echo $row['bene_contactNo'];?>';</script>
 				<script> document.getElementById('beneRelationship').value = '<?php echo $row['bene_relationShip'];?>';</script>
+
+					<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
 			<?php
 		}
 	}
@@ -334,6 +339,56 @@ else
 ?>
 -->
 
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['saveButton']))
+				{
+					$clientID = $_POST['clientToRetrieve'];
+					$lastname = $_POST['lastname1'];
+					$firstname = $_POST['firstname1'];
+					$middlename = $_POST['middlename1'];
+					$birthdate = $_POST['birthdate1'];
+					$address = $_POST['address1'];
+					$contactno = $_POST['contactno1'];
+
+						$sql = "UPDATE client
+						SET clientID = '$clientID',
+						cLastname = '$lastname',
+						cFirstname = '$firstname',
+						cMiddlename = '$middlename',
+						cBirthdate = '$birthdate',
+						cAddress = '$address',
+						cCellno = '$contactno'
+						WHERE clientID = '$clientID'";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert("New record production successfully added");
+								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
 <!---      Table                 -->
 <!---      Table                 -->
 <!---      Table                 -->
@@ -394,12 +449,12 @@ else
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_POST['saveButton']))
+				if(isset($_POST['saveThisFund']))
 				{
 
-					$add = $_POST['policyNoOwner'];
-					$fundID = $_POST['getFundID'];
-					$rate = $_POST['policyRate'];
+					$add = $_GET['edit'];
+					$fundID = $_POST['setFundName'];
+					$rate = $_POST['setFundRate'];
 
 					$sql = "INSERT INTO policyFund (polFund_policyNo, polFund_fund, polFund_rate)
 					values ('$add','$fundID','$rate')";
@@ -410,6 +465,45 @@ else
 							<script>
 								alert("New record production successfully added");
 								window.location = "records.php?edit=<?php echo $add ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_GET['deleteFund']) && isset($_GET['fund']))
+				{
+
+
+					$delete = $_GET['deleteFund'];
+					$fund = $_GET['fund'];
+
+					$sql = "DELETE FROM policyFund WHERE polFund_policyNo = '$delete' AND polFund_fund = '$fund'";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert("Delete fund successfully");
+								window.location = "records.php?edit=<?php echo $delete ?>";
 								</script>
 								<?php
 						}
@@ -479,20 +573,26 @@ else
     }
 ?>
 
-
-
-
-
-
 <!---      Table                 -->
 <!---      Table                 -->
 <!---      Table                 -->
+
 
 
 <script>
+
 window.onload = function () {
 								startTab();
 							};
+
+function disableselectpayment()
+{
+	document.getElementById('paymentButton').style.display = "none";
+}
+function enableselectpayment()
+{
+	document.getElementById('paymentButton').style.display = "block";
+}
 
 function startTab() {
 								document.getElementById("defaultOpen").click();
@@ -553,6 +653,11 @@ function openPolicy(evt, tabName) {
 						} );
 						$(document).ready(function() {
 								$('#datatable-fixed-header1').DataTable( {
+										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+								} );
+						} );
+						$(document).ready(function() {
+								$('#datatable-fixed-header-1').DataTable( {
 										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 								} );
 						} );

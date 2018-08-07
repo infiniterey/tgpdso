@@ -245,10 +245,8 @@
 													</div>
 													<tbody>
 														<form method='POST' name='myform' onsubmit="CheckForm()">
-<<<<<<< HEAD
 															<?php
-																if(isset($_POST['retrieveAgent']))
-=======
+																if(isset($_POST['retrieveAgent']))?>
 															<?php
 																?>
 																<?php
@@ -281,10 +279,11 @@
 																		}
 																		?>
 															<?php
-																if(isset($_POST['display']))
->>>>>>> f669999b059a65b337dc97d8bc74e2dbf47667a5
+																if(isset($_GET['display']))
 																{
+																	$prodID = $_GET['display'];
 																?>
+																<script>alert("Alert")</script>
 																	<?php
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -428,7 +427,7 @@
 												 <td hidden><?php print($row['modeOfPayment']); ?></td>
 												 <td>
 												 <div align="center" class="row">
-														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
+														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
 													 </div>
 												 </td>
 												 </tr>
