@@ -22,9 +22,19 @@
 	      <!-- /top navigation -->
 				<form method="POST" >
 					<?php
+						if(isset($_POST['ButtonUpdate']))
+						{
+							tgpdso::updateAgent();
+						}
 						if(isset($_POST['btn-save'])){
 							tgpdso::addAgent();
 						}
+					?>
+					<?php
+						$newLast="";
+						$newFirst="";
+						$newMiddle="";
+						$agentcode="";
 					?>
 				<div class="right_col" role="main">
 					<div class="">
@@ -75,7 +85,7 @@
 																<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Application Date</th>
 																<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 15px;text-align:center;">Team</th>
 																<th class="sorting" tabin	dex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Mode of Payment: activate to sort column ascending" style="width: 15px;text-align:center;">Position</th>
-
+																<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Action</th>
 																</tr>
 														</thead>
 														<tbody>
@@ -125,6 +135,16 @@
 																				<td><?php print($row['agentApptDate']); ?></td>
 																				<td><?php print($row['agentTeam']); ?></td>
 																				<td><?php print($row['agentPosition']); ?></td>
+																				<td>
+																					<div class="row">
+																						<center>
+																							<form method='post' name='myform' onsubmit="CheckForm()">
+																								<button  type="button" id="update" name="update" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
+																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_agent.php?delete=<?php echo $row['agentCode'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																							</form>
+																						</center>
+																					</div>
+																				</td>
 																			</tr>
 																			<?php
 																		}
@@ -198,10 +218,60 @@
 					</div>
 					</div>
 					<!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training--><!-- The Modal add agent to training-->
+					<!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements-->
+					<div class="modal fade bs-example-modal-sm" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+							<h2 class="modal-title">Update Agent</h2>
+							<button type="button" class="close" data-dismiss="modal">x</button>
+						</div>
+							<form method="post" name='myform' onsubmit="CheckForm()">
+						<div method="post" class="modal-body">
+							<?php
+								if(isset($_POST['agentcode'])){$agentcode =  $_POST['agentcode'];}
+								$DB_con = Database::connect();
+								$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+								$sql = "SELECT * FROM agents where agentCode = '$agentcode'";
+								$result = $DB_con->query($sql);
+								if($result->rowCount()>0){
+									while($row=$result->fetch(PDO::FETCH_ASSOC)){
+										?>
+										<script>alert('yayo <?php $agentcode ?>');</script>
+										<?php
+										$newLast = $row['agentLastname'];
+										$newFirst = $row['agentFirstname'];
+										$newMiddle = $row['agentMiddlename'];
+									}
+								}
+								else{}
+							?>
+							New agent code:<input type="text" readonly='readonly' class="form-control" name="agentcode" style="width:195px" id="agentcode" value=""><br>
+							New last name: <br><input type="text" class="form-control" name="newLastName" style="width:195px" id="newLastName" value="<?php echo $newLast ?>"><br>
+							New first name: <br><input type="text" class="form-control" name="newFirstName" style="width:195px" id="newFirstName" value="<?php echo $newFirst ?>"><br>
+							New middle name: <br><input type="text" class="form-control" name="newMiddleName" style="width:195px" id="newMiddleName" value="<?php echo $newMiddle ?>"><br>
+							New birthdate: <br><input type="text" class="form-control" name="newBirthdate" style="width:195px" id="newBirthdate" value=""><br>
+							New application date: <br><input type="text" class="form-control" name="newAppDate" style="width:195px" id="newAppDate" value=""><br>
+						  New team: <br><input type="text" class="form-control" name="newTeam" style="width:195px" id="newTeam" value=""><br>
+							New position: <br><input type="text" class="form-control" name="newPosition" style="width:195px" id="newPosition" value=""><br>
+						</div>
+						<form method="post" action="<?php $_PHP_SELF ?>">
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary" id="ButtonUpdate" name="ButtonUpdate"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
+						</div>
+					</form>
+						<div class="modal-footer">
+						</div>
+							</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements-->
 
   		</div>
   	</div>
-
     <footer>
       <div class="pull-right">
         COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE
@@ -215,6 +285,21 @@
 	<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
   </body>
 </html>
+<script method='post'>
+		var table = document.getElementById('datatable-fixed-header');
+
+		for(var counter = 1; counter < table.rows.length; counter++)
+		{
+			table.rows[counter].onclick = function()
+			{;
+				document.getElementById("agentcode").value = this.cells[0].innerHTML;
+			 document.getElementById("newBirthdate").value = this.cells[2].innerHTML;
+			 document.getElementById("newAppDate").value = this.cells[3].innerHTML;
+			 document.getElementById("newTeam").value = this.cells[4].innerHTML;
+			 document.getElementById("newPosition").value = this.cells[5].innerHTML;
+				};
+			}
+			</script>
 	<script method="POST">
 
 	var table = document.getElementById('myTable');
@@ -240,3 +325,40 @@ $("#myTable tr").click(function() {
 						$(this).addClass("highlight");
 });
 </script>
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tgpdso_db";
+
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if($conn->connect_error)
+{
+		die("Connection failed:" .$conn->connect_error);
+}
+else {
+	if(isset($_GET['delete']))
+	{
+
+		$delete= $_GET['delete'];
+		?><script>alert('<?php echo $delete?>');</script><?php
+		$sql = "DELETE FROM agents WHERE agentCode	 = '$delete'";
+
+		if($conn->query($sql) === TRUE)
+		{
+			echo "Successful";
+		}
+		else {
+			echo "Error Deleting" .$conn->error;;
+		}
+		?>
+		<script>
+		window.location="add_agent.php";
+		</script>
+		<?php
+		$conn->close();
+	}
+}
+?>

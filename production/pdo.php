@@ -322,13 +322,9 @@
 								echo "Error:". $sql."<br>".$conn->error;
 							}
 						}
-
-
 						$conn->close();
-
 					}
 				}
-
 				public function dropdown_team() {
 					$DB_con = Database::connect();
 					$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -838,6 +834,47 @@
 					}
 
 
+					$conn->close();
+
+				}
+			}
+			public function updateAgent(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['ButtonUpdate']))
+					{
+					$newAgentCode = $_POST['agentcode'];
+					$newLastName = $_POST['newLastName'];
+					$newFirstName= $_POST['newFirstName'];
+					$newMiddleName= $_POST['newMiddleName'];
+					$newBirthdate= $_POST['newBirthdate'];
+					$newAppDate= $_POST['newAppDate'];
+					$newTeam= $_POST['newTeam'];
+					$newPosition = $_POST['newPosition'];
+						$sql = "UPDATE agents SET agentLastname = '$newLastName', agentFirstname = '$newFirstName', agentMiddlename = '$newMiddleName', agentBirthdate = '$newBirthdate', agentApptDate = '$newAppDate', agentTeam = '$newTeam', agentPosition = '$newPosition' where agentCode = '$newAgentCode'";
+						if($conn->query($sql)===true)
+						{
+							?>
+							<script>
+								alert('Agent successfully updated!');
+								window.location='add_agent.php';
+							</script>
+							<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+					}
 					$conn->close();
 
 				}
