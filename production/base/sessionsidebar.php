@@ -22,7 +22,7 @@
     }
     ?>
     &nbsp;
-    <a href="../index.php" style="color: lightgreen" name="logout" id="logout"><u>Logout</u></a>
+    <button class="astext" type="submit" style="color: lightgreen" name="logout" id="logout"><u>Logout</u></button>
     <div class="clearfix"></div>
   </div>
 </div>

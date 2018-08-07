@@ -4,6 +4,18 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
+	<style>
+	table {
+		    width: 80px;
+		    table-layout: fixed;
+		}
+	td {
+		    overflow: hidden;
+		    max-width: 25%;
+		    width: 25%;
+		    word-wrap: break-word;
+		}
+		</style>
 </head>
 <body class="nav-md footer_fixed">
 	<form method="post">
@@ -670,42 +682,6 @@
   </body>
 </html>
 
-
-
-<script>
-
-
-
-
-//$("#datatable-fixed-header1 tr").click(function() {
-//	var selected = $(this).hasClass("highlight1");
-//	$("#datatable-fixed-header1 tr").removeClass("highlight1");
-//	if(!selected)
-//					$(this).addClass("highlight1");
-
-//});
-
-
-//$("#datatable-fixed-header2 tr").click(function() {
-//	var selected = $(this).hasClass("highlight1");
-//	$("#datatable-fixed-header2 tr").removeClass("highlight1");
-//	if(!selected)
-//					$(this).addClass("highlight1");
-
-//});
-
-//$("#datatable-fixed-header3 tr").click(function() {
-//	var selected = $(this).hasClass("highlight1");
-//	$("#datatable-fixed-header3 tr").removeClass("highlight1");
-//	if(!selected)
-//					$(this).addClass("highlight1");
-
-});
-
-
-
-</script>
-
 <script>
 
 
@@ -894,6 +870,7 @@ else
 						<script> document.getElementById('plan').value = '<?php echo $row['planCode'];?>';</script>
 						<script> document.getElementById('planCodePass').value = '<?php echo $row['planID'];?>';</script>
 						<script> document.getElementById('clientIDModal').value = '<?php echo $row['clientID'];?>';</script>
+						<script> document.getElementById('fyc').value = '<?php echo $row['fyc'];?>';</script>
 
 
 					<?php
@@ -1040,14 +1017,13 @@ else {
 					}
 					else {
 
-						$sql = "INSERT INTO production (transDate, prodclientID, policyNo, plan, receiptNo, faceAmount, premium, rate, modeOfPayment, agent, remarks)
-						values ('$transDate', '$clientID', '$policyNo', '$plan', '$receiptNo', '$faceAmount', '$premium', '$rate', '$modeOfPayment', '$agent', '$remarks')";
+						$sql = "INSERT INTO production (transDate, prodclientID, policyNo, plan, receiptNo, faceAmount, premium, rate, modeOfPayment, agent, remarks, FYC)
+						values ('$transDate', '$clientID', '$policyNo', '$plan', '$receiptNo', '$faceAmount', '$premium', '$rate', '$modeOfPayment', '$agent', '$remarks', '$fyc')";
 
 						if($conn->query($sql))
 						{
 							?>
 							<script>
-								alert("New record production successfully added");
 								window.location = 'newBusiness.php';
 								</script>
 								<?php
@@ -1090,6 +1066,7 @@ $modeOfPayment = filter_input(INPUT_POST, 'modeOfPayment');
 $agent = filter_input(INPUT_POST, 'agentCode');
 $remarks = filter_input(INPUT_POST, 'remarks');
 $plan = filter_input(INPUT_POST, 'planCodePass');
+$fyc = filter_input(INPUT_POST, 'fyc');
 $host = "localhost";
 $dbusername = "root";
 $dbpassword = "";

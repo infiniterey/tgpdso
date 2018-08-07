@@ -3,8 +3,6 @@
 <?php include 'base/header.php'; ?>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<head>
-</head>
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
@@ -72,10 +70,10 @@
 
 									</div>
 
-									<div class="col-md-6">
+									<div class="col-md-10">
 
 
-										<table id="datatable-fixed-header1" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
+										<table id="datatable-fixed-header1" width="100px" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 											<thead>
 												<tr role="row">
 														<th hidden tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="PlanID"></th>
@@ -181,7 +179,7 @@
 										<thead>
 											<tr role="row">
 												<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Code">Agent Code</th>
-												<th style="width:" class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Name">Full Name</th>
+												<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Name">Full Name</th>
 												<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Birthdate" hidden>Birthdate</th>
 												<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Appointment Date">Appointment Date</th>
 												<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team">Team</th>
@@ -521,26 +519,22 @@
 										<button  type="button" style='float:right' onclick="location.href = 'newBusinessForm.php';" class="btn btn-primary" name="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;New Business</button>
 	                  <div class="clearfix"></div>
 	                </div>
-	                  <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 	                    <div class="row">
-
-	                      <div class="col-sm-12">
-
 	      <!-- table-striped dataTable-->
 
-	                        <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
+	                        <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer beta" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
 	                          <thead>
 	                            <tr role="row">
-																<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;" hidden>ProdID</th>
-	                              <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Trans. Date</th>
-	                              <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Name of Insured</th>
-	                              <th class="sorting" tabindex="0" id="policyNum" name="policyNum" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending" style="width: 35px;text-align:center;">Policy No.</th>
-	                              <th class="sorting" tabindex="0" id="receiptNum" name="receiptNum" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 10px;text-align:center;">OR No.</th>
-	                              <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 15px;text-align:center;">Premium</th>
-	                              <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Mode of Payment: activate to sort column ascending" style="width: 15px;text-align:center;">M.O.P</th>
-	                              <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Issued Date: activate to sort column ascending" style="width: 100px;text-align:center;">Agent</th>
-	                              <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Agent: activate to sort column ascending" style="width: 15px;text-align:center;">Status</th>
-	                              <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 10px;text-align:center;">Action</th>
+																<th width="20" class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending"hidden>ProdID</th>
+	                              <th width="25" class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending">Trans. Date</th>
+	                              <th width="120" tabindex="1" aria-controls="datatable-fixed-header" aria-label="Name of Insured: activate to sort column ascending">Name of Insured</th>
+	                              <th width="50" class="sorting" tabindex="0" id="policyNum" name="policyNum" aria-controls="datatable-fixed-header"  aria-label="Policy No.: activate to sort column ascending">Policy No.</th>
+	                              <th width="30" class="sorting" tabindex="0" id="receiptNum" name="receiptNum" aria-controls="datatable-fixed-header"  aria-label="OR No.: activate to sort column ascending">OR No.</th>
+	                              <th width="30" class="sorting" tabindex="0" aria-controls="datatable-fixed-header"  aria-label="Premium: activate to sort column ascending">Premium</th>
+	                              <th width="30" class="sorting" tabindex="0" aria-controls="datatable-fixed-header"  aria-label="Mode of Payment: activate to sort column ascending">M.O.P</th>
+	                              <th width="120" class="sorting" tabindex="0" aria-controls="datatable-fixed-header"  aria-label="Issued Date: activate to sort column ascending">Agent</th>
+	                              <th width="20" class="sorting" tabindex="0" aria-controls="datatable-fixed-header"  aria-label="Agent: activate to sort column ascending">Status</th>
+	                              <th width="40" class="sorting" tabindex="0" aria-controls="datatable-fixed-header"  aria-label="Action: activate to sort column ascending">Action</th>
 															</tr>
 	                          </thead>
 
@@ -579,8 +573,10 @@
 	                                        <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
 	                                        <td><?php print($row['remarks']); ?></td>
 																					<td>
+																						<center>
 																								<a title="Edit Data" href="newBusinessForm.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
 																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																						</center>
 																					</td>
 
 	                                      </tr>
@@ -650,8 +646,6 @@
 	                    </div>
 	                  </div>
 	                </div>
-	              </div>
-	            </div>
 	          </div>
 	        </div>
 	      </div>
@@ -705,7 +699,7 @@
 //	if(!selected)
 //					$(this).addClass("highlight1");
 
-});
+// });
 
 
 
@@ -748,15 +742,6 @@
 		{
 			window.location = "index.php";
 		}
-
-
-
-</script>
-
-
-
-<script>
-
 function myFunction() {
 
   var input, filter, table, tr, td, i;
