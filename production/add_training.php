@@ -153,6 +153,7 @@
 		 	Training ID<input type="text" readonly="readonly" style="width:195px" class="form-control"  name="utrainid" id="utrainid" value="<?php echo $pat?>" >
 			Training Name <input  type="text" style="width:195px" class="form-control" id="utrainname" name="utrainname" value="<?php echo $pot?>">
 			Required Position<input  type="text" class="form-control" style="width:195px" name="utrainposition" id="utrainposition" value="<?php echo $pit?>">
+			
 
 		</div>
 

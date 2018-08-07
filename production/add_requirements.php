@@ -14,6 +14,9 @@
 						<?php include 'base/sidemenu.php';?>
 					</div>
 				</div>
+				<div class="top_nav">
+	        <?php include 'base/topNavigation.php';?>
+	      </div>
         <!-- page content -->
 
 				<div class="right_col" role="main">
@@ -34,7 +37,8 @@
 															cursor:pointer;transition: all .25s	ease-in-out;
 														}
 													</style>
-													<form method='post'>
+
+	 												<form method='post'>
 														<h4 style="float:left">Policy No <input type="text" name="searchT" id="searchT" placeholder="Search"></input>
 													 <button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
 												 <button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h4>
@@ -60,6 +64,10 @@
 														$prodID="";
 														$valueToSearch="";
 														$bool = False;
+														$check = "False";
+														?>
+
+													  <?php
 
 														if(isset($_POST['searchT']))
 														{	 $valueToSearch = $_POST['searchT'];}
@@ -220,6 +228,7 @@
 																		Transaction Date: <br><input class="form-control" name="TTransactDate" style = "width:195px" class="date-picker form-control" required="required" type="date" value=""><br>
 																		Production ID:<br><input type="text" readonly="readonly" class="form-control" id="ProdId" name="ProdId" value="<?php echo $prodID?>"hidden><br>
 																		Agent Code: <br><input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><br>
+																		Name of Insured: <br><input  type="text" readonly="readonly" class="form-control" id="nameInsured" name="nameInsured" value="<?php echo $Lname .", ".$Fname?>"hidden><br>
 																		Plan Code: <br><input  type="text" class="form-control" readonly="readonly" name="planCode" value="<?php echo $Pplan?>"hidden><br>
 																		Requirement: <br><Textarea type="text" class="form-control" name="requirement" style="width:200px;height:40px" ></Textarea><br>
 																		<!-- Status: <br><input type="text" class="form-control" name="stats"><br> -->
@@ -235,11 +244,10 @@
 														</div>
 													</div>
 													<tbody>
-														<form method='get' name='myform' onsubmit="CheckForm()">
+														<form method='POST' name='myform' onsubmit="CheckForm()">
 															<?php
-																if(isset($_GET['retrieveAgent']))
-																{
-																	?><script>alert('yahaloo');</script><?php
+																?>
+																<?php
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 																$sql = "SELECT * FROM requirements WHERE RProdID = '$prodID'";
@@ -252,13 +260,47 @@
 																				<td><?php print($row['Rrequirements']); ?></td>
 																				<td><?php print($row['Status']); ?></td>
 																				<td><?php print($row['SubmitDate']); ?></td>
+																				<script>alert('yahaloo<?php echo $row['Rrequirements']; ?>');</script>
 																				<td hidden><?php print($row['RequirementNo']); ?></td>
 																				<td>
 																					<div class="row">
 																						<center>
 																							<form method='post' name='myform' onsubmit="CheckForm()">
 																							<button  type="button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_requirements.php?delete=<?php echo $row['RequirementNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																							<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_requirements.php?delete=<?php echo $row['RequirementNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																							</form>
+																						</center>
+																					</div>
+																				</td>
+																		</tr>
+																			<?php
+																		}
+																		?>
+															<?php
+																if(isset($_POST['display']))
+																{
+																?>
+																	<?php
+																$DB_con = Database::connect();
+																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																$sql = "SELECT * FROM requirements WHERE RProdID = '$prodID'";
+																$result = $DB_con->query($sql);
+
+																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																		?>
+																			<tr>
+																				<td><?php print($row['RtransDate']); ?></td>
+																				<td><?php print($row['Rrequirements']); ?></td>
+																				<td><?php print($row['Status']); ?></td>
+																				<td><?php print($row['SubmitDate']); ?></td>
+																				<script>alert('yahaloo<?php echo $row['Rrequirements']; ?>');</script>
+																				<td hidden><?php print($row['RequirementNo']); ?></td>
+																				<td>
+																					<div class="row">
+																						<center>
+																							<form method='post' name='myform' onsubmit="CheckForm()">
+																							<button  type="button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+																							<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_requirements.php?delete=<?php echo $row['RequirementNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																							</form>
 																						</center>
 																					</div>
@@ -283,12 +325,13 @@
 																				 document.getElementById("mydate").value = this.cells[9].innerHTML;
 																				 document.getElementById("myModeOfPayment").value = this.cells[10].innerHTML;
 																				 };
-																			}
 
-																				</script>
+																			}
+																			</script>
 																				<?php
 																	}
 															?>
+
 														</form>
 														</tbody>
 													</table>
@@ -337,7 +380,7 @@
 							<form style="margin-bottom: 10px;">
 							<div class="modal-body">
 
-								<table method = 'post' name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
+								<table id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info"  >
  							 <thead>
 								 <tr role="row">
  									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
@@ -364,8 +407,8 @@
  									 $result = $DB_con->query($sql);
  									 if($result->rowCount()>0){
  										 while($row=$result->fetch(PDO::FETCH_ASSOC)){
- 											 ?>
- 											 <tr>
+											 ?>
+											 <tr>
  												 <td><?php print($row['policyNo']); ?></td>
  												 <td><?php print($row['cLastname']. ", " .$row['cFirstname']); ?></td>
  												 <td><?php print($row['agent']); ?></td>
@@ -378,12 +421,14 @@
 												 <td hidden><?php print($row['plan']); ?></td>
 												 <td hidden><?php print($row['transDate']); ?></td>
 												 <td hidden><?php print($row['modeOfPayment']); ?></td>
-												 <form method='get' name='myform' onsubmit="CheckForm()">
-												 	<td><button style="width: 100%; height: 100%;"  type="button" id="retrieveAgent" name="retrieveAgent" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
-												</form>
+												 <td>
+												 <div align="center" class="row">
+														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
+													 </div>
+												 </td>
 												 </tr>
  											 <?php
- 										 }
+											 }
  									 }
  									 else{}
 
@@ -419,7 +464,7 @@
 							<form method='post' name='myform' onsubmit="CheckForm()">
 						<div class="modal-body">
 
-							<input type="text" style="width:195px" class="form-control" name="modalRequirementNo" id="modalRequirementNo" value="" >
+							<input type="text" style="width:195px" class="form-control" name="modalRequirementNo" id="modalRequirementNo" value="" hidden>
 							<input  type="text" style="width:195px" class="form-control" id="modalcode" name="modalcode" value="<?php echo $Aagent?>">
 							<input  type="text" class="form-control" style="width:195px" name="modalplan" id="modalplan" value="<?php echo $Pplan?>">
 							Requirement: <br><Textarea type="text" class="form-control" name="modalreq" style="width:195px" id="modalreq" style="width:200px;height:40px" ></Textarea><br>
@@ -452,10 +497,10 @@
 			</footer>
 
     <?php include 'java.php';?>
-	<script	src="	https://code.jquery.com/jquery-3.3.1.js">	</script>
-	<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
   </body>
 </html>
@@ -474,7 +519,7 @@ $(document).on("dblclick","#tableko tr",function() {
 
 </script>
 
-<script>
+<script method='post'>
 $("#tablekoto tr").click(function() {
 	var selected = $(this).hasClass("highlight");
 	$("#tablekoto tr").removeClass("highlight");
@@ -487,6 +532,25 @@ $(document).on("dblclick","#tablekoto tr",function() {
 					$('#formko').hide();
 						$("#tablekoto tr").removeClass("highlight1");
 });
+
+$("#tableko tr").click(function() {
+	var selected = $(this).hasClass("highlight");
+	$("#tableko tr").removeClass("highlight");
+					$('#formko').hide("highlight");
+	if(!selected)
+						$(this).addClass("highlight");
+					$('#formko').show("highlight");
+});
+$(document).on("dblclick","#tableko tr",function() {
+					$('#formko').hide();
+						$("#tableko tr").removeClass("highlight1");
+});
+
+$(document).ready(function() {
+    $('#tableko').DataTable( {
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
 
 
 

@@ -196,7 +196,7 @@
    #formko,#inputvaluedelete,#inputvaluedelete2,#modalprod,#modalcode,#modalplan{display:none}
    #edit, #deleted, #UpdateButton, #ModalEdit, #ModalDelete { display: none;}
    #temp,#temp2,#temp3,#contain1,#contain2{ display: none;}
-   #formko,#inputvaluedelete,#inputvaluedelete2{display:none}
+   #formko,#modalRequirementNo,#inputvaluedelete,#inputvaluedelete2{display:none}
    #inputvaluedelete,#inputvaluedelete2,#modalprod,#modalcode,#modalplan,#codeInputTextBox{display:none}
   #edit, #deleted, #UpdateButton{ display: none;}
   #edit, #deleted{ display: none;}

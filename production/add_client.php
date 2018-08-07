@@ -36,7 +36,16 @@
                   <div class="x_panel">
                     <div class="x_title">
                       <h2><b>ADD CLIENT</b></h2>
-
+											<form method="post">
+											<?php
+											$firstname = "";
+											$middlename ="";
+											$lastname ="";
+											$birthdate ="";
+											$address = "";
+											$cellno ="";
+											?>
+										</form>
                       <div class="clearfix"></div>
                     </div>
                       <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -55,7 +64,6 @@
 																	<input type="text" id="address" placeholder="" name="address" required="required" class="form-control" required><br/>
 																	Cell No.:<br>
 																	<input type="text" id="cellno" placeholder="" name="cellno" required="required" class="form-control" required><br/>
-
 																	<input type="text" id="clientID2" name="clientID2" hidden>
 
 																	<br><br>
@@ -248,11 +256,10 @@ else {
 		$birthdate = $_POST['birthdate'];
 		$address = $_POST['address'];
 		$cellno = $_POST['cellno'];
-
-		$sql = "INSERT INTO client (cFirstname, cMiddlename, cLastname, cBirthdate, cAddress, cCellno)
-		VALUES ('$firstname', '$middlename', '$lastname', '$birthdate' , '$address', '$cellno')";
-
-		if($conn->query($sql))
+		$sql = "INSERT INTO client (cFirstname,cLastname , cMiddlename, cBirthdate, cAddress, cCellno)
+		VALUES ('$firstname', '$lastname', '$middlename ', '$birthdate' , '$address', '$cellno')";
+			?><script>alert('papaw <?php echo $firstname ?>');</script><?php
+		if($conn->query($sql)===True)
 		{
 			?>
 			<script>

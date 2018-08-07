@@ -87,8 +87,6 @@
 												</tr>
 											</thead>
 
-
-
 											<tbody>
 
 													<?php
