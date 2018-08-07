@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2018 at 06:36 AM
+-- Generation Time: Aug 07, 2018 at 04:33 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -43,9 +43,14 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`clientID`, `cFirstname`, `cLastname`, `cMiddlename`, `cBirthdate`, `cAddress`, `cCellno`) VALUES
-(0, 'asdas1', 'SADAGD', 'sad1', '2018-07-26', 'SDARJAG', 'WEIR'),
-(35043, 'sdfsd', 'asghds', 'agdad', '2018-07-18', 'ahgsdasj', '38462384'),
-(85855, 'asdas', 'SADAGD', 'sad', '2018-07-26', 'SDARJAG', 'WEIR');
+(85858, 'asdsa123ddd', 'asd23ddd', 'asdsadsda1ddd', '2018-07-03', 'dxcvvxc', '21231231'),
+(85860, 'Marvel', 'Barta', 'A', '2018-07-21', 'Sitio Atis Banilad', '87364587643'),
+(85864, 'xzczx', 'zxcxc', 'zxcxc', '2018-07-07', 'zxcxc', 'zxcxc'),
+(85865, 'asdsad', 'sdasd', 'sadsd', '2018-07-25', 'asdsda', 'asdsd'),
+(85866, 'asssss', 'ffffff', 'ddddd', '2018-07-19', 'zcxvzx', '67858'),
+(85867, 'nmvbmbv', 'fdgf', 'xcvcv', '2018-07-29', 'zxcxcz', 'ccc333'),
+(85868, 'dfdf', 'dfd', 'dfd', '2018-08-02', 'sdfdsf', '4323423'),
+(85869, 'here', 'here', 'here', '2018-08-04', 'here', 'herer');
 
 --
 -- Indexes for dumped tables
@@ -56,6 +61,16 @@ INSERT INTO `client` (`clientID`, `cFirstname`, `cLastname`, `cMiddlename`, `cBi
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`clientID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `client`
+--
+ALTER TABLE `client`
+  MODIFY `clientID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85870;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -192,7 +192,12 @@
 																					 </div>
 																					 <div class="col-sm-3 ">
 																						 Mode of Payment
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="policyMOP" id="policyMOP">
+																						 <select id="policyMOP" name="policyMOP" class="form-control col-md-7 col-xs-4">
+																							 <option id="policyMOP" name="policyMOP" value="Monthly">Monthly</option>
+																							 <option id="policyMOP" name="policyMOP" value="Quarterly">Quarterly</option>
+																							 <option id="policyMOP" name="policyMOP" value="Semi-Annual">Semi-Annual</option>
+																							 <option id="policyMOP" name="policyMOP" value="Annual">Annual</option>
+																						 </select>
 																					 </div>
 																				 <div class="col-sm-3 ">
 																						 Issue Date

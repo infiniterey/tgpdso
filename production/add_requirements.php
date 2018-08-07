@@ -235,9 +235,9 @@
 														</div>
 													</div>
 													<tbody>
-														<form method='get' name='myform' onsubmit="CheckForm()">
+														<form method='POST' name='myform' onsubmit="CheckForm()">
 															<?php
-																if(isset($_GET['retrieveAgent']))
+																if(isset($_POST['retrieveAgent']))
 																{
 																	?><script>alert('yahaloo');</script><?php
 																$DB_con = Database::connect();
