@@ -18,7 +18,7 @@ else
 		{
 				$edit = $_GET['edit'];
 
-					$result=mysqli_query($conn,"SELECT * from production, client WHERE clientID = prodclientID AND policyNo = '$edit'");
+					$result=mysqli_query($conn,"SELECT * from production, client, policystatus WHERE clientID = prodclientID AND policyStat = policyID AND policyNo = '$edit'");
 
 					while($row=mysqli_fetch_Array($result))
 					{
@@ -60,9 +60,10 @@ else
 						<script> document.getElementById('policyRate').value = '<?php echo $row['rate'];?>';</script>
 
 						<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
+						<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
 
 					<?php
-				}
+				};
 
 
 			?>
@@ -70,13 +71,14 @@ else
 
 			</script>
 			<?php
+			$conn->close();
 	}
 	else if(isset($_GET['editBene']) && isset($_GET['number']))
 	{
 		$edit = $_GET['editBene'];
 		$number = $_GET['number'];
 
-			$result=mysqli_query($conn,"SELECT * from production, client, beneficiary WHERE clientID = prodclientID AND bene_policyNo = policyNo AND policyNo = '$edit' AND bene_contactNo = '$number'");
+			$result=mysqli_query($conn,"SELECT * from production, client, beneficiary, policystatus WHERE policyStat = policyID AND clientID = prodclientID AND bene_policyNo = policyNo AND policyNo = '$edit' AND bene_contactNo = '$number'");
 
 			while($row=mysqli_fetch_Array($result))
 			{
@@ -103,12 +105,22 @@ else
 				<script> document.getElementById('beneContact').value = '<?php echo $row['bene_contactNo'];?>';</script>
 				<script> document.getElementById('beneRelationship').value = '<?php echo $row['bene_relationShip'];?>';</script>
 
-					<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
-			<?php
-		}
+				<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
+				<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
+				<?php
+			}
+
+			$conn->close();
+
+		?>
+		<script>
+
+		</script>
+		<?php
 	}
 }
 ?>
+
 <!---      Table                 -->
 <!---      Table                 -->
 <!---      Table                 -->
@@ -157,7 +169,7 @@ else
 			</script>
 			<?php
 	}
-	if(isset($_GET['editBene']) )
+	if(isset($_GET['editBene']) && isset($_GET['number']))
 	{
 			$edit = $_GET['editBene'];
 
@@ -408,6 +420,60 @@ else
       else {
 				if(isset($_POST['saveButton']))
 				{
+					$policyNo = $_POST['policyNoOwner'];
+					$plan = $_POST['policyPlan'];
+					$faceAmount = $_POST['policyFaceAmount'];
+					$MOP = $_POST['policyMOP'];
+					$issueDate = $_POST['policyIssueDate'];
+					$premium = $_POST['policyPremium'];
+					$policyStatus = $_POST['policyStatusSelect'];
+
+						$sql = "UPDATE production
+						SET policyNo = '$policyNo',
+						plan = '$plan',
+						faceAmount = '$faceAmount',
+						modeOfPayment = '$MOP',
+						issuedDate = '$issueDate',
+						premium = '$premium',
+						policyStat = '$policyStatus'
+						WHERE policyNo = '$policyNo'";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								alert("New record production successfully added");
+								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
+<!---      Table                 -->
+<!---      Table                 -->
+<!---      Table                 -->
+
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['saveButton']))
+				{
 					$insuredLastname = $_POST['insuredLastName'];
 					$insuredFirstname = $_POST['insuredFirstName'];
 					$insuredMiddlename = $_POST['insuredMiddleName'];
@@ -427,6 +493,9 @@ else
 								window.location = "records.php?edit=<?php echo $add ?>";
 								</script>
 								<?php
+								echo "$(document).ready(function(){
+											<script>$('#fundModal').modal('show')</script>
+										});";
 						}
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
@@ -464,9 +533,11 @@ else
 							?>
 							<script>
 								alert("New record production successfully added");
-								window.location = "records.php?edit=<?php echo $add ?>";
 								</script>
 								<?php
+								echo "$(document).ready(function(){
+											<script>$('#fundModal').modal('show')</script>
+										});";
 						}
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
@@ -503,13 +574,16 @@ else
 							?>
 							<script>
 								alert("Delete fund successfully");
-								window.location = "records.php?edit=<?php echo $delete ?>";
-								</script>
+							</script>
 								<?php
 						}
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
 						}
+						echo
+						"$(document).ready(function(){
+							<script>$('#fundModal').modal('show')</script>
+							});";
 						$conn->close();
       }
     }
@@ -647,9 +721,9 @@ function openPolicy(evt, tabName) {
 						} );
 
 						$(document).ready(function() {
-						    $('#datatable-fixed-header').DataTable( {
-						        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-						    } );
+								$('#datatable-fixed-header').DataTable( {
+										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+								} );
 						} );
 						$(document).ready(function() {
 								$('#datatable-fixed-header1').DataTable( {
@@ -658,6 +732,12 @@ function openPolicy(evt, tabName) {
 						} );
 						$(document).ready(function() {
 								$('#datatable-fixed-header-1').DataTable( {
+										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+								} );
+						} );
+
+						$(document).ready(function() {
+								$('#datatable-fixed-header10').DataTable( {
 										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 								} );
 						} );
@@ -698,6 +778,7 @@ function openPolicy(evt, tabName) {
 								    } );
 								} );
 
+
 								$(document).ready(function(){
 									if(!$('#policyIssuedDate').val()){
 									    $('#paymentButton').show();
@@ -706,5 +787,7 @@ function openPolicy(evt, tabName) {
 									    $('#paymentButton').show();
 									}
 								});
+
+
 
 </script>

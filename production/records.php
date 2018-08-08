@@ -4,6 +4,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
+
 	<style>
 		table tr:not(:first-child){
 			cursor:pointer;transition: all .25s	ease-in-out;
@@ -235,8 +236,7 @@
 																					<div class="col-sm-3 ">
 																						Policy Status
 																						<div>
-																						<select name="policyStatusSelect" id="policyStatusSelect" class="form-control col-md-7 col-xs-4">
-																							<option>Select a policy<option>
+																						<select name="policyStatusSelect" id="policyStatusSelect" placeholder="Select a policy" class="form-control col-md-7 col-xs-4">
 																							<?php
 																							$DB_con = Database::connect();
 																							$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -244,6 +244,9 @@
 																						$result = $DB_con->query($sql);
 																						if($result->rowCount()>0)
 																						{
+																							?>
+																							<option>Select a status</option>
+																							<?php
 																							while($row=$result->fetch(PDO::FETCH_ASSOC))
 																							{
 																								?>
@@ -490,15 +493,15 @@
 																														</form>
 																												</div>
 																										<div class="col-sm-6">
-																											<table method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+																											<table method ="post" id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 																											<thead>
 																												<tr role="row">
-																														<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending">
+																														<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header10"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending">
 																															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fund</th>
-																														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" aria-label="Name of Insured: activate to sort column ascending">Rate</th>
-																														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" aria-label="Rate: activate to sort column ascending">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action</th>
-																													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" aria-label="Action: activate to sort column ascending" hidden>FundID</th>
+																														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header10" aria-label="Name of Insured: activate to sort column ascending">Rate</th>
+																														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header10" aria-label="Rate: activate to sort column ascending">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action</th>
+																													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header10" aria-label="Action: activate to sort column ascending" hidden>FundID</th>
 																													</tr>
 																											</thead>
 																											<tbody>
@@ -689,7 +692,7 @@
 																									<td><?php echo $row['payment_remarks']; ?></td>
 																									<td>
 																										<div align="center">
-																											<a title="Delete Data" data-toggle="modal" data-target="#paymentModal" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																											<a title="Edit Data" data-toggle="modal" data-target="#paymentModal" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 																											<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>&paymentReceiptNo=<?php echo $row['payment_OR']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																										</div>
 																									</td>
@@ -709,7 +712,7 @@
 			 																		for(var counter = 1; counter < table.rows.length; counter++)
 			 																		{
 			 																			table.rows[counter].onclick = function()
-			 																			{;
+			 																			{
 			 																			 document.getElementById("planCode").value = this.cells[0].innerHTML;
 			 																			 document.getElementById("planC").value = this.cells[0].innerHTML;
 			 																			 document.getElementById("planDesc").value = this.cells[1].innerHTML;
@@ -842,11 +845,10 @@
 			</footer>
 
     <?php include 'java.php';?>
-	<script	src="	https://code.jquery.com/jquery-3.3.1.js">	</script>
-	<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
-
-
+		<script	src="	https://code.jquery.com/jquery-3.3.1.js">	</script>
+		<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>
 
