@@ -53,7 +53,7 @@ else
 
 						<script> document.getElementById('paymentPolicyNo').value = '<?php echo $row['policyNo'];?>';</script>
 						<script> document.getElementById('paymentAmount').value = '<?php echo $row['faceAmount'];?>';</script>
-						<script> document.getElementById('payemnIssuedDate').value = '<?php echo $row['issuedDate'];?>';</script>
+						<script> document.getElementById('paymentIssueDate').value = '<?php echo $row['issuedDate'];?>';</script>
 						<script> document.getElementById('modeOfPayment').value = '<?php echo $row['modeOfPayment'];?>';</script>
 						<script> document.getElementById('paymentTransDate').value = '<?php echo $row['transDate'];?>';</script>
 						<script> document.getElementById('paymentORNo').value = '<?php echo $row['receiptNo'];?>';</script>
@@ -120,6 +120,51 @@ else
 	}
 }
 ?>
+
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tgpdso_db";
+
+$conn = new mysqli ($servername, $username, $password, $dbname);
+
+if(mysqli_connect_error())
+{
+	die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+}
+else
+{
+		if(isset($_GET['fund']) && isset($_GET['rate']))
+		{
+				$fund = $_GET['fund'];
+				$rate = $_GET['rate'];
+
+					$result=mysqli_query($conn,"SELECT * FROM policyfund, fund WHERE polFund_fund = fundID AND polFund_fund = '$fund' AND polFund_rate = '$rate'");
+
+					while($row=mysqli_fetch_Array($result))
+					{
+						?>
+
+						<script> document.getElementById('setFundID').value = '<?php echo $row['fundID'];?>';</script>
+						<script> document.getElementById('setFundName').value = '<?php echo $row['fundName'];?>';</script>
+						<script> document.getElementById('setFundRate').value = '<?php echo $row['polFund_rate'];?>';</script>
+						<script>
+								$('#saveThisFund').hide();
+						</script>
+					<?php
+				}
+				$conn->close();
+
+			?>
+			<script>
+
+			</script>
+			<?php
+	}
+}
+	?>
 
 <!---      Table                 -->
 <!---      Table                 -->
@@ -493,9 +538,6 @@ else
 								window.location = "records.php?edit=<?php echo $add ?>";
 								</script>
 								<?php
-								echo "$(document).ready(function(){
-											<script>$('#fundModal').modal('show')</script>
-										});";
 						}
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
@@ -522,22 +564,21 @@ else
 				{
 
 					$add = $_GET['edit'];
-					$fundID = $_POST['setFundName'];
+					$fundID = $_POST['setFundID'];
 					$rate = $_POST['setFundRate'];
 
 					$sql = "INSERT INTO policyFund (polFund_policyNo, polFund_fund, polFund_rate)
 					values ('$add','$fundID','$rate')";
+					echo "<meta http-equiv='refresh' content='0'>";
 
 						if($conn->query($sql))
 						{
 							?>
 							<script>
 								alert("New record production successfully added");
-								</script>
+								window.location="records.php?edit=<?php echo $add ?>&#fundModal";
+							</script>
 								<?php
-								echo "$(document).ready(function(){
-											<script>$('#fundModal').modal('show')</script>
-										});";
 						}
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
@@ -562,8 +603,6 @@ else
       else {
 				if(isset($_GET['deleteFund']) && isset($_GET['fund']))
 				{
-
-
 					$delete = $_GET['deleteFund'];
 					$fund = $_GET['fund'];
 
@@ -574,16 +613,13 @@ else
 							?>
 							<script>
 								alert("Delete fund successfully");
+								window.location="records.php?edit=<?php echo $delete ?>&#fundModal";
 							</script>
 								<?php
 						}
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
 						}
-						echo
-						"$(document).ready(function(){
-							<script>$('#fundModal').modal('show')</script>
-							});";
 						$conn->close();
       }
     }
@@ -593,59 +629,6 @@ else
 <!---      Table                 -->
 <!---      Table                 -->
 <!---      Table                 -->
-
-<?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-
-      if(mysqli_connect_error())
-      {
-        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-      }
-      else {
-				if(isset($_POST['paymentSaveButton']))
-				{
-					$paymentPolicyNo = $_POST['paymentPolicyNo'];
-					$paymentAmount = $_POST['paymentAmount'];
-					$paymentIssueDate = $_POST['paymentIssueDate'];
-					$paymentMOP = $_POST['paymentmodeOfPayment'];
-					$paymentTransDate = $_POST['paymentTransDate'];
-					$paymentORNo = $_POST['paymentORNo'];
-					$paymentAPR = $_POST['paymentAPR'];
-					$paymentNextDue = $_POST['paymentNextDue'];
-					$paymentRemarks = "New";
-
-						$sql = "INSERT INTO payment (payment_policyNo,
-							payment_Amount, payment_issueDate,
-							payment_MOP, payment_transDate,
-							payment_OR, payment_APR,
-							payment_nextDue, payment_remarks)
-						values ('$paymentPolicyNo','$paymentAmount',
-							'$payment_issueDate','$paymentMOP',
-							'$paymentTransDate','$paymentORNo',
-							'$paymentAPR', '$paymentNextDue',
-							'$paymentRemarks')";
-
-						if($conn->query($sql))
-						{
-							?>
-							<script>
-								alert("New record production successfully added");
-								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
-								</script>
-								<?php
-						}
-						else {
-							echo "Error:". $sql."<br>".$conn->error;
-						}
-						$conn->close();
-      }
-    }
-?>
 
 <!---      Table                 -->
 <!---      Table                 -->
@@ -741,6 +724,13 @@ function openPolicy(evt, tabName) {
 										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 								} );
 						} );
+
+						$(document).ready(function() {
+
+  					if(window.location.href.indexOf('#fundModal') != -1) {
+    				$('#fundModal').modal('show');
+  					}
+					});
 
 					function boxChecked() {
   					var checkBox = document.getElementById("box");

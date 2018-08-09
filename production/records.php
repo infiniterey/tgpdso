@@ -413,57 +413,8 @@
 
 
 			 																			<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-																							<div class="modal-dialog" role="document">
-																								<div class="modal-content">
-			 																						<div class="modal-header">
-			 																							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-			 																							<h4 class="modal-title" id="myModalLabel2">Add Payment</h4>
-			 																						</div>
-			 																						<form method='post' name='myform' onsubmit="CheckForm()">
-			 																							<div class="modal-body">
-																										 	<label class="control-label">
-											 		                            Policy #:
-											 														 	 	</label>
-										 																 <input type="text" readonly="readonly" class="form-control" name="paymentPolicyNo" id="paymentPolicyNo">
-																										 	<label class="control-label">
-																										 	Amount:
-																											</label>
-																											<input  type="text" class="form-control" id="paymentAmount" name="paymentAmount">
-																											<label class="control-label">
-																											Issue Date:
-																										</label><input type="date" class="form-control" name="paymentIssueDate" id="paymentIssueDate" readonly><br>
-																										<label class="control-label">
-																										Mode of Payment:
-																									</label>
-																										<select name="paymentmodeOfPayment" id="paymentmodeOfPayment" class="form-control">
-																										<option value="Monthly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Monthly</option>
-																										<option value="Quarterly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Quarterly</option>
-																										<option value="Semi-Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Semi-Annual</option>
-																										<option value="Annualy" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Annualy</option>
-																										</select><br>
-																											<hr>
-																											<label class="control-label">
-																										 	Transaction Date:
-																										</label><input type="date" class="form-control" name="paymentTransDate" id="paymentTransDate"><br>
-																											<label class="control-label">
-																										 	OR #:
-																										</label><input type="text" class="form-control" name="paymentORNo" id="paymentORNo"><br>
-																											<label class="control-label">
-																										 	APR #:
-																										</label><input type="text" class="form-control" name="paymentAPR" id="paymentAPR"><br>
-																											<label class="control-label">
-																										 	Next Due Date:
-																										</label><input type="date" class="form-control" name="paymentNextDue" id="paymentNextDue"><br>
-			 																							 <br>
-			 																							</div>
-			 																							<div class="modal-footer">
-			 																								<button type="submit" class="btn btn-primary" style="width: 100px;" name="paymentSaveButton" id="paymentSaveButton" onclick="openPolicy(event, 'Payment')"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-																											<!--<button type="button" class="btn btn-default" style="width: 100px;" data-dismiss="modal">Close</button>-->
-			 																							</div>
-			 																						</form>
-			 																					</div>
-																							</div>
-			 																			</div>
+																							<?php include 'add_payment.php';?>
+																						</div>
 
 																						<div id="fundModal" name="fundModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 																							<div class="modal-dialog modal-sm" style="width: 950px;" role="document">
@@ -478,14 +429,15 @@
 																									<div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 																                    <div class="row">
 																											<div class="col-lg-5">
-																													<form method="post" action="<?php $_PHP_SELF ?>">
+																													<form method="POST" action="<?php $_PHP_SELF ?>">
 																		                          Fund:
 																															<div>
-																		                          	<input name="setFundName" id="setFundName" style="width: 150px;" class="form-control" type="text" required>
-																																<button data-toggle="modal" data-target="#searchFundModal" style="cursor:auto; width: 40px;" style="border:none" type="button" class="btn btn-primary" id="searchFund" name="searchFund"><i class="fa fa-search"></i></button>
+																																<input name="setFundID" id="setFundID" hidden>
+																		                          	<input readonly name="setFundName" id="setFundName" style="width: 150px;" class="form-control" type="text" required>
+																																<button data-dismiss="modal" data-toggle="modal" data-target="#searchFundModal" style="cursor:auto; width: 40px;" style="border:none" type="button" class="btn btn-primary" id="searchFund" title="Approve" name="searchFund"><i class="fa fa-search"></i></button>
 																															</div>
 																															Rate<br>
-																		                          <input type="text" id="setFundRate" placeholder="" name="setFundRate" required="required" class="form-control" required><br/>
+																		                          <input type="text" id="setFundRate" style="width: 150px;" placeholder="" name="setFundRate" required="required" class="form-control" required>&nbsp;&nbsp;<i style="font-size: 25px;">%</i><br/>
 																															<br><br>
 																																<button type="submit" class="btn btn-primary" id="saveThisFund" name="saveThisFund"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
 																																<button type="submit" class="btn btn-primary" id="update" name="update"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
@@ -506,23 +458,24 @@
 																											</thead>
 																											<tbody>
 																												<?php
-
+																													$policyNoFund = $_GET['edit'];
 																													$DB_con = Database::connect();
 																													$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																													$sql = "SELECT * FROM policyFund";
+																													$sql = "SELECT * FROM policyFund, fund WHERE polFund_fund = fundID AND polFund_policyNo = '$policyNoFund'";
 
 																													$result = $DB_con->query($sql);
 																													if($result->rowCount()>0){
 																														while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																															?>
 																															<tr>
-																																<td><?php print($row['polFund_fund']); ?></td>
-																																<td><?php print($row['polFund_rate']); ?></td>
+																																<td><?php print($row['fundName']); ?></td>
+																																<td><?php print($row['polFund_rate']); ?>%</td>
 																																<td>
 																																	<div class="row">
 																																		<center>
 																																			<form method='post' name='myform' onsubmit="CheckForm()">
-																																				<button  type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
+																																				<a tittle="Edit Data" id="fundEdit" name="fundEdit" class="btn btn-primary" href="records.php?edit=<?php echo $row['polFund_policyNo']; ?>&fund=<?php echo $row['polFund_fund'];?>&rate=<?php echo $row['polFund_rate'];?>#fundModal"><i class="fa fa-pencil"></i></a>
+																																				<!--<button  type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>-->
 																																				<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteFund=<?php echo $row['polFund_policyNo'] ?>&fund=<?php echo $row['polFund_fund']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																																		</center>
 																																	</div>
@@ -567,7 +520,7 @@
 																					<div class="modal-dialog modal-sm" style="width: 500px" role="document">
 																						<div class="modal-content">
 																							<div class="modal-header">
-																								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+																								<button type="button" class="close" data-dismiss="modal" data-target="#fundModal" data-toggle="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 																								<h4 class="modal-title" id="myFundModal">Search Fund</h4>
 																							</div>
 																							<form method='post' name='myFormModal' onsubmit="CheckForm()">
@@ -602,7 +555,7 @@
 																															<div class="row">
 																																<center>
 																																	<form method='post' name='myform' onsubmit="CheckForm()">
-																																		<button  type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
+																																		<button data-dismiss="modal" data-target="#fundModal" data-toggle="modal" type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
 																																	</form>
 																																</center>
 																															</div>
@@ -619,13 +572,13 @@
 																								</table>
 
 																								<script>
-																								var table = document.getElementById('datatable-fixed-header');
+																								var table = document.getElementById('datatable-fixed-header-1');
 																								for(var counter = 1; counter < table.rows.length; counter++)
 																								{
 																									table.rows[counter].onclick = function()
-																									{;
-																									 document.getElementById("getFundID").value = this.cells[0].innerHTML;
-																									 document.getElementById("policyFund").value = this.cells[1].innerHTML;
+																									{
+																									 document.getElementById("setFundID").value = this.cells[2].innerHTML;
+																									 document.getElementById("setFundName").value = this.cells[0].innerHTML;
 																										};
 																									}
 																								</script>
@@ -845,7 +798,8 @@
 			</footer>
 
     <?php include 'java.php';?>
-		<script	src="	https://code.jquery.com/jquery-3.3.1.js">	</script>
+		<script	src="	https://code.jquery.com/jquery-3.3.1.js"></script>
+	<!--	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
 		<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 		<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
