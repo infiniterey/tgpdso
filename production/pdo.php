@@ -70,13 +70,6 @@
     }
 		public function addRequirements(){
 
-			$AgentCode = $_POST['agentCode'];
-			$PlanCode = $_POST['planCode'];
-			$Requirement = $_POST['requirement'];
-			$TransactTdate = $_POST['TTransactDate'];
-			$PprodID = $_POST['ProdId'];
-			$SubmitDate = $_POST['submitdate'];
-			$Status = $_POST['stats'];
 			$host = "localhost";
 			$dbusername = "root";
 			$dbpassword = "";
@@ -89,9 +82,15 @@
 				die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 			}
 			else {
+				$AgentCode = $_POST['agentCode'];
+				$PlanCode = $_POST['planCode'];
+				$Requirement = $_POST['requirement'];
+				$TransactTdate = $_POST['TTransactDate'];
+				$PprodID = $_POST['ProdId'];
 
-				$sql = "INSERT INTO requirements (RagentCode, Rrequirements, RProdID, RtransDate,SubmitDate,Status)
-				values ('$AgentCode','$Requirement','$PprodID','$TransactTdate','$SubmitDate','$Status')";
+
+				$sql = "INSERT INTO requirements (RagentCode, Rrequirements, RProdID, RtransDate)
+				values ('$AgentCode','$Requirement','$PprodID','$TransactTdate')";
 
 				if($conn->query($sql))
 				{

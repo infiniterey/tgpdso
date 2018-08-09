@@ -100,6 +100,7 @@
 																 $SOADate = $row['SOAdate'];
 																 $Aagent = $row['agent'];
 																 $Rremarks = $row['remarks'];
+																 ?><script>alert('<?php echo $Lname?>');</script><?php
 															}
 														}
 													 catch (PDOException $msg) {
@@ -229,7 +230,7 @@
 																		Production ID:<br><input type="text" readonly="readonly" class="form-control" id="ProdId" name="ProdId" value="<?php echo $prodID?>"hidden><br>
 																		Agent Code: <br><input  type="text" readonly="readonly" class="form-control" id="agentCode" name="agentCode" value="<?php echo $Aagent?>"hidden><br>
 																		Name of Insured: <br><input  type="text" readonly="readonly" class="form-control" id="nameInsured" name="nameInsured" value="<?php echo $Lname .", ".$Fname?>"hidden><br>
-																		Plan Code: <br><input  type="text" class="form-control" readonly="readonly" name="planCode" value="<?php echo $Pplan?>"hidden><br>
+																		Plan Code: <br><input  type="text" class="form-control" readonly="readonly" name="planCode" id="planCode" value="<?php echo $Pplan?>"hidden><br>
 																		Requirement: <br><Textarea type="text" class="form-control" name="requirement" style="width:200px;height:40px" ></Textarea><br>
 																		<!-- Status: <br><input type="text" class="form-control" name="stats"><br> -->
 																		<!-- Submit Date: <br> <input name="submitdate" style = "width:195px" class="date-picker form-control" required="required" type="date" required><br> -->
@@ -260,7 +261,6 @@
 																				<td><?php print($row['Rrequirements']); ?></td>
 																				<td><?php print($row['Status']); ?></td>
 																				<td><?php print($row['SubmitDate']); ?></td>
-																				<script>alert('yahaloo<?php echo $row['Rrequirements']; ?>');</script>
 																				<td hidden><?php print($row['RequirementNo']); ?></td>
 																				<td>
 																					<div class="row">
@@ -277,15 +277,77 @@
 																		}
 																		?>
 															<?php
-																if(isset($_POST['display']))
+																if(isset($_GET['display'] ))
 																{
+																	$display = $_GET['display'];
+																	if(isset($_GET['display2'] ))
+																	{
+																	$display2 = $_GET['display2'];
 																?>
+																<script>alert('hihihihi <?php echo $display2 ?>');</script>
 																	<?php
+																	try {
+																	$DB_con = Database::connect();
+																	 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+																	 //$stmt->bindValue(':search', '%' . $var1 . '%', PDO::PARAM_INT);
+																	 	$sql="SELECT * FROM production, client where clientID = prodclientID ";
+
+																	 $q = $DB_con->prepare($sql);
+																	 $q->execute();
+																	 $result =  $q->fetchall();
+																	 ?>
+																	 <?php
+																	 foreach($result as $row)
+																		 {
+																			 $bool = True;
+																			 $prodID = $row['prodID'];
+																			 $Tdate = $row['transDate'];
+																			 $clientID=$row['prodclientID'];
+																			 $Lname = $row['cLastname'];
+																			 $Fname = $row['cFirstname'];
+																			 $Pno = $row['policyNo'];
+																			 $Pplan = $row['plan'];
+																			 $Premium = $row['premium'];
+																			 $Rno = $row['receiptNo'];
+																			 $Fcname = $row['faceAmount'];
+																			 $Rrate = $row['rate'];
+																			 $FFyc = $row['FYC'];
+																			 $MOP = $row['modeOfPayment'];
+																			 $Idate = $row['issuedDate'];
+																			 $SOADate = $row['SOAdate'];
+																			 $Aagent = $row['agent'];
+																			 $Rremarks = $row['remarks'];
+
+																			 ?>
+																			 <script>
+																			 document.getElementById('mylastname').value = "<?php echo $Lname;?>"
+																			 document.getElementById('myfirstname').value = " <?php echo $Fname ;?>"
+																			 document.getElementById('mypolicy').value = " <?php echo $Pno ;?>"
+																			 document.getElementById('myofficialReceipt').value = " <?php echo $Rno ;?>"
+																			 document.getElementById('myAgent').value = " <?php echo $Aagent ;?>"
+																			 document.getElementById('myplan').value = " <?php echo $Pplan ;?>"
+																			 document.getElementById('mydate').value = " <?php echo $Tdate ;?>"
+																			 document.getElementById('myModeOfPayment').value = " <?php echo $MOP ;?>"
+
+																			 document.getElementById('ProdId').value = "<?php echo $prodID;?>";
+																			 document.getElementById('agentCode').value = "<?php echo $Aagent;?>";
+																			 document.getElementById('nameInsured').value = "<?php echo $Lname.", ".$Fname;?>";
+																			 document.getElementById('planCode').value = "<?php echo $Pplan;?>";
+
+																		 </script>
+																		 <?php
+																		}
+																	}
+																 catch (PDOException $msg) {
+																	 die("Connection Failed : " . $msg->getMessage());
+																 }
+
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																$sql = "SELECT * FROM requirements WHERE RProdID = '$prodID'";
+																$sql = "SELECT * FROM requirements, client where requirements.RProdID = '$display' and client.clientID = '$display2'";
 																$result = $DB_con->query($sql);
-
+																?>
+																	<?php
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																			<tr>
@@ -293,7 +355,6 @@
 																				<td><?php print($row['Rrequirements']); ?></td>
 																				<td><?php print($row['Status']); ?></td>
 																				<td><?php print($row['SubmitDate']); ?></td>
-																				<script>alert('yahaloo<?php echo $row['Rrequirements']; ?>');</script>
 																				<td hidden><?php print($row['RequirementNo']); ?></td>
 																				<td>
 																					<div class="row">
@@ -306,38 +367,33 @@
 																					</div>
 																				</td>
 																		</tr>
-																			<?php
+
+																	<?php
 																		}
 																		?>
-																		<script>
-																			var table = document.getElementById('tableko');
-																			for(var counter = 1; counter < table.rows.length; counter++)
-																			{
-																				table.rows[counter].onclick = function()
-																				{;
-																				 document.getElementById("searchT").value = this.cells[0].innerHTML;
-																				 document.getElementById("mylastname").value = this.cells[4].innerHTML;
-																				 document.getElementById("myfirstname").value = this.cells[5].innerHTML;
-																				 document.getElementById("mypolicy").value = this.cells[0].innerHTML;
-																				 document.getElementById("myofficialReceipt").value = this.cells[6].innerHTML;
-																				 document.getElementById("myAgent").value = this.cells[7].innerHTML;
-																				 document.getElementById("myplan").value = this.cells[8].innerHTML;
-																				 document.getElementById("mydate").value = this.cells[9].innerHTML;
-																				 document.getElementById("myModeOfPayment").value = this.cells[10].innerHTML;
-																				 };
-
-																			}
-																			</script>
 																				<?php
 																	}
+																}
 															?>
 
 														</form>
 														</tbody>
+														<?php
+
+														?>
 													</table>
+													<!-- <script>
+															var table = document.getElementById('tableko');
+															for(var counter = 1; counter < table.rows.length; counter++)
+															{
+																table.rows[counter].onclick = function()
+																{;
+																	document.getElementById('mylastname').value = "hi";
+																	};
+																}
+															</script> -->
 													<script>
 															var table = document.getElementById('tablekoto');
-
 															for(var counter = 1; counter < table.rows.length; counter++)
 															{
 																table.rows[counter].onclick = function()
@@ -351,7 +407,7 @@
 																 	document.getElementById("modalsubdate").value =this.cells[3].innerHTML;
 																 	};
 																}
-																</script>
+															</script>
 
 													</div>
 											</div>
@@ -380,7 +436,7 @@
 							<form style="margin-bottom: 10px;">
 							<div class="modal-body">
 
-								<table id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info"  >
+								<table name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info"  >
  							 <thead>
 								 <tr role="row">
  									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
@@ -394,6 +450,8 @@
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Plan</th>
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Transadate</th>
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	MOD</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Prod</th>
+									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	ProdClientID</th>
 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">	Action</th>
  									 </tr>
  							 </thead>
@@ -402,33 +460,34 @@
 
  									 $DB_con = Database::connect();
  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
- 									 $sql = "SELECT * from production, client Where client.clientID = production.prodclientID";
+ 									 $sql = "SELECT * from production, 	client where prodclientID=clientID";
 
  									 $result = $DB_con->query($sql);
  									 if($result->rowCount()>0){
- 										 while($row=$result->fetch(PDO::FETCH_ASSOC)){
+ 										 while($row=$result->fetch(PDO::FETCH_ASSOC)){;
 											 ?>
 											 <tr>
  												 <td><?php print($row['policyNo']); ?></td>
  												 <td><?php print($row['cLastname']. ", " .$row['cFirstname']); ?></td>
  												 <td><?php print($row['agent']); ?></td>
 												 <td><?php print($row['issuedDate']); ?></td>
-
- 												 <td hidden><?php print($row['lastName']); ?></td>
+												 <td hidden><?php print($row['lastName']); ?></td>
 												 <td hidden><?php print($row['firstName']); ?></td>
 												 <td hidden><?php print($row['receiptNo']); ?></td>
 												 <td hidden><?php print($row['agent']); ?></td>
 												 <td hidden><?php print($row['plan']); ?></td>
 												 <td hidden><?php print($row['transDate']); ?></td>
+												 <td hidden><?php print($row['prodID']); ?></td>
+												 <td hidden><?php print($row['prodclientID']); ?></td>
 												 <td hidden><?php print($row['modeOfPayment']); ?></td>
 												 <td>
 												 <div align="center" class="row">
-														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
+														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['prodID'];?>&& display2=<?php echo $row['prodclientID'];?>"  class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
 													 </div>
 												 </td>
 												 </tr>
  											 <?php
-											 }
+										 };
  									 }
  									 else{}
 
