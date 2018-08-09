@@ -4,6 +4,26 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
+
+	<style>
+		table tr:not(:first-child){
+			cursor:pointer;transition: all .25s	ease-in-out;
+		}
+		#update{display: none};
+
+		table {
+				width: 100px;
+				table-layout: fixed;
+		}
+
+		td {
+				overflow: hidden;
+				max-width: 25%;
+				width: 25%;
+				word-wrap: break-word;
+		}
+
+	</style>
 </head>
 <body class="nav-md footer_fixed">
 	<form method="post">
@@ -31,12 +51,6 @@
 								<div cellpadding=100 border= 1 style='float:center' id="datatable-fixed-header_wrapper" class="form-form">
 									<div class="row">
 										<div class="col-md-push-5">
-											<style>
-												table tr:not(:first-child){
-													cursor:pointer;transition: all .25s	ease-in-out;
-												}
-												#paymentButton{display: none};
-											</style>
 
 												<div class="col-md-12 col-sm-12 col-xs-12">
 														<div class="x_title">
@@ -50,9 +64,9 @@
 														<div class="x_content">
 																<div class="tab col-xs-12" id="div2"><h4>
 																	<a class="col-sm-3" href="javascript:void(0)" class="tablinks"
-																			onclick="openPolicy(event, 'Policy')" id="defaultOpen"><b>Policy Details</b></a>
+																			onclick="openPolicy(event, 'Policy'); enableselectpayment()" id="defaultOpen"><b>Policy Details</b></a>
 																	<a href="javascript:void(0)" class="tablinks"
-																		  onclick="openPolicy(event, 'Payment')"><b>Payment Details</b></a></h4>
+																		  onclick="openPolicy(event, 'Payment'); disableselectpayment()"><b>Payment Details</b></a></h4>
 																</div>
 																<div id="Policy" class="tabcontent">
 																	<form>
@@ -118,6 +132,7 @@
 																		 <div class="row">
 																 			 <div class="col-xs-3">
 																				 Last Name
+																				 <input id="clientToRetrieve" name="clientToRetrieve" hidden>
 																				 <input type="text" name="policyNoOwner" id="policyNoOwner"hidden>
 																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="lastname1" id="lastname1"><br>
 																			 </div>
@@ -192,7 +207,12 @@
 																					 </div>
 																					 <div class="col-sm-3 ">
 																						 Mode of Payment
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="policyMOP" id="policyMOP">
+																						 <select id="policyMOP" name="policyMOP" class="form-control col-md-7 col-xs-4">
+																							 <option id="policyMOP" name="policyMOP" value="Monthly">Monthly</option>
+																							 <option id="policyMOP" name="policyMOP" value="Quarterly">Quarterly</option>
+																							 <option id="policyMOP" name="policyMOP" value="Semi-Annual">Semi-Annual</option>
+																							 <option id="policyMOP" name="policyMOP" value="Annual">Annual</option>
+																						 </select>
 																					 </div>
 																				 <div class="col-sm-3 ">
 																						 Issue Date
@@ -216,8 +236,7 @@
 																					<div class="col-sm-3 ">
 																						Policy Status
 																						<div>
-																						<select name="policyStatusSelect" id="policyStatusSelect" class="form-control col-md-7 col-xs-4">
-																							<option>Select a policy<option>
+																						<select name="policyStatusSelect" id="policyStatusSelect" placeholder="Select a policy" class="form-control col-md-7 col-xs-4">
 																							<?php
 																							$DB_con = Database::connect();
 																							$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -225,6 +244,9 @@
 																						$result = $DB_con->query($sql);
 																						if($result->rowCount()>0)
 																						{
+																							?>
+																							<option>Select a status</option>
+																							<?php
 																							while($row=$result->fetch(PDO::FETCH_ASSOC))
 																							{
 																								?>
@@ -444,7 +466,7 @@
 			 																			</div>
 
 																						<div id="fundModal" name="fundModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-																							<div class="modal-dialog" role="document">
+																							<div class="modal-dialog modal-sm" style="width: 950px;" role="document">
 																								<div class="modal-content">
 																									<div class="modal-header">
 																										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -453,12 +475,33 @@
 																									<form method='post' name='myFormModal' onsubmit="CheckForm()">
 																										<div class="modal-body">
 
-																											<table method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+																									<div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+																                    <div class="row">
+																											<div class="col-lg-5">
+																													<form method="post" action="<?php $_PHP_SELF ?>">
+																		                          Fund:
+																															<div>
+																		                          	<input name="setFundName" id="setFundName" style="width: 150px;" class="form-control" type="text" required>
+																																<button data-toggle="modal" data-target="#searchFundModal" style="cursor:auto; width: 40px;" style="border:none" type="button" class="btn btn-primary" id="searchFund" name="searchFund"><i class="fa fa-search"></i></button>
+																															</div>
+																															Rate<br>
+																		                          <input type="text" id="setFundRate" placeholder="" name="setFundRate" required="required" class="form-control" required><br/>
+																															<br><br>
+																																<button type="submit" class="btn btn-primary" id="saveThisFund" name="saveThisFund"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+																																<button type="submit" class="btn btn-primary" id="update" name="update"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
+																																<a type="submit" id="reset" name="reset" value="Reset" class="btn btn-default" href="add_client.php">Cancel</a>
+																														</form>
+																												</div>
+																										<div class="col-sm-6">
+																											<table method ="post" id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 																											<thead>
 																												<tr role="row">
-																													<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Fund ID</th>
-																														<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Fund Name</th>
-																														<th class="sorting" style="width:10px;" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending">Action</th>
+																														<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header10"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending">
+																															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fund</th>
+																														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header10" aria-label="Name of Insured: activate to sort column ascending">Rate</th>
+																														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header10" aria-label="Rate: activate to sort column ascending">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action</th>
+																													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header10" aria-label="Action: activate to sort column ascending" hidden>FundID</th>
 																													</tr>
 																											</thead>
 																											<tbody>
@@ -466,24 +509,25 @@
 
 																													$DB_con = Database::connect();
 																													$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																													$sql = "SELECT * FROM fund";
+																													$sql = "SELECT * FROM policyFund";
 
 																													$result = $DB_con->query($sql);
 																													if($result->rowCount()>0){
 																														while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																															?>
 																															<tr>
-																																<td><?php print($row['fundID']); ?></td>
-																																<td><?php print($row['fundName']); ?></td>
+																																<td><?php print($row['polFund_fund']); ?></td>
+																																<td><?php print($row['polFund_rate']); ?></td>
 																																<td>
 																																	<div class="row">
 																																		<center>
 																																			<form method='post' name='myform' onsubmit="CheckForm()">
-																																				<button  type="button" id="fundEdit" name="fundEdit" data-dismiss="modal" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
-																																			</form>
+																																				<button  type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
+																																				<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteFund=<?php echo $row['polFund_policyNo'] ?>&fund=<?php echo $row['polFund_fund']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																																		</center>
 																																	</div>
 																																</td>
+																															<td hidden><?php print($row['polFund_policyNo']); ?></td>
 																															</tr>
 																															<?php
 																														}
@@ -501,11 +545,12 @@
 																											table.rows[counter].onclick = function()
 																											{;
 																											 document.getElementById("getFundID").value = this.cells[0].innerHTML;
-																											 document.getElementById("policyFund").value = this.cells[1].innerHTML;
+																											 document.getElementById("").value = this.cells[3].innerHTML;
 																												};
 																											}
 																										</script>
 
+																									</div>
 																										</div>
 																										<div class="modal-footer">
 																											<!--<button type="submit" class="btn btn-primary" style="width: 100px;" name="paymentSaveButton" id="paymentSaveButton" onclick="openPolicy(event, 'Payment')"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>-->
@@ -515,6 +560,87 @@
 																								</div>
 																							</div>
 																						</div>
+																					</div>
+																				</div>
+
+																				<div id="searchFundModal" name="searchFundModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+																					<div class="modal-dialog modal-sm" style="width: 500px" role="document">
+																						<div class="modal-content">
+																							<div class="modal-header">
+																								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+																								<h4 class="modal-title" id="myFundModal">Search Fund</h4>
+																							</div>
+																							<form method='post' name='myFormModal' onsubmit="CheckForm()">
+																								<div class="modal-body">
+
+																							<div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+																								<div class="row">
+																									<table method ="post" id="datatable-fixed-header-1" name="datatable-fixed-header-1" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+																									<thead>
+																										<tr role="row">
+																												<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header-1"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending">
+																													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fund</th>
+																												<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header-1" aria-label="Rate: activate to sort column ascending">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action</th>
+																											<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header-1" aria-label="Action: activate to sort column ascending" hidden>FundID</th>
+																											</tr>
+																									</thead>
+																									<tbody>
+																										<?php
+
+																											$DB_con = Database::connect();
+																											$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																											$sql = "SELECT * FROM fund";
+
+																											$result = $DB_con->query($sql);
+																											if($result->rowCount()>0){
+																												while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																													?>
+																													<tr>
+																														<td><?php print($row['fundName']); ?></td>
+																														<td>
+																															<div class="row">
+																																<center>
+																																	<form method='post' name='myform' onsubmit="CheckForm()">
+																																		<button  type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
+																																	</form>
+																																</center>
+																															</div>
+																														</td>
+																													<td hidden><?php print($row['fundID']); ?></td>
+																													</tr>
+																													<?php
+																												}
+																											}
+																											else{}
+																										?>
+
+																										</tbody>
+																								</table>
+
+																								<script>
+																								var table = document.getElementById('datatable-fixed-header');
+																								for(var counter = 1; counter < table.rows.length; counter++)
+																								{
+																									table.rows[counter].onclick = function()
+																									{;
+																									 document.getElementById("getFundID").value = this.cells[0].innerHTML;
+																									 document.getElementById("policyFund").value = this.cells[1].innerHTML;
+																										};
+																									}
+																								</script>
+
+																								</div>
+																								<div class="modal-footer">
+																									<!--<button type="submit" class="btn btn-primary" style="width: 100px;" name="paymentSaveButton" id="paymentSaveButton" onclick="openPolicy(event, 'Payment')"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>-->
+																									<!--<button type="button" class="btn btn-default" style="width: 100px;" data-dismiss="modal">Close</button>-->
+																								</div>
+																							</form>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
 
 																			 </div>
 																			 <div class="form-group">
@@ -566,6 +692,7 @@
 																									<td><?php echo $row['payment_remarks']; ?></td>
 																									<td>
 																										<div align="center">
+																											<a title="Edit Data" data-toggle="modal" data-target="#paymentModal" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 																											<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>&paymentReceiptNo=<?php echo $row['payment_OR']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																										</div>
 																									</td>
@@ -585,7 +712,7 @@
 			 																		for(var counter = 1; counter < table.rows.length; counter++)
 			 																		{
 			 																			table.rows[counter].onclick = function()
-			 																			{;
+			 																			{
 			 																			 document.getElementById("planCode").value = this.cells[0].innerHTML;
 			 																			 document.getElementById("planC").value = this.cells[0].innerHTML;
 			 																			 document.getElementById("planDesc").value = this.cells[1].innerHTML;
@@ -665,6 +792,7 @@
 												 <td>
 													 <div class = "row" align="center">
 															 <a title="Edit Data" href="records.php?edit=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+															 <input id="retrieveClientID" name="retrieveClientID" value="<?php echo $row['clientID']; ?>" hidden>
 														</div>
 												 </td>
 											</tr>
@@ -717,11 +845,10 @@
 			</footer>
 
     <?php include 'java.php';?>
-	<script	src="	https://code.jquery.com/jquery-3.3.1.js">	</script>
-	<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
-
-
+		<script	src="	https://code.jquery.com/jquery-3.3.1.js">	</script>
+		<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>
 

@@ -247,6 +247,8 @@
 													<tbody>
 														<form method='POST' name='myform' onsubmit="CheckForm()">
 															<?php
+																if(isset($_POST['retrieveAgent']))?>
+															<?php
 																?>
 																<?php
 																$DB_con = Database::connect();
@@ -277,6 +279,7 @@
 																		}
 																		?>
 															<?php
+<<<<<<< HEAD
 																if(isset($_GET['display'] ))
 																{
 																	$display = $_GET['display'];
@@ -285,6 +288,13 @@
 																	$display2 = $_GET['display2'];
 																?>
 																<script>alert('hihihihi <?php echo $display2 ?>');</script>
+=======
+																if(isset($_GET['display']))
+																{
+																	$prodID = $_GET['display'];
+																?>
+																<script>alert("Alert")</script>
+>>>>>>> e494480d987e97cf001338aa880e00e9fefabbea
 																	<?php
 																	try {
 																	$DB_con = Database::connect();
@@ -482,7 +492,11 @@
 												 <td hidden><?php print($row['modeOfPayment']); ?></td>
 												 <td>
 												 <div align="center" class="row">
+<<<<<<< HEAD
 														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['prodID'];?>&& display2=<?php echo $row['prodclientID'];?>"  class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
+=======
+														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
+>>>>>>> e494480d987e97cf001338aa880e00e9fefabbea
 													 </div>
 												 </td>
 												 </tr>
