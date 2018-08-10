@@ -61,10 +61,11 @@ else
 
 						<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
 						<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
+						<script>document.getElementById("fundButton").disabled = false;</script>
 
-					<?php
+
+						<?php
 				};
-
 
 			?>
 			<script>
@@ -107,6 +108,7 @@ else
 
 				<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
 				<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
+				<script>document.getElementById("fundButton").disabled = false;</script>
 				<?php
 			}
 
@@ -151,7 +153,6 @@ else
 						<script> document.getElementById('setFundName').value = '<?php echo $row['fundName'];?>';</script>
 						<script> document.getElementById('setFundRate').value = '<?php echo $row['polFund_rate'];?>';</script>
 						<script>
-								$('#saveThisFund').hide();
 						</script>
 					<?php
 				}
@@ -262,7 +263,7 @@ else
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_GET['deleteBene']) && isset($_GET['number'])&isset($_GET['name']))
+				if(isset($_GET['deleteBene']) && isset($_GET['number'])&&isset($_GET['name']))
 				{
 					$delete = $_GET['deleteBene'];
 					$number = $_GET['number'];
@@ -637,6 +638,62 @@ else
 
 
 <script>
+
+Date.isLeapYear = function (year) {
+    return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
+};
+
+Date.getDaysInMonth = function (year, month) {
+    return [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+};
+
+Date.prototype.isLeapYear = function () {
+    return Date.isLeapYear(this.getFullYear());
+};
+
+Date.prototype.getDaysInMonth = function () {
+    return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
+};
+
+Date.prototype.addMonths = function (value) {
+    var n = this.getDate();
+    this.setDate(1);
+    this.setMonth(this.getMonth() + value);
+    this.setDate(Math.min(n, this.getDaysInMonth()));
+    return this;
+};
+
+$(function() {
+    var selectedValue = $("#policyMOP").val(); // declare variable here
+
+    // on drop down change
+    $('#policyMOP').change(function() {
+        selectedValue = $(this).val(); // store value in variable
+        $('#sample').val(selectedValue); // update on change
+				if(selectedValue == 'Monthly')
+				{
+					var setDate = $("#policyIssueDate").datepicker("getDate");
+					var setting = setDate.setMonth(1);
+					alert(setDate);
+				}
+				else if(selectedValue == 'Quarterly')
+				{
+					alert('Quarterly');
+				}
+				else if(selectedValue == 'Semi-Annual')
+				{
+					alert('Semi-Annual');
+				}
+				else if(selectedValue == 'Annual')
+				{
+					alert('Semi-Annual');
+				}
+    });
+				$('#sample').val(selectedValue);
+
+});
+
+
 
 window.onload = function () {
 								startTab();

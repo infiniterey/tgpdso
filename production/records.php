@@ -4,7 +4,6 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
-
 	<style>
 		table tr:not(:first-child){
 			cursor:pointer;transition: all .25s	ease-in-out;
@@ -213,6 +212,7 @@
 																							 <option id="policyMOP" name="policyMOP" value="Semi-Annual">Semi-Annual</option>
 																							 <option id="policyMOP" name="policyMOP" value="Annual">Annual</option>
 																						 </select>
+																						 <input id="sample" name="sample">
 																					 </div>
 																				 <div class="col-sm-3 ">
 																						 Issue Date
@@ -229,8 +229,40 @@
 																						<div>
 																								<input id="policyRate" name="policyRate" hidden>
 																								<input id="getFundID" name="getFundID" hidden>
-																								<input style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyFund" id="policyFund">
-																								<button  style="cursor:auto; width: 40px;" style="border:none" type="button" data-toggle="modal" data-target="#fundModal" class="form-control btn btn-primary" name="fundButton" id="fundButton"><i class="fa fa-plus" hidden></i></button>
+																								<button disabled="disabled" style="cursor:auto; width: 40px;" style="border:none" type="button" data-toggle="modal" data-target="#fundModal" class="form-control btn btn-primary" name="fundButton" id="fundButton"><i class="fa fa-plus" hidden></i></button>
+																								<?php
+																								$name = "";
+																								$DB_con = Database::connect();
+																								$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																								if(isset($_GET['edit']))
+																								{
+																							$edit = $_GET['edit'];
+																							$sql = "SELECT * FROM policyfund, fund WHERE polFund_fund = fundID AND polFund_policyNo = '$edit'";
+																							$result = $DB_con->query($sql);
+																							if($result->rowCount()>0)
+																							{
+																								while($row=$result->fetch(PDO::FETCH_ASSOC))
+																								{
+																									$name = $name.$row['fundName'] .", " ;
+																								}
+																							}
+																						}
+																						else if (isset($_GET['editBene']))
+																						{
+																							$edit = $_GET['editBene'];
+																							$sql = "SELECT * FROM policyfund, fund WHERE polFund_fund = fundID AND polFund_policyNo = '$edit'";
+																							$result = $DB_con->query($sql);
+																							if($result->rowCount()>0)
+																							{
+																								while($row=$result->fetch(PDO::FETCH_ASSOC))
+																								{
+																									$name = $name.$row['fundName'] .", " ;
+																								}
+																							}
+																						}
+																						?>
+																						<input data-target="#fundModal" data-toggle="modal" value="<?php echo $name; ?>" readonly="readonly" style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyFund" id="policyFund">
+
 																					</div>
 																					</div>
 																					<div class="col-sm-3 ">
@@ -433,15 +465,15 @@
 																		                          Fund:
 																															<div>
 																																<input name="setFundID" id="setFundID" hidden>
-																		                          	<input readonly name="setFundName" id="setFundName" style="width: 150px;" class="form-control" type="text" required>
-																																<button data-dismiss="modal" data-toggle="modal" data-target="#searchFundModal" style="cursor:auto; width: 40px;" style="border:none" type="button" class="btn btn-primary" id="searchFund" title="Approve" name="searchFund"><i class="fa fa-search"></i></button>
+																		                          	<input readonly="readonly" name="setFundName" id="setFundName" style="width: 150px;" class="form-control" type="text" required>
+																																<button data-dismiss="modal" data-toggle="modal" data-target="#searchFundModal" style="cursor:auto; width: 40px;" style="border:none" type="button" class="btn btn-primary" id="searchFund" name="searchFund"><i class="fa fa-search"></i></button>
 																															</div>
 																															Rate<br>
 																		                          <input type="text" id="setFundRate" style="width: 150px;" placeholder="" name="setFundRate" required="required" class="form-control" required>&nbsp;&nbsp;<i style="font-size: 25px;">%</i><br/>
 																															<br><br>
 																																<button type="submit" class="btn btn-primary" id="saveThisFund" name="saveThisFund"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
 																																<button type="submit" class="btn btn-primary" id="update" name="update"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																																<a type="submit" id="reset" name="reset" value="Reset" class="btn btn-default" href="add_client.php">Cancel</a>
+																																<a type="submit" id="reset" name="reset" value="Reset" class="btn btn-default" href="records.php">Cancel</a>
 																														</form>
 																												</div>
 																										<div class="col-sm-6">
@@ -744,7 +776,7 @@
 												 <td><?php echo $row['receiptNo']; ?></td>
 												 <td>
 													 <div class = "row" align="center">
-															 <a title="Edit Data" href="records.php?edit=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+															 <a onclick="enableButton();" id="searchClient" title="Edit Data" href="records.php?edit=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 															 <input id="retrieveClientID" name="retrieveClientID" value="<?php echo $row['clientID']; ?>" hidden>
 														</div>
 												 </td>
@@ -799,11 +831,10 @@
 
     <?php include 'java.php';?>
 		<script	src="	https://code.jquery.com/jquery-3.3.1.js"></script>
-	<!--	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
 		<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 		<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </body>
+<!--		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+	</body>
 </html>
-
 <?php include 'base/recordConnection.php';?>
