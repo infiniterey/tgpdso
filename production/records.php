@@ -292,7 +292,7 @@
 																					</div>
 																					<div class="col-sm-3 ">
 																						Next Due Date
-																						<input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" name="policyDueDate" id="policyDueDate">
+																						<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="policyDueDate" id="policyDueDate">
 																					</div>
 																			 </div>
 																 			</div><br>

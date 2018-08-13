@@ -663,6 +663,11 @@ Date.prototype.addMonths = function (value) {
     return this;
 };
 
+$(document).ready(function () {
+    $('#policyIssueDate').datepicker();
+    $('#policyDueDate').datepicker();
+});
+
 $(function() {
     var selectedValue = $("#policyMOP").val(); // declare variable here
 
@@ -672,22 +677,137 @@ $(function() {
         $('#sample').val(selectedValue); // update on change
 				if(selectedValue == 'Monthly')
 				{
-					var setDate = $("#policyIssueDate").datepicker("getDate");
-					var setting = setDate.setMonth(1);
-					alert(setDate);
+					var tt = document.getElementById('policyIssueDate').value;
+
+					var date = new Date(tt);
+					var newdate = new Date(date);
+
+					newdate.setDate(date.getDate());
+
+					var dd = newdate.getDate();
+					var mm = newdate.getMonth() + 2;
+					var y = newdate.getFullYear();
+
+					var someFormattedDate = mm + '/' + dd + '/' + y;
+					document.getElementById('policyDueDate').value = someFormattedDate;
 				}
 				else if(selectedValue == 'Quarterly')
 				{
-					alert('Quarterly');
+					var tt = document.getElementById('policyIssueDate').value;
+
+					var date = new Date(tt);
+					var newdate = new Date(date);
+
+					newdate.setDate(date.getDate());
+
+					var dd = newdate.getDate();
+					var mm = newdate.getMonth() + 4;
+					var y = newdate.getFullYear();
+
+					var someFormattedDate = mm + '/' + dd + '/' + y;
+					document.getElementById('policyDueDate').value = someFormattedDate;
 				}
 				else if(selectedValue == 'Semi-Annual')
 				{
-					alert('Semi-Annual');
+					var tt = document.getElementById('policyIssueDate').value;
+
+					var date = new Date(tt);
+					var newdate = new Date(date);
+
+					newdate.setDate(date.getDate());
+
+					var dd = newdate.getDate();
+					var mm = newdate.getMonth() + 7;
+					var y = newdate.getFullYear();
+
+					var someFormattedDate = mm + '/' + dd + '/' + y;
+					document.getElementById('policyDueDate').value = someFormattedDate;
 				}
 				else if(selectedValue == 'Annual')
 				{
-					alert('Semi-Annual');
+					var tt = document.getElementById('policyIssueDate').value;
+
+					var date = new Date(tt);
+					var newdate = new Date(date);
+
+					newdate.setDate(date.getDate());
+
+					var dd = newdate.getDate();
+					var mm = newdate.getMonth() + 13;
+					var y = newdate.getFullYear();
+
+					var someFormattedDate = mm + '/' + dd + '/' + y;
+					document.getElementById('policyDueDate').value = someFormattedDate;
 				}
+
+				if(selectedValue == 'Monthly')
+				{
+					var tt = document.getElementById('policyIssueDate').value;
+
+					var date = new Date(tt);
+					var newdate = new Date(date);
+
+					newdate.setDate(date.getDate());
+
+					var dd = newdate.getDate();
+					var mm = newdate.getMonth() + 2;
+					var y = newdate.getFullYear();
+
+					var someFormattedDate = mm + '/' + dd + '/' + y;
+					document.getElementById('policyDueDate').value = someFormattedDate;
+				}
+				else if(selectedValue == 'Quarterly')
+				{
+					var tt = document.getElementById('policyIssueDate').value;
+
+					var date = new Date(tt);
+					var newdate = new Date(date);
+
+					newdate.setDate(date.getDate());
+
+					var dd = newdate.getDate();
+					var mm = newdate.getMonth() + 4;
+					var y = newdate.getFullYear();
+
+					var someFormattedDate = mm + '/' + dd + '/' + y;
+					document.getElementById('policyDueDate').value = someFormattedDate;
+				}
+				else if(selectedValue == 'Semi-Annual')
+				{
+					var tt = document.getElementById('policyIssueDate').value;
+
+					var date = new Date(tt);
+					var newdate = new Date(date);
+
+					newdate.setDate(date.getDate());
+
+					var dd = newdate.getDate();
+					var mm = newdate.getMonth() + 7;
+					var y = newdate.getFullYear();
+
+						var someFormattedDate = mm + '/' + dd + '/' + y;
+						document.getElementById('policyDueDate').value = someFormattedDate;
+
+				}
+				else if(selectedValue == 'Annual')
+				{
+					var tt = document.getElementById('policyIssueDate').value;
+
+					var date = new Date(tt);
+					var newdate = new Date(date);
+
+					newdate.setDate(date.getDate());
+
+					var dd = newdate.getDate();
+					var mm = newdate.getMonth();
+					var y = newdate.getFullYear() + 2;
+
+
+
+					var someFormattedDate = mm + '/' + dd + '/' + y;
+					document.getElementById('policyDueDate').value = someFormattedDate;
+				}
+
     });
 				$('#sample').val(selectedValue);
 
