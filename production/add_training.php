@@ -38,7 +38,6 @@
 												<?php if(isset($_POST['temp'])) { $pat = $_POST['temp']; } ?>
 												<?php if(isset($_POST['temp2'])) { $pot = $_POST['temp2']; } ?>
 												<?php if(isset($_POST['temp3'])) { $pit = $_POST['temp3']; } ?>
-												<script>alert('hiiiiiiiiiilooooo <?php echo $pat ?>')</script>
 											</div>
 										<h2><b>Add Training</b></h2><br><br><br>
 										<div class="clearfix"></div>
@@ -52,7 +51,7 @@
 				<table method="post" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
 				<thead>
 					<tr role="row">
-									<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Training ID</th>
+									<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;" hidden>Training ID</th>
 						<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Training Name</th>
 							<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Required Position</th>
 							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
@@ -69,7 +68,7 @@
 							while($row=$result->fetch(PDO::FETCH_ASSOC)){
 								?>
 								<tr>
-									<td><?php print($row['trainingNo']); ?></td>
+									<td hidden><?php print($row['trainingNo']); ?></td>
 									<td><?php print($row['trainingName']); ?></td>
 									<td><?php print($row['trainingRequired']); ?></td>
 									<td>
@@ -153,7 +152,7 @@
 		 	Training ID<input type="text" readonly="readonly" style="width:195px" class="form-control"  name="utrainid" id="utrainid" value="<?php echo $pat?>" >
 			Training Name <input  type="text" style="width:195px" class="form-control" id="utrainname" name="utrainname" value="<?php echo $pot?>">
 			Required Position<input  type="text" class="form-control" style="width:195px" name="utrainposition" id="utrainposition" value="<?php echo $pit?>">
-			
+
 
 		</div>
 
@@ -552,7 +551,6 @@ else {
 	{
 
 		$delete= $_GET['delete'];
-		?><script>alert('<?php echo $delete?>');</script><?php
 		$sql = "DELETE FROM training WHERE trainingNo = '$delete'";
 
 		if($conn->query($sql) === TRUE)

@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<style>
+#update{display:none}
+</style>
 <html lang="en">
+
 <?php include 'base/header.php'; ?>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -55,15 +59,15 @@
 				                          First Name:
 				                          <input name="firstname" id="firstname" style="width: 195px;" class="date-picker form-control" type="text" required><br/>
 				                          Middle Name:
-				                          <input type="text" id="middlename" placeholder="" name="middlename" required="required" class="form-control" required><br/>
+				                          <input type="text" id="middlename" style="width: 195px;" placeholder="" name="middlename" required="required" class="form-control" required><br/>
 																  Last Name:
-				                          <input type="text" id="lastname" placeholder="" name="lastname" required="required" class="form-control" required><br/>
+																</br><input type="text" id="lastname" style="width: 195px;" placeholder="" name="lastname" required="required" class="form-control" required><br/>
 																 	Birthdate:
 																	<input type="date" id="birthdate" style="width: 195px;" placeholder="" name="birthdate" required="required" class="form-control" required><br/>
 																	Address:
-																	<input type="text" id="address" placeholder="" name="address" required="required" class="form-control" required><br/>
+																	<br><input type="text" id="address" style="width: 195px;" placeholder="" name="address" required="required" class="form-control" required><br/>
 																	Cell No.:<br>
-																	<input type="text" id="cellno" placeholder="" name="cellno" required="required" class="form-control" required><br/>
+																	<input type="text" id="cellno" style="width: 195px;" placeholder="" name="cellno" required="required" class="form-control" required><br/>
 																	<input type="text" id="clientID2" name="clientID2" hidden>
 
 																	<br><br>
@@ -256,7 +260,7 @@ else {
 		$birthdate = $_POST['birthdate'];
 		$address = $_POST['address'];
 		$cellno = $_POST['cellno'];
-		$sql = "INSERT INTO client (cFirstname,cLastname , cMiddlename, cBirthdate, cAddress, cCellno)
+		$sql = "INSERT INTO client (cFirstname, cLastname , cMiddlename, cBirthdate, cAddress, cCellno)
 		VALUES ('$firstname', '$lastname', '$middlename ', '$birthdate' , '$address', '$cellno')";
 			?><script>alert('papaw <?php echo $firstname ?>');</script><?php
 		if($conn->query($sql)===True)

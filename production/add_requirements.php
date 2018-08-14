@@ -279,22 +279,14 @@
 																		}
 																		?>
 															<?php
-<<<<<<< HEAD
-																if(isset($_GET['display'] ))
+															if(isset($_GET['display'] ))
+															{
+																$display = $_GET['display'];
+																if(isset($_GET['display2'] ))
 																{
-																	$display = $_GET['display'];
-																	if(isset($_GET['display2'] ))
-																	{
-																	$display2 = $_GET['display2'];
-																?>
-																<script>alert('hihihihi <?php echo $display2 ?>');</script>
-=======
-																if(isset($_GET['display']))
-																{
-																	$prodID = $_GET['display'];
-																?>
-																<script>alert("Alert")</script>
->>>>>>> e494480d987e97cf001338aa880e00e9fefabbea
+																$display2 = $_GET['display2'];
+															?>
+															<script>alert('hihihihi <?php echo $display2 ?>');</script>
 																	<?php
 																	try {
 																	$DB_con = Database::connect();
@@ -352,10 +344,10 @@
 																	 die("Connection Failed : " . $msg->getMessage());
 																 }
 
-																$DB_con = Database::connect();
-																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																$sql = "SELECT * FROM requirements, client where requirements.RProdID = '$display' and client.clientID = '$display2'";
-																$result = $DB_con->query($sql);
+																 $DB_con = Database::connect();
+	 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		 																$sql = "SELECT * FROM requirements, client where requirements.RProdID = '$display' and client.clientID = '$display2'";
+	 																$result = $DB_con->query($sql);
 																?>
 																	<?php
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
@@ -370,7 +362,7 @@
 																					<div class="row">
 																						<center>
 																							<form method='post' name='myform' onsubmit="CheckForm()">
-																							<button  type="button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+																							<button  type=	"button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
 																							<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_requirements.php?delete=<?php echo $row['RequirementNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																							</form>
 																						</center>
@@ -449,20 +441,20 @@
 								<table name="tableko" id="tableko" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info"  >
  							 <thead>
 								 <tr role="row">
- 									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 100px;text-align:center;">Name</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending" style="width: 50px;text-align:center;name="PolicyNoCell"">Agent</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Issued Date</th>
+ 									 <th class="sorting_asc" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
+ 									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 100px;text-align:center;">Name</th>
+ 									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending" style="width: 50px;text-align:center;name="PolicyNoCell"">Agent</th>
+ 									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Issued Date</th>
 
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Lastname</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Firstname</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Receipt</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Plan</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Transadate</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	MOD</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Prod</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	ProdClientID</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">	Action</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Lastname</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Firstname</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>Receipt</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Plan</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Transadate</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	MOD</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	Prod</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>	ProdClientID</th>
+									 <th class="sorting" tabindex="0" aria-controls="tableko" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">	Action</th>
  									 </tr>
  							 </thead>
  							 <tbody>
@@ -492,11 +484,7 @@
 												 <td hidden><?php print($row['modeOfPayment']); ?></td>
 												 <td>
 												 <div align="center" class="row">
-<<<<<<< HEAD
 														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['prodID'];?>&& display2=<?php echo $row['prodclientID'];?>"  class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
-=======
-														 <a title="Display Data" href="add_requirements.php?display=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
->>>>>>> e494480d987e97cf001338aa880e00e9fefabbea
 													 </div>
 												 </td>
 												 </tr>
@@ -619,62 +607,13 @@ $(document).on("dblclick","#tableko tr",function() {
 						$("#tableko tr").removeClass("highlight1");
 });
 
+</script>
+<script>
 $(document).ready(function() {
     $('#tableko').DataTable( {
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
     } );
 } );
-
-
-
-
-$("#searchT").enter(function()
-{
-
-if(!selected)
-$(this).addClass("highlight");
-$('#formko').hide();
-});
-$("#buttonshowall").click(function()
-{
-$('#tableko').show();
-if(!selected)
-$(this).addClass("highlight");
-$('#tableko	').hide();
-});
-function ClickCancel()
-{
-$('#formko').hide();
-}
-function closemodal()
-{
-$('#myModal').this.Close();
-}
-function showForm()
-{
-
-}
-function hideForm()
-{
-$('#formko').hide("highlight1");
-}
-function showdiv()
-{
-	$('#addreqvid).show()')
-}
-function hidediv()
-{
-$('#addreqdiv').hide();
-}
-function showtable()
-{
-$('#tableko').show("highlight");
-}
-function hidetable()
-{
-$('#tableko').hide("highlight1");
-}
-
 </script>
 <?php
 

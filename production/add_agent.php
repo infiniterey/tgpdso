@@ -69,8 +69,8 @@
 																<input type="text" id="position" name="position" placeholder="Position" style="width:155px;float:left;margin-bottom:30px" required="required" class="form-control col-md-7 col-xs-12" required>
 																<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#addAgentToTrain"><span class='glyphicon glyphicon-plus'></span></button>
 																<center><br><br>
-			                          <a href="add_production.php" class="btn btn-primary"><i class="fa fa-close"></i>&nbsp;Cancel</a>
-	                             <button type="submit" class="btn btn-success" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
+			                         <button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
+	                             <button type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
 													</div>
 												<div class="col-sm-9">
 													<style>

@@ -46,9 +46,9 @@
 				                          Plan Code: <span class="required">*</span>
 				                          <input name="PlanCode" id="PlanCode" style="width: 195px;" class="date-picker form-control" required="required" type="text" required><br>
 				                          Plan Description: <span class="required">*</span>
-				                          <input type="text" id="PlanDesc" placeholder="" name="PlanDesc" required="required" class="form-control" required><br/>
-																  Plan Rate <span class="required">*</span>
-				                          <input type="text" id="PlanRate" placeholder="" name="PlanRate" required="required" class="form-control" required><br/>
+				                          <input type="text" id="PlanDesc" style="width: 195px;" placeholder="" name="PlanDesc" required="required" class="form-control" required><br/>
+																  Plan Rate <span class="required">*</span></br>
+				                          <input type="text" id="PlanRate" style="width: 195px;" placeholder="" name="PlanRate" required="required" class="form-control" required><br/>
 																	<br><br>
 																	<center>
 																	<button type="submit" class="btn btn-primary" id="SaveButton" name="SaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>

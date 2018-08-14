@@ -878,5 +878,43 @@
 
 				}
 			}
+			public function addPaymentFromDueDate(){
+
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					$newPaymentPolicyNo = $_POST['paymentPolicyNo'];
+					$newPaymentAmount = $_POST['paymentAmount'];
+					$newPaymentOR = $_POST['paymentORNo'];
+					$newPaymentAPR = $_POST['paymentAPR'];
+					$newPaymentNextDue = $_POST['paymentNextDue'];
+					$newPaymentRemarks =  "Renewed";
+
+					$sql = "INSERT INTO payment(payment_policyNo, payment_Amount, payment_OR, payment_APR, payment_nextDue, payment_remarks)
+					values ('$newPaymentPolicyNo','$newPaymentAmount','$newPaymentOR','$newPaymentAPR','$newPaymentNextDue','$newPaymentRemarks')";
+
+					if($conn->query($sql))
+					{
+						?>
+						<script>
+							alert('Payment successfully added!');
+						</script>
+						<?php
+					}
+					else {
+						echo "Error:". $sql."<br>".$conn->error;
+					}
+					$conn->close();
+				}
+			}
 	}
 ?>
