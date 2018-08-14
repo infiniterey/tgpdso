@@ -45,13 +45,13 @@
 				                          Username:
 				                          <input name="username" id="username" style="width: 195px;" class="date-picker form-control" required="required" type="text" required readonly><br/>
 				                          First Name:
-				                          <input type="text" id="firstname" placeholder="" name="firstname" required="required" class="form-control" required disabled><br/>
+				                          <br><input type="text" id="firstname" style="width: 195px;" placeholder="" name="firstname" required="required" class="form-control" required disabled><br/>
 																  Last Name:
-				                          <input type="text" id="lastname" placeholder="" name="lastname" required="required" class="form-control" required disabled><br/>
+				                          <br><input type="text" id="lastname" style="width: 195px;" placeholder="" name="lastname" required="required" class="form-control" required disabled><br/>
 																	User Type:
-																	<input type="text" id="usertype" placeholder="" name="usertype" required="required" class="form-control" required disabled><br/>
+																	<br><input type="text" id="usertype" style="width: 195px;" placeholder="" name="usertype" required="required" class="form-control" required disabled><br/>
 																	New Password:
-																	<input type="text" id="npassword" placeholder="" name="npassword" required="required" class="form-control" value="" maxlength="25" required><br/>
+																	<input type="text" id="npassword" style="width: 195px;" placeholder="" name="npassword" required="required" class="form-control" value="" maxlength="25" required><br/>
 																	<br><br>
 																	<center>
 

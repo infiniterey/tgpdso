@@ -58,8 +58,8 @@ Training Name<span class="required">*</span><br>
 Date <span class="required">*</span><br>
 <input name="DateAdded" id="DateAdded" style="width: 194px;" class="date-picker form-control" required="required" type="date" required><br><br>
 <div method="post" action="<?php $_PHP_SELF ?>">
-	<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" ><span class='fa fa-close'></span>Cancel</button>
-	<button type="submit" class="btn btn-success"  id="apply" name="apply"><i class="fa fa-check"></i>&nbsp;Apply</button><br><br>
+		<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
+	<button type="submit" class="btn btn-primary"  id="apply" name="apply"></i>&nbsp;Apply</button><br><br>
 	</div>
 </div>
 <div class="col-md-12">

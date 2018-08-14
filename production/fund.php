@@ -43,7 +43,7 @@
 										<div id="datatable-fixed-header_wrapper"  class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 											<div class="row">
 												<div class="col-sm-3">
-																Fund ID<span class="required">*</span>
+																Fund ID<span class="required">*</span><br>
 																<input type="text" name="fundID" id="fundID" required="required" class="form-control" required><br>
 																Fund Name<span class="required">*</span>
 																<input type="text" style="margin-bottom:50px" name="fundName" id="fundName" required="required" class="form-control" required><br>
@@ -60,7 +60,7 @@
 														<table method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 														<thead>
 															<tr role="row">
-																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Fund ID</th>
+																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;"hidden>Fund ID</th>
 																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Fund Name</th>
 																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Action</th>
 																</tr>
@@ -77,7 +77,7 @@
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																		<tr>
-																			<td><?php print($row['fundID']); ?></td>
+																			<td hidden><?php print($row['fundID']); ?></td>
 																			<td><?php print($row['fundName']); ?></td>
 																			<td>
 																				<div class="row">
@@ -212,7 +212,6 @@ else {
 	{
 
 		$delete= $_GET['delete'];
-		?><script>alert('<?php echo $delete?>');</script><?php
 		$sql = "DELETE FROM fund WHERE fundID = '$delete'";
 
 		if($conn->query($sql) === TRUE)

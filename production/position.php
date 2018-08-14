@@ -45,9 +45,8 @@
 												<div class="col-sm-3">
 																Position Name<span class="required">*</span>
 																<input type="text" style="margin-bottom:50px" name="positionName" id="positionName" required="required" class="form-control" required><br>
-																<center>
-			                    	<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
-	                             <button	style="float:left" type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
+																<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
+	                             <button type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
 													</div>
 												<div class="col-sm-9">
 													<style>
@@ -58,7 +57,7 @@
 														<table method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 														<thead>
 															<tr role="row">
-																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;">Position ID</th>
+																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;"hidden>Position ID</th>
 																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Position Name</th>
 																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Action</th>
 																</tr>
@@ -75,7 +74,7 @@
 																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																		?>
 																		<tr>
-																			<td><?php print($row['positionID']); ?></td>
+																			<td hidden><?php print($row['positionID']); ?></td>
 																			<td><?php print($row['positionName']); ?></td>
 																			<td>
 																				<div class="row">
@@ -208,7 +207,6 @@ else {
 	{
 
 		$delete= $_GET['delete'];
-		?><script>alert('<?php echo $delete?>');</script><?php
 		$sql = "DELETE FROM position WHERE positionID = '$delete'";
 
 		if($conn->query($sql) === TRUE)

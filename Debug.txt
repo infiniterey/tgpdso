@@ -1,0 +1,62 @@
+New Business
+-Client
+-Plan
+-Agent
+-Daily Production
+
+Policy Requirements
+-sysntax error
+-Remove all messagebox
+
+Records
+-Disable Next Due Date
+-No user type
+-add payment(next due date and display height)
+-dapat inig ma click ang payment details dapat ang add payment button makita
+-instead of cancel button, use close button
+-beneficiary details, add beneficiary button ma activate kung naa nay value ang textbox
+
+SOA 
+-On process
+
+Next Due
+-On process
+
+Agent profile
+-Remove all messagebox
+-search table
+-a tag action
+-payment details
+
+Add agent to training
+-remove all messagebox
+-delete action
+-update action
+
+Client(done)
+-remove all messagebox
+-Hide update button
+
+^Fund (done)
+-remove all messagebox
+-Hide fund ID
+
+^Team (done)
+-remove all messagebox
+-Hide team ID
+
+^Training(done)
+-Hide training ID
+-remove all messagebox
+	
+^Position (done)
+-remove all messagebox
+-Hide Position ID
+
+^Policy Status(done)
+-remove all messagebox
+-Hide Policy Status
+
+Sidebar 
+-Icons
+
