@@ -35,7 +35,9 @@
 				</div>
 
 	      <!-- top navigation -->
-
+				<div class="top_nav">
+	        <?php include 'base/topNavigation.php';?>
+	      </div>
         <!-- page content -->
 
 				<div class="right_col" role="main">
@@ -212,7 +214,7 @@
 																							 <option id="policyMOP" name="policyMOP" value="Semi-Annual">Semi-Annual</option>
 																							 <option id="policyMOP" name="policyMOP" value="Annual">Annual</option>
 																						 </select>
-																						 <input id="sample" name="sample">
+																						 <input id="sample" name="sample" hidden>
 																					 </div>
 																				 <div class="col-sm-3 ">
 																						 Issue Date

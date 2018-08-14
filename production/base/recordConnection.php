@@ -675,7 +675,7 @@ $(function() {
     $('#policyMOP').change(function() {
         selectedValue = $(this).val(); // store value in variable
         $('#sample').val(selectedValue); // update on change
-				if(selectedValue == 'Monthly')
+				if(selectedValue == 'Monthly1')
 				{
 					var tt = document.getElementById('policyIssueDate').value;
 
@@ -688,9 +688,29 @@ $(function() {
 					var mm = newdate.getMonth() + 2;
 					var y = newdate.getFullYear();
 
+					if(mm > 12)
+					{
+						var dd = newdate.getDate();
+						var mm = 12 - newdate.getMonth();
+						var y = newdate.getFullYear() + 1;
+						var someFormattedDate = mm + '/' + dd + '/' + y;
+						document.getElementById('policyDueDate').value = someFormattedDate;
+						return;
+					}
+
 					var someFormattedDate = mm + '/' + dd + '/' + y;
 					document.getElementById('policyDueDate').value = someFormattedDate;
 				}
+
+				else if(selectedValue == "Monthly")
+				{
+					var tt = document.getElementById('policyIssueDate').value;
+					var dt = new Date(tt).add(1).month();
+					var dr = dt.setMonth( dt.getMonth() + 2 );
+					document.getElementById('policyDueDate').value = tt;
+				}
+
+
 				else if(selectedValue == 'Quarterly')
 				{
 					var tt = document.getElementById('policyIssueDate').value;
@@ -703,6 +723,8 @@ $(function() {
 					var dd = newdate.getDate();
 					var mm = newdate.getMonth() + 4;
 					var y = newdate.getFullYear();
+
+
 
 					var someFormattedDate = mm + '/' + dd + '/' + y;
 					document.getElementById('policyDueDate').value = someFormattedDate;
