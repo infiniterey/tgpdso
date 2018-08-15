@@ -24,7 +24,7 @@
       <option value="Monthly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Monthly</option>
       <option value="Quarterly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Quarterly</option>
       <option value="Semi-Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Semi-Annual</option>
-      <option value="Annualy" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Annualy</option>
+      <option value="Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Annual</option>
       </select><br>
         <hr>
         <label class="control-label">
@@ -90,6 +90,48 @@
 							?>
 							<script>
 								alert("New record production successfully added");
+								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
+
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['paymentSaveButton']))
+				{
+            $policyNo = $_POST['policyNoOwner'];
+            $policyMOP = $_POST['policyMOP'];
+            $policyIssueDate = $_POST['policyIssueDate'];
+
+
+						$sql = "UPDATE production
+            SET modeOfPayment = '$policyMOP',
+            issuedDate = '$policyIssueDate'
+            WHERE policyNo = '$policyNo'";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
 								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
 								</script>
 								<?php

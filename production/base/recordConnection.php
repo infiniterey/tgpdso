@@ -1,4 +1,31 @@
 
+<script>
+
+Date.isLeapYear = function (year) {
+		return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
+};
+
+Date.getDaysInMonth = function (year, month) {
+		return [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+};
+
+Date.prototype.isLeapYear = function () {
+		return Date.isLeapYear(this.getFullYear());
+};
+
+Date.prototype.getDaysInMonth = function () {
+		return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
+};
+
+Date.prototype.addMonths = function (value) {
+		var n = this.getDate();
+		this.setDate(1);
+		this.setMonth(this.getMonth() + value);
+		this.setDate(Math.min(n, this.getDaysInMonth()));
+		return this;
+};
+
+</script>
 
 <?php
 $servername = "localhost";
@@ -54,7 +81,7 @@ else
 						<script> document.getElementById('paymentPolicyNo').value = '<?php echo $row['policyNo'];?>';</script>
 						<script> document.getElementById('paymentAmount').value = '<?php echo $row['faceAmount'];?>';</script>
 						<script> document.getElementById('paymentIssueDate').value = '<?php echo $row['issuedDate'];?>';</script>
-						<script> document.getElementById('modeOfPayment').value = '<?php echo $row['modeOfPayment'];?>';</script>
+						<script> document.getElementById('paymentmodeOfPayment').value = '<?php echo $row['modeOfPayment'];?>';</script>
 						<script> document.getElementById('paymentTransDate').value = '<?php echo $row['transDate'];?>';</script>
 						<script> document.getElementById('paymentORNo').value = '<?php echo $row['receiptNo'];?>';</script>
 						<script> document.getElementById('policyRate').value = '<?php echo $row['rate'];?>';</script>
@@ -62,6 +89,46 @@ else
 						<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
 						<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
 						<script>document.getElementById("fundButton").disabled = false;</script>
+
+						<script>
+						var selectedValue = document.getElementById('policyMOP').value;
+						if(selectedValue == "Monthly")
+						{
+							var datehere = document.getElementById("policyIssueDate").value;
+							var dateObj = new Date(datehere);
+							var dt = dateObj.addMonths(1);
+							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+							$('#policyDueDate').val(newdate);
+							$('#paymentDueDate').val(newdate);
+						}
+						else if(selectedValue == "Quarterly")
+						{
+							var datehere = document.getElementById("policyIssueDate").value;
+							var dateObj = new Date(datehere);
+							var dt = dateObj.addMonths(4);
+							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+							$('#policyDueDate').val(newdate);
+							$('#paymentNextDue').val(newdate);
+						}
+						else if(selectedValue == "Semi-Annual")
+						{
+							var datehere = document.getElementById("policyIssueDate").value;
+							var dateObj = new Date(datehere);
+							var dt = dateObj.addMonths(6);
+							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+							$('#policyDueDate').val(newdate);
+							$('#paymentNextDue').val(newdate);
+						}
+						else if(selectedValue == "Annual")
+						{
+							var datehere = document.getElementById("policyIssueDate").value;
+							var dateObj = new Date(datehere);
+							var dt = dateObj.addMonths(12);
+							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+							$('#policyDueDate').val(newdate);
+							$('#paymentNextDue').val(newdate);
+						}
+						</script>
 
 
 						<?php
@@ -639,201 +706,111 @@ else
 
 <script>
 
-Date.isLeapYear = function (year) {
-    return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
-};
-
-Date.getDaysInMonth = function (year, month) {
-    return [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
-};
-
-Date.prototype.isLeapYear = function () {
-    return Date.isLeapYear(this.getFullYear());
-};
-
-Date.prototype.getDaysInMonth = function () {
-    return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
-};
-
-Date.prototype.addMonths = function (value) {
-    var n = this.getDate();
-    this.setDate(1);
-    this.setMonth(this.getMonth() + value);
-    this.setDate(Math.min(n, this.getDaysInMonth()));
-    return this;
-};
-
 $(document).ready(function () {
     $('#policyIssueDate').datepicker();
     $('#policyDueDate').datepicker();
 });
 
 $(function() {
-    var selectedValue = $("#policyMOP").val(); // declare variable here
-
-    // on drop down change
+		$('#paymentmodeOfPayment').change(function()
+		{
+			var selectPayment = $("#paymentmodeOfPayment").val();
+			if(selectPayment == "Monthly")
+			{
+				document.getElementById("policyMOP").value = selectPayment;
+				var datehere = document.getElementById("policyIssueDate").value;
+				var dateObj = new Date(datehere);
+				var dt = dateObj.addMonths(1);
+				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+				$('#policyDueDate').val(newdate);
+				$('#paymentNextDue').val(newdate);
+			}
+			else if(selectPayment == "Quarterly")
+			{
+				document.getElementById("policyMOP").value = selectPayment;
+				var datehere = document.getElementById("policyIssueDate").value;
+				var dateObj = new Date(datehere);
+				var dt = dateObj.addMonths(4);
+				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+				$('#policyDueDate').val(newdate);
+				$('#paymentNextDue').val(newdate);
+			}
+			else if(selectPayment == "Semi-Annual")
+			{
+				document.getElementById("policyMOP").value = selectPayment;
+				var datehere = document.getElementById("policyIssueDate").value;
+				var dateObj = new Date(datehere);
+				var dt = dateObj.addMonths(6);
+				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+				$('#policyDueDate').val(newdate);
+				$('#paymentNextDue').val(newdate);
+			}
+			else if(selectPayment == "Annual")
+			{
+				document.getElementById("policyMOP").value = selectPayment;
+				var datehere = document.getElementById("policyIssueDate").value;
+				var dateObj = new Date(datehere);
+				var dt = dateObj.addMonths(12);
+				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+				$('#policyDueDate').val(newdate);
+				$('#paymentNextDue').val(newdate);
+			}
+		});
     $('#policyMOP').change(function() {
-        selectedValue = $(this).val(); // store value in variable
-        $('#sample').val(selectedValue); // update on change
-				if(selectedValue == 'Monthly1')
+        var selectedValue = $("#policyMOP").val();
+				if(selectedValue == "Monthly")
 				{
-					var tt = document.getElementById('policyIssueDate').value;
-
-					var date = new Date(tt);
-					var newdate = new Date(date);
-
-					newdate.setDate(date.getDate());
-
-					var dd = newdate.getDate();
-					var mm = newdate.getMonth() + 2;
-					var y = newdate.getFullYear();
-
-					if(mm > 12)
-					{
-						var dd = newdate.getDate();
-						var mm = 12 - newdate.getMonth();
-						var y = newdate.getFullYear() + 1;
-						var someFormattedDate = mm + '/' + dd + '/' + y;
-						document.getElementById('policyDueDate').value = someFormattedDate;
-						return;
-					}
-
-					var someFormattedDate = mm + '/' + dd + '/' + y;
-					document.getElementById('policyDueDate').value = someFormattedDate;
+					var datehere = document.getElementById("policyIssueDate").value;
+					var dateObj = new Date(datehere);
+					var dt = dateObj.addMonths(1);
+					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+					$('#policyDueDate').val(newdate);
+					$('#paymentNextDue').val(newdate);
+					document.getElementById("paymentmodeOfPayment").value = selectedValue;
 				}
-
-				else if(selectedValue == "Monthly")
+				else if(selectedValue == "Quarterly")
 				{
-					var tt = document.getElementById('policyIssueDate').value;
-					var dt = new Date(tt).add(1).month();
-					var dr = dt.setMonth( dt.getMonth() + 2 );
-					document.getElementById('policyDueDate').value = tt;
+					var datehere = document.getElementById("policyIssueDate").value;
+					var dateObj = new Date(datehere);
+					var dt = dateObj.addMonths(4);
+					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+					$('#policyDueDate').val(newdate);
+					$('#paymentNextDue').val(newdate);
+					document.getElementById("paymentmodeOfPayment").value = selectedValue;
 				}
-
-
-				else if(selectedValue == 'Quarterly')
+				else if(selectedValue == "Semi-Annual")
 				{
-					var tt = document.getElementById('policyIssueDate').value;
-
-					var date = new Date(tt);
-					var newdate = new Date(date);
-
-					newdate.setDate(date.getDate());
-
-					var dd = newdate.getDate();
-					var mm = newdate.getMonth() + 4;
-					var y = newdate.getFullYear();
-
-
-
-					var someFormattedDate = mm + '/' + dd + '/' + y;
-					document.getElementById('policyDueDate').value = someFormattedDate;
+					var datehere = document.getElementById("policyIssueDate").value;
+					var dateObj = new Date(datehere);
+					var dt = dateObj.addMonths(6);
+					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+					$('#policyDueDate').val(newdate);
+					$('#paymentNextDue').val(newdate);
+					document.getElementById("paymentmodeOfPayment").value = selectedValue;
 				}
-				else if(selectedValue == 'Semi-Annual')
+				else if(selectedValue == "Annual")
 				{
-					var tt = document.getElementById('policyIssueDate').value;
-
-					var date = new Date(tt);
-					var newdate = new Date(date);
-
-					newdate.setDate(date.getDate());
-
-					var dd = newdate.getDate();
-					var mm = newdate.getMonth() + 7;
-					var y = newdate.getFullYear();
-
-					var someFormattedDate = mm + '/' + dd + '/' + y;
-					document.getElementById('policyDueDate').value = someFormattedDate;
+					var datehere = document.getElementById("policyIssueDate").value;
+					var dateObj = new Date(datehere);
+					var dt = dateObj.addMonths(12);
+					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+					$('#policyDueDate').val(newdate);
+					$('#paymentNextDue').val(newdate);
+					document.getElementById("paymentmodeOfPayment").value = selectedValue;
 				}
-				else if(selectedValue == 'Annual')
-				{
-					var tt = document.getElementById('policyIssueDate').value;
+    });
 
-					var date = new Date(tt);
-					var newdate = new Date(date);
+		$('#policyIssueDate').change(function() {
+			var getter = document.getElementById("policyIssueDate").value;
+			var dat = new Date(getter);
+			var copyOf = new Date(dat.valueOf());
 
-					newdate.setDate(date.getDate());
-
-					var dd = newdate.getDate();
-					var mm = newdate.getMonth() + 13;
-					var y = newdate.getFullYear();
-
-					var someFormattedDate = mm + '/' + dd + '/' + y;
-					document.getElementById('policyDueDate').value = someFormattedDate;
-				}
-
-				if(selectedValue == 'Monthly')
-				{
-					var tt = document.getElementById('policyIssueDate').value;
-
-					var date = new Date(tt);
-					var newdate = new Date(date);
-
-					newdate.setDate(date.getDate());
-
-					var dd = newdate.getDate();
-					var mm = newdate.getMonth() + 2;
-					var y = newdate.getFullYear();
-
-					var someFormattedDate = mm + '/' + dd + '/' + y;
-					document.getElementById('policyDueDate').value = someFormattedDate;
-				}
-				else if(selectedValue == 'Quarterly')
-				{
-					var tt = document.getElementById('policyIssueDate').value;
-
-					var date = new Date(tt);
-					var newdate = new Date(date);
-
-					newdate.setDate(date.getDate());
-
-					var dd = newdate.getDate();
-					var mm = newdate.getMonth() + 4;
-					var y = newdate.getFullYear();
-
-					var someFormattedDate = mm + '/' + dd + '/' + y;
-					document.getElementById('policyDueDate').value = someFormattedDate;
-				}
-				else if(selectedValue == 'Semi-Annual')
-				{
-					var tt = document.getElementById('policyIssueDate').value;
-
-					var date = new Date(tt);
-					var newdate = new Date(date);
-
-					newdate.setDate(date.getDate());
-
-					var dd = newdate.getDate();
-					var mm = newdate.getMonth() + 7;
-					var y = newdate.getFullYear();
-
-						var someFormattedDate = mm + '/' + dd + '/' + y;
-						document.getElementById('policyDueDate').value = someFormattedDate;
-
-				}
-				else if(selectedValue == 'Annual')
-				{
-					var tt = document.getElementById('policyIssueDate').value;
-
-					var date = new Date(tt);
-					var newdate = new Date(date);
-
-					newdate.setDate(date.getDate());
-
-					var dd = newdate.getDate();
-					var mm = newdate.getMonth();
-					var y = newdate.getFullYear() + 2;
-
-
-
-					var someFormattedDate = mm + '/' + dd + '/' + y;
-					document.getElementById('policyDueDate').value = someFormattedDate;
-				}
-
+			$('#policyDueDate').val(copyof);
     });
 				$('#sample').val(selectedValue);
 
 });
+
 
 
 
