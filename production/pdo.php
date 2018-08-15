@@ -531,48 +531,6 @@
 
 				}
 			}
-			public function addAgentToTraining(){
-				$host = "localhost";
-				$dbusername = "root";
-				$dbpassword = "";
-				$dbname = "tgpdso_db";
-
-				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-				?>
-				<script>
-					alert('haaayyynaaakooo!');
-				</script>
-				<?php
-				if(mysqli_connect_error())
-				{
-					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-				}
-				else {
-					if(isset($_POST['apply']))
-					{
-						$ATagentID = $_POST['contain1'];
-						$ATagentName= $_POST['agentName'];
-						$ATtrainingName = $_POST['trainingNameko'];
-						$ATtrainingID =  $_POST['contain2'];
-						$ATdate = $_POST['DateAdded'];
-
-						$sql = "INSERT Into agentstraining (ATagentID, ATagentName, ATtrainingName, ATrequiredPosition, ATdate) values ('$ATagentID','$ATagentName','$ATtrainingName','$ATtrainingID', '$ATdate')";
-					}
-					if($conn->query($sql))
-					{
-						?>
-						<script>
-							alert('Agent successfully added to the training!');
-							window.location="add_agent_training.php";
-						</script>
-						<?php
-					}
-					else {
-						echo "Error:". $sql."<br>".$conn->error;
-					}
-					$conn->close();
-				}
-			}
 			public function deleteAgentToTraining(){
 				$host = "localhost";
 				$dbusername = "root";
