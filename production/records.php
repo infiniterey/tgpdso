@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include 'base/header.php'; ?>
-<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<head>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+
 	<style>
 		table tr:not(:first-child){
 			cursor:pointer;transition: all .25s	ease-in-out;
@@ -23,7 +23,7 @@
 		}
 
 	</style>
-</head>
+
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
@@ -55,10 +55,10 @@
 
 												<div class="col-md-12 col-sm-12 col-xs-12">
 														<div class="x_title">
-															<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No."></input>
+															<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No.">
 														 	<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
 													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
-															<button  type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton" id="paymentButton"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Payment</button>
+															<button  type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton" id="paymentButton" disabled><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Payment</button>
 															<br	><br>
 															<div class="clearfix"></div>
 														</div>
@@ -339,7 +339,7 @@
 
 																						<br><br><br>
 																				 </div>
-																				 <button style="float: right"class="btn btn-primary" type="submit" name="addBeneficiaryButton" id="addBeneficiaryButton"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Beneficiary</button>
+																				 <button style="float: right"class="btn btn-primary" type="submit" name="addBeneficiaryButton" id="addBeneficiaryButton" disabled><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Beneficiary</button>
 																				 <br><br><br>
 
 																				 <table name="datatable-fixed-header2" id="datatable-fixed-header2" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
@@ -634,11 +634,12 @@
 																				 <hr>
 																				 		<div style='float:right'>
 																				 				<button type="submit" style="width: 100px;"class="btn btn-primary" name="saveButton" id="saveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-																				 				<button type="button" class="btn btn-default"  style="width: 100px;" data-dismiss="modal">Close</button>
+																				 				<a href="records.php" class="btn btn-default"  style="width: 100px;" data-dismiss="modal">Close</a>
 																							</div>
 																	 	 </div>
 																		</div>
 																	</div>
+																</form>
 																</div>
  																</form>
 															<div id="Payment" class="tabcontent">
@@ -662,7 +663,11 @@
 																						<?php
 																						$DB_con = Database::connect();
 																						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																						$sql = "SELECT * FROM payment";
+
+																						if(isset($_GET['edit']))
+																						{
+																						$edit = $_GET['edit'];
+																						$sql = "SELECT * FROM payment, production WHERE payment_policyNo = policyNo AND payment_policyNo = '$edit'";
 
 
 																					$result = $DB_con->query($sql);
@@ -687,6 +692,7 @@
 																									<?php
 																								}
 																						}
+																					}
 																							 // }
 
 

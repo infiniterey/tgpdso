@@ -49,18 +49,16 @@ else
 
 					while($row=mysqli_fetch_Array($result))
 					{
-						if(!empty($row['issuedDate']))
+						if($row['issuedDate'] == '0000-00-00')
 						{
 							?>
-							<script>$('#paymentButton').show();</script>
-
+							<script>document.getElementById('paymentButton').disabled = true;</script>
 							<?php
 						}
 						else
 						{
 							?>
-							<script>$('#paymentButton').hide();</script>
-
+							<script>document.getElementById('paymentButton').disabled = false;</script>
 							<?php
 						}
 						?>
@@ -99,7 +97,7 @@ else
 							var dt = dateObj.addMonths(1);
 							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
 							$('#policyDueDate').val(newdate);
-							$('#paymentDueDate').val(newdate);
+							$('#paymentNextDue').val(newdate);
 						}
 						else if(selectedValue == "Quarterly")
 						{
@@ -129,8 +127,6 @@ else
 							$('#paymentNextDue').val(newdate);
 						}
 						</script>
-
-
 						<?php
 				};
 
@@ -712,6 +708,7 @@ $(document).ready(function () {
 });
 
 $(function() {
+
 		$('#paymentmodeOfPayment').change(function()
 		{
 			var selectPayment = $("#paymentmodeOfPayment").val();
@@ -953,6 +950,18 @@ function openPolicy(evt, tabName) {
 									    $('#paymentButton').show();
 									}
 								});
+
+								document.getElementById("beneLastName").addEventListener("keyup", function() {
+    						var nameInput = document.getElementById('beneLastName').value;
+    						if (nameInput != "")
+								{
+        					document.getElementById('addBeneficiaryButton').removeAttribute("disabled");
+    						}
+								else
+								{
+        					document.getElementById('addBeneficiaryButton').setAttribute("disabled", null);
+    						}
+							});
 
 
 
