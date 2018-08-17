@@ -55,19 +55,19 @@
 
 												<div class="col-md-12 col-sm-12 col-xs-12">
 														<div class="x_title">
-															<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No.">
-														 	<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
-													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
+															<h2><input type="text" name="searchT" id="searchT" placeholder="Search">
+														 	<!--<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" hidden></button>-->
+													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table btn btn-success"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn">&nbsp;Find Record</button></h2>
 															<button  type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton" id="paymentButton" disabled><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Payment</button>
 															<br	><br>
 															<div class="clearfix"></div>
 														</div>
 														<div class="x_content">
 																<div class="tab col-xs-12" id="div2"><h4>
-																	<a class="col-sm-3" href="javascript:void(0)" class="tablinks"
-																			onclick="openPolicy(event, 'Policy'); enableselectpayment()" id="defaultOpen"><b>Policy Details</b></a>
-																	<a href="javascript:void(0)" class="tablinks"
-																		  onclick="openPolicy(event, 'Payment'); disableselectpayment()"><b>Payment Details</b></a></h4>
+																	<a class="col-sm-3 btn btn-primary" href="javascript:void(0)" class="tablinks"
+																			onclick="openPolicy(event, 'Policy');" id="defaultOpen"><b>Policy Details</b></a>
+																	<a class="col-sm-3 btn btn-primary" href="javascript:void(0)" class="tablinks"
+																		  onclick="openPolicy(event, 'Payment');"><b>Payment Details</b></a></h4>
 																</div>
 																<div id="Policy" class="tabcontent">
 																	<form>
@@ -125,9 +125,11 @@
 																	 catch (PDOException $msg) {
 																		 die("Connection Failed : " . $msg->getMessage());
 																	 }?>
+
 																	<div class="row">
 																	<div class="col-md-12">
 																	 <div class="form-group">
+																		 <hr>
 																		 <h5><b>Policy Owner Details</b></h5>
 																		 <hr/>
 																		 <div class="row">
@@ -446,8 +448,7 @@
 																					<br><br>
 
 
-			 																			<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-																							<?php include 'add_payment.php';?>
+			 																			<div>
 																						</div>
 
 																						<div id="fundModal" name="fundModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -646,6 +647,7 @@
 																<div class="row">
 																	<div class="col-md-12">
 																	 <div class="form-group">
+																		 <hr>
 																		 	<h5><b>Payment Details</b></h5><hr/>
 																		 <div class="row">
 																			 <table name="datatable-fixed-header1" id="datatable-fixed-header1" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
@@ -693,7 +695,7 @@
 																								}
 																						}
 																					}
-																							 // }
+
 
 
 																						?>
@@ -833,6 +835,7 @@
 					<!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements-->
 			<!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements-->
 			</form>
+
 			<footer>
 				<?php include 'base/footer.php';?>
 			</footer>
@@ -842,7 +845,12 @@
 		<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 		<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<!--		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+
+<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<?php include 'add_payment.php';?>
+</div>
+
 	</body>
 </html>
 <?php include 'base/recordConnection.php';?>

@@ -349,7 +349,7 @@ else
 						}
 						$conn->close();
       }
-			else if($_GET['deletePayment'] && $_GET['paymentReceiptNo'])
+			else if(isset($_GET['deletePayment']) && (isset($_GET['paymentReceiptNo'])))
 			{
 				$delete = $_GET['deletePayment'];
 				$receiptNo = $_GET['paymentReceiptNo'];
@@ -815,15 +815,6 @@ window.onload = function () {
 								startTab();
 							};
 
-function disableselectpayment()
-{
-	document.getElementById('paymentButton').style.display = "none";
-}
-function enableselectpayment()
-{
-	document.getElementById('paymentButton').style.display = "block";
-}
-
 function startTab() {
 								document.getElementById("defaultOpen").click();
 							}
@@ -961,6 +952,13 @@ function openPolicy(evt, tabName) {
 								{
         					document.getElementById('addBeneficiaryButton').setAttribute("disabled", null);
     						}
+							});
+
+							$('#searchT').on("keypress", function(e) {
+        			if (e.keyCode == 13) {
+								var searchValue = document.getElementById('searchT').value;
+								window.location="records.php?edit="+searchValue+"";
+        				}
 							});
 
 

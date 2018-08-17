@@ -6,7 +6,7 @@
       <li><a href="newBusiness.php"><i class="fa fa-plus"></i> New Business </a></li>
       <li><a href="add_requirements.php"><i class="fa fa-certificate"></i> Policy Requirements </a></li>
       <li><a href="records.php" style="color: lightgreen;"><i class="fa fa-list"></i> Records (Started) </a></li>
-      <li><a href="dueDate.php" style="color: red;"><i class="fa fa-calendar"></i>Due Date (Not done)</a></li>
+      <li><a href="dueDate.php" style="color: yellow;"><i class="fa fa-calendar"></i>Due Date (Starting to code)</a></li>
       <li><a href="soa.php"  style="color: yellow;"><i class="fa fa-cog"></i>SOA (Discontinue)</a></li>
       <li><a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-user"></i> Agent <span class="fa fa-chevron-down"></span></a>
         <ul class="collapse list-unstyled" id="homeSubmenu4">
