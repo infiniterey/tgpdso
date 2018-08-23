@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include 'base/header.php'; ?>
+<head>
+	<style>
+	table {
+		    width: 100px;
+		    table-layout: fixed;
+		}
+	td {
+		    overflow: hidden;
+		    max-width: 25%;
+		    width: 25%;
+		    word-wrap: break-word;
+		}
+		</style>
+</head>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <body class="nav-md footer_fixed">
@@ -80,7 +94,7 @@
 													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 50px;text-align:center;">Plan Code</th>
 														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 600px;">Plan Description</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action" style="width: 35px;text-align:center;">Action</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action" style="width: 50px;text-align:center;">Action</th>
 
 												</tr>
 											</thead>
@@ -577,6 +591,7 @@
 																								<a title="Edit Data" href="newBusinessForm.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
 																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																						</center>
+																						
 																					</td>
 
 	                                      </tr>

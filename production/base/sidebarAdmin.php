@@ -3,7 +3,7 @@
     <h3>TGP DSO</h3>
     <ul class="nav side-menu">
       <li><a href="dashboard.php"><i class="fa fa-tasks"></i> Dashboard </a></li>
-      <li><a href="newBusiness.php"><i class="fa fa-plus"></i> New Business </a></li>
+      <li><a href="newBusiness.php" style="color: lightgreen"><i class="fa fa-plus"></i> New Business (Still Fixing)</a></li>
       <li><a href="add_requirements.php"><i class="fa fa-certificate"></i> Policy Requirements </a></li>
       <li><a href="records.php" style="color: lightgreen;"><i class="fa fa-list"></i> Records (Started) </a></li>
       <li><a href="dueDate.php" style="color: yellow;"><i class="fa fa-calendar"></i>Due Date (Starting to code)</a></li>

@@ -10,13 +10,11 @@
         Policy #:
         </label>
        <input type="text" readonly="readonly" class="form-control" name="paymentPolicyNo" id="paymentPolicyNo">
-        <label class="control-label">
-        Amount:
-        </label>
-        <input  type="text" class="form-control" id="paymentAmount" name="paymentAmount">
+       <br>
         <label class="control-label">
         Issue Date:
-      </label><input type="date" class="form-control" name="paymentIssueDate" id="paymentIssueDate" readonly><br>
+      </label><input type="date" class="form-control" name="paymentIssueDate" id="paymentIssueDate" readonly>
+      <br>
       <label class="control-label">
       Mode of Payment:
     </label>
@@ -25,7 +23,12 @@
       <option value="Quarterly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Quarterly</option>
       <option value="Semi-Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Semi-Annual</option>
       <option value="Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Annual</option>
-      </select><br>
+      </select>
+      <br>
+      <label class="control-label">
+      Amount:
+      </label>
+      <input  type="text" class="form-control" id="paymentAmount" name="paymentAmount">
         <hr>
         <label class="control-label">
         Transaction Date:
@@ -90,7 +93,7 @@
 							?>
 							<script>
 								alert("New record production successfully added");
-								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
+								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>#Payment";
 								</script>
 								<?php
 						}
@@ -102,7 +105,7 @@
     }
 ?>
 
-
+<!--
 <?php
   $host = "localhost";
   $dbusername = "root";
@@ -132,7 +135,7 @@
 						{
 							?>
 							<script>
-								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
+								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>#secondaryOpen";
 								</script>
 								<?php
 						}
@@ -143,3 +146,4 @@
       }
     }
 ?>
+-->

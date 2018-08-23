@@ -49,7 +49,7 @@ else
 
 					while($row=mysqli_fetch_Array($result))
 					{
-						if($row['issuedDate'] == '0000-00-00')
+						if($row['issuedDate'] == null)
 						{
 							?>
 							<script>document.getElementById('paymentButton').disabled = true;</script>
@@ -135,55 +135,9 @@ else
 
 			</script>
 			<?php
+		}
 			$conn->close();
 	}
-	else if(isset($_GET['editBene']) && isset($_GET['number']))
-	{
-		$edit = $_GET['editBene'];
-		$number = $_GET['number'];
-
-			$result=mysqli_query($conn,"SELECT * from production, client, beneficiary, policystatus WHERE policyStat = policyID AND clientID = prodclientID AND bene_policyNo = policyNo AND policyNo = '$edit' AND bene_contactNo = '$number'");
-
-			while($row=mysqli_fetch_Array($result))
-			{
-				?>
-				<script> document.getElementById('policyNoOwner').value = '<?php echo $row['policyNo'];?>';</script>
-				<script> document.getElementById('lastname1').value = '<?php echo $row['cLastname'];?>';</script>
-				<script> document.getElementById('firstname1').value = '<?php echo $row['cFirstname'];?>';</script>
-				<script> document.getElementById('middlename1').value = '<?php echo $row['cMiddlename'];?>';</script>
-				<script> document.getElementById('birthdate1').value = '<?php echo $row['cBirthdate'];?>';</script>
-				<script> document.getElementById('address1').value = '<?php echo $row['cAddress'];?>';</script>
-				<script> document.getElementById('contactno1').value = '<?php echo $row['cCellno'];?>';</script>
-
-				<script> document.getElementById('policyPlan').value = '<?php echo $row['plan'];?>';</script>
-				<script> document.getElementById('policyFaceAmount').value = '<?php echo $row['faceAmount'];?>';</script>
-				<script> document.getElementById('policyMOP').value = '<?php echo $row['modeOfPayment'];?>';</script>
-				<script> document.getElementById('policyIssueDate').value = '<?php echo $row['issuedDate'];?>';</script>
-				<script> document.getElementById('policyPremium').value = '<?php echo $row['premium'];?>';</script>
-
-				<script> document.getElementById('beneLastName').value = '<?php echo $row['bene_lastName'];?>';</script>
-				<script> document.getElementById('beneFirstName').value = '<?php echo $row['bene_firstName'];?>';</script>
-				<script> document.getElementById('beneMiddleName').value = '<?php echo $row['bene_middleName'];?>';</script>
-				<script> document.getElementById('beneBirthday').value = '<?php echo $row['bene_birthDate'];?>';</script>
-				<script> document.getElementById('beneAddress').value = '<?php echo $row['bene_address'];?>';</script>
-				<script> document.getElementById('beneContact').value = '<?php echo $row['bene_contactNo'];?>';</script>
-				<script> document.getElementById('beneRelationship').value = '<?php echo $row['bene_relationShip'];?>';</script>
-
-				<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
-				<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
-				<script>document.getElementById("fundButton").disabled = false;</script>
-				<?php
-			}
-
-			$conn->close();
-
-		?>
-		<script>
-
-		</script>
-		<?php
-	}
-}
 ?>
 
 
@@ -271,40 +225,7 @@ else
 					<?php
 				}
 				$conn->close();
-
-			?>
-			<script>
-
-			</script>
-			<?php
 	}
-	if(isset($_GET['editBene']) && isset($_GET['number']))
-	{
-			$edit = $_GET['editBene'];
-
-				$result=mysqli_query($conn,"SELECT * from insuredpolicy, production WHERE policyNo = insured_policyNo AND policyNo = '$edit'");
-
-				while($row=mysqli_fetch_Array($result))
-				{
-					?>
-
-					<script> document.getElementById('insuredLastName').value = '<?php echo $row['insured_lastName'];?>';</script>
-					<script> document.getElementById('insuredFirstName').value = '<?php echo $row['insured_firstName'];?>';</script>
-					<script> document.getElementById('insuredMiddleName').value = '<?php echo $row['insured_middleName'];?>';</script>
-					<script> document.getElementById('insuredBirthdate').value = '<?php echo $row['insured_birthdate'];?>';</script>
-					<script> document.getElementById('insuredAddress').value = '<?php echo $row['insured_address'];?>';</script>
-					<script> document.getElementById('insuredContactno').value = '<?php echo $row['insured_contactNo'];?>';</script>
-
-				<?php
-			}
-			$conn->close();
-
-		?>
-		<script>
-
-		</script>
-		<?php
-}
 }
 ?>
 
@@ -326,30 +247,7 @@ else
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_GET['deleteBene']) && isset($_GET['number'])&&isset($_GET['name']))
-				{
-					$delete = $_GET['deleteBene'];
-					$number = $_GET['number'];
-					$name = $_GET['name'];
-
-
-						$sql = "DELETE FROM beneficiary WHERE bene_policyNo = '$delete' AND bene_contactNo = '$number' AND bene_lastName = '$name'";
-
-						if($conn->query($sql))
-						{
-							?>
-							<script>
-								alert("delete record production successfully added");
-								window.location = "records.php?edit=<?php echo $delete ?>";
-								</script>
-								<?php
-						}
-						else {
-							echo "Error:". $sql."<br>".$conn->error;
-						}
-						$conn->close();
-      }
-			else if(isset($_GET['deletePayment']) && (isset($_GET['paymentReceiptNo'])))
+			if(isset($_GET['deletePayment']) && (isset($_GET['paymentReceiptNo'])))
 			{
 				$delete = $_GET['deletePayment'];
 				$receiptNo = $_GET['paymentReceiptNo'];
@@ -370,51 +268,6 @@ else
 				}
 				$conn->close();
 			}
-    }
-?>
-
-<?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-
-      if(mysqli_connect_error())
-      {
-        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-      }
-      else {
-				if(isset($_POST['addBeneficiaryButton']))
-				{
-					$beneLastname = $_POST['beneLastName'];
-					$beneFirstname = $_POST['beneFirstName'];
-					$beneMiddlename = $_POST['beneMiddleName'];
-					$beneBirthday = $_POST['beneBirthday'];
-					$beneAddress = $_POST['beneAddress'];
-					$beneContact = $_POST['beneContact'];
-					$beneRelationship = $_POST['beneRelationship'];
-					$add = $_POST['policyNoOwner'];
-
-
-						$sql = "INSERT INTO beneficiary (bene_policyNo, bene_lastName, bene_firstName, bene_middleName, bene_birthDate, bene_address, bene_contactNo, bene_relationShip)
-						values ('$add','$beneLastname','$beneFirstname','$beneMiddlename','$beneBirthday','$beneAddress','$beneContact','$beneRelationship')";
-
-						if($conn->query($sql))
-						{
-							?>
-							<script>
-								alert("New record production successfully added");
-								window.location = "records.php?edit=<?php echo $add ?>";
-								</script>
-								<?php
-						}
-						else {
-							echo "Error:". $sql."<br>".$conn->error;
-						}
-						$conn->close();
-      }
     }
 ?>
 
@@ -473,15 +326,15 @@ else
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_POST['saveButton']))
+				if(isset($_REQUEST['saveButton']))
 				{
-					$clientID = $_POST['clientToRetrieve'];
-					$lastname = $_POST['lastname1'];
-					$firstname = $_POST['firstname1'];
-					$middlename = $_POST['middlename1'];
-					$birthdate = $_POST['birthdate1'];
-					$address = $_POST['address1'];
-					$contactno = $_POST['contactno1'];
+					$clientID = $_REQUEST['clientToRetrieve'];
+					$lastname = $_REQUEST['lastname1'];
+					$firstname = $_REQUEST['firstname1'];
+					$middlename = $_REQUEST['middlename1'];
+					$birthdate = $_REQUEST['birthdate1'];
+					$address = $_REQUEST['address1'];
+					$contactno = $_REQUEST['contactno1'];
 
 						$sql = "UPDATE client
 						SET clientID = '$clientID',
@@ -527,15 +380,15 @@ else
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_POST['saveButton']))
+				if(isset($_REQUEST['saveButton']))
 				{
-					$policyNo = $_POST['policyNoOwner'];
-					$plan = $_POST['policyPlan'];
-					$faceAmount = $_POST['policyFaceAmount'];
-					$MOP = $_POST['policyMOP'];
-					$issueDate = $_POST['policyIssueDate'];
-					$premium = $_POST['policyPremium'];
-					$policyStatus = $_POST['policyStatusSelect'];
+					$policyNo = $_REQUEST['policyNoOwner'];
+					$plan = $_REQUEST['policyPlan'];
+					$faceAmount = $_REQUEST['policyFaceAmount'];
+					$MOP = $_REQUEST['policyMOP'];
+					$issueDate = $_REQUEST['policyIssueDate'];
+					$premium = $_REQUEST['policyPremium'];
+					$policyStatus = $_REQUEST['policyStatusSelect'];
 
 						$sql = "UPDATE production
 						SET policyNo = '$policyNo',
@@ -581,14 +434,14 @@ else
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_POST['saveButton']))
+				if(isset($_REQUEST['saveButton']))
 				{
-					$insuredLastname = $_POST['insuredLastName'];
-					$insuredFirstname = $_POST['insuredFirstName'];
-					$insuredMiddlename = $_POST['insuredMiddleName'];
-					$insuredBirthdate = $_POST['insuredBirthdate'];
-					$insuredAddress = $_POST['insuredAddress'];
-					$insuredContact = $_POST['insuredContactno'];
+					$insuredLastname = $_REQUEST['insuredLastName'];
+					$insuredFirstname = $_REQUEST['insuredFirstName'];
+					$insuredMiddlename = $_REQUEST['insuredMiddleName'];
+					$insuredBirthdate = $_REQUEST['insuredBirthdate'];
+					$insuredAddress = $_REQUEST['insuredAddress'];
+					$insuredContact = $_REQUEST['insuredContactno'];
 					$add = $_POST['policyNoOwner'];
 
 						$sql = "INSERT INTO insuredpolicy (insured_policyNo, insured_lastName, insured_firstName, insured_middleName, insured_birthDate, insured_address, insured_contactNo)
@@ -624,12 +477,12 @@ else
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_POST['saveThisFund']))
+				if(isset($_REQUEST['saveThisFund']))
 				{
 
-					$add = $_GET['edit'];
-					$fundID = $_POST['setFundID'];
-					$rate = $_POST['setFundRate'];
+					$add = $_REQUEST['edit'];
+					$fundID = $_REQUEST['setFundID'];
+					$rate = $_REQUEST['setFundRate'];
 
 					$sql = "INSERT INTO policyFund (polFund_policyNo, polFund_fund, polFund_rate)
 					values ('$add','$fundID','$rate')";
@@ -697,270 +550,3 @@ else
 <!---      Table                 -->
 <!---      Table                 -->
 <!---      Table                 -->
-
-
-
-<script>
-
-$(document).ready(function () {
-    $('#policyIssueDate').datepicker();
-    $('#policyDueDate').datepicker();
-});
-
-$(function() {
-
-		$('#paymentmodeOfPayment').change(function()
-		{
-			var selectPayment = $("#paymentmodeOfPayment").val();
-			if(selectPayment == "Monthly")
-			{
-				document.getElementById("policyMOP").value = selectPayment;
-				var datehere = document.getElementById("policyIssueDate").value;
-				var dateObj = new Date(datehere);
-				var dt = dateObj.addMonths(1);
-				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-				$('#policyDueDate').val(newdate);
-				$('#paymentNextDue').val(newdate);
-			}
-			else if(selectPayment == "Quarterly")
-			{
-				document.getElementById("policyMOP").value = selectPayment;
-				var datehere = document.getElementById("policyIssueDate").value;
-				var dateObj = new Date(datehere);
-				var dt = dateObj.addMonths(4);
-				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-				$('#policyDueDate').val(newdate);
-				$('#paymentNextDue').val(newdate);
-			}
-			else if(selectPayment == "Semi-Annual")
-			{
-				document.getElementById("policyMOP").value = selectPayment;
-				var datehere = document.getElementById("policyIssueDate").value;
-				var dateObj = new Date(datehere);
-				var dt = dateObj.addMonths(6);
-				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-				$('#policyDueDate').val(newdate);
-				$('#paymentNextDue').val(newdate);
-			}
-			else if(selectPayment == "Annual")
-			{
-				document.getElementById("policyMOP").value = selectPayment;
-				var datehere = document.getElementById("policyIssueDate").value;
-				var dateObj = new Date(datehere);
-				var dt = dateObj.addMonths(12);
-				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-				$('#policyDueDate').val(newdate);
-				$('#paymentNextDue').val(newdate);
-			}
-		});
-    $('#policyMOP').change(function() {
-        var selectedValue = $("#policyMOP").val();
-				if(selectedValue == "Monthly")
-				{
-					var datehere = document.getElementById("policyIssueDate").value;
-					var dateObj = new Date(datehere);
-					var dt = dateObj.addMonths(1);
-					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-					$('#policyDueDate').val(newdate);
-					$('#paymentNextDue').val(newdate);
-					document.getElementById("paymentmodeOfPayment").value = selectedValue;
-				}
-				else if(selectedValue == "Quarterly")
-				{
-					var datehere = document.getElementById("policyIssueDate").value;
-					var dateObj = new Date(datehere);
-					var dt = dateObj.addMonths(4);
-					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-					$('#policyDueDate').val(newdate);
-					$('#paymentNextDue').val(newdate);
-					document.getElementById("paymentmodeOfPayment").value = selectedValue;
-				}
-				else if(selectedValue == "Semi-Annual")
-				{
-					var datehere = document.getElementById("policyIssueDate").value;
-					var dateObj = new Date(datehere);
-					var dt = dateObj.addMonths(6);
-					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-					$('#policyDueDate').val(newdate);
-					$('#paymentNextDue').val(newdate);
-					document.getElementById("paymentmodeOfPayment").value = selectedValue;
-				}
-				else if(selectedValue == "Annual")
-				{
-					var datehere = document.getElementById("policyIssueDate").value;
-					var dateObj = new Date(datehere);
-					var dt = dateObj.addMonths(12);
-					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-					$('#policyDueDate').val(newdate);
-					$('#paymentNextDue').val(newdate);
-					document.getElementById("paymentmodeOfPayment").value = selectedValue;
-				}
-    });
-
-		$('#policyIssueDate').change(function() {
-			var getter = document.getElementById("policyIssueDate").value;
-			var dat = new Date(getter);
-			var copyOf = new Date(dat.valueOf());
-
-			$('#policyDueDate').val(copyof);
-    });
-				$('#sample').val(selectedValue);
-
-});
-
-
-
-
-window.onload = function () {
-								startTab();
-							};
-
-function startTab() {
-								document.getElementById("defaultOpen").click();
-							}
-
-function openPolicy(evt, tabName) {
-                // Declare all variables
-                var i, tabcontent, tablinks;
-
-                // Get all elements with class="tabcontent" and hide them
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                }
-
-                // Get all elements with class="tablinks" and remove the class "active"
-                tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-
-                // Show the current tab, and add an "active" class to the link that opened the tab
-                document.getElementById(tabName).style.display = "block";
-                evt.currentTarget.className += " active";
-            }
-
-						function myFunction() {
-
-						  var input, filter, table, tr, td, i;
-						  input = document.getElementById("myInput");
-						  filter = input.value.toUpperCase();
-						  table = document.getElementById("datatable-fixed-header");
-						  tr = table.getElementsByTagName("tr");
-
-
-						  for (i = 0; i < tr.length; i++) {
-						    td = tr[i].getElementsByTagName("td")[0];
-						    if (td) {
-						      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-						        tr[i].style.display = "";
-						      } else {
-						        tr[i].style.display = "none";
-						      }
-						    }
-						  }
-						}
-
-						$(document).ready(function() {
-								$('#datatable-fixed-header0').DataTable( {
-										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-								} );
-						} );
-
-						$(document).ready(function() {
-								$('#datatable-fixed-header').DataTable( {
-										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-								} );
-						} );
-						$(document).ready(function() {
-								$('#datatable-fixed-header1').DataTable( {
-										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-								} );
-						} );
-						$(document).ready(function() {
-								$('#datatable-fixed-header-1').DataTable( {
-										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-								} );
-						} );
-
-						$(document).ready(function() {
-								$('#datatable-fixed-header10').DataTable( {
-										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-								} );
-						} );
-
-						$(document).ready(function() {
-
-  					if(window.location.href.indexOf('#fundModal') != -1) {
-    				$('#fundModal').modal('show');
-  					}
-					});
-
-					function boxChecked() {
-  					var checkBox = document.getElementById("box");
-  					var firstname = document.getElementById("firstname1").value;
-						var lastname = document.getElementById("lastname1").value;
-						var middlename = document.getElementById("middlename1").value;
-						var birthdate = document.getElementById("birthdate1").value;
-						var address = document.getElementById("address1").value;
-						var contactno = document.getElementById("contactno1").value;
-
-
-  						if (checkBox.checked == true)
-								{
-									document.getElementById("insuredLastName").value = lastname;
-									document.getElementById("insuredFirstName").value = firstname;
-									document.getElementById("insuredMiddleName").value = middlename;
-									document.getElementById("insuredBirthdate").value = birthdate;
-									document.getElementById("insuredAddress").value = address;
-									document.getElementById("insuredContactno").value = contactno;
-  							}
-								else
-									{
-										document.getElementById("insuredLastName").value = "";
-										document.getElementById("insuredFirstName").value = "";
-										document.getElementById("insuredMiddleName").value = "";
-										document.getElementById("insuredBirthdate").value = "";
-										document.getElementById("insuredAddress").value = "";
-										document.getElementById("insuredContactno").value = "";
-  								}
-								}
-
-								$(document).ready(function() {
-								    $('#datatable-fixed-header2').DataTable( {
-								        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-								    } );
-								} );
-
-
-								$(document).ready(function(){
-									if(!$('#policyIssuedDate').val()){
-									    $('#paymentButton').show();
-									}
-									else {
-									    $('#paymentButton').show();
-									}
-								});
-
-								document.getElementById("beneLastName").addEventListener("keyup", function() {
-    						var nameInput = document.getElementById('beneLastName').value;
-    						if (nameInput != "")
-								{
-        					document.getElementById('addBeneficiaryButton').removeAttribute("disabled");
-    						}
-								else
-								{
-        					document.getElementById('addBeneficiaryButton').setAttribute("disabled", null);
-    						}
-							});
-
-							$('#searchT').on("keypress", function(e) {
-        			if (e.keyCode == 13) {
-								var searchValue = document.getElementById('searchT').value;
-								window.location="records.php?edit="+searchValue+"";
-        				}
-							});
-
-
-
-</script>

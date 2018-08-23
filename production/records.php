@@ -3,7 +3,7 @@
 <?php include 'base/header.php'; ?>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-
+<head>
 	<style>
 		table tr:not(:first-child){
 			cursor:pointer;transition: all .25s	ease-in-out;
@@ -17,13 +17,13 @@
 
 		td {
 				overflow: hidden;
-				max-width: 25%;
-				width: 25%;
+				max-width: 20%;
+				width: 20%;
 				word-wrap: break-word;
 		}
 
 	</style>
-
+</head>
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
@@ -56,8 +56,8 @@
 												<div class="col-md-12 col-sm-12 col-xs-12">
 														<div class="x_title">
 															<h2><input type="text" name="searchT" id="searchT" placeholder="Search">
-														 	<!--<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" hidden></button>-->
-													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table btn btn-success"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn">&nbsp;Find Record</button></h2>
+														 	<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search btn btn-success"></button>
+													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table btn btn-success"	  data-toggle="modal" data-target="#myModal" id="myBtn"></button></h2>
 															<button  type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton" id="paymentButton" disabled><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Payment</button>
 															<br	><br>
 															<div class="clearfix"></div>
@@ -70,7 +70,7 @@
 																		  onclick="openPolicy(event, 'Payment');"><b>Payment Details</b></a></h4>
 																</div>
 																<div id="Policy" class="tabcontent">
-																	<form>
+																	<form method="post" class="form-group">
 																	 <?php
 																	 $Tdate = "";
 																	 $Lname = "";
@@ -300,13 +300,13 @@
 																					</div>
 																			 </div>
 																 			</div><br>
-
 																			<div class="form-group">
 																				<div class="row">
 																	 			<h5><b>Beneficiary Details</b>
 																					</h5>
 																				</div>
 																				<hr>
+																				<form method="POST" action="<?php $_PHP_SELF ?>">
 																					<div class="row">
 																						<div class="col-xs-3">
 																							Last Name
@@ -342,6 +342,8 @@
 																						<br><br><br>
 																				 </div>
 																				 <button style="float: right"class="btn btn-primary" type="submit" name="addBeneficiaryButton" id="addBeneficiaryButton" disabled><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Beneficiary</button>
+																				 <?php include 'PHPFile/add_beneficiary_php.php'?>
+																			 </form>
 																				 <br><br><br>
 
 																				 <table name="datatable-fixed-header2" id="datatable-fixed-header2" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
@@ -629,15 +631,17 @@
 																				</div>
 																			</div>
 																		</div>
+																	</form>
+
+																		<div class="form-group">
+																			<hr>
+																				 <div style='float:right'>
+																						 <button type="submit" style="width: 100px;"class="btn btn-primary" name="saveButton" id="saveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+																						 <a href="records.php" class="btn btn-default"  style="width: 100px;" data-dismiss="modal">Close</a>
+																					 </div>
+																	</div>
 
 																			 </div>
-																			 <div class="form-group">
-																				 <hr>
-																				 		<div style='float:right'>
-																				 				<button type="submit" style="width: 100px;"class="btn btn-primary" name="saveButton" id="saveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-																				 				<a href="records.php" class="btn btn-default"  style="width: 100px;" data-dismiss="modal">Close</a>
-																							</div>
-																	 	 </div>
 																		</div>
 																	</div>
 																</form>
@@ -653,11 +657,15 @@
 																			 <table name="datatable-fixed-header1" id="datatable-fixed-header1" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
 																					<thead>
 																					<tr role="row">
-																							<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Transaction No.</th>
-																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 100px;text-align:center;">O.R.#</th>
+																							<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Trans. Date</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Remarks</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="MOP: activate to sort column ascending" style="width: 30px;text-align:center;">M.O.P</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Due Date: activate to sort column ascending" style="width: 30px;text-align:center;">Due Date</th>
+																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Due Date: activate to sort column ascending" style="width: 30px;text-align:center;">Next Due Date</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 30px;text-align:center;">O.R.#</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="APR No.: activate to sort column ascending" style="width: 30px;text-align:center;">APR#</th>
-																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="NextDueDate: activate to sort column ascending" style="width: 30px;text-align:center;">Next Due Date</th>
-																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Remarks</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 30px;text-align:center;">Premium</th>
+																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Due Date: activate to sort column ascending" style="width: 30px;text-align:center;">SOA Date</th>
 																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 																						</tr>
 																					</thead>
@@ -679,11 +687,15 @@
 																						{
 																									?>
 																								<tr>
+																									<td><?php echo $row['transDate']; ?></td>
+																									<td><?php echo $row['payment_remarks']; ?></td>
+																									<td><?php echo $row['payment_MOP']; ?></td>
 																									<td><?php echo $row['payment_transDate']; ?></td>
+																									<td><?php echo $row['payment_nextDue']; ?></td>
 																									<td><?php echo $row['payment_OR']; ?></td>
 																									<td><?php echo $row['payment_APR']; ?></td>
-																									<td><?php echo $row['payment_nextDue']; ?></td>
-																									<td><?php echo $row['payment_remarks']; ?></td>
+																									<td><?php echo $row['premium']; ?></td>
+																									<td><?php echo $row['SOAdate']; ?></td>
 																									<td>
 																										<div align="center">
 																											<a title="Edit Data" data-toggle="modal" data-target="#paymentModal" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
@@ -850,7 +862,7 @@
 <div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<?php include 'add_payment.php';?>
 </div>
-
 	</body>
 </html>
-<?php include 'base/recordConnection.php';?>
+<?php include 'base/recordConnection.php'?>
+<?php include 'JavaScriptFile/recordsJavascript.php'?>

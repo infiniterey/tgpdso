@@ -6,7 +6,7 @@
 <head>
 	<style>
 	table {
-		    width: 80px;
+		    width: 100px;
 		    table-layout: fixed;
 		}
 	td {
@@ -87,9 +87,9 @@
 												tgpdso::addPlan();
 											}
 										?>
-										Plan Code: <input id="planCode" type="text" class="form-control" name="planCode"><br>
-										Plan Description: <input id="planDesc" type="text" class="form-control" name="planDesc">
-										Plan Rate: <input id="planRate" type="text" class="form-control" name="planRate">
+										Plan Code: <input id="planCode" type="text" class="form-control" name="planCode" style="width: 200px;"><br>
+										Plan Description: <input id="planDesc" type="text" class="form-control" name="planDesc" style="width: 200px;">
+										Plan Rate: <input id="planRate" type="text" class="form-control" name="planRate" style="width: 200px;">
 
 										<br/><br/>
 
@@ -100,15 +100,15 @@
 
 										</div>
 
-										<div class="col-md-6">
+										<div class="col-md-7">
 
 
-											<table id="datatable-fixed-header1" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
+											<table id="datatable-fixed-header1"  align="center" name="datatable-fixed-header1" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 												<thead>
 													<tr role="row">
-															<th hidden tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="PlanID"></th>
-														<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 50px;text-align:center;">Plan Code</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 600px;">Plan Description</th>
+															<th></th>
+														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 50px;text-align:center;">Plan Code</th>
+															<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 100px;">Plan Description</th>
 														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 35px;text-align:center;">Plan Rate</th>
 														<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action" style="width: 35px;text-align:center;">Action</th>
 
@@ -130,7 +130,7 @@
 																	?>
 																	<tr>
 
-																		<td hidden><?php print($row['planID']); ?></td>
+																		<td><?php print($row['planID']); ?></td>
 																		<td><?php print($row['planCode']); ?></td>
 																		<td><?php print($row['planDesc']); ?></td>
 																		<td><?php print($row['planRate']); ?></td>
@@ -208,17 +208,14 @@
 									<form style="margin-bottom: 10px;">
 						      <div class="modal-body">
 
-										<table id="datatable-fixed-header2" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
+										<table id="datatable-fixed-header02" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 											<thead>
 												<tr role="row">
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Code">Agent Code</th>
-													<th style="width:" class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Name">Full Name</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Birthdate" hidden>Birthdate</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Appointment Date">Appointment Date</th>
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team">Team</th>
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team" hidden>Team</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Position" hidden>Position</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header2" rowspan="1" colspan="1" aria-label="Action">Action</th>
+													<th>Agent Code</th>
+													<th style="width:" class="sorting" tabindex="0" aria-controls="datatable-fixed-header02" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Agent Name">Full Name</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header02" rowspan="1" colspan="1" aria-label="Appointment Date">Appointment Date</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header02" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Team">Team</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header02" rowspan="1" colspan="1" aria-label="Action">Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -241,11 +238,8 @@
 																<tr>
 																	<td><?php print($row['agentCode']); ?></td>
                                   <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
-																	<td hidden><?php print($row['agentBirthdate']); ?></td>
 																	<td><?php print($row['agentApptDate']); ?></td>
-																		<td><?php print($row['teamName']); ?></td>
-																	<td hidden><?php print($row['teamName']); ?></td>
-																	<td hidden><?php print($row['agentPosition']); ?></td>
+																	<td><?php print($row['teamName']); ?></td>
 																	<td><button style="width: 100%; height: 100%;" onclick="AgentInfo();" type="button" id="retrieveAgentInfo" name="retrieveAgentInfo" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
 																</tr>
 																<?php
@@ -266,11 +260,8 @@
 																	<tr>
 																		<td><?php print($row['agentCode']); ?></td>
 																		<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
-																		<td hidden><?php print($row['agentBirthdate']); ?></td>
 																		<td><?php print($row['agentApptDate']); ?></td>
 																		<td><?php print($row['teamName']); ?></td>
-																		<td hidden><?php print($row['agentTeam']); ?></td>
-																		<td hidden><?php print($row['agentPosition']); ?></td>
 																		<td><button style="width: 100%; height: 100%;" onclick="AgentInfo();" type="button" id="retrieveAgentInfo" name="retrieveAgentInfo" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button></td>
 																	</tr>
 																	<?php
@@ -284,7 +275,7 @@
 										<script>
 
 										function AgentInfo(){
-											var table = document.getElementById('datatable-fixed-header2');
+											var table = document.getElementById('datatable-fixed-header02');
 											for(var counter = 1; counter < table.rows.length; counter++)
 											{
 												table.rows[counter].onclick = function()
@@ -395,14 +386,14 @@
 
 										</div>
 
-										<div class="col-md-9">
+										<div class="col-md-6">
 
 										<table id="datatable-fixed-header3" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 											<thead>
 												<tr role="row">
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ClientID" hidden>ClientID</th>
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="FullName" style="width: 200px">Full Name</th>
-													<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Birthdate">Birthdate</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="ClientID">ClientID</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="FullName">Full Name</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Birthdate">Birthdate</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Address">Address</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="CellNo">Cellphone No.</th>
 													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Action">Action</th>
@@ -423,15 +414,13 @@
 																while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																	?>
 																	<tr>
-																		<td hidden><?php print($row['clientID']); ?></td>
-																		<td readonly><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
+																		<td><?php print($row['clientID']); ?></td>
+																		<td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
 																		<td><?php print($row['cBirthdate']); ?></td>
 																		<td><?php print($row['cAddress']); ?></td>
 																		<td><?php print($row['cCellno']); ?></td>
 																		<td>
-																					<!--<button data-id="<?php print($row['clientID'])?>" type="button" id="retrieve" data-dismiss="modal" name="retrieve" title="Edit Data" class="buttonHere btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button>-->
 																					<button style="width: 100%; height: 100%;" onclick="clickMe();" type="button" id="retrieve" name="retrieve" data-dismiss="modal" class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></button>
-																					<!--<a title="Edit Data" href="newBusiness.php?client=<?php echo $row['clientID']?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>-->
 																		</td>
 
 																	</tr>
@@ -755,7 +744,7 @@ function myFunction() {
 }
 
 $(document).ready(function() {
-    $('#datatable-fixed-header2').DataTable( {
+    $('#datatable-fixed-header02').DataTable( {
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
     } );
 } );
@@ -1017,8 +1006,8 @@ else {
 					}
 					else {
 
-						$sql = "INSERT INTO production (transDate, prodclientID, policyNo, plan, receiptNo, faceAmount, premium, rate, modeOfPayment, agent, remarks, FYC)
-						values ('$transDate', '$clientID', '$policyNo', '$plan', '$receiptNo', '$faceAmount', '$premium', '$rate', '$modeOfPayment', '$agent', '$remarks', '$fyc')";
+						$sql = "INSERT INTO production (transDate, prodclientID, policyNo, plan, receiptNo, faceAmount, premium, rate, modeOfPayment, agent, remarks, FYC, policyStat)
+						values ('$transDate', '$clientID', '$policyNo', '$plan', '$receiptNo', '$faceAmount', '$premium', '$rate', '$modeOfPayment', '$agent', '$remarks', '$fyc', '1')";
 
 						if($conn->query($sql))
 						{
