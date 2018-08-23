@@ -28,7 +28,7 @@
 										<h2><b>POLICY REQUIREMENTS</b></h2>
 											<div class="clearfix"></div>
 									</div>
-									<center>
+
 										<div   cellpadding=100 border= 1 style='float:center' id="datatable-fixed-header_wrapper" class="form-form">
 											<div class="row">
 												<div class="col-md-push-5">
@@ -40,13 +40,13 @@
 
 	 												<form method='post'>
 														<h4 style="float:left">Policy No <input type="text" name="searchT" id="searchT" placeholder="Search"></input>
-													 <button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
-												 <button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h4>
+													<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h4>
 
 													 <?php
 												 	 $Tdate = "";
 													 $Lname = "";
 													 $Fname = "";
+													 $Mname = "";
 													 $clientID="";
 													 $Pno = "";
 													 $Pplan = "";
@@ -58,11 +58,15 @@
 													 $MOP = "";
 													 $Idate = "";
 													 $SOADate = "";
+													 $birthdate="";
+													 $address="";
+													 $contact="";
 													 $Aagent = "";
 													 $Rremarks ="";
 												  	$RRRequirements ="";
 														$prodID="";
 														$valueToSearch="";
+														$policyStatusVariable="";
 														$bool = False;
 														$check = "False";
 														?>
@@ -88,7 +92,7 @@
 																 $clientID=$row['prodclientID'];
 																 $Lname = $row['cLastname'];
 																 $Fname = $row['cFirstname'];
-														 		 $Pno = $row['policyNo'];
+																 $Pno = $row['policyNo'];
 																 $Pplan = $row['plan'];
 																 $Premium = $row['premium'];
 																 $Rno = $row['receiptNo'];
@@ -100,7 +104,11 @@
 																 $SOADate = $row['SOAdate'];
 																 $Aagent = $row['agent'];
 																 $Rremarks = $row['remarks'];
-																 ?><script>alert('<?php echo $Lname?>');</script><?php
+																 $policyStatusVariable=$row['policyStat'];
+																 $birthdate=$row['cBirthdate'];
+																 $address=$row['cAddress'];
+																 $contact=$row['cCellno'];
+																 $Mname = $row['cMiddlename'];
 															}
 														}
 													 catch (PDOException $msg) {
@@ -110,54 +118,94 @@
 
 															<div class="col-md-12 col-sm-12 col-xs-12">
 																<div class="x_panel">
-																	<div class="x_title">
-																		<h2><b>Information</b></h2>
-																		<div class="clearfix"></div>
-																		</div>
-														 <div class="x_content">
-				                       <br>
-															 <div class="row">
-															 <div class="col-md-12">
-													 <div class="form-group">
-														 <div class="col-xs-3">
-		                           Last Name
-														 		 <input style="cursor:auto" style="border:none" type="text" disabled="disabled" class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
-													 </div>
-												  	 <div class="col-xs-3">
-	 		                      			First Name
-																 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" disabled="disabled" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
-													  </div>
-	 												<div class="col-xs-3">
-		 												Policy No
-												 				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mypolicy" disabled="disabled" id="mypolicy" value='<?php echo $Pno; ?>'>
-												 	 </div>
-												 	 <div class="col-xs-3">
-														 			 Official Receipt
-												 				 <input style="cursor:auto" style="border:none" type="text" class="form-control" disabled="disabled" name="myofficialReceipt" id="myofficialReceipt" value='<?php echo $Rno; ?>'>
-												 		</div>
-													</div><br><br><br><br>
-													 <div class="form-group">
-	 													<div class="col-xs-3">
-		 		 										Agent
-																<input style="cursor:auto" style="border:none" type="text" class="form-control" name="myAgent" id="myAgent" disabled="disabled" value='<?php echo $Aagent; ?>'>
-														</div>
-														 <div class="col-xs-3">
-																Plan
-																 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myplan" id="myplan" disabled="disabled" value='<?php echo $Pplan; ?>'>
-  													 </div>
+																	<div class="form-group">
+																		<h5><b>Policy Details</b></h5><hr>
+																		<div class="row">
+																			<div class="col-xs-3">
+																				Plan
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myplan" id="myplan" value='<?php echo $Pplan; ?>'>
+																		 </div>
+																			<div class="col-md-3">
+																					Face Amount
+																					<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mypolicyFaceAmount" id="mypolicyFaceAmount">
+																				</div>
+																				<div class="col-xs-3">
+																					Mode of Payment
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myModeOfPayment" id="myModeOfPayment" value='<?php echo $MOP; ?>'>
+																					</div>
+																		 <div class="col-xs-3">
+																							 Official Receipt
+																						 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myofficialReceipt" id="myofficialReceipt" value='<?php echo $Rno; ?>'>
+																				</div>
 
-														 	 <div class="col-xs-3">
-																Transaction Date
-																 <input style="cursor:auto" style="border:none" disabled="disabled" type="text" class="form-control" name="mydate" id="mydate" value='<?php echo $Tdate; ?>'>
-															 </div>
-															 <div class="col-xs-3">
-														 		 Mode of Payment
-																<input style="cursor:auto" style="border:none" type="text" class="form-control"disabled="disabled"  name="myModeOfPayment" id="myModeOfPayment" value='<?php echo $MOP; ?>'>
-															 	 </div>
-															</div>
-																	</div>
-																</div>
-																</div>
+																		 </div>
+																		 <div class="row">
+																			 <div class="col-xs-3">
+																				 Premium
+																				 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" value ='<?php echo $Premium;?>' name="mypolicyPremium" id="mypolicyPremium"><br>
+																			 </div>
+																			 <div class="col-xs-3">
+																				 Fund
+																				 <div>
+																					<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" value ='<?php echo $Premium;?>' name="mypolicyFund" id="mypolicyFund"><br>
+																					</div>
+																			 </div>
+																			 <div class="col-sm-3 ">
+																				 Policy Status
+																				 <div>
+																					<input value="<?php echo $policyStatusVariable; ?>"  style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mypolicyStatus" id="mypolicyStatus">
+																				</div>
+																			 </div>
+																			 </div>
+																		 </div>
+																	<br><br>
+																<h5><b>Information of policy inssured</b></h5><hr>
+															<div class="clearfix"></div>
+
+														<div class="x_content">
+														<div class="form-group">
+														<div class="col-xs-3">
+														Last Name
+														 <input style="cursor:auto" style="border:none" type="text"  class="form-control col-md-7 col-xs-12" name="mylastname" id="mylastname" value='<?php echo $Lname; ?>'><br>
+														</div>
+														<div class="col-xs-3">
+															First Name
+														 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="myfirstname" id="myfirstname" value='<?php echo $Fname; ?>'>
+														</div>
+														<div class="col-xs-3">
+														Middle Name
+														<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mymiddlename" id="mymiddlename" value='<?php echo $Mname; ?>'><br>
+														</div>
+														</div><br><br><br><br>
+														<div class="form-group">
+														<div class="col-xs-3">
+														Birthdate
+														 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mybirthdate" id="mybirthdate" value='<?php echo $birthdate; ?>'><br>
+														</div>
+														<div class="col-xs-3">
+														Address
+														<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="myaddress" id="myaddress" value='<?php echo $address; ?>'><br>
+														</div>
+														<div class="col-xs-3">
+														Contact Number
+														<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mycontact" id="mycontact" value='<?php echo $contact; ?>'><br>
+														</div>
+														<div hidden class="col-xs-3">
+														Agent
+														<input style="cursor:auto" style="border:none" type="text" class="form-control" name="myAgent" id="myAgent" value='<?php echo $Aagent; ?>'>
+														</div>
+														<div hidden class="col-xs-3">
+														Transaction Date
+														 <input style="cursor:auto" style="border:none"  type="text" class="form-control" name="mydate" id="mydate" value='<?php echo $Tdate; ?>'>
+														</div>
+														<div hidden class="col-xs-3">
+														Policy No
+																 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mypolicy" id="mypolicy" value='<?php echo $Pno; ?>'>
+														</div>
+														</div>
+														</div>
+																		</div>
+																 </div><br>
 														</div>
 													</div>
 											</div>
@@ -166,7 +214,7 @@
 											</div>
 										</div>
 									</div>
-								</center>
+
 									<!--table content policy for adding requirements-->
 									<div name="addreqdiv" class="col-md-12 col-sm-12 col-xs-12" >
 											<div class="x_panel">
@@ -286,13 +334,12 @@
 																{
 																$display2 = $_GET['display2'];
 															?>
-															<script>alert('hihihihi <?php echo $display2 ?>');</script>
 																	<?php
 																	try {
 																	$DB_con = Database::connect();
 																	 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 																	 //$stmt->bindValue(':search', '%' . $var1 . '%', PDO::PARAM_INT);
-																	 	$sql="SELECT * FROM production, client where clientID = prodclientID ";
+																	 	$sql="SELECT * FROM production, client, plans where clientID = $display2 and prodclientID = '$display2'";
 
 																	 $q = $DB_con->prepare($sql);
 																	 $q->execute();
@@ -309,7 +356,7 @@
 																			 $Fname = $row['cFirstname'];
 																			 $Pno = $row['policyNo'];
 																			 $Pplan = $row['plan'];
-																			 $Premium = $row['premium'];
+																			$Premium = $row['premium'];
 																			 $Rno = $row['receiptNo'];
 																			 $Fcname = $row['faceAmount'];
 																			 $Rrate = $row['rate'];
@@ -319,17 +366,60 @@
 																			 $SOADate = $row['SOAdate'];
 																			 $Aagent = $row['agent'];
 																			 $Rremarks = $row['remarks'];
+																			 $policyStatusVariable=$row['policyStat'];
+																			 $birthdate=$row['cBirthdate'];
+																			 $address=$row['cAddress'];
+																			 $contact=$row['cCellno'];
+																			 $Mname = $row['cMiddlename'];
+
+																			 $DB_con = Database::connect();
+																			$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+																			$sql="SELECT * FROM policystatus where policyID = '$policyStatusVariable'";
+																			$q = $DB_con->prepare($sql);
+																		 $q->execute();
+																		 $result =  $q->fetchall();
+																		 foreach($result as $row)
+																			{
+																			 $policystatus = $row['policyStatus'];
+
+																			 $DB_con = Database::connect();
+		 																	 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		 																	 $sql="SELECT * FROM plans where planID = '$Pplan'";
+																			 $q = $DB_con->prepare($sql);
+																			$q->execute();
+																			$result =  $q->fetchall();
+																			foreach($result as $row)
+	 																		 {
+																			  $planCode = $row['planCode'];
+
+																				$DB_con = Database::connect();
+																			 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+																			 $sql="SELECT * FROM policyFund where polFund_policyNo = '$Pno'";
+																			 $q = $DB_con->prepare($sql);
+																			$q->execute();
+																			$result =  $q->fetchall();
+																			foreach($result as $row)
+																			 {
+																				$policyfund = $row['polFund_fund'];
 
 																			 ?>
 																			 <script>
 																			 document.getElementById('mylastname').value = "<?php echo $Lname;?>"
 																			 document.getElementById('myfirstname').value = " <?php echo $Fname ;?>"
+											 							 	 document.getElementById('mymiddlename').value = " <?php echo $Mname ;?>"
 																			 document.getElementById('mypolicy').value = " <?php echo $Pno ;?>"
 																			 document.getElementById('myofficialReceipt').value = " <?php echo $Rno ;?>"
 																			 document.getElementById('myAgent').value = " <?php echo $Aagent ;?>"
-																			 document.getElementById('myplan').value = " <?php echo $Pplan ;?>"
+																			 document.getElementById('myplan').value = " <?php echo $planCode ;?>"
 																			 document.getElementById('mydate').value = " <?php echo $Tdate ;?>"
 																			 document.getElementById('myModeOfPayment').value = " <?php echo $MOP ;?>"
+																			 document.getElementById('mypolicyStatus').value = " <?php echo $policystatus ;?>"
+																			 document.getElementById('mybirthdate').value = " <?php echo $birthdate ;?>"
+																			 document.getElementById('myaddress').value = " <?php echo $address ;?>"
+																			 document.getElementById('mycontact').value = " <?php echo $contact ;?>"
+																			 document.getElementById('mypolicyPremium').value = " <?php echo $Premium ;?>"
+																			 document.getElementById('mypolicyFaceAmount').value = " <?php echo $Fcname ;?>"
+																			 document.getElementById('mypolicyFund').value = " <?php echo $policyfund ;?>"
 
 																			 document.getElementById('ProdId').value = "<?php echo $prodID;?>";
 																			 document.getElementById('agentCode').value = "<?php echo $Aagent;?>";
@@ -338,7 +428,10 @@
 
 																		 </script>
 																		 <?php
-																		}
+																	 }
+																 }
+															 }
+																 		}
 																	}
 																 catch (PDOException $msg) {
 																	 die("Connection Failed : " . $msg->getMessage());
@@ -362,8 +455,20 @@
 																					<div class="row">
 																						<center>
 																							<form method='post' name='myform' onsubmit="CheckForm()">
+																							<?php if($row['Status'] == "" && $row['SubmitDate'] == "0000-00-00")
+																							{
+																								?>
+																								<button  type=	"button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_requirements.php?delete=<?php echo $row['RequirementNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																								<?php
+																							}
+																							else
+																							{
+																							 ?>
 																							<button  type=	"button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-																							<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_requirements.php?delete=<?php echo $row['RequirementNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																							<?php
+																							}
+																							?>
 																							</form>
 																						</center>
 																					</div>
@@ -381,7 +486,6 @@
 														</form>
 														</tbody>
 														<?php
-
 														?>
 													</table>
 													<!-- <script>
@@ -492,22 +596,14 @@
 										 };
  									 }
  									 else{}
-
  								 ?>
-
  								 </tbody>
  						 </table>
-
-
-
 									</form>
 							</div>
-
-
 							<div class="modal-footer">
 								<button type="submit" onclick="showdata()" class ="btn btn-primary"class="btn btn-default" data-dismiss="modal">Submit</button>
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -633,7 +729,6 @@ else {
 	{
 
 		$delete= $_GET['delete'];
-		?><script>alert('<?php echo $delete?>');</script><?php
 		$sql = "DELETE FROM requirements WHERE RequirementNo = '$delete'";
 
 		if($conn->query($sql) === TRUE)

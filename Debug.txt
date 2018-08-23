@@ -28,7 +28,7 @@ Agent profile
 -a tag action
 -payment details
 
-Add agent to training
+Add agent to training (Done)
 -remove all messagebox
 -delete action
 -update action

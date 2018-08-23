@@ -44,9 +44,11 @@
 											<div class="row">
 												<div class="col-sm-3">
 																Policy ID<span class="required">*</span><br>
-																<input type="text" name="policyID" id="policyID" required="required" class="form-control" required><br>
+																<input type="text" name="policyID" id="policyID" required="required" class="form-control" required><br><br>
 																Policy Status<span class="required">*</span>
-																<input type="text" style="margin-bottom:50px" name="policyStatus" id="policyStatus	" required="required" class="form-control" required><br>
+																<input type="text" name="policyStatus" id="policyStatus" required="required" class="form-control" required><br><br>
+																Policy Remarks<span class="required">*</span>
+																<input type="text" style="margin-bottom:50px" name="policyremarks" id="policyremarks" required="required" class="form-control" required><br><br>
 
 																<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
 	                             <button type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
@@ -62,6 +64,7 @@
 															<tr role="row">
 																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;"hidden>Policy ID</th>
 																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Policy Status</th>
+																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Policy Remarks</th>
 																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Action</th>
 																</tr>
 														</thead>
@@ -79,6 +82,7 @@
 																		<tr>
 																			<td hidden><?php print($row['policyID']); ?></td>
 																			<td><?php print($row['policyStatus']); ?></td>
+																			<td><?php print($row['policyRemarks']); ?></td>
 																			<td>
 																				<div class="row">
 																					<center>
@@ -110,9 +114,9 @@
 															<form method="post" name='myform' onsubmit="CheckForm()">
 														<div method="post" class="modal-body">
 
-															New policy ID: <br><<input type="text" readonly="readonly" class="form-control" name="newPolicyID" style="width:195px" id="newPolicyID" value="" ><br>
+															New policy ID: <br><input type="text" readonly="readonly" class="form-control" name="newPolicyID" style="width:195px" id="newPolicyID" value="" ><br>
 															New policy Name: <br><input type="text" class="form-control" name="newPolicyStatus" style="width:195px" id="newPolicyStatus" value=""><br>
-
+															New policy remarks <br><input type="text" class="form-control" name="newPolicyRemarks" style="width:195px" id="newPolicyRemarks" value=""><br>
 														</div>
 														<form method="post" action="<?php $_PHP_SELF ?>">
 														<div class="modal-footer">
@@ -138,6 +142,7 @@
 																{;
 																 document.getElementById("newPolicyID").value = this.cells[0].innerHTML;
 																 document.getElementById("newPolicyStatus").value = this.cells[1].innerHTML;
+																 document.getElementById("newPolicyRemarks").value = this.cells[2].innerHTML;
 																	};
 																}
 																</script>
