@@ -3,6 +3,9 @@
 <?php include 'base/header.php'; ?>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+#addagentTrainingID {display:none};
+</style>
 <head>
 </head>
 <body class="nav-md footer_fixed">
@@ -52,6 +55,7 @@ Date <span class="required">*</span><br>
 </div>
 <div class="col-md-12">
 	<?php
+
 	$contain=""; $contain2="";
 	if(isset($_POST['contain1'])){$contain=$_POST['contain1'];}
 	if(isset($_POST['contain2'])){$contain2=$_POST['contain2'];}
@@ -63,7 +67,7 @@ Date <span class="required">*</span><br>
 		<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Agent Training</th>
 			<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Date added</th>
 				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
-						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>id</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>id</th>
 		</tr>
 </thead>
 <tbody>
@@ -193,7 +197,7 @@ Date <span class="required">*</span><br>
 								<table id="myTable5" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="">
 								<thead>
 									<tr role="row">
-													<th class="sorting"  tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;" hidden>Training ID</th>
+										<th class="sorting"  tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;" hidden>Training ID</th>
 										<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Training ID Name</th>
 										<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Training Required position</th>
 										<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Action</th>
@@ -256,20 +260,22 @@ Date <span class="required">*</span><br>
 				<form method="post" name='myform' onsubmit="CheckForm()">
 			<div method="post" class="modal-body">
 
-				<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#addAgentToTrain5"><span class='glyphicon glyphicon-plus'></span></button>
-				New Agent Name:<span class="required">*</span><br><input type="text" readonly="readonly" class="form-control" name="newAgentName" style="width:170px" id="newAgentName" value="" ></br><br>
-
-				<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#addAgentToTrain5"><span class='glyphicon glyphicon-plus'></span></button>
+				<input type="text" class="form-control" name="addagentTrainingID" style="width:170px" id="addagentTrainingID" value=""></br><br>
+				New Agent Name:<span class="required">*</span><br><input type="text" class="form-control" name="newAgentName" style="width:170px" id="newAgentName" value="" ></br><br>
 				New Agent Training:<span class="required">*</span> <br><input type="text" class="form-control" name="newAgentTrainingName" style="width:170px" id="newAgentTrainingName" value=""></br><br>
-
 				New Date: <span class="required">*</span><input type="date" class="form-control" name="newDate" style="width:170px" id="newDate" value="">
-
 			</div>
 			<form method="post" action="<?php $_PHP_SELF ?>">
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary" id="ButtonUpdate" name="ButtonUpdate"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
-			</div>
+					<button type="submit" class="btn btn-primary" name="ButtonUpdate" id="ButtonUpdate">Update</button>
+					<?php
+						if(isset($_POST['ButtonUpdate']))
+						{
+							tgpdso::updateAddAgentToTraining();
+						}
+					?>
+					</div>
 		</form>
 			<div class="modal-footer">
 			</div>
@@ -307,11 +313,12 @@ Date <span class="required">*</span><br>
 	{
 		table.rows[counter].onclick = function()
 		{;
-			document.getElementById("newAgentName").value = this.celles[0].innerHTML;
-			document.getElementById("newAgentTrainingName").value = this.celles[1].innerHTML;
-			document.getElementById("newDate").value = this.celles[2].innerHTML;
-			};
-		}
+				document.getElementById("addagentTrainingID").value = this.cells[4].innerHTML;
+			document.getElementById("newAgentName").value = this.cells[0].innerHTML;
+			document.getElementById("newAgentTrainingName").value = this.cells[1].innerHTML;
+			document.getElementById("newDate").value = this.cells[2].innerHTML;
+		};
+	}
 
 		var table = document.getElementById('myTable');
 
@@ -452,11 +459,6 @@ function showButtons()
 	$dbname = "tgpdso_db";
 
 	$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-	?>
-	<script>
-		alert('haaayyynaaakooo!');
-	</script>
-	<?php
 	if(mysqli_connect_error())
 	{
 		die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());

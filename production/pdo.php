@@ -335,6 +335,17 @@
 						    echo "<option value='" . $row['teamID'] . "'>" . $row['teamName'] . "</option>";
 					}
 				}
+				public function dropdown_training() {
+					$DB_con = Database::connect();
+					$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+					$result = $DB_con->prepare("SELECT * FROM training ");
+					$result->execute();
+
+					while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+								echo "<option value='" . $row['trainingName'] . "'>" . $row['trainingName'] . "</option>";
+					}
+				}
 				public function updateIssuedate(){
 					$host = "localhost";
 					$dbusername = "root";
@@ -667,9 +678,10 @@
 						{
 					$policyID=$_POST['policyID'];
 					$policyStatus=$_POST['policyStatus'];
+					$policyremarks = $_POST['policyremarks'];
 
-					$sql = "INSERT INTO policystatus (policyID, policyStatus)
-					values ('$policyID','$policyStatus')";
+					$sql = "INSERT INTO policystatus (policyID, policyStatus, policyRemarks)
+					values ('$policyID','$policyStatus', '$policyremarks')";
 				}
 					if($conn->query($sql))
 					{
@@ -702,8 +714,9 @@
 					{
 						$newPolicyID = $_POST['newPolicyID'];
 					$newPolicyStatus = $_POST['newPolicyStatus'];
+					$newPolicyRemarks = $_POST['newPolicyRemarks'];
 
-						$sql = "UPDATE policystatus SET policyStatus = '$newPolicyStatus' where policyID = '$newPolicyID'";
+						$sql = "UPDATE policystatus SET policyStatus = '$newPolicyStatus', policyRemarks = '$newPolicyRemarks' where policyID = '$newPolicyID'";
 						if($conn->query($sql)===true)
 						{
 							?>
@@ -874,5 +887,53 @@
 					$conn->close();
 				}
 			}
+			public function updateAddAgentToTraining(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+				?>
+				<script>
+					alert('Halloo');
+				</script>
+				<?php
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['ButtonUpdate']))
+					{
+
+					$newAgentName = $_POST['newAgentName'];
+					$newAgentTrainingName = $_POST['newAgentTrainingName'];
+					$newDate = $_POST['newDate'];
+					$addAgentToTrainingID = $_POST['addagentTrainingID'];
+					?>
+						<script>
+							alert('hello <?php echo $newAgentName?>');
+						</script>
+					<?php
+					$sql = "UPDATE agentstraining SET ATagentName = '$newAgentName', ATtrainingName = '$newAgentTrainingName', ATdate = '$newDate' where ATagentTrainingID = '$addAgentToTrainingID'";
+						if($conn->query($sql)===true)
+						{
+							?>
+							<script>
+								alert('Agent successfully updated!');
+								window.location='add_agent_training.php';
+							</script>
+							<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+					}
+					$conn->close();
+
+				}
+			}
+
 	}
 ?>
