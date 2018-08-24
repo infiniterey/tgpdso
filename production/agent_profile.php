@@ -6,7 +6,7 @@
 <head>
 	</head>
 	<style>
-	#agentcode{display: none};
+	#agentcode, #training{display: none};
 	</style>
 <body class="nav-md footer_fixed">
 	<form method="post">
@@ -57,6 +57,7 @@
 														<div>
 															 <?php
 															 $agentname = "";
+															 $agenttrainingID="";
 															 $variableAgentCode=" ";
 															 $variableLastName =" ";
 															 $variableFirstName =" ";
@@ -64,8 +65,9 @@
 															 $variableBirthdate = " ";
 															 $variableApplicationDate =" ";
 															 $variableTeam = " ";
-															 $variablePositon =" ";
+															 $variablePositon ="";
 																$valueToSearch=" ";
+																$teamname="";
 																$bool = False;
 																	if(isset($_GET['searchAgentCodeText']))
 																{
@@ -89,6 +91,7 @@
 																			$variableApplicationDate = $row['agentApptDate'];
 																			$variableTeam = $row['agentTeam'];
 
+
 																			$DB_con = Database::connect();
 																			 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 																			 //$stmt->bindValue(':search', '%' . $var1 . '%', PDO::PARAM_INT);
@@ -99,12 +102,9 @@
 																			 foreach($result as $row)
 																			 {
 																			$teamname = $row['teamName'];
-																			?>
-
-																				 <?php
 																		}
 																	}
-																	}
+																}
 																 catch (PDOException $msg) {
 																	 die("Connection Failed : " . $msg->getMessage());
 																 }
@@ -144,6 +144,7 @@
 																	 <div class="col-xs-3">
 																		 Position
 																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="positionInputText" id="positionInputText" value='<?php echo $variablePositon ?>'>
+
 																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="codeInputTextBox" id="codeInputTextBox" value='<?php echo $variableAgentCode ?>'>
 
 																	 </div>
@@ -159,11 +160,84 @@
 																<div class="tab ">
 																	<div class="col-xs-12"><h4>
 
-																	<a  class="col-sm-3" onclick="openPolicy(event, '')"><b>Production</b></a>
+																	<a  class="col-sm-3" onclick="openPolicy(event, 'production')"><b>Production</b></a>
 																	<a  onclick="openPolicy(event, 'training')"><b>Trainings</b></a></h4>
 
 																	</div>
 																</div>
+
+																	<div id="production" class="tabcontent">
+
+						      <!-- table-striped dataTable-->
+
+						                        <table name"datatable-fixed-header" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+						                          <thead>
+						                            <tr role="row">
+																					<th  style="width: 100px;text-align:center;" class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-controls="datatable-fixed-header"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending"hidden>ProdID</th>
+						                              <th style="width: 100px;text-align:center;" class="sorting_asc" tabindex="0" rowspan="1"colspan="1"  aria-controls="datatable-fixed-header" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending">Trans. Date</th>
+						                              <th style="width: 100px;text-align:center;" tabindex="0" aria-controls=" rowspan="1"colspan="1" datatable-fixed-header" aria-label="Name of Insured: activate to sort column ascending">Name of Insured</th>
+						                              <th style="width: 100px;text-align:center;" class="sorting" tabindex="0" rowspan="1"colspan="1" aria-controls="datatable-fixed-header"  aria-label="Policy No.: activate to sort column ascending">Policy No.</th>
+						                              <th style="width: 100px;text-align:center;" class="sorting" tabindex="0" rowspan="1"colspan="1"  aria-controls="datatable-fixed-header"  aria-label="OR No.: activate to sort column ascending">OR No.</th>
+						                              <th style="width: 100px;text-align:center;" class="sorting" tabindex="0" rowspan="1" colspan="1"aria-controls="datatable-fixed-header"  aria-label="Premium: activate to sort column ascending">Premium</th>
+						                              <th style="width: 100px;text-align:center;" class="sorting" tabindex="0" rowspan="1"colspan="1" aria-controls="datatable-fixed-header"  aria-label="Mode of Payment: activate to sort column ascending">M.O.P</th>
+						                              <th style="width: 100px;text-align:center;" class="sorting" tabindex="0" rowspan="1"colspan="1" aria-controls="datatable-fixed-header"  aria-label="Issued Date: activate to sort column ascending">Agent</th>
+						                              <th style="width: 100px;text-align:center;" class="sorting" tabindex="0" rowspan="1"colspan="1" aria-controls="datatable-fixed-header"  aria-label="Agent: activate to sort column ascending">Status</th>
+						                              <th style="width: 100px;text-align:center;" class="sorting" tabindex="0" rowspan="1"colspan="1" aria-controls="datatable-fixed-header"  aria-label="Action: activate to sort column ascending">Action</th>
+																				</tr>
+						                          </thead>
+
+
+
+																			<tbody>
+
+						                              <?php
+																					if(isset($_GET['display']))
+																					{
+																						$display = $_GET['display'];
+																							$DB_con = Database::connect();
+						                                  $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+						                                  $sql = "SELECT * FROM production, agents, client WHERE agent = '$display' and agentCode = '$display' and clientID = ProdClientID";
+
+
+						                                  $result = $DB_con->query($sql);
+						                                  if($result->rowCount()>0)
+																							{
+						                                    while($row=$result->fetch(PDO::FETCH_ASSOC))
+																								{
+																									$originalDate = $row['transDate'];
+																									$newDate = date("m/d/Y", strtotime($originalDate));
+						                                      ?>
+						                                      <tr>
+																										<td hidden><?php print($row['prodID']); ?></td>
+						                                        <td><?php print($newDate); ?></td>
+						                                        <td><?php print($row['cLastname']. ", " .$row['cFirstname']. " " .$row['cMiddlename']); ?></td>
+						                                        <td><?php print($row['policyNo']); ?></td>
+						                                        <td><?php print($row['receiptNo']); ?></td>
+						                                        <td><?php print($row['premium']); ?></td>
+						                                        <td><?php print($row['modeOfPayment']); ?></td>
+						                                        <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
+						                                        <td><?php print($row['remarks']); ?></td>
+																										<td >
+																											<div class="row">
+																												<center>
+																													<a title="Edit Data" href="newBusinessForm.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																													<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																												</center>
+																											<div>
+																										</td>
+
+						                                      </tr>
+																									<?php
+																					}
+																				}
+																			}
+						                              ?>
+						                            </tbody>
+						                        </table>
+																		</div>
+														</div>
+						                </div>
 
 																<?php
 																if(isset($_GET['display']))
@@ -172,8 +246,6 @@
 																?>
 															<div id="training" class="tabcontent">
 															<!--table content policy for adding requirements-->
-															<br><br><br>
-																
 															 <div class="row">
 																	 <button  type="button" style='float:right' data-toggle="modal" data-target="#myModal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add Training</button>
 																<div class="clearfix"></div>
@@ -199,12 +271,13 @@
 																				<?php
 																					 $DB_con = Database::connect();
 											  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-											  									 $sql = "SELECT * FROM agentstraining where '$display' = ATagentID ";
+											  									 $sql = "SELECT * FROM agentstraining, agents where '$display' = ATagentID and agentCode = '$display'";
 
 																					 $result = $DB_con->query($sql);
 											  									 if($result->rowCount()>0){
 											  										 while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																							 $agentname = $row['ATagentName'];
+																							 $variablePositon = $row['agentPosition'];
 																							 ?>
 																							 <script>
 																							 </script>
@@ -225,6 +298,8 @@
 																										 <form method='post' name='myform' onsubmit="CheckForm()">
 																											 <button  type=	"button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
 																											 <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="agent_profile.php?delete=<?php echo $row['ATagentTrainingID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																											 <?php
+																											 ?>
 																										 </form>
  			 																						</center>
  			 																					</div>
@@ -267,6 +342,8 @@
 
 																			<form method='post' name='myform' onsubmit="CheckForm()">
 																		<div class="modal-body" method='post'>
+																			<input name="position" id="position" style="width: 200px;" required="required" value="<?php echo $variablePositon?>"hidden ><br>
+
 																			Date of training <span class="required">*</span><br>
 																			<input name="DateAdded" id="DateAdded" style="width: 200px;" class="date-picker form-control" required="required" type="date" required><br>
 
@@ -281,7 +358,13 @@
 																			Agent Name <span class="required">*</span><br>
 																			<input name="agentName" id="agentName" readonly class="form-control" value="<?php echo $agentname ?>" placeholder="" style="width: 200px;"><br>
 
-
+																			Status <span class="required">*</span><br>
+																			<select style = "width:195px" name="status" id="status"class="form-control" >
+																			<option value="Active" >Active</option>
+																			<option value="Done" >Done</option>
+																			<option value="Cancel" >Cancel</option>
+																			<option value="Postponed" >Postponed</option>
+																			</select>
 																		</div>
 
 																			<?php
@@ -412,7 +495,7 @@
 											$variableMiddleName = $row['agentMiddlename'];
 											$variableBirthdate = $row['agentBirthdate'];
 											$variableApplicationDate = $row['agentApptDate'];
-												$variablePositon = $row['agentPosition'];
+											$variablePositon = $row['agentPosition'];
 											$variableTeam = $row['agentTeam'];
 											$DB_con = Database::connect();
 											 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -503,11 +586,9 @@ $(document).ready(function() {
 	}
 		</script>
 <script>
-
-	$("#agentTable tr").click(function() {
-		var selected = $(this).hasClass("highlight");
-		$("#agentTable tr").removeClass("highlight");
-
+$("#agentTable tr").click(function() {
+	var selected = $(this).hasClass("highlight");
+	$("#agentTable tr").removeClass("highlight");
 
 		if(!selected)
 							$(this).addClass("highlight");
@@ -544,38 +625,6 @@ if(!selected)
 $(this).addClass("highlight");
 $('#agentTable	').hide();
 });
-function ClickCancel()
-{
-
-}
-function closemodal()
-{
-	$('#agentTableModal').close();
-}
-function showForm()
-{
-	$('#policyForm').show();
-}
-function hideForm()
-{
-
-}
-function showdiv()
-{
-	$('#addreqvid).show()')
-}
-function hidediv()
-{
-$('#addreqdiv').hide();
-}
-function showtable()
-{
-$('#agentTable').show("highlight");
-}
-function hidetable()
-{
-$('#agentTable').hide("highlight1");
-}
 function openPolicy(evt, cityName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -590,6 +639,7 @@ function openPolicy(evt, cityName) {
     evt.currentTarget.className += " active";
 }
 </script>
+<!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training -->
 <?php 	$host = "localhost";
 	$dbusername = "root";
 	$dbpassword = "";
@@ -608,12 +658,25 @@ function openPolicy(evt, cityName) {
 			$ATagentName= $_POST['agentName'];
 			$ATtrainingName = $_POST['addtraining'];
 			$ATdate = $_POST['DateAdded'];
-			$ATstatus = "Active";
+			$ATstatus = $_POST['status'];
+			$ATposition = $_POST['position'];
+			$check="";
 			?>
 			<?php
+
+			$DB_con = Database::connect();
+			$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$sql="SELECT * FROM training where '$ATtrainingName' = trainingName and '$ATposition' = trainingRequired";
+			$q = $DB_con->prepare($sql);
+		 $q->execute();
+		 $result =  $q->fetchall();
+		 foreach($result as $row)
+			{
+				$check = 'TRUE';
 			$sql = "INSERT Into agentstraining (ATagentID, ATagentName, ATtrainingName, ATdate, ATstatus) values ('$ATagentID','$ATagentName','$ATtrainingName', '$ATdate', '$ATstatus')";
+			}
 		}
-		if($conn->query($sql)===TRUE)
+		if($sql===TRUE)
 		{
 			?>
 			<script>
@@ -624,8 +687,47 @@ function openPolicy(evt, cityName) {
 
 		}
 		else {
-			echo "Error:". $sql."<br>".$conn->error;
+
 		}
 		$conn->close();
 	}
 	?>
+<!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training --><!-- add training -->
+
+<!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training-->
+<?php
+$host = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "tgpdso_db";
+
+$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+if(mysqli_connect_error())
+{
+	die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+}
+else {
+	if(isset($_GET['delete']))
+	{
+		$ATagenttrainingID =$_GET['delete'];
+		?><script>alert('<?php echo $ATagenttrainingID?>')</script><?php
+		?>
+		<?php
+		$sql = "DELETE FROM agentstraining WHERE ATagentTrainingID = '$ATagenttrainingID'";
+	}
+	if($conn->query($sql)===TRUE)
+	{
+		?>
+		<script>
+			alert('Agent successfully deleted the training!');
+			window.location="agent_profile.php";
+		</script>
+		<?php
+	}
+	else {
+		echo "Error:". $sql."<br>".$conn->error;
+	}
+	$conn->close();
+}
+?>
+<!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training--><!-- delete training-->

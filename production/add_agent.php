@@ -62,13 +62,13 @@
 																Application Date<span class="required">*</span> <br>
 																<input name="appDate" style="width:195px" placeholder="Application Date" class="date-picker form-control" required="required" type="date" required><br>
 																Team<span class="required">*</span> <br>
-																<select style = "width:195px" name="team" class="form-control" readonly>
+																<select style = "width:195px" name="team" id="team" class="form-control" >
 																<?php tgpdso::dropdown_team(); ?>
 																</select>
 																<br>Position <span class="required">*</span><br>
-																<input type="text" id="position" name="position" placeholder="Position" style="width:155px;float:left;margin-bottom:30px" required="required" class="form-control col-md-7 col-xs-12" required>
-																<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#addAgentToTrain"><span class='glyphicon glyphicon-plus'></span></button>
-																<center><br><br>
+																<select style = "width:195px" name="position" id="position"class="form-control" >
+																<?php tgpdso::dropdown_position(); ?>
+																</select><center><br><br>
 			                         <button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
 	                             <button type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
 													</div>
@@ -246,14 +246,19 @@
 								}
 								else{}
 							?>
-							New agent code:<input type="text" readonly='readonly' class="form-control" name="agentcode" style="width:195px" id="agentcode" value=""><br>
-							New last name: <br><input type="text" class="form-control" name="newLastName" style="width:195px" id="newLastName" value="<?php echo $newLast ?>"><br>
-							New first name: <br><input type="text" class="form-control" name="newFirstName" style="width:195px" id="newFirstName" value="<?php echo $newFirst ?>"><br>
-							New middle name: <br><input type="text" class="form-control" name="newMiddleName" style="width:195px" id="newMiddleName" value="<?php echo $newMiddle ?>"><br>
-							New birthdate: <br><input type="text" class="form-control" name="newBirthdate" style="width:195px" id="newBirthdate" value=""><br>
-							New application date: <br><input type="text" class="form-control" name="newAppDate" style="width:195px" id="newAppDate" value=""><br>
-						  New team: <br><input type="text" class="form-control" name="newTeam" style="width:195px" id="newTeam" value=""><br>
-							New position: <br><input type="text" class="form-control" name="newPosition" style="width:195px" id="newPosition" value=""><br>
+							New agent code<span class="required">*</span><input type="text" readonly='readonly' class="form-control" name="agentcode" style="width:195px" id="agentcode" value=""><br>
+							New last name<span class="required">*</span> <br><input type="text" class="form-control" name="newLastName" style="width:195px" id="newLastName" value="<?php echo $newLast ?>"><br>
+							New first name<span class="required">*</span> <br><input type="text" class="form-control" name="newFirstName" style="width:195px" id="newFirstName" value="<?php echo $newFirst ?>"><br>
+							New middle name<span class="required">*</span> <br><input type="text" class="form-control" name="newMiddleName" style="width:195px" id="newMiddleName" value="<?php echo $newMiddle ?>"><br>
+							New birthdate<span class="required">*</span> <br><input type="text" class="form-control" name="newBirthdate" style="width:195px" id="newBirthdate" value=""><br>
+							New application date<span class="required">*</span> <br><input type="text" class="form-control" name="newAppDate" style="width:195px" id="newAppDate" value=""><br>
+						  New team<span class="required">*</span> <br><select style = "width:195px" name="newTeam" id="newTeam" class="form-control">
+							<?php tgpdso::dropdown_team(); ?>
+							</select>
+							New position<span class="required">*</span> <br>
+							<select style = "width:195px" name="newPosition" id="newPosition"class="form-control" >
+							<?php tgpdso::dropdown_position(); ?>
+							</select>
 						</div>
 						<form method="post" action="<?php $_PHP_SELF ?>">
 						<div class="modal-footer">

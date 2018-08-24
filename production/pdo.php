@@ -328,11 +328,11 @@
 					$DB_con = Database::connect();
 					$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-					$result = $DB_con->prepare("SELECT * FROM team ");
+					$result = $DB_con->prepare("SELECT * FROM team");
 					$result->execute();
 
 					while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-						    echo "<option value='" . $row['teamID'] . "'>" . $row['teamName'] . "</option>";
+						    echo "<option value='" . $row['teamName'] . "'>" . $row['teamName'] . "</option>";
 					}
 				}
 				public function dropdown_training() {
@@ -346,6 +346,18 @@
 								echo "<option value='" . $row['trainingName'] . "'>" . $row['trainingName'] . "</option>";
 					}
 				}
+				public function dropdown_position() {
+					$DB_con = Database::connect();
+					$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+					$result = $DB_con->prepare("SELECT * FROM position ");
+					$result->execute();
+
+					while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+								echo "<option value='" . $row['positionName'] . "'>" . $row['positionName'] . "</option>";
+					}
+				}
+
 				public function updateIssuedate(){
 					$host = "localhost";
 					$dbusername = "root";
@@ -477,11 +489,6 @@
 					{
 						$trainid = $_POST['temp'];
 						$trainname = $_POST['temp2'];
-						?>
-						<script>
-								alert('haloooooooooooooooooooooooooo <?php echo $trainid?>');
-						</script>
-						<?php
 						$sql = "DELETE FROM training WHERE trainingNo = '$trainid' AND	trainingName = '$trainname'";
 					}
 					if($conn->query($sql))
@@ -540,50 +547,6 @@
 
 					$conn->close();
 
-				}
-			}
-			public function deleteAgentToTraining(){
-				$host = "localhost";
-				$dbusername = "root";
-				$dbpassword = "";
-				$dbname = "tgpdso_db";
-
-				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-				?>
-				<script>
-					alert('haaayyynaaakooo!');
-				</script>
-				<?php
-				if(mysqli_connect_error())
-				{
-					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-				}
-				else {
-					if(isset($_POST['btn-deleteRow']))
-					{
-						$ATagentID = $_POST['contain1'];
-						$ATagentName= $_POST['agentName'];
-						$ATtrainingName = $_POST['trainingNameko'];
-						$ATtrainingID =  $_POST['contain2'];
-						$ATdate = $_POST['DateAdded'];
-						?>
-							<script>alert('echo lalalala <?php $prodID?>')</script>
-						<?php
-						$sql = "DELETE from agentstraining WHERE ATagentID = '$ATagentID' AND ATtrainingName= '$ATtrainingName'";
-					}
-					if($conn->query($sql))
-					{
-						?>
-						<script>
-							alert('Agent successfully deleted the training!');
-							window.location="add_agent_training.php";
-						</script>
-						<?php
-					}
-					else {
-						echo "Error:". $sql."<br>".$conn->error;
-					}
-					$conn->close();
 				}
 			}
 			public function addFund(){

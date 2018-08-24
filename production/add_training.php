@@ -38,6 +38,7 @@
 												<?php if(isset($_POST['temp'])) { $pat = $_POST['temp']; } ?>
 												<?php if(isset($_POST['temp2'])) { $pot = $_POST['temp2']; } ?>
 												<?php if(isset($_POST['temp3'])) { $pit = $_POST['temp3']; } ?>
+
 											</div>
 										<h2><b>Add Training</b></h2><br><br><br>
 										<div class="clearfix"></div>
@@ -54,6 +55,7 @@
 									<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;" hidden>Training ID</th>
 						<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 50px;text-align:center;">Training Name</th>
 							<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Required Position</th>
+							<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;">Date of Training</th>
 							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 						</tr>
 				</thead>
@@ -71,6 +73,7 @@
 									<td hidden><?php print($row['trainingNo']); ?></td>
 									<td><?php print($row['trainingName']); ?></td>
 									<td><?php print($row['trainingRequired']); ?></td>
+									<td><?php print($row['trainingDate']); ?></td>
 									<td>
 										<div class="row">
 											<center>
@@ -119,10 +122,12 @@
 										tgpdso::addTraining();
 									}
 							?>
-								Training Name:<br><input type="text" class="form-control"  style="width: 195px" id="TrainingName" name="TrainingName" value=""hidden><br>
+								Training Name:<br><input type="text" class="form-control"  style="width: 195px" id="TrainingName" name="TrainingName" value=""><br>
 								Training Required Position: <br>
-								<input type="text" id="TrainingRequired" name="TrainingRequired" placeholder="Position" style="width:155px;float:left;margin-bottom:30px" required="required" class="form-control col-md-7 col-xs-12" required>
-								<button type="button" class="btn btn-primary" style="margin-bottom: -1px;" data-toggle="modal" data-target="#addAgentToTrain5"><span class='glyphicon glyphicon-plus'></span></button>
+								<select style = "width:195px" name="TrainingRequired" id="TrainingRequired"class="form-control" >
+								<?php tgpdso::dropdown_position(); ?>
+							</select><br>
+								Training Date:<br><input type="date" class="form-control"  style="width: 195px" id="TrainingDate" name="TrainingDate" value=""><br>
 							<br><br>
 							 <br>
 						</div>
