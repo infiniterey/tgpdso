@@ -258,7 +258,7 @@ function openPolicy(evt, tabName) {
 								window.location="records.php?edit="+searchValue+"";
         				}
 							});
-              
+
               document.getElementById("beneLastName").addEventListener("keyup", function() {
               var nameInput = document.getElementById('beneLastName').value;
               if (nameInput != "")

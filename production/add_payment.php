@@ -40,7 +40,7 @@
         APR #:
       </label><input type="text" class="form-control" name="paymentAPR" id="paymentAPR"><br>
         <label class="control-label">
-        Next Due Date:
+        Due Date:
       </label><input type="date" class="form-control" name="paymentNextDue" id="paymentNextDue"><br>
        <br>
       </div>
@@ -69,7 +69,7 @@
 				{
 					$paymentPolicyNo = $_POST['paymentPolicyNo'];
 					$paymentAmount = $_POST['paymentAmount'];
-					$paymentIssueDate = $_POST['paymentIssueDate'];
+					$paymentIssueDate = $_POST['pollicyIssueDate'];
 					$paymentMOP = $_POST['paymentmodeOfPayment'];
 					$paymentTransDate = $_POST['paymentTransDate'];
 					$paymentORNo = $_POST['paymentORNo'];
@@ -93,7 +93,7 @@
 							?>
 							<script>
 								alert("New record production successfully added");
-								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>#Payment";
+								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>#paymentModal";
 								</script>
 								<?php
 						}
@@ -104,46 +104,3 @@
       }
     }
 ?>
-
-<!--
-<?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-
-      if(mysqli_connect_error())
-      {
-        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-      }
-      else {
-				if(isset($_POST['paymentSaveButton']))
-				{
-            $policyNo = $_POST['policyNoOwner'];
-            $policyMOP = $_POST['policyMOP'];
-            $policyIssueDate = $_POST['policyIssueDate'];
-
-
-						$sql = "UPDATE production
-            SET modeOfPayment = '$policyMOP',
-            issuedDate = '$policyIssueDate'
-            WHERE policyNo = '$policyNo'";
-
-						if($conn->query($sql))
-						{
-							?>
-							<script>
-								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>#secondaryOpen";
-								</script>
-								<?php
-						}
-						else {
-							echo "Error:". $sql."<br>".$conn->error;
-						}
-						$conn->close();
-      }
-    }
-?>
--->

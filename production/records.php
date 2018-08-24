@@ -296,6 +296,7 @@
 																					</div>
 																					<div class="col-sm-3 ">
 																						Next Due Date
+																						<input type="date" name="sampleDueDate" id="sampleDueDate">
 																						<input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" name="policyDueDate" id="policyDueDate">
 																					</div>
 																			 </div>
@@ -665,7 +666,7 @@
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 30px;text-align:center;">O.R.#</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="APR No.: activate to sort column ascending" style="width: 30px;text-align:center;">APR#</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 30px;text-align:center;">Premium</th>
-																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Due Date: activate to sort column ascending" style="width: 30px;text-align:center;">SOA Date</th>
+																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Due Date: activate to sort column ascending" style="width: 30px;text-align:center;">SOA date</th>
 																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
 																						</tr>
 																					</thead>
