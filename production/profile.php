@@ -1,15 +1,4 @@
 <?php
-	include 'confg.php';
-	include 'pdo.php';
-	include_once 'createdb.php';
-
-
-	session_Start();
-?>
-
-
-
-<?php
 $host = "localhost";
 $dbusername = "root";
 $dbpassword = "";
