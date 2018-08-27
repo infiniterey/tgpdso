@@ -527,7 +527,6 @@
 
 																												</tbody>
 																										</table>
-
 																										<script>
 																										var table = document.getElementById('datatable-fixed-header');
 																										for(var counter = 1; counter < table.rows.length; counter++)

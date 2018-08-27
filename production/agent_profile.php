@@ -6,8 +6,14 @@
 <head>
 	</head>
 	<style>
+
 	#agentcode, #training{display: none};
 	</style>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
@@ -157,9 +163,6 @@
 														</form>
 
 														<div class="x_content">
-																<div class="tab ">
-																	<div class="col-xs-12"><h4>
-
 																	<a  class="col-sm-3" onclick="openPolicy(event, 'production')"><b>Production</b></a>
 																	<a  onclick="openPolicy(event, 'training')"><b>Trainings</b></a></h4>
 
@@ -169,8 +172,7 @@
 																	<div id="production" class="tabcontent">
 
 						      <!-- table-striped dataTable-->
-
-						                        <table name"datatable-fixed-header" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+																		<table name"datatable-fixed-header"  style="text-align:center" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 						                          <thead>
 						                            <tr role="row">
 																					<th  style="width: 100px;text-align:center;" class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-controls="datatable-fixed-header"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending"hidden>ProdID</th>
@@ -252,7 +254,7 @@
 																</div>
 																<div class="row">
 																	<div class="col-md-12">
-																		<table style="text-align:center" id="agentTrainingTable" name ="agentTrainingTable" class="table  table-bordered dataTable table-hover no-footer" role="grid" onclick="showForm()">
+																	<table style="text-align:center" id="agentTrainingTable" name ="agentTrainingTable"  class="table table-bordered table-hover no-footer" aria-describedby="datatable-fixed-header_info" role="grid" onclick="showForm()">
 																			<thead>
 																				<tr role="row">
 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>AT id</th>
@@ -260,6 +262,7 @@
 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>AT agent name</th>
 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>AT required position</th>
 																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Date Application</th>
+																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Date of Training</th>
 																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;">Training Name</th>
 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Status</th>
 																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
@@ -271,7 +274,7 @@
 																				<?php
 																					 $DB_con = Database::connect();
 											  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-											  									 $sql = "SELECT * FROM agentstraining, agents where '$display' = ATagentID and agentCode = '$display'";
+											  									 $sql = "SELECT * FROM agentstraining,training, agents where '$display' = ATagentID and agentCode = '$display' and trainingName = ATtrainingName";
 
 																					 $result = $DB_con->query($sql);
 											  									 if($result->rowCount()>0){
@@ -282,14 +285,14 @@
 																							 <script>
 																							 </script>
 																							 <tr>
-											  												 <td><?php print($row['ATdate']); ?></td>
+											  												 <td><?php print($row['ATapplicationdate']); ?></td>
+																								 <td><?php print($row['trainingDate']); ?></td>
 											  												 <td><?php print($row['ATtrainingName']); ?></td>
-
-											  											 <td hidden><?php print($row['ATagentTrainingID']); ?></td>
+																							 <td hidden><?php print($row['ATagentTrainingID']); ?></td>
 											 												 <td hidden><?php print($row['ATagentID']); ?></td>
 											 												 <td hidden><?php print($row['ATagentName']); ?></td>
 																							 <td hidden><?php print($row['ATrequiredPosition']); ?></td>
-																							 <td hidden><?php print($row['ATdate']); ?></td>
+																							 <td hidden><?php print($row['ATapplicationdate']); ?></td>
 											 												 <td hidden><?php print($row['ATtrainingName']); ?></td>
 											 												 <td><?php print($row['ATstatus']); ?></td>
 																							 <td>
@@ -312,6 +315,48 @@
 																					 }
 																					 ?>
 																			</table>
+																			<!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements-->
+																			<div class="modal fade bs-example-modal-sm" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+																				<div class="modal-dialog modal-sm">
+																					<div class="modal-content">
+																						<div class="modal-header">
+																					<h2 class="modal-title">Update Training</h2>
+																					<button type="button" class="close" data-dismiss="modal">x</button>
+																				</div>
+
+																					<form method='post' name='myform' onsubmit="CheckForm()">
+																				<div class="modal-body">
+																				<input type="text" class="form-control" name="updateTrainingid" style="width:195px" id="updateTrainingid" value="" hidden><br>
+																					Date Application: <br> <input name="updatetrainingdateApplication" id="updatetrainingdateApplication" style = "width:195px" style="width:195px" class="date-picker form-control" required="required" type="date" required><br>
+																				  Training Name: <br><input type="text" class="form-control" name="updatetrainingName" style="width:195px" id="updatetrainingName"><br>
+																					Status: <br>
+																					<select style = "width:195px" name="updatetrainingStatus" id="updatetrainingStatus"class="form-control" >
+																					<option value="Active" >Active</option>
+																					<option value="Done" >Done</option>
+																					<option value="Cancel" >Cancel</option>
+																					<option value="Postponed" >Postponed</option>
+																					</select> <br>
+
+
+																				</div>
+																				<form method="POST" action="<?php $_PHP_SELF ?>">
+																				<div  class="modal-footer">
+																					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																					<button type="submit" class="btn btn-primary" id="updateAgentTraining" name="updateAgentTraining"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
+																					<?php if(isset($_POST['updateAgentTraining']))
+																					{
+																						tgpdso::updateAgentTraining();
+																					}?>
+																				</div>
+																			</form>
+																				<div class="modal-footer">
+																				</div>
+																					</form>
+																			</div>
+																		</div>
+																	</div>
+
+																	<!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements--><!-- The Modal update requirements-->
 																			<script>
 																					var table = document.getElementById('agentTrainingTable');
 
@@ -319,13 +364,10 @@
 																					{
 																						table.rows[counter].onclick = function()
 																						{;
-																						 	document.getElementById("inputvaluedelete").value =this.cells[4].innerHTML;
-																					 	 	document.getElementById("inputvaluedelete2").value =this.cells[1].innerHTML;
-																				  	  document.getElementById("modalprod").value =this.cells[4].innerHTML;
-																						 	document.getElementById("modalreq").value =this.cells[1].innerHTML;
-																						 	document.getElementById("modaltrans").value =this.cells[0].innerHTML;
-																							document.getElementById("modalstats").value =this.cells[2].innerHTML;
-																						 	document.getElementById("modalsubdate").value =this.cells[3].innerHTML;
+																							document.getElementById("updatetrainingdateApplication").value = this.cells[0].innerHTML;
+																							document.getElementById("updatetrainingName").value = this.cells[2].innerHTML;
+																							document.getElementById("updatetrainingStatus").value = this.cells[9].innerHTML;
+																						 	document.getElementById("updateTrainingid").value = this.cells[3].innerHTML;
 																						 	};
 																						}
 
@@ -344,7 +386,7 @@
 																		<div class="modal-body" method='post'>
 																			<input name="position" id="position" style="width: 200px;" required="required" value="<?php echo $variablePositon?>"hidden ><br>
 
-																			Date of training <span class="required">*</span><br>
+																			Application Date <span class="required">*</span><br>
 																			<input name="DateAdded" id="DateAdded" style="width: 200px;" class="date-picker form-control" required="required" type="date" required><br>
 
 																			Training Name<span class="required">*</span><br>
@@ -563,10 +605,21 @@
 </html>
 <script>
 $(document).ready(function() {
-    $('#agentTable').DataTable( {
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    $('#datatable-fixed-header').DataTable( {
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
     } );
 } );
+$(document).ready(function() {
+    $('#agentTable').DataTable( {
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    } );
+} );
+$(document).ready(function() {
+    $('#agentTrainingTable').DataTable( {
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    } );
+} );
+
 
 	var table = document.getElementById('agentTable');
 	for(var counter = 1; counter < table.rows.length; counter++)
@@ -666,22 +719,22 @@ function openPolicy(evt, cityName) {
 
 			$DB_con = Database::connect();
 			$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql="SELECT * FROM training where '$ATtrainingName' = trainingName and '$ATposition' = trainingRequired";
+			$sql="SELECT * FROM training,trainingqualifications where trainingID = trainingNo and trainingQName = '$ATtrainingName' and trainingQualification = '$ATposition'";
 			$q = $DB_con->prepare($sql);
 		 $q->execute();
 		 $result =  $q->fetchall();
 		 foreach($result as $row)
 			{
 				$check = 'TRUE';
-			$sql = "INSERT Into agentstraining (ATagentID, ATagentName, ATtrainingName, ATdate, ATstatus) values ('$ATagentID','$ATagentName','$ATtrainingName', '$ATdate', '$ATstatus')";
-			}
+			$sql = "INSERT Into agentstraining (ATagentID, ATagentName, ATtrainingName,ATposition, ATapplicationdate, ATstatus) values ('$ATagentID','$ATagentName','$ATtrainingName','$ATposition', '$ATdate', '$ATstatus')";
 		}
+		}
+
 		if($sql===TRUE)
 		{
 			?>
 			<script>
-				alert('Agent successfully added to the training!');
-				window.location = "agent_profile.php";
+				awindow.location = "agent_profile.php";
 			</script>
 			<?php
 
@@ -710,7 +763,6 @@ else {
 	if(isset($_GET['delete']))
 	{
 		$ATagenttrainingID =$_GET['delete'];
-		?><script>alert('<?php echo $ATagenttrainingID?>')</script><?php
 		?>
 		<?php
 		$sql = "DELETE FROM agentstraining WHERE ATagentTrainingID = '$ATagenttrainingID'";
@@ -719,7 +771,6 @@ else {
 	{
 		?>
 		<script>
-			alert('Agent successfully deleted the training!');
 			window.location="agent_profile.php";
 		</script>
 		<?php

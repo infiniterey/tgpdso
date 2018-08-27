@@ -455,7 +455,7 @@
 																					<div class="row">
 																						<center>
 																							<form method='post' name='myform' onsubmit="CheckForm()">
-																							<?php if($row['Status'] == "" && $row['SubmitDate'] == "0000-00-00")
+																							<?php if($row['Status'] == "" || $row['SubmitDate'] == "0000-00-00")
 																							{
 																								?>
 																								<button  type=	"button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
