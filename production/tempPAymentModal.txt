@@ -1,0 +1,87 @@
+												<div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+																<h4 class="modal-title" id="myModalLabel2">Add Payment</h4>
+															</div>
+															<form method='post' name='myform' onsubmit="return check()">
+																<?php
+																	if(isset($_POST['paymentSaveButton'])){
+																		tgpdso::addPaymentFromDueDate();
+																	}
+																?>
+																<div class="modal-body">
+																	<label class="control-label">
+																	Policy #:
+																	</label>
+																 <input type="text" readonly="readonly" class="form-control" name="paymentPolicyNo" id="paymentPolicyNo">
+																	<label class="control-label">
+																	Amount:
+																	</label>
+																	<input  type="text" class="form-control" id="paymentAmount" name="paymentAmount">
+																	<label class="control-label">
+																	Issue Date:
+																</label><input class="form-control" name="paymentIssueDate" id="paymentIssueDate" readonly><br>
+																<label class="control-label">
+																Mode of Payment:
+															</label><input readonly='readonly' class="form-control" name="paymentmodeOfPayment" id="paymentmodeOfPayment" readonly><br>
+															</label>
+																</select><br>
+																	<hr>
+																	<label class="control-label">
+																	Transaction Date:
+																</label><input type="date" class="form-control" name="paymentTransDate" onchange ="test()" id="paymentTransDate"><br>
+																	<label class="control-label">
+																	OR #:
+																</label><input type="text" class="form-control" name="paymentORNo" id="paymentORNo"><br>
+																	<label class="control-label">
+																	APR #:
+																</label><input type="text" class="form-control" name="paymentAPR" id="paymentAPR"><br>
+																	<label class="control-label">
+																	Next Due Date:
+																</label><input readonly="readonly" type="date" class="form-control" name="paymentNextDue" id="paymentNextDue"><br>
+																 <br>
+																</div>
+																<div class="modal-footer">
+																	<button type="submit" class="btn btn-primary" style="width: 100px;" onchange = "check()"name="paymentSaveButton" id="paymentSaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+
+																</div>
+																<!-- /Update payment content --><!-- /Update payment content --><!-- /Update payment content --><!-- /Update payment content --><!-- /Update payment content --><!-- /Update payment content --><!-- /Update payment content -->
+									<script>
+									$premium_mode=document.getElementById('paymentmodeOfPayment');
+									function countDueDate($policy_start_date,$months){
+      						$next_due_date = strtotime($policy_start_date.' + '.$months.' Months');
+        					if($next_due_date<time()){
+            			return countDueDate(date('Y-m-d', $next_due_date), $months);
+        					}else{
+           				return  date('Y-m-d',$next_due_date);
+        					}
+    							}
+									function getModeMonth($premium_mode ){
+        					switch ($premium_mode){
+            			case 'yearly':      $q=12;break;
+            			case 'monthly':     $q=1;break;
+            			case 'quarterly':   $q=3;break;
+            			case 'half year':   $q=6;break;
+            			default :           $q=12;break;
+        					}
+        						return $q;
+    								}
+
+								function test()
+								{
+									countDueDate();
+									getModeMonth();
+									$date=countDueDate(date('Y').'-'.date('m-d',strtotime($policy_start_date)), getModeMonth($premium_mode));
+									document.getElementById('paymentAmount').value = $date.toString();
+								}
+								</script>
+
+															</form>
+														</div>
+													</div>
+													<?php
+														?>
+
+												</div>

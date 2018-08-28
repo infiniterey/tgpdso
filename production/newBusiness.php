@@ -541,7 +541,7 @@
 	                            <tr role="row">
 																<th width="20" class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending"hidden>ProdID</th>
 	                              <th width="25" class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending">Trans. Date</th>
-	                              <th width="120" tabindex="1" aria-controls="datatable-fixed-header" aria-label="Name of Insured: activate to sort column ascending">Name of Insured</th>
+	                              <th width="120" tabindex="1" aria-controls="datatable-fixed-header" aria-label="Name of Insured: activate to sort column ascending">Policy Owner</th>
 	                              <th width="50" class="sorting" tabindex="0" id="policyNum" name="policyNum" aria-controls="datatable-fixed-header"  aria-label="Policy No.: activate to sort column ascending">Policy No.</th>
 	                              <th width="30" class="sorting" tabindex="0" id="receiptNum" name="receiptNum" aria-controls="datatable-fixed-header"  aria-label="OR No.: activate to sort column ascending">OR No.</th>
 	                              <th width="30" class="sorting" tabindex="0" aria-controls="datatable-fixed-header"  aria-label="Premium: activate to sort column ascending">Premium</th>
@@ -591,7 +591,7 @@
 																								<a title="Edit Data" href="newBusinessForm.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-pencil"></i></a>
 																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																						</center>
-																						
+
 																					</td>
 
 	                                      </tr>
