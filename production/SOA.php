@@ -4,6 +4,11 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
+	<style>
+	.modal {
+  overflow-y:auto;
+}
+</style>
 </head>
 <body class="nav-md footer_fixed">
 	<form method="post">
@@ -16,110 +21,15 @@
 				</div>
 
 	      <!-- top navigation -->
-
+				<div class="top_nav">
+						<?php include 'base/topNavigation.php';?>
+				</div>
 				<!-- page content -->
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
-<div class="modal fade" tabindex="-1" role="dialog" id="momodal" name="momodal" data-keyboard="false" data-backdrop="static">
-		<div class="modal-dialog modal-small">
-		<div class="modal-content">
-
-
-			<div class="modal-header">
-				<h2 class="modal-title">Search Client <button type="button" class="close" data-dismiss="modal" onclick="cancelDetail();">x</button></h2>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-6">
-
-						<?php
-
-						$host = "localhost";
-						$dbusername = "root";
-						$dbpassword = "";
-						$dbname = "tgpdso_db";
-
-
-						$conn = new mysqli($host, $dbusername, $dbpassword, $dbname);
-
-
-						if(mysqli_connect_error())
-						{
-							die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-						}
-						else {
-							if(isset($_POST['saveClient']))
-							{
-								$firstname = $_POST['firstnameClient'];
-								$middlename = $_POST['middlenameClient'];
-								$lastname = $_POST['lastnameClient'];
-								$birthdate = $_POST['birthdateClient'];
-								$address = $_POST['addressClient'];
-								$cellno = $_POST['cellnoClient'];
-
-
-								$sql = "INSERT INTO client (cFirstname, cMiddlename, cLastname, cBirthdate, cAddress, cCellno)
-								VALUES ('$firstname', '$middlename', '$lastname', '$birthdate' , '$address', '$cellno')";
-
-								if($conn->query($sql))
-								{
-									?>
-									<script>
-										alert("Client is succesfully added.");
-										window.location="newBusiness.php";
-										</script>
-										<?php
-								}
-								else {
-									echo "Error:". $sql."<br>".$conn->error;
-								}
-								$conn->close();
-							}
-							}
-						?>
-
-
-					<form method="post" action="<?php $_PHP_SELF ?>">
-						First Name:
-						<input name="firstnameClient" id="firstnameClient" class="date-picker form-control" type="text" required><br/>
-						Middle Name:
-						<input type="text" id="middlenameClient" placeholder="" name="middlenameClient" required="required" class="form-control" required><br/>
-						Last Name:
-						<input type="text" id="lastnameClient" placeholder="" name="lastnameClient" required="required" class="form-control" required><br/>
-						Birthdate:
-						<input type="date" id="birthdateClient" placeholder="" name="birthdateClient" required="required" class="form-control" required><br/>
-						Address:
-						<input type="text" id="addressClient" placeholder="" name="addressClient" required="required" class="form-control" required><br/>
-						Cell No.:
-						<input type="text" id="cellnoClient" placeholder="" name="cellnoClient" required="required" class="form-control" required><br/>
-
-						<br/>
-							<button type="submit" name="saveClient" id="saveClient" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Add</button>
-							<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
-
-					</form>
-
-				</div>
-
-							</div>
-						</div>
-
-
-			<div class="modal-footer">
-				<div class="col-md-3">
-					<form method="post">
-				</form>
-
-			</div>
-			</div>
-
-
-</div>
-</div>
-</div>
 <!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->		<!-- The Modal -->
 
 				</div>
-				<form method="post" style="margin-top: 40px;">
+				<form method="post"  action="<?php $_PHP_SELF ?>" style="margin-top: 40px;">
 				<div class="right_col" role="main">
 					<div class="">
 						<div class="clearfix"></div>
@@ -133,15 +43,16 @@
 									</div>
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="row">
-												<div class="x_title">
-													<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No."></input>
-													<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search" ></button>
-													<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table"	  data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>
-													<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add SOA</button>
+												<div>
+													<!--<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No."></input>-->
+													<!--<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-search btn btn-success" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>-->
+													<button  type="button" style='float:right' data-toggle="modal" data-target="#addSOAModal" class="btn btn-primary" name="searchPolicy" id="searchPolicy"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add SOA</button>
 													<br	><br>
 													<div class="clearfix"></div>
 												</div>
 											</div>
+											<input type="checkbox" name="soaCheckBox" id="soaCheckBox"/>&nbsp;View all SOA history
+											<br><br>
 												<div class="col-sm-12">
 
 				<!-- table-striped dataTable-->
@@ -151,8 +62,8 @@
 															<tr role="row">
 																<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="TransactionDate" style="width: 25px;text-align:center;">Transaction Date</th>
 																<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="PolicyOwner" style="width: 200px;text-align:center;">Policy Owner</th>
-																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="PolicyNo" style="width: 100px;text-align:center;">Policy #</th>
-																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="PaymentMode" style="width: 100px;text-align:center;">Payment Mode</th>
+																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="PolicyNo" style="width: 100px;text-align:center;">Policy No.</th>
+																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="PaymentMode" style="width: 100px;text-align:center;">M.O.P</th>
 																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Premium" style="width: 100px;text-align:center;">Premium</th>
 																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Rate" style="width: 100px;text-align:center;">Rate</th>
 																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Commission" style="width: 100px;text-align:center;">Commission</th>
@@ -164,34 +75,34 @@
 														<tbody>
 
 																<?php
+
 																	$DB_con = Database::connect();
 																	$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																	$sql = "SELECT * FROM users";
+																	$sql = "SELECT * FROM soa, client, agents WHERE SOA_agent = agentCode AND clientID = SOA_policyOWner";
 
 																	$result = $DB_con->query($sql);
 																	if($result->rowCount()>0){
 																		while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																			?>
 																			<tr>
-																				<td><?php print($row['username']); ?></td>
-																				<td><?php print($row['ufirstname']);?></td>
-																				<td><?php print($row['ulastname']); ?></td>
-																				<td><?php print($row['ulastname']); ?></td>
-																				<td><?php print($row['ulastname']); ?></td>
-																				<td><?php print($row['ulastname']); ?></td>
-																				<td><?php print($row['ulastname']); ?></td>
-																				<td><?php print($row['ulastname']); ?></td>
+																				<td><?php print($row['SOA_transDate']); ?></td>
+																				<td><?php print($row['cLastname'].",".$row['cFirstname']." ".$row['cMiddlename']);?></td>
+																				<td><?php print($row['SOA_policyNo']); ?></td>
+																				<td><?php print($row['SOA_paymentMode']); ?></td>
+																				<td><?php print($row['SOA_premium']); ?></td>
+																				<td><?php print($row['SOA_rate']); ?></td>
+																				<td><?php print($row['SOA_commission']); ?></td>
+																				<td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
 																				<td>
 																					<div class="row">
-																						<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-danger" name="btn-addPlan"><i class="fa fa-trash" hidden></i></button>
-																						<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-pencil" hidden></i></button>
+																						<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-danger" name="btn-addPlan" disabled><i class="fa fa-trash"></i></button>
+																						<button  type="button" style='float:right' data-toggle="modal" data-target="#updateModal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-pencil"></i></button>
 																					</div>
 																				</td>
 																			</tr>
 																			<?php
 																		}
 																	}
-																	else{}
 																?>
 															</tbody>
 													</table>
@@ -208,8 +119,18 @@
 			</div>
 		</div>
 	</form>
-<form>
-</form>
+	<div id="addSOAModal" name="addSOAModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+		<?php include 'PHPFile/button_addSOA.php'?>
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+		<?php include 'PHPFile/searchPolicy_SOA.php'; ?>
+</div>
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<?php include 'PHPFile/button_updateSOA.php'; ?>
+</div>
+<div class="modal fade" name="addSOASearchPolicy" id="addSOASearchPolicy" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<?php include 'PHPFile/button_searchPolicy_addSOA.php'; ?>
+</div>
 	<footer style="margin-bottom: -15px;">
 		<center>
 			COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE
@@ -227,34 +148,4 @@
 	<!-- The Modal -->
 </body>
 </html>
-
-<script>
-
-function myFunction() {
-
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("datatable-fixed-header");
-  tr = table.getElementsByTagName("tr");
-
-
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-$(document).ready(function() {
-    $('#datatable-fixed-header').DataTable( {
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-    } );
-} );
-
-</script>
+<?php include 'PHPFile/soaConnection.php'?>

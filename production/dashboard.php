@@ -41,21 +41,10 @@
                     </div>
                       <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                         <div class="row">
-													<div class="col-sm-3">
-															<form method="post" action="<?php $_PHP_SELF ?>">
-																</form>
-														</div>
-                          <div class="col-sm-9">
+                          <div style="margin-left:200px;">
 
           <!-- table-striped dataTable-->
-
-                            <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
-                              <thead>
-                              </thead>
-
-                              <tbody>
-                                </tbody>
-                            </table>
+													<img src="img/meme.png" alt="finish">
 
                         </div>
                       </div>

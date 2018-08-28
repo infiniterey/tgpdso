@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-md" role="document">
+<div class="modal-dialog modal-sm" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -6,21 +6,19 @@
     </div>
     <form method='post' name='myform' onsubmit="CheckForm()">
       <div class="modal-body">
-        <div class="row">
-        <div class="col-sm-6">
         <label class="control-label">
         Policy #:
         </label>
-       <input type="text" readonly="readonly" class="form-control aswidth" name="paymentPolicyNo" id="paymentPolicyNo">
+       <input type="text" readonly="readonly" class="form-control" name="paymentPolicyNo" id="paymentPolicyNo">
        <br>
         <label class="control-label">
         Issue Date:
-      </label><input type="date" class="form-control aswidth" name="paymentIssueDate" id="paymentIssueDate" readonly>
+      </label><input type="date" class="form-control" name="paymentIssueDate" id="paymentIssueDate" readonly>
       <br>
       <label class="control-label">
       Mode of Payment:
     </label>
-      <select name="paymentmodeOfPayment" id="paymentmodeOfPayment" class="form-control aswidth">
+      <select name="paymentmodeOfPayment" id="paymentmodeOfPayment" class="form-control">
       <option value="Monthly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Monthly</option>
       <option value="Quarterly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Quarterly</option>
       <option value="Semi-Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Semi-Annual</option>
@@ -30,24 +28,21 @@
       <label class="control-label">
       Amount:
       </label>
-      <input  type="text" class="form-control aswidth" id="paymentAmount" name="paymentAmount">
-      </div>
-      <div class="col-sm-6">
+      <input  type="text" class="form-control" id="paymentAmount" name="paymentAmount">
+        <hr>
         <label class="control-label">
         Transaction Date:
-      </label><input type="date" class="form-control aswidth" name="paymentTransDate" id="paymentTransDate"><br>
+      </label><input type="date" class="form-control" name="paymentTransDate" id="paymentTransDate"><br>
         <label class="control-label">
         OR #:
-      </label><input type="text" class="form-control aswidth" name="paymentORNo" id="paymentORNo"><br>
+      </label><input type="text" class="form-control" name="paymentORNo" id="paymentORNo"><br>
         <label class="control-label">
         APR #:
-      </label><input type="text" class="form-control aswidth" name="paymentAPR" id="paymentAPR"><br>
+      </label><input type="text" class="form-control" name="paymentAPR" id="paymentAPR"><br>
         <label class="control-label">
         Due Date:
-      </label><input type="date" class="form-control aswidth" name="paymentNextDue" id="paymentNextDue"><br>
+      </label><input type="date" class="form-control" name="paymentNextDue" id="paymentNextDue"><br>
        <br>
-     </div>
- </div>
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" style="width: 100px;" name="paymentSaveButton" id="paymentSaveButton" onclick="openPolicy(event, 'Payment')"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>

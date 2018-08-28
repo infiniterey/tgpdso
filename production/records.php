@@ -55,9 +55,8 @@
 
 												<div class="col-md-12 col-sm-12 col-xs-12">
 														<div class="x_title">
-															<h2><input type="text" name="searchT" id="searchT" placeholder="Search">
-														 	<button type="submit" name="buttonSearch"  id="buttonSearch" class="fa fa-search btn btn-success"></button>
-													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-table btn btn-success"	  data-toggle="modal" data-target="#myModal" id="myBtn"></button></h2>
+															<h2><input type="text" name="searchT" id="searchT" placeholder="Search Policy">
+													 		<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-search btn btn-success"	  data-toggle="modal" data-target="#myModal" id="myBtn"></button></h2>
 															<button  type="button" style='float:right' data-toggle="modal" data-target="#paymentModal" class="btn btn-primary" name="paymentButton" id="paymentButton" disabled><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Payment</button>
 															<br	><br>
 															<div class="clearfix"></div>
@@ -296,7 +295,7 @@
 																					</div>
 																					<div class="col-sm-3 ">
 																						Next Due Date
-																						<input type="date" name="sampleDueDate" id="sampleDueDate">
+																						<input type="date" name="sampleDueDate" id="sampleDueDate" hidden>
 																						<input style="cursor:auto" style="border:none" type="date" class="form-control col-md-7 col-xs-4" name="policyDueDate" id="policyDueDate">
 																					</div>
 																			 </div>
@@ -708,11 +707,7 @@
 																								}
 																						}
 																					}
-
-
-
 																						?>
-
 																						</tbody>
 																				</table>
 			 																	<script>
@@ -748,100 +743,7 @@
 		</div>
 					<!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search-->
 					<div class="modal fade" id="myModal">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h2 class="modal-title">Search Record<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></h2>
-
-							</div>
-
-							<form style="margin-bottom: 10px;">
-							<div class="modal-body">
-
-							<table name="datatable-fixed-header0" id="datatable-fixed-header0" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
- 							 <thead>
-								 <tr role="row">
- 									 <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Policy No</th>
- 									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 100px;text-align:center;">Name</th>
- 				 					 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Issued Date</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Plan</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Premium</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Receipt #</th>
-									 <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
-									 </tr>
- 							 </thead>
- 							 <tbody>
- 								 <?php
-									 $DB_con = Database::connect();
-									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-									 $sql = "SELECT * FROM production, client, plans WHERE prodclientID = clientID AND plan = planID";
-
-
-								 $result = $DB_con->query($sql);
-								 if($result->rowCount()>0)
-								 {
-									 while($row=$result->fetch(PDO::FETCH_ASSOC))
-									 {
- 									 // $sql =$DB_con->prepare( "SELECT p.policyNo, p.issuedDate,p.premium,p.receiptNo,p.plan,
-									 // c.cFirstname, c.cLastname, c.cMiddlename From production as p Inner join client as c
-									 // ON p.prodclientID = c.clientID");
-									 // $sql->execute();
- 									 //  // $result = $DB_con->query($sql);
- 									 // // if($result->rowCount()>0){
- 										//  while($row=$sql->fetchAll(PDO::FETCH_ASSOC)){
- 											 ?>
- 											 <tr>
- 												 <td><?php echo $row['policyNo']; ?></td>
- 												 <td><?php echo $row['cLastname']. ", " .$row['cFirstname']; ?></td>
-												 <td><?php echo $row['issuedDate']; ?></td>
-												 <td><?php echo $row['planCode']; ?></td>
-												 <td><?php echo $row['premium']; ?></td>
-												 <td><?php echo $row['receiptNo']; ?></td>
-												 <td>
-													 <div class = "row" align="center">
-															 <a id="searchClient" onclick='return searchClientNextDue();' title="Edit Data" href="records.php?edit=<?php echo $row['policyNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-															 <input id="retrieveClientID" name="retrieveClientID" value="<?php echo $row['clientID']; ?>" hidden>
-														</div>
-												 </td>
-											</tr>
- 											 <?php
- 										 }
-									 }
- 									  // }
-
-
- 								 ?>
-
- 								 </tbody>
- 						 </table>
-
-
-								<script>
-									var table = document.getElementById('tableko');
-									for(var counter = 1; counter < table.rows.length; counter++)
-									{
-										table.rows[counter].onclick = function()
-										{;
-										 document.getElementById("searchT").value = this.cells[0].innerHTML;
-										 document.getElementById("mylastname").value = this.cells[4].innerHTML;
-										 document.getElementById("myfirstname").value = this.cells[5].innerHTML;
-										 document.getElementById("mypolicy").value = this.cells[0].innerHTML;
-										 document.getElementById("myofficialReceipt").value = this.cells[6].innerHTML;
-										 document.getElementById("myAgent").value = this.cells[7].innerHTML;
-										 document.getElementById("myplan").value = this.cells[8].innerHTML;
-										 document.getElementById("mydate").value = this.cells[9].innerHTML;
-										 document.getElementById("myModeOfPayment").value = this.cells[10].innerHTML;
-										 };
-									}
-										</script>
-									</form>
-							</div>
-							<div class="modal-footer">
-								<button type="submit" onclick="closemodal()" class ="btn btn-primary"class="btn btn-default" data-dismiss="modal">Submit</button>
-							</div>
-
-						</div>
-					</div>
+						<?php include 'PHPFile/searchPolicy.php'; ?>
 				</div>
 				<!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search--><!-- The Modal search-->
 
@@ -865,5 +767,8 @@
 </div>
 	</body>
 </html>
-<?php include 'base/recordConnection.php'?>
 <?php include 'JavaScriptFile/recordsJavascript.php'?>
+<?php include 'PHPFile/button_editButton_records.php'?>
+<?php include 'PHPFile/button_fundButton_records.php'?>
+<?php include 'PHPFile/button_deleteButton_records.php'?>
+<?php include 'PHPFile/button_saveButton_records.php'?>

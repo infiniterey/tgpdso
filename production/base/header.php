@@ -54,7 +54,9 @@
 
 <style type="text/css">
 
-
+.aswidth{
+  width: 250px;
+}
 
 .astext {
     background:none;

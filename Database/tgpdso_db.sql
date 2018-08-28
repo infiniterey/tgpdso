@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2018 at 11:17 AM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Aug 27, 2018 at 10:24 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 5.6.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -105,7 +105,6 @@ INSERT INTO `beneficiary` (`bene_policyNo`, `bene_lastName`, `bene_firstName`, `
 ('', '', '', '', '0000-00-00', '', '', ''),
 ('2324323', 'vbv', 'vbvb', 'vbvb', '2018-08-07', 'sdsd', '435345', 'ds'),
 ('9000', 'ggghhh1', 'gggghhhh', 'dsfsdf', '2018-08-28', 'sdgsd', '32435', 'sdfdsf'),
-('9000', 'x', 'x', 'x', '2018-08-21', 'x', 'x', 'x'),
 ('424322', 'euu', 'uewu', 'eur', '0000-00-00', 'asd', 'asd', 'as');
 
 -- --------------------------------------------------------
@@ -129,7 +128,7 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`clientID`, `cFirstname`, `cLastname`, `cMiddlename`, `cBirthdate`, `cAddress`, `cCellno`) VALUES
-(85860, 'Marvelr', 'Bartar', 'Ar', '2018-08-13', 'Sitio Atis Baniladr', '87364587643'),
+(85860, 'Marvelrb', 'Bartar', 'Ar', '2018-08-13', 'Sitio Atis Baniladr', '87364587643'),
 (85864, 'xzczx', 'zxcxc', 'zxcxc', '2018-07-07', 'zxcxc', '00002222'),
 (85865, 'asdsad', 'sdasd', 'sadsd', '2018-07-25', 'asdsda', 'asdsd'),
 (85866, 'asssss', 'ffffff', 'ddddd', '2018-07-19', 'zcxvzx', '67858'),
@@ -182,7 +181,8 @@ CREATE TABLE `insuredpolicy` (
 INSERT INTO `insuredpolicy` (`insured_policyNo`, `insured_lastName`, `insured_firstName`, `insured_middleName`, `insured_birthdate`, `insured_address`, `insured_contactNo`) VALUES
 ('', '', '', '', '0000-00-00', '', ''),
 ('2324323', 'Bartar', 'Marvelr', 'Ar', '2018-08-13', 'Sitio Atis Baniladr', '87364587643'),
-('9000', 'hello12', 'hellop12', 'hello12', '2018-08-23', 'hello12', '34534512');
+('9000', 'hello12', 'hellop12', 'hello12', '2018-08-23', 'hello12', '34534512'),
+('1515111', 'Bartar', 'Marvelrb', 'Ar', '2018-08-13', 'Sitio Atis Baniladr', '87364587643');
 
 -- --------------------------------------------------------
 
@@ -208,7 +208,20 @@ CREATE TABLE `payment` (
 
 INSERT INTO `payment` (`payment_policyNo`, `payment_Amount`, `payment_issueDate`, `payment_MOP`, `payment_transDate`, `payment_OR`, `payment_APR`, `payment_nextDue`, `payment_remarks`) VALUES
 ('', '', '0000-00-00', 'Monthly', '0000-00-00', '', '', '0000-00-00', 'New'),
-('9000', '3984', '0000-00-00', 'Monthly', '2018-08-08', '249721', '', '2018-02-01', 'New');
+('9000', '3984', '0000-00-00', 'Monthly', '2018-08-08', '249721', '', '2018-02-01', 'New'),
+('9000', '3984', '0000-00-00', 'Monthly', '2018-08-08', '249725', '', '2018-03-01', 'New'),
+('9000', '3984', '0000-00-00', 'Monthly', '2018-08-08', '249725', '', '2018-04-01', 'New'),
+('9000', '3984', '0000-00-00', 'Monthly', '2018-08-08', '249725', '', '2018-05-01', 'New'),
+('9000', '3984', '0000-00-00', 'Monthly', '2018-08-08', '249725', '', '2018-06-01', 'New'),
+('9000', '3984', '2018-01-01', 'Monthly', '2018-08-08', '249725', '', '2018-07-01', 'New'),
+('9000', '3984', '2018-01-01', 'Monthly', '2018-08-08', '249725', '', '2018-07-01', 'New'),
+('9000', '3984', '2018-01-01', 'Monthly', '2018-08-08', '249725', '', '2018-07-01', 'New'),
+('9000', '3984', '2018-01-01', 'Monthly', '2018-08-08', '249725', '', '2018-07-01', 'New'),
+('9000', '3984', '2018-01-01', 'Monthly', '2018-08-08', '249725', '', '2018-08-01', 'New'),
+('1515111', '100000', '2018-08-22', 'Quarterly', '2018-08-30', '1415555', '', '2018-12-22', 'New'),
+('1515111', '100000', '2018-08-22', 'Monthly', '2018-08-30', '1415555', '', '2019-01-22', 'New'),
+('1515111', '100000', '2018-08-22', 'Monthly', '2018-08-30', '1415555', '', '2019-02-22', 'New'),
+('1515111', '100000', '2018-08-22', 'Monthly', '2018-08-30', '1415555', '', '2019-03-22', 'New');
 
 -- --------------------------------------------------------
 
@@ -254,7 +267,12 @@ INSERT INTO `policyfund` (`polFund_policyNo`, `polFund_fund`, `polFund_rate`) VA
 ('2324323', 'ui', '23'),
 ('2324323', '322', '78'),
 ('2324323', '123', '65'),
-('9000', '321', '90');
+('9000', '321', '90'),
+('1515111', '321', '90'),
+('1515111', '123', '10'),
+('1344', '321', '89'),
+('9000', '322', 'sd'),
+('', '', '');
 
 -- --------------------------------------------------------
 
@@ -327,9 +345,10 @@ CREATE TABLE `production` (
 --
 
 INSERT INTO `production` (`prodID`, `transDate`, `prodclientID`, `policyNo`, `plan`, `premium`, `receiptNo`, `faceAmount`, `rate`, `FYC`, `modeOfPayment`, `issuedDate`, `SOAdate`, `agent`, `remarks`, `policyStat`) VALUES
-(241, '2018-08-31', 85860, '21213', '85', '1233', '2345678', '765asas', '90%', '', 'Monthly', NULL, NULL, 567, 'New', ''),
-(90, '2018-08-08', 85870, '9000', '84', '972957', '249725', '3984', '43', '39849210', 'Monthly', '2018-01-01', '2018-08-28', 2, 'New', '2'),
-(245, '2018-08-17', 85860, '424322', '85', '234324', '223423', '234234', '90%', '', 'Monthly', NULL, NULL, 567, 'New', '1');
+(247, '2018-08-30', 85860, '1515111', '83', '30000', '1415555', '100000', '90%', '', 'Monthly', '2018-08-22', NULL, 98, 'New', '2'),
+(90, '2018-08-08', 85870, '9000', '84', '972957', '249725', '3984', '43', '39849210', 'Monthly', '2018-01-01', '2018-08-28', 567, 'New', '2'),
+(246, '2018-08-11', 85870, '9995455', '85', '30000', '151551', '5352', '90%', '', 'Monthly', NULL, NULL, 0, 'New', '1'),
+(248, '2018-09-01', 85860, '1344', '84', '1341', '414111', '413441', '80%', '', 'Quarterly', NULL, NULL, 111, 'New', '1');
 
 -- --------------------------------------------------------
 
@@ -368,9 +387,20 @@ CREATE TABLE `soa` (
   `SOA_paymentMode` varchar(50) NOT NULL,
   `SOA_premium` int(100) NOT NULL,
   `SOA_rate` varchar(50) NOT NULL,
-  `SOA_commission` int(100) NOT NULL,
-  `SOA_agent` int(50) NOT NULL
+  `SOA_commission` text NOT NULL,
+  `SOA_agent` int(50) NOT NULL,
+  `SOA_selectMonth` text NOT NULL,
+  `SOA_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `soa`
+--
+
+INSERT INTO `soa` (`SOA_id`, `SOA_transDate`, `SOA_policyOwner`, `SOA_policyNo`, `SOA_paymentMode`, `SOA_premium`, `SOA_rate`, `SOA_commission`, `SOA_agent`, `SOA_selectMonth`, `SOA_date`) VALUES
+(30, '2018-08-08', '85870', 9000, 'Monthly', 972957, '43', '39849210', 567, '', '0000-00-00'),
+(31, '2018-08-30', '85860', 1515111, 'Monthly', 30000, '90%', '', 98, '', '0000-00-00'),
+(32, '2018-08-08', '85870', 9000, 'Monthly', 972957, '43', '100000', 567, '', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -617,13 +647,13 @@ ALTER TABLE `position`
 -- AUTO_INCREMENT for table `production`
 --
 ALTER TABLE `production`
-  MODIFY `prodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
+  MODIFY `prodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
 -- AUTO_INCREMENT for table `soa`
 --
 ALTER TABLE `soa`
-  MODIFY `SOA_id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `SOA_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `training`
