@@ -26,7 +26,6 @@
 
         ?>
         <script>
-          alert('New production successfully added!');
           window.location = 'add_production.php'
         </script>
         <?php
@@ -60,7 +59,6 @@
 
         ?>
         <script>
-          alert('New plan successfully added!');
         </script>
         <?php
       }
@@ -96,7 +94,6 @@
 				{
 					?>
 					<script>
-						alert('Requirement successfully added!');
 					</script>
 					<?php
 				}
@@ -124,14 +121,12 @@
 					{
 					$reqtext =  $_POST['inputvaluedelete2'];
 					$prodtext = $_POST['inputvaluedelete'];
-					?><script>alert('<?php echo $reqtext ?>');</script><?php
 					$sql = "DELETE FROM requirements WHERE Rrequirements = '$reqtext' AND	RProdID = '$prodtext'";
 					}
 			if($conn->query($sql))
 					{
 						?>
 						<script>
-							alert('Requirements successfully deleted!');
 						window.location="add_requirements.php";
 						</script>
 						<?php
@@ -163,14 +158,12 @@
 					$newAgentRequirementStatus = $_POST['modalstats'];
 					$newAgentRequirementSubmitDate = $_POST['modalsubdate'];
 					$requirementNo=  $_POST['modalRequirementNo'];
-					?><script>alert('good morning <?php echo $requirementProdID?>');</script><?php
 					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RequirementNo = '$requirementNo'";
 				}
 						if($conn->query($sql))
 						{
 							?>
 							<script>
-								alert('Issue Date successfully updated!');
 							</script>
 							<?php
 						}
@@ -245,7 +238,6 @@
 						{
 							?>
 							<script>
-								alert('Agent successfully added!');
 							</script>
 							<?php
 						}
@@ -280,7 +272,6 @@
 						{
 							?>
 							<script>
-								alert('Team successfully added!');
 							</script>
 							<?php
 						}
@@ -312,7 +303,6 @@
 							{
 								?>
 								<script>
-									alert('Team successfully updated!');
 									window.location='add_team.php';
 								</script>
 								<?php
@@ -384,7 +374,6 @@
 							{
 								?>
 								<script>
-									alert('Issue Date successfully updated!');
 								</script>
 								<?php
 							}
@@ -418,7 +407,6 @@
 
 					?>
 						<script>
-								alert('halaa <?php echo $ProdID?>');
 						</script>
 					<?php
 					$sql = "UPDATE production SET issuedDate = $policy WHERE policyNo = '$policy' and prodID = '$ProdID'";
@@ -427,7 +415,6 @@
 					{
 						?>
 						<script>
-							alert('Issue Date successfully Deleted!');
 						</script>
 						<?php
 					}
@@ -453,15 +440,14 @@
 					if(isset($_POST['btn-addrEquirements']))
 					{
 						$trainingName = $_POST['TrainingName'];
-						$trainingRequired = $_POST['TrainingRequired'];
+						$trainingdate = $_POST['TrainingDate'];
 
-						$sql = "INSERT Into training (TrainingName, TrainingRequired) values ('$trainingName','$trainingRequired')";
+						$sql = "INSERT Into training (trainingName, trainingDate) values ('$trainingName','$trainingdate')";
 					}
 					if($conn->query($sql))
 					{
 						?>
 						<script>
-							alert('Training successfully added!');
 							window.location="add_training.php";
 						</script>
 						<?php
@@ -495,7 +481,6 @@
 					{
 						?>
 						<script>
-							alert('Training successfully deleted!');
 						window.location="add_training.php";
 						</script>
 						<?php
@@ -523,18 +508,14 @@
 					{
 						$newTrainingNo = $_POST['utrainid'];
 					$newTrainingName = $_POST['utrainname'];
-					$newTrainingPosition = $_POST['utrainposition'];
-					?>
-					<script>
-						alert('yahoooo!<?php echo $newTrainingNo  ?>');
-					</script>
+					$newTrainingDate = $_POST['utraindate'];
+						?>
 					<?php
-						$sql = "UPDATE training SET trainingNo = '$newTrainingNo', trainingName = '$newTrainingName', trainingRequired = '$newTrainingPosition' where trainingNo = '$newTrainingNo'";
+						$sql = "UPDATE training SET trainingNo = '$newTrainingNo', trainingName = '$newTrainingName', trainingDate = '$newTrainingDate' where trainingNo = '$newTrainingNo'";
 						if($conn->query($sql))
 						{
 							?>
 							<script>
-								alert('Issue Date successfully updated!');
 								window.location='add_training.php';
 							</script>
 							<?php
@@ -543,10 +524,81 @@
 							echo "Error:". $sql."<br>".$conn->error;
 						}
 					}
-
-
 					$conn->close();
+				}
+			}
+			public function updateAgentTraining(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['updateAgentTraining']))
+					{
+						$newtrainingid= $_POST['updateTrainingid'];
+						$newTrainingDate = $_POST['updatetrainingdateApplication'];
+					$newTrainingName = $_POST['updatetrainingName'];
+					$newtrainingStatus = $_POST['updatetrainingStatus'];
+						?>
+					<?php
+						$sql = "UPDATE agentstraining SET ATstatus = '$newtrainingStatus', ATtrainingName = '$newTrainingName', ATapplicationdate = '$newTrainingDate' where ATagentTrainingID = '$newtrainingid'";
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								window.location='agent_profile.php';
+							</script>
+							<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+					}
+					$conn->close();
+				}
+			}
+			public function addTrainingQualifications(){
+				$host = "localhost";
+				$dbusername = "root";
+				$dbpassword = "";
+				$dbname = "tgpdso_db";
+				$sql ="";
+				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+				if(mysqli_connect_error())
+				{
+					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+				}
+				else {
+					if(isset($_POST['addqualifications']))
+					{
+						$newTrainingNo = $_POST['trainingid'];
+					$newTrainingName = $_POST['TrainingName'];
+					$newTrainingPosition = $_POST['TrainingRequired'];
+					?>
+					<?php
+					$sql = "INSERT INTO trainingqualifications (trainingID, trainingQName, trainingQualification)
+					values ('$newTrainingNo','$newTrainingName','$newTrainingPosition')";
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+								window.location='add_training.php?';
+							</script>
+							<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+					}
+					$conn->close();
 				}
 			}
 			public function addFund(){
@@ -575,7 +627,6 @@
 					{
 						?>
 						<script>
-							alert('Team successfully added!');
 						</script>
 						<?php
 					}
@@ -608,7 +659,6 @@
 						{
 							?>
 							<script>
-								alert('Fund successfully updated!');
 								window.location='fund.php';
 							</script>
 							<?php
@@ -650,7 +700,6 @@
 					{
 						?>
 						<script>
-							alert('Policy successfully added!');
 						</script>
 						<?php
 					}
@@ -684,7 +733,6 @@
 						{
 							?>
 							<script>
-								alert('Policy Status successfully updated!');
 								window.location='policyStatus.php';
 							</script>
 							<?php
@@ -724,7 +772,6 @@
 					{
 						?>
 						<script>
-							alert('Position successfully added!');
 						</script>
 						<?php
 					}
@@ -756,7 +803,6 @@
 						{
 							?>
 							<script>
-								alert('Position successfully updated!');
 								window.location='position.php';
 							</script>
 							<?php
@@ -799,7 +845,6 @@
 						{
 							?>
 							<script>
-								alert('Agent successfully updated!');
 								window.location='add_agent.php';
 							</script>
 							<?php
@@ -840,7 +885,6 @@
 					{
 						?>
 						<script>
-							alert('Payment successfully added!');
 						</script>
 						<?php
 					}
@@ -859,7 +903,6 @@
 				$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 				?>
 				<script>
-					alert('Halloo');
 				</script>
 				<?php
 				if(mysqli_connect_error())
@@ -876,15 +919,13 @@
 					$addAgentToTrainingID = $_POST['addagentTrainingID'];
 					?>
 						<script>
-							alert('hello <?php echo $newAgentName?>');
 						</script>
 					<?php
-					$sql = "UPDATE agentstraining SET ATagentName = '$newAgentName', ATtrainingName = '$newAgentTrainingName', ATdate = '$newDate' where ATagentTrainingID = '$addAgentToTrainingID'";
+					$sql = "UPDATE agentstraining SET ATagentName = '$newAgentName', ATtrainingName = '$newAgentTrainingName', ATapplicationdate = '$newDate' where ATagentTrainingID = '$addAgentToTrainingID'";
 						if($conn->query($sql)===true)
 						{
 							?>
 							<script>
-								alert('Agent successfully updated!');
 								window.location='add_agent_training.php';
 							</script>
 							<?php
