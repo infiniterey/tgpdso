@@ -7,7 +7,7 @@
 	</head>
 	<style>
 
-	#agentcode, #training{display: none};
+	#agentcode, #updateTrainingid,#training{display: none};
 	</style>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -221,7 +221,7 @@
 						                                        <td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
 						                                        <td><?php print($row['remarks']); ?></td>
 																										<td >
-																											<div class="row">
+																											<div method="post" class="row">
 																												<center>
 																													<a title="Edit Data" href="newBusinessForm.php?edit=<?php echo $row['prodID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 																													<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="newBusiness.php?delete=<?php echo $row['prodID'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
@@ -341,7 +341,6 @@
 																				</div>
 																				<form method="POST" action="<?php $_PHP_SELF ?>">
 																				<div  class="modal-footer">
-																					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 																					<button type="submit" class="btn btn-primary" id="updateAgentTraining" name="updateAgentTraining"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
 																					<?php if(isset($_POST['updateAgentTraining']))
 																					{
@@ -378,9 +377,9 @@
 																		<div class="modal-dialog modal-sm" style="width: 300px;">
 																			<div class="modal-content">
 																				<div class="modal-header">
-																			<h2 class="modal-title">Add Training</h2>
-																			<button type="button" class="close" data-dismiss="modal">x</button>
-																		</div>
+																					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+																					<h4 class="modal-title" id="myModalLabel2">Add Training</h4>
+																				</div>
 
 																			<form method='post' name='myform' onsubmit="CheckForm()">
 																		<div class="modal-body" method='post'>
@@ -391,7 +390,15 @@
 
 																			Training Name<span class="required">*</span><br>
 																			<select style = "width:200px" name="addtraining" id="addtraining" class="form-control" ><br>
-																			<?php tgpdso::dropdown_training(); ?>
+																			<?php 	$DB_con = Database::connect();
+																				$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+																				$result = $DB_con->prepare("SELECT * FROM trainingqualifications where '$variablePositon' = trainingQualification ");
+																				$result->execute();
+
+																				while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+																							echo "<option value='" . $row['trainingQName'] . "'>" . $row['trainingQName'] . "</option>";
+																				} ?>
 																			</select>
 																			<br>
 																			<div class="row">
@@ -422,13 +429,10 @@
 																		<form method="POST" action="<?php $_PHP_SELF ?>">
 																		<div  class="modal-footer">
 																			<div method="post" action="<?php $_PHP_SELF ?>">
-																			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 																			<button type="submit" class="btn btn-primary" id="savetraining" name="savetraining"><i class="fa fa-plus"></i>&nbsp;&nbsp;Save</button>
 																		</div>
 																		</div>
 																	</form>
-																		<div class="modal-footer">
-																		</div>
 																			</form>
 																	</div>
 																</div>
@@ -707,6 +711,7 @@ function openPolicy(evt, cityName) {
 	else {
 		if(isset($_POST['savetraining']))
 		{
+			$display = $_REQUEST['display'];
 			$ATagentID = $variableAgentCode;
 			$ATagentName= $_POST['agentName'];
 			$ATtrainingName = $_POST['addtraining'];
@@ -734,7 +739,7 @@ function openPolicy(evt, cityName) {
 		{
 			?>
 			<script>
-				awindow.location = "agent_profile.php";
+				window.location = "agent_profile.php?display=<?php echo $display?>";
 			</script>
 			<?php
 
@@ -760,8 +765,10 @@ if(mysqli_connect_error())
 	die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 }
 else {
+
 	if(isset($_GET['delete']))
 	{
+		$display = $_REQUEST['display'];
 		$ATagenttrainingID =$_GET['delete'];
 		?>
 		<?php
@@ -771,7 +778,7 @@ else {
 	{
 		?>
 		<script>
-			window.location="agent_profile.php";
+			window.location = "agent_profile.php?display=<?php echo $display?>";
 		</script>
 		<?php
 	}

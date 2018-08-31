@@ -86,10 +86,22 @@
 				$TransactTdate = $_POST['TTransactDate'];
 				$PprodID = $_POST['ProdId'];
 
-
-				$sql = "INSERT INTO requirements (RagentCode, Rrequirements, RProdID, RtransDate)
-				values ('$AgentCode','$Requirement','$PprodID','$TransactTdate')";
-
+				$DB_con = Database::connect();
+				 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+					 $sql = "SELECT * FROM requirements, client ,production where requirements.RProdID = '$PprodID' and production.prodID='$PprodID'";
+				 $result = $DB_con->query($sql);
+			 ?>
+				 <?php
+				 while($row=$result->fetch(PDO::FETCH_ASSOC)){
+					 if($row['issuedDate']=="0000-00-00")
+					 {
+					 }
+					 else
+					 {
+						 $sql = "INSERT INTO requirements (RagentCode, Rrequirements, RProdID, RtransDate)
+						 values ('$AgentCode','$Requirement','$PprodID','$TransactTdate')";
+					}
+			}
 				if($conn->query($sql))
 				{
 					?>
@@ -424,7 +436,7 @@
 					$conn->close();
 				}
 			}
-			public function addTraining(){
+				public function addTraining(){
 				$host = "localhost";
 				$dbusername = "root";
 				$dbpassword = "";
@@ -506,12 +518,13 @@
 				else {
 					if(isset($_POST['iupdateko']))
 					{
-						$newTrainingNo = $_POST['utrainid'];
-					$newTrainingName = $_POST['utrainname'];
+						$newTrainingNo = $_POST['trainingid'];
+					$newTrainingName = $_POST['TrainingName'];
 					$newTrainingDate = $_POST['utraindate'];
 						?>
 					<?php
 						$sql = "UPDATE training SET trainingNo = '$newTrainingNo', trainingName = '$newTrainingName', trainingDate = '$newTrainingDate' where trainingNo = '$newTrainingNo'";
+
 						if($conn->query($sql))
 						{
 							?>
@@ -542,6 +555,7 @@
 				else {
 					if(isset($_POST['updateAgentTraining']))
 					{
+							$display = $_REQUEST['display'];
 						$newtrainingid= $_POST['updateTrainingid'];
 						$newTrainingDate = $_POST['updatetrainingdateApplication'];
 					$newTrainingName = $_POST['updatetrainingName'];
@@ -553,7 +567,7 @@
 						{
 							?>
 							<script>
-								window.location='agent_profile.php';
+								window.location = "agent_profile.php?display=<?php echo $display?>";
 							</script>
 							<?php
 						}
@@ -579,6 +593,7 @@
 				else {
 					if(isset($_POST['addqualifications']))
 					{
+						$add= $_POST['add'];
 						$newTrainingNo = $_POST['trainingid'];
 					$newTrainingName = $_POST['TrainingName'];
 					$newTrainingPosition = $_POST['TrainingRequired'];
@@ -590,7 +605,7 @@
 						{
 							?>
 							<script>
-								window.location='add_training.php?';
+								window.location='add_training.php?add=<?php $add ?>&#addtrainingqualifications';
 							</script>
 							<?php
 						}
