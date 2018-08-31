@@ -201,7 +201,8 @@
 																			 <div class="row">
 																		 			 <div class="col-xs-3">
 																						 Plan
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyPlan" id="policyPlan"><br>
+																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="planName" id="planName"><br>
+																						 <input style="cursor:auto" style="border:none" type="text" name="policyPlan" id="policyPlan" hidden>
 																					 </div>
 																				 	 <div class="col-md-3">
 																						 Face Amount
@@ -210,6 +211,7 @@
 																					 <div class="col-sm-3 ">
 																						 Mode of Payment
 																						 <select id="policyMOP" name="policyMOP" class="form-control col-md-7 col-xs-4">
+																							 <option id="policyMOP" name="policyMOP" value="">Select Mode</option>
 																							 <option id="policyMOP" name="policyMOP" value="Monthly">Monthly</option>
 																							 <option id="policyMOP" name="policyMOP" value="Quarterly">Quarterly</option>
 																							 <option id="policyMOP" name="policyMOP" value="Semi-Annual">Semi-Annual</option>
@@ -653,12 +655,12 @@
 																		 <hr>
 																		 	<h5><b>Payment Details</b></h5><hr/>
 																		 <div class="row">
-																			 <table name="datatable-fixed-header1" id="datatable-fixed-header1" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="closemodal()" >
+																			 <table name="datatable-fixed-header1" id="datatable-fixed-header1" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 																					<thead>
 																					<tr role="row">
 																							<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 30px;text-align:center;">Trans. Date</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Remarks: activate to sort column ascending" style="width: 30px;text-align:center;">Remarks</th>
-																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="MOP: activate to sort column ascending" style="width: 30px;text-align:center;">M.O.P</th>
+																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="MOP: activate to sort column ascending" style="width: 10px;text-align:center;">M.O.P</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Due Date: activate to sort column ascending" style="width: 30px;text-align:center;">Due Date</th>
 																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Due Date: activate to sort column ascending" style="width: 30px;text-align:center;">Next Due Date</th>
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="OR NO: activate to sort column ascending" style="width: 30px;text-align:center;">O.R.#</th>
@@ -686,19 +688,19 @@
 																						{
 																									?>
 																								<tr>
-																									<td><?php echo $row['transDate']; ?></td>
-																									<td><?php echo $row['payment_remarks']; ?></td>
-																									<td><?php echo $row['payment_MOP']; ?></td>
 																									<td><?php echo $row['payment_transDate']; ?></td>
+																									<td style="width: 10px;"><?php echo $row['payment_remarks']; ?></td>
+																									<td style="width: 10px;"><?php echo $row['payment_MOP']; ?></td>
+																									<td><?php echo $row['payment_dueDate']; ?></td>
 																									<td><?php echo $row['payment_nextDue']; ?></td>
-																									<td><?php echo $row['payment_OR']; ?></td>
-																									<td><?php echo $row['payment_APR']; ?></td>
-																									<td><?php echo $row['premium']; ?></td>
+																									<td style="width: 10px;"><?php echo $row['payment_OR']; ?></td>
+																									<td style="width: 10px;"><?php echo $row['payment_APR']; ?></td>
+																									<td style="width: 20px;"><?php echo $row['premium']; ?></td>
 																									<td><?php echo $row['SOAdate']; ?></td>
 																									<td>
 																										<div align="center">
 																											<a title="Edit Data" data-toggle="modal" data-target="#paymentModal" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-																											<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>&paymentReceiptNo=<?php echo $row['payment_OR']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																											<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																										</div>
 																									</td>
 																							 </tr>
@@ -768,6 +770,6 @@
 </html>
 <?php include 'JavaScriptFile/recordsJavascript.php'?>
 <?php include 'PHPFile/button_editButton_records.php'?>
+<?php include 'PHPFile/button_saveButton_records.php'?>
 <?php include 'PHPFile/button_fundButton_records.php'?>
 <?php include 'PHPFile/button_deleteButton_records.php'?>
-<?php include 'PHPFile/button_saveButton_records.php'?>

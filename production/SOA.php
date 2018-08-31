@@ -78,25 +78,25 @@
 
 																	$DB_con = Database::connect();
 																	$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																	$sql = "SELECT * FROM soa, client, agents WHERE SOA_agent = agentCode AND clientID = SOA_policyOWner";
+																	$sql = "SELECT * FROM production, payment, agents, client WHERE payment_policyNo = policyNo AND agent = agentCode AND clientID = prodclientID AND dueDate = payment_nextDue AND (SOAdate IS NULL OR SOAdate LIKE '')";
 
 																	$result = $DB_con->query($sql);
 																	if($result->rowCount()>0){
 																		while($row=$result->fetch(PDO::FETCH_ASSOC)){
 																			?>
 																			<tr>
-																				<td><?php print($row['SOA_transDate']); ?></td>
+																				<td><?php print($row['transDate']); ?></td>
 																				<td><?php print($row['cLastname'].",".$row['cFirstname']." ".$row['cMiddlename']);?></td>
-																				<td><?php print($row['SOA_policyNo']); ?></td>
-																				<td><?php print($row['SOA_paymentMode']); ?></td>
-																				<td><?php print($row['SOA_premium']); ?></td>
-																				<td><?php print($row['SOA_rate']); ?></td>
-																				<td><?php print($row['SOA_commission']); ?></td>
+																				<td><?php print($row['policyNo']); ?></td>
+																				<td><?php print($row['modeOfPayment']); ?></td>
+																				<td><?php print($row['premium']); ?></td>
+																				<td><?php print($row['rate']); ?></td>
+																				<td><?php print($row['FYC']); ?></td>
 																				<td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
 																				<td>
 																					<div class="row">
 																						<button  type="button" style='float:right' data-toggle="modal" data-target="#momodal" class="btn btn-danger" name="btn-addPlan" disabled><i class="fa fa-trash"></i></button>
-																						<button  type="button" style='float:right' data-toggle="modal" data-target="#updateModal" class="btn btn-primary" name="btn-addPlan"><i class="fa fa-pencil"></i></button>
+																						<a  href="soa.php?update=<?php print($row['policyNo']); ?>#addSOAModal" style='float:right' class="btn btn-primary" name="btn-addPlan"><i class="fa fa-pencil"></i></a>
 																					</div>
 																				</td>
 																			</tr>
@@ -139,12 +139,10 @@
 
 	<?php include 'java.php'; ?>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-
+	<script	src="	https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script	src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<!-- The Modal -->
 </body>
 </html>

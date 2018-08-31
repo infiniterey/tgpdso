@@ -16,7 +16,7 @@ else
 		{
 				$edit = $_GET['edit'];
 
-					$result=mysqli_query($conn,"SELECT * from production, client, policystatus WHERE clientID = prodclientID AND policyStat = policyID AND policyNo = '$edit'");
+					$result=mysqli_query($conn,"SELECT * from production, client, policystatus, plans WHERE plan = planID AND clientID = prodclientID AND policyStat = policyID AND policyNo = '$edit'");
 
 					while($row=mysqli_fetch_Array($result))
 					{
@@ -46,6 +46,8 @@ else
 						<script> document.getElementById('policyMOP').value = '<?php echo $row['modeOfPayment'];?>';</script>
 						<script> document.getElementById('policyIssueDate').value = '<?php echo $row['issuedDate'];?>';</script>
 						<script> document.getElementById('policyPremium').value = '<?php echo $row['premium'];?>';</script>
+						<script> document.getElementById('policyDueDate').value = '<?php echo $row['dueDate'];?>';</script>
+						<script> document.getElementById('planName').value = '<?php echo $row['planCode'];?>';</script>
 
 						<script> document.getElementById('paymentPolicyNo').value = '<?php echo $row['policyNo'];?>';</script>
 						<script> document.getElementById('paymentAmount').value = '<?php echo $row['faceAmount'];?>';</script>
@@ -55,7 +57,7 @@ else
 						<script> document.getElementById('paymentORNo').value = '<?php echo $row['receiptNo'];?>';</script>
 						<script> document.getElementById('policyRate').value = '<?php echo $row['rate'];?>';</script>
 						<script> document.getElementById('sampleDueDate').value = '<?php echo $row['payment_nextDue'];?>';</script>
-
+						<script> document.getElementById('paymentNextDue').value = '<?php echo $row['dueDate'];?>';</script>
 
 						<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
 						<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
@@ -95,7 +97,7 @@ else
 		{
 				$edit = $_GET['edit'];
 
-					$result=mysqli_query($conn,"SELECT * from payment, production WHERE payment_policyNo = policyNo AND policyNo = '$edit' ORDER BY payment_transDate DESC");
+					$result=mysqli_query($conn,"SELECT * from payment, production WHERE payment_policyNo = policyNo AND policyNo = '$edit' AND payment_nextDue = dueDate");
 
 					while($row=mysqli_fetch_Array($result))
 					{

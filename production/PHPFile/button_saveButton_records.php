@@ -70,6 +70,7 @@
 					$issueDate = $_REQUEST['policyIssueDate'];
 					$premium = $_REQUEST['policyPremium'];
 					$policyStatus = $_REQUEST['policyStatusSelect'];
+          $policyDueDate = $_REQUEST['policyDueDate'];
 
 						$sql = "UPDATE production
 						SET policyNo = '$policyNo',
@@ -78,7 +79,8 @@
 						modeOfPayment = '$MOP',
 						issuedDate = '$issueDate',
 						premium = '$premium',
-						policyStat = '$policyStatus'
+						policyStat = '$policyStatus',
+            dueDate = '$policyDueDate'
 						WHERE policyNo = '$policyNo'";
 
 						if($conn->query($sql))

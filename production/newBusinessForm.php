@@ -391,12 +391,12 @@
 										<table id="datatable-fixed-header3" align="center" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons1()">
 											<thead>
 												<tr role="row">
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="ClientID">ClientID</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="FullName">Full Name</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Birthdate">Birthdate</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Address">Address</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="CellNo">Cellphone No.</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" aria-label="Action">Action</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" style="width: 50px;" aria-label="ClientID">ClientID</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" style="width: 100px;" aria-label="FullName">Full Name</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" style="width: 50px;" aria-label="Birthdate">Birthdate</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" style="width: 50px;" aria-label="Address">Address</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1" style="width: 50px;" aria-label="CellNo">Cellphone No.</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header3" rowspan="1" colspan="1"  style="width: 50px;" aria-label="Action">Action</th>
 												</tr>
 											</thead>
 											<tbody>

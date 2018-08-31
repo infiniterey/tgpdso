@@ -28,7 +28,15 @@ Date.prototype.addMonths = function (value) {
 
 <script>
 
+
+
 $(document).ready(function () {
+	var date = $("#paymentNextDueADD").val();
+	var date1 = $("#paymentIssueDate").val();
+	if(date === "")
+	{
+		$('policyDueDate').val(date1);
+	}
     $('#policyIssueDate').datepicker();
     $('#policyDueDate').datepicker();
 });

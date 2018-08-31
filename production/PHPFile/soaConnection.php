@@ -37,9 +37,9 @@ if(mysqli_connect_error())
 }
 else
 {
-		if(isset($_GET['edit']))
+		if(isset($_GET['update']))
 		{
-				$edit = $_GET['edit'];
+				$edit = $_GET['update'];
 
 					$sql=mysqli_query($conn,"SELECT * from production, client, agents WHERE agentCode = agent AND clientID = prodclientID AND policyNo = '$edit'");
 
@@ -48,6 +48,7 @@ else
 						?>
 						<script> document.getElementById('soa_policyNo').value = '<?php echo $row['policyNo'];?>';</script>
 						<script> document.getElementById('soa_transDate').value = '<?php echo $row['transDate'];?>';</script>
+            <script> document.getElementById('soa_client').value = '<?php echo $row['cLastname'].", ".$row['cFirstname']." ".$row['cMiddlename']?>';</script>
 						<script> document.getElementById('soa_name').value = '<?php echo $row['prodclientID'];?>';</script>
 						<script> document.getElementById('soa_issueDate').value = '<?php echo $row['issuedDate'];?>';</script>
             <script> document.getElementById('soaMOP').value = '<?php echo $row['modeOfPayment'];?>';</script>
@@ -55,7 +56,59 @@ else
 						<script> document.getElementById('soa_rate').value = '<?php echo $row['rate'];?>';</script>
 						<script> document.getElementById('soa_commission').value = '<?php echo $row['FYC'];?>';</script>
             <script> document.getElementById('soa_agent').value = '<?php echo $row['agentCode'];?>';</script>
+            <script> document.getElementById('soa_agentname').value = '<?php echo $row['agentLastname'].", ".$row['agentFirstname']." ".$row['agentMiddlename']?>';</script>
+
 					<?php
+
+				}
+        ?>
+        <script>
+          window.location="soa.php?update=<?php echo $update ?>&#addSOAModal";
+        </script>
+        <?php
+				$conn->close();
+	}
+}
+?>
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tgpdso_db";
+
+$conn = new mysqli ($servername, $username, $password, $dbname);
+
+if(mysqli_connect_error())
+{
+	die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+}
+else
+{
+		if(isset($_REQUEST['edit']))
+		{
+				$edit = $_REQUEST['edit'];
+
+					$sql=mysqli_query($conn,"SELECT * from production, client, agents WHERE agentCode = agent AND clientID = prodclientID AND policyNo = '$edit'");
+
+					while($row=mysqli_fetch_Array($sql))
+					{
+						?>
+						<script> document.getElementById('soa_policyNo').value = '<?php echo $row['policyNo'];?>';</script>
+						<script> document.getElementById('soa_transDate').value = '<?php echo $row['transDate'];?>';</script>
+            <script> document.getElementById('soa_client').value = '<?php echo $row['cLastname'].", ".$row['cFirstname']." ".$row['cMiddlename']?>';</script>
+						<script> document.getElementById('soa_name').value = '<?php echo $row['prodclientID'];?>';</script>
+						<script> document.getElementById('soa_issueDate').value = '<?php echo $row['issuedDate'];?>';</script>
+            <script> document.getElementById('soaMOP').value = '<?php echo $row['modeOfPayment'];?>';</script>
+						<script> document.getElementById('soa_premium').value = '<?php echo $row['premium'];?>';</script>
+						<script> document.getElementById('soa_rate').value = '<?php echo $row['rate'];?>';</script>
+						<script> document.getElementById('soa_commission').value = '<?php echo $row['FYC'];?>';</script>
+            <script> document.getElementById('soa_agent').value = '<?php echo $row['agentCode'];?>';</script>
+            <script> document.getElementById('soa_agentname').value = '<?php echo $row['agentLastname'].", ".$row['agentFirstname']." ".$row['agentMiddlename']?>';</script>
+            <script>
+              window.location="soa.php?edit=<?php echo $edit ?>&#addSOAModal";
+            </script>
+					<?php
+
 				}
 				$conn->close();
 	}
@@ -78,7 +131,9 @@ else
 				if(isset($_POST['soaSave']))
 				{
 
-          $soaDate = $_POST['soa_soaDate'];
+          $soamid = $_POST['soa_mid'];
+          $soaend = $_POST['soa_end'];
+          $soaDate = $_POST['soa_date'];
           $soaPolicyNo = $_POST['soa_policyNo'];
           $soaTransDate = $_POST['soa_transDate'];
           $soaName = $_POST['soa_name'];
@@ -91,8 +146,8 @@ else
 
 
 					$sql = "INSERT INTO soa (SOA_transDate, SOA_policyOwner, SOA_policyNo, SOA_paymentMode, SOA_premium, SOA_rate, SOA_commission,
-          SOA_agent, SOA_date)
-					values ('$soaTransDate', '$soaName', '$soaPolicyNo', '$soaMOP', '$soaPremium', '$soaRate','$soaCommission', '$soaAgent', '$soaDate')";
+          SOA_agent, SOA_date, SOA_midMonth, SOA_endMonth)
+					values ('$soaTransDate', '$soaName', '$soaPolicyNo', '$soaMOP', '$soaPremium', '$soaRate','$soaCommission', '$soaAgent', '$soaDate', '$soamid', '$soaend')";
 
 						if($conn->query($sql))
 						{
@@ -110,6 +165,46 @@ else
       }
     }
 ?>
+
+<?php
+  $host = "localhost";
+  $dbusername = "root";
+  $dbpassword = "";
+  $dbname = "tgpdso_db";
+
+      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['soaSave']))
+				{
+
+          $soadate = $_POST['soa_date'];
+
+					$sql = "UPDATE production SET
+					SOAdate = '$soadate'
+          WHERE policyNo = '$soaPolicyNo'";
+
+						if($conn->query($sql))
+						{
+							?>
+							<script>
+                window.location="soa.php?edit=<?php echo $soaPolicyNo ?>"
+							</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
+
 
 <?php
   $host = "localhost";
@@ -149,7 +244,7 @@ else
           SOA_agent = $soaAgent
           SOA_date = $soaDate
           WHERE    SOA_policyNo = '$soaPolicyNo'";
-          
+
 						if($conn->query($sql))
 						{
 							?>
