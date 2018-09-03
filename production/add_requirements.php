@@ -102,6 +102,7 @@
 																 $MOP = $row['modeOfPayment'];
 																 $Idate = $row['issuedDate'];
 																 $SOADate = $row['SOAdate'];
+																 $issueDate=$row['issuedDate'];
 																 $Aagent = $row['agent'];
 																 $Rremarks = $row['remarks'];
 																 $policyStatusVariable=$row['policyStat'];
@@ -153,9 +154,15 @@
 																			 <div class="col-sm-3 ">
 																				 Policy Status
 																				 <div>
-																					<input value="<?php echo $policyStatusVariable; ?>"  style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="mypolicyStatus" id="mypolicyStatus">
+																					<input value="<?php echo $policyStatusVariable;?>" style="cursor:auto" type="text" class="form-control col-md-7 col-xs-12" name="mypolicyStatus" id="mypolicyStatus">
 																				</div>
 																			 </div>
+																			 <div class="col-sm-3 ">
+																				 Issued Date
+																				<div>
+																				 <input value="<?php echo $Idate;?>" style="cursor:auto" type="text" class="form-control col-md-7 col-xs-12" name="myissueDate" id="myissueDate">
+																			 </div>
+																			</div>
 																			 </div>
 																		 </div>
 																	<br><br>
@@ -285,7 +292,6 @@
 																	 <br>
 																</div>
 																	<div class="modal-footer">
-																		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 																			<button type="submit" class="btn btn-primary" name="btn-addrEquirements"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
 																	</div>
 																</form>
@@ -414,6 +420,7 @@
 																			 document.getElementById('mydate').value = " <?php echo $Tdate ;?>"
 																			 document.getElementById('myModeOfPayment').value = " <?php echo $MOP ;?>"
 																			 document.getElementById('mypolicyStatus').value = " <?php echo $policystatus ;?>"
+																			 document.getElementById('myissueDate').value = " <?php echo $Idate ;?>"
 																			 document.getElementById('mybirthdate').value = " <?php echo $birthdate ;?>"
 																			 document.getElementById('myaddress').value = " <?php echo $address ;?>"
 																			 document.getElementById('mycontact').value = " <?php echo $contact ;?>"
@@ -439,7 +446,7 @@
 
 																 $DB_con = Database::connect();
 	 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-		 																$sql = "SELECT * FROM requirements, client where requirements.RProdID = '$display' and client.clientID = '$display2'";
+		 																$sql = "SELECT * FROM requirements, client,production where requirements.RProdID = '$display' and client.clientID = '$display2' and production.prodID='$display'";
 	 																$result = $DB_con->query($sql);
 																?>
 																	<?php
@@ -455,7 +462,12 @@
 																					<div class="row">
 																						<center>
 																							<form method='post' name='myform' onsubmit="CheckForm()">
-																							<?php if($row['Status'] == "" || $row['SubmitDate'] == "0000-00-00")
+																							<?php
+																							if($row['issuedDate']=="0000-00-00")
+																							{
+
+																							}
+																							else if($row['Status'] == "" || $row['SubmitDate'] == "0000-00-00")
 																							{
 																								?>
 																								<button  type=	"button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
@@ -535,10 +547,9 @@
 
 
 							<div class="modal-header">
-								<h2 class="modal-title">Search policy NO</h2>
-								<button type="button" class="close" data-dismiss="modal">x</button>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+								<h4 class="modal-title" id="myModalLabel2">Search Policy Number</h4>
 							</div>
-
 							<form style="margin-bottom: 10px;">
 							<div class="modal-body">
 
@@ -602,7 +613,7 @@
 									</form>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" onclick="showdata()" class ="btn btn-primary"class="btn btn-default" data-dismiss="modal">Submit</button>
+
 							</div>
 						</div>
 					</div>
@@ -727,7 +738,6 @@ if($conn->connect_error)
 else {
 	if(isset($_GET['delete']))
 	{
-
 		$delete= $_GET['delete'];
 		$sql = "DELETE FROM requirements WHERE RequirementNo = '$delete'";
 
@@ -736,7 +746,7 @@ else {
 			echo "Successful";
 		}
 		else {
-			echo "Error Deleting" .$conn->error;;
+			echo "Error Deleting" .$conn->error;
 		}
 		?>
 		<script>

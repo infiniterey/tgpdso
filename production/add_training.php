@@ -55,7 +55,7 @@
 											}
 									?>
 				<button style="float:left" type="button" class="btn btn-primary" id="addTraining" name="addTraining" data-toggle="modal" data-target="#momodal"><i class="fa fa-file-text"></i>Add training</button>
-				<table method="post" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
+				<table method="post" name="datatable-fixed-header"id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
 				<thead>
 					<tr role="row">
 									<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;" hidden>Training ID</th>
@@ -82,7 +82,6 @@
 										<div class="row">
 											<center>
 												<form method='post' name='myform' onsubmit="CheckForm()">
-												<button  type="button" id="ButtonUpdate" name="ButtonUpdate" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
 													<a data-toggle="modal" data-target="#addtrainingqualifications" title="add Data" href="add=<?php echo $row['trainingNo']; ?>" name="addbutton" class="btn btn-primary"><i class="fa fa-plus"></i></a>
 												  <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_training.php?delete=<?php echo $row['trainingNo']; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 												</form>
@@ -121,20 +120,16 @@
 								<?php tgpdso::dropdown_position(); ?>
 
 							</select><br>
+							Date of training<input  type="date" class="form-control" style="width:195px" name="utraindate" id="utraindate" value="<?php echo $pit?>">
 							<br><br>
 						 	</div>
 						 <?php
 
-						 if(isset($_GET['trainingid']))
-						 {
-							 $trainingid=$_GET['trainingid'];
-							 ?><script>alert('go ');</script><?php
-							}
 						  ?>
 						 <div class="col-sm-9">
 							 <?php
 							 ?>
-							 <table method ="post" style="margin-left:70px" id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+							 <table method ="post" style="width:500px;margin-left:70px" id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 							 <thead>
 								 <tr role="row">
 										 <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"aria-sort="ascending" style="width:200px" aria-label="Trans. Date: activate to sort column descending">Training Name</th>
@@ -197,10 +192,11 @@
 						</div>
 						<div 	<div  class="col-sm-12">
 							<div method="post" class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-primary" id="addqualifications" name="addqualifications"><i class="fa fa-plus"></i>Add Qualification</button>
+									<button type="submit" style="float:left" class="btn btn-primary" id="iupdateko" name="iupdateko"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
 								<?php if(isset($_POST['addqualifications']))
-								{tgpdso::addTrainingQualifications();}?>
+								{tgpdso::addTrainingQualifications();
+								}?>
 							 </div>
 						 </div>
 						</form>
@@ -234,12 +230,9 @@
 							?>
 								Training Name:<br><input type="text" class="form-control"  style="width: 195px" id="TrainingName" name="TrainingName" value=""><br>
 								Training Date:<br><input type="date" class="form-control"  style="width: 195px" id="TrainingDate" name="TrainingDate" value=""><br>
-							<br><br>
-							 <br>
 
 						</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-primary" name="btn-addrEquirements"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
 						   </div>
 						</form>
@@ -254,29 +247,28 @@
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
-			<h2 class="modal-title">Update Training</h2>
-			<button type="button" class="close" data-dismiss="modal">X</button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<h4 class="modal-title" id="myModalLabel2">Update Training</h4>
+				</div>
 		<form method='post' name='myform' onsubmit="CheckForm()">
 			<?php 	if(isset($_POST['iupdateko']))
 			{tgpdso::updateTraining();}?>
 				<div class="modal-body">
-			<br><br>
-		 	Training ID<input type="text" readonly="readonly" style="width:195px" class="form-control"  name="utrainid" id="utrainid" value="<?php echo $pat?>" >
+
+
+		 	<input type="text" readonly="readonly" style="width:195px" class="form-control"  name="utrainid" id="utrainid" value="<?php echo $pat?>" >
 			Training Name<input style = "width:195px" name="utrainname" id="utrainname"class="form-control">
 			Date<input  type="date" class="form-control" style="width:195px" name="utraindate" id="utraindate" value="<?php echo $pit?>">
 
 
 		</div>
 
-		<div class="modal-footer">
+
 			<form method="POST" action="<?php $_PHP_SELF ?>">
 			<div  class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="submit" class="btn btn-primary" id="iupdateko" name="iupdateko"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
 				</div>
 		</form>
-		</div>
-		</div>
 	</div>
 	</form>
 </div>
@@ -655,6 +647,8 @@ function showButtons()
 $("#addbutton").click(function(){
     $("#addtrainingqualifications").modal();
 });
+
+
 </script>
 <?php
 
@@ -728,3 +722,4 @@ else {
 	}
 }
 ?>
+<?php include 'base/recordConnection.php'?>

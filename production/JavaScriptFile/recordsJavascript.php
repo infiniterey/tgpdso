@@ -30,6 +30,7 @@ Date.prototype.addMonths = function (value) {
 
 <script>
 
+<<<<<<< HEAD
 function handler()
 {
 	var selectPayment = $("#paymentmodeOfPayment").val();
@@ -66,6 +67,9 @@ function handler()
 		policyDueDate.value = newdate;
 	}
 }
+=======
+
+>>>>>>> d667b034233f48e827574aef756d3dbd175686ba
 
 $(document).ready(function () {
 	var date = $("#paymentNextDueADD").val();

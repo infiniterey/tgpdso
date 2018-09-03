@@ -56,6 +56,7 @@ include 'PHPFile/Connection_Database.php';
             policyStat = '$policyStatus',
             dueDate = '$policyDueDate'";
 
+<<<<<<< HEAD
             if($conn->query($sql))
             {
               ?>
@@ -74,6 +75,34 @@ include 'PHPFile/Connection_Database.php';
           {
             $sql = "INSERT INTO insuredpolicy (insured_policyNo, insured_lastName, insured_firstName, insured_middleName, insured_birthDate, insured_address, insured_contactNo)
 						values ('$add','$insuredLastname','$insuredFirstname','$insuredMiddlename','$insuredBirthdate','$insuredAddress','$insuredContact')";
+=======
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_REQUEST['saveButton']))
+				{
+					$policyNo = $_REQUEST['policyNoOwner'];
+					$plan = $_REQUEST['policyPlan'];
+					$faceAmount = $_REQUEST['policyFaceAmount'];
+					$MOP = $_REQUEST['policyMOP'];
+					$issueDate = $_REQUEST['policyIssueDate'];
+					$premium = $_REQUEST['policyPremium'];
+					$policyStatus = $_REQUEST['policyStatusSelect'];
+          $policyDueDate = $_REQUEST['policyDueDate'];
+
+						$sql = "UPDATE production
+						SET policyNo = '$policyNo',
+						plan = '$plan',
+						faceAmount = '$faceAmount',
+						modeOfPayment = '$MOP',
+						issuedDate = '$issueDate',
+						premium = '$premium',
+						policyStat = '$policyStatus',
+            dueDate = '$policyDueDate'
+						WHERE policyNo = '$policyNo'";
+>>>>>>> d667b034233f48e827574aef756d3dbd175686ba
 
 						if($conn->query($sql))
 						{
