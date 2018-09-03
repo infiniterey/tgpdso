@@ -16,7 +16,7 @@ else
 		{
 				$edit = $_GET['edit'];
 
-					$result=mysqli_query($conn,"SELECT * from payment, production WHERE policyNo = payment_policyNo AND policyNo = '$edit'");
+					$result=mysqli_query($conn,"SELECT * from payment, production WHERE dueDate = payment_nextDue AND policyNo = payment_policyNo AND policyNo = '$edit'");
 
 					while($row=mysqli_fetch_Array($result))
 					{

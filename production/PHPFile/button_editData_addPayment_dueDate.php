@@ -4,7 +4,7 @@
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
       <h4 class="modal-title" id="myModalLabel2">Add Payment</h4>
     </div>
-    <form method='post' name='myform' onsubmit="CheckForm()">
+    <form method='post' name='myform' onsubmit="CheckForm()" action="<?php ?>">
       <div class="modal-body">
         <div class="row">
         <div class="col-sm-6">
@@ -45,8 +45,7 @@
         <label class="control-label">
         Due Date:
       </label><input type="date" class="form-control aswidth" name="paymentNextDue" id="paymentNextDue">
-      <input type="date" class="aswidth" name="paymentNextDueADD" id="paymentNextDueADD" hidden>
-      <br>
+      <input type="date" class="aswidth" name="paymentNextDueADD" id="paymentNextDueADD"><br>
        <br>
      </div>
  </div>
@@ -58,28 +57,6 @@
     </form>
   </div>
 </div>
-
-
-<?php
-if(isset($_REQUEST['edit']))
-{
-  $policyNo = $_REQUEST['edit'];
-
-  $DB_con = Database::connect();
-  $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-  $sql = "SELECT * FROM production, payment WHERE policyNo = payment_policyNo AND policyNo = '$policyNo'";
-
-  $result = $DB_con->query($sql);
-  if($result->rowCount()>0){
-    while($row=$result->fetch(PDO::FETCH_ASSOC)){
-        ?>
-        <script>document.getElementById('paymentNextDueADD').value = '<?php echo $row['dueDate']?>'</script>
-        <?php
-    }
-  }
-  else{}
-  }
-?>
 
 <?php
   $host = "localhost";
@@ -103,27 +80,25 @@ if(isset($_REQUEST['edit']))
 					$paymentTransDate = $_POST['paymentTransDate'];
 					$paymentORNo = $_POST['paymentORNo'];
 					$paymentAPR = $_POST['paymentAPR'];
-          $paymentDueDate = $_POST['paymentNextDueADD'];
 					$paymentNextDue = $_POST['paymentNextDue'];
 					$paymentRemarks = "New";
 
 						$sql = "INSERT INTO payment (payment_policyNo,
 							payment_Amount, payment_issueDate,
 							payment_MOP, payment_transDate,
-							payment_OR, payment_APR, payment_dueDate,
+							payment_OR, payment_APR,
 							payment_nextDue, payment_remarks)
 						values ('$paymentPolicyNo','$paymentAmount',
 							'$paymentIssueDate','$paymentMOP',
 							'$paymentTransDate','$paymentORNo',
-							'$paymentAPR','$paymentDueDate',
-               '$paymentNextDue',
+							'$paymentAPR', '$paymentNextDue',
 							'$paymentRemarks')";
 
 						if($conn->query($sql))
 						{
 							?>
 							<script>
-              window.location="records.php?edit=<?php echo $paymentPolicyNo ?>";
+              window.location="dueDate.php";
 								</script>
 								<?php
 						}
@@ -157,7 +132,6 @@ if(isset($_REQUEST['edit']))
 					$paymentTransDate = $_POST['paymentTransDate'];
 					$paymentORNo = $_POST['paymentORNo'];
 					$paymentAPR = $_POST['paymentAPR'];
-
 					$paymentNextDue = $_POST['paymentNextDue'];
 					$paymentRemarks = "New";
 
@@ -174,9 +148,17 @@ if(isset($_REQUEST['edit']))
 
 						if($conn->query($sql))
 						{
-              ?>
+							?>
 							<script>
-              window.location="records.php?edit=<?php echo $paymentPolicyNo ?>";
+
+              window.location="dueDate.php"
+//              $(document).ready(function() {
+
+  //if(window.location.href.indexOf('#paymentModal') != -1) {
+  //  $('#paymentModal').modal('show');
+  //}
+
+//});
 								</script>
 								<?php
 						}

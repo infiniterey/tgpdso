@@ -44,7 +44,7 @@
                           <div style="margin-left:200px;">
 
           <!-- table-striped dataTable-->
-													<img src="img/meme.png" alt="finish">
+													<img src="img/2.png" alt="wlan">
 
                         </div>
                       </div>

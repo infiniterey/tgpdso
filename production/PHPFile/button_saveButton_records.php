@@ -1,134 +1,85 @@
 <?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+include 'PHPFile/Connection_Database.php';
 
       if(mysqli_connect_error())
       {
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_REQUEST['saveButton']))
+				if(isset($_POST['saveButton']))
 				{
-					$clientID = $_REQUEST['clientToRetrieve'];
-					$lastname = $_REQUEST['lastname1'];
-					$firstname = $_REQUEST['firstname1'];
-					$middlename = $_REQUEST['middlename1'];
-					$birthdate = $_REQUEST['birthdate1'];
-					$address = $_REQUEST['address1'];
-					$contactno = $_REQUEST['contactno1'];
-
-						$sql = "UPDATE client
-						SET clientID = '$clientID',
-						cLastname = '$lastname',
-						cFirstname = '$firstname',
-						cMiddlename = '$middlename',
-						cBirthdate = '$birthdate',
-						cAddress = '$address',
-						cCellno = '$contactno'
-						WHERE clientID = '$clientID'";
-
-						if($conn->query($sql))
-						{
-							?>
-							<script>
-								alert("New record production successfully added");
-								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
-								</script>
-								<?php
-						}
-						else {
-							echo "Error:". $sql."<br>".$conn->error;
-						}
-						$conn->close();
-      }
-    }
-?>
-
-<?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-
-      if(mysqli_connect_error())
-      {
-        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-      }
-      else {
-				if(isset($_REQUEST['saveButton']))
-				{
-					$policyNo = $_REQUEST['policyNoOwner'];
-					$plan = $_REQUEST['policyPlan'];
-					$faceAmount = $_REQUEST['policyFaceAmount'];
-					$MOP = $_REQUEST['policyMOP'];
-					$issueDate = $_REQUEST['policyIssueDate'];
-					$premium = $_REQUEST['policyPremium'];
-					$policyStatus = $_REQUEST['policyStatusSelect'];
-
-						$sql = "UPDATE production
-						SET policyNo = '$policyNo',
-						plan = '$plan',
-						faceAmount = '$faceAmount',
-						modeOfPayment = '$MOP',
-						issuedDate = '$issueDate',
-						premium = '$premium',
-						policyStat = '$policyStatus'
-						WHERE policyNo = '$policyNo'";
-
-						if($conn->query($sql))
-						{
-							?>
-							<script>
-								alert("New record production successfully added");
-								window.location = "records.php?edit=<?php echo $paymentPolicyNo ?>";
-								</script>
-								<?php
-						}
-						else {
-							echo "Error:". $sql."<br>".$conn->error;
-						}
-						$conn->close();
-      }
-    }
-?>
-
-<?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-
-      if(mysqli_connect_error())
-      {
-        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-      }
-      else {
-				if(isset($_REQUEST['saveButton']))
-				{
-					$insuredLastname = $_REQUEST['insuredLastName'];
-					$insuredFirstname = $_REQUEST['insuredFirstName'];
-					$insuredMiddlename = $_REQUEST['insuredMiddleName'];
-					$insuredBirthdate = $_REQUEST['insuredBirthdate'];
-					$insuredAddress = $_REQUEST['insuredAddress'];
-					$insuredContact = $_REQUEST['insuredContactno'];
+					$insuredLastname = $_POST['insuredLastName'];
+					$insuredFirstname = $_POST['insuredFirstName'];
+					$insuredMiddlename = $_POST['insuredMiddleName'];
+					$insuredBirthdate = $_POST['insuredBirthdate'];
+					$insuredAddress = $_POST['insuredAddress'];
+					$insuredContact = $_POST['insuredContactno'];
 					$add = $_POST['policyNoOwner'];
 
-						$sql = "INSERT INTO insuredpolicy (insured_policyNo, insured_lastName, insured_firstName, insured_middleName, insured_birthDate, insured_address, insured_contactNo)
+          $policyNo = $_POST['policyNoOwner'];
+          $plan = $_POST['policyPlan'];
+          $faceAmount = $_POST['policyFaceAmount'];
+          $MOP = $_POST['policyMOP'];
+          $issueDate = $_POST['policyIssueDate'];
+          $premium = $_POST['policyPremium'];
+          $policyStatus = $_POST['policyStatusSelect'];
+          $policyDueDate = $_POST['policyDueDate'];
+
+          $clientID = $_POST['clientToRetrieve'];
+          $lastname = $_POST['lastname1'];
+          $firstname = $_POST['firstname1'];
+          $middlename = $_POST['middlename1'];
+          $birthdate = $_POST['birthdate1'];
+          $address = $_POST['address1'];
+          $contactno = $_POST['contactno1'];
+
+
+          $query = "SELECT * FROM insuredpolicy, client, production WHERE clientID = prodclientID AND policyNo = insured_policyNo AND policyNo = '$add'";
+          $data = mysqli_query($conn, $query);
+          $result = mysqli_num_rows($data);
+          if($result == 1)
+          {
+            $sql = "UPDATE insuredpolicy JOIN production
+            ON insuredpolicy.insured_policyNo = '$add' AND production.policyNo = '$add'
+            SET insured_policyNo = '$add',
+            insured_lastName = '$insuredLastname',
+            insured_firstName = '$insuredFirstname',
+            insured_middleName = '$insuredMiddlename',
+            insured_birthdate = '$insuredBirthdate',
+            insured_address = '$insuredAddress',
+            insured_contactNo = '$insuredContact',
+            plan = '$plan',
+            faceAmount = '$faceAmount',
+            modeOfPayment = '$MOP',
+            issuedDate = '$issueDate',
+            premium = '$premium',
+            policyStat = '$policyStatus',
+            dueDate = '$policyDueDate'";
+
+            if($conn->query($sql))
+            {
+              ?>
+              <script>
+                alert("Updated record successfully added");
+                window.location = "records.php?edit=<?php echo $add ?>";
+                </script>
+                <?php
+            }
+            else
+            {
+              echo "Error:". $sql."<br>".$conn->error;
+            }
+          }
+          else if($result == 0)
+          {
+            $sql = "INSERT INTO insuredpolicy (insured_policyNo, insured_lastName, insured_firstName, insured_middleName, insured_birthDate, insured_address, insured_contactNo)
 						values ('$add','$insuredLastname','$insuredFirstname','$insuredMiddlename','$insuredBirthdate','$insuredAddress','$insuredContact')";
 
 						if($conn->query($sql))
 						{
 							?>
 							<script>
-								alert("New record production successfully added");
+								alert("New record successfully added");
 								window.location = "records.php?edit=<?php echo $add ?>";
 								</script>
 								<?php
@@ -136,7 +87,51 @@
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
 						}
+          }
+          else
+          {
+            ?>
+            <script>alert('Maybe does not connect to the database or input is wrong');</script>
+              <?php
+          }
 						$conn->close();
       }
     }
 ?>
+
+<?php
+include 'PHPFile/Connection_Database.php';
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['saveButton']))
+				{
+          $sql = "UPDATE client
+          SET clientID = '$clientID',
+          cLastname = '$lastname',
+          cFirstname = '$firstname',
+          cMiddlename = '$middlename',
+          cBirthdate = '$birthdate',
+          cAddress = '$address',
+          cCellno = '$contactno'
+          WHERE clientID = '$clientID'";
+
+          if($conn->query($sql))
+          {
+            ?>
+            <script>
+              alert("New record successfully added");
+              window.location = "records.php?edit=<?php echo $add ?>";
+              </script>
+              <?php
+          }
+          else {
+            echo "Error:". $sql."<br>".$conn->error;
+          }
+
+          $conn->close();
+        }
+      }
