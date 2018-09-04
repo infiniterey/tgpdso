@@ -26,9 +26,58 @@ Date.prototype.addMonths = function (value) {
 
 </script>
 
+
+
 <script>
 
+<<<<<<< HEAD
+function handler()
+{
+	var selectPayment = $("#paymentmodeOfPayment").val();
+	if(selectPayment == "Monthly")
+	{
+		var date1 = document.getElementById('policyIssueDate').value;
+		var dateObj = new Date(date1);
+		var dt = dateObj.addMonths(1);
+		var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+		policyDueDate.value = newdate;
+	}
+	else if(selectPayment == "Quarterly")
+	{
+		var date1 = document.getElementById('policyIssueDate').value;
+		var dateObj = new Date(date1);
+		var dt = dateObj.addMonths(4);
+		var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+		policyDueDate.value = newdate;
+	}
+	else if(selectPayment == "Semi-Annual")
+	{
+		var date1 = document.getElementById('policyIssueDate').value;
+		var dateObj = new Date(date1);
+		var dt = dateObj.addMonths(6);
+		var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+		policyDueDate.value = newdate;
+	}
+	else if(selectPayment == "Annual")
+	{
+		var date1 = document.getElementById('policyIssueDate').value;
+		var dateObj = new Date(date1);
+		var dt = dateObj.addMonths(12);
+		var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+		policyDueDate.value = newdate;
+	}
+}
+=======
+
+>>>>>>> d667b034233f48e827574aef756d3dbd175686ba
+
 $(document).ready(function () {
+	var date = $("#paymentNextDueADD").val();
+	var date1 = $("#paymentIssueDate").val();
+	if(date === "")
+	{
+		$('policyDueDate').val(date1);
+	}
     $('#policyIssueDate').datepicker();
     $('#policyDueDate').datepicker();
 });

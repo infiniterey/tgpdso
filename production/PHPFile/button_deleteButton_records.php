@@ -11,12 +11,11 @@
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-			if(isset($_GET['deletePayment']) && (isset($_GET['paymentReceiptNo'])))
+			if(isset($_GET['deletePayment']))
 			{
 				$delete = $_GET['deletePayment'];
-				$receiptNo = $_GET['paymentReceiptNo'];
 
-				$sql = "DELETE FROM payment WHERE payment_policyNo = $delete AND payment_OR = $receiptNo";
+				$sql = "DELETE FROM payment WHERE payment_policyNo = '$delete'";
 
 				if($conn->query($sql))
 				{

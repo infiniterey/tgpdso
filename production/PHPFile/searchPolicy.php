@@ -67,7 +67,6 @@
         </form>
     </div>
     <div class="modal-footer">
-      <button type="submit" onclick="closemodal()" class ="btn btn-primary"class="btn btn-default" data-dismiss="modal">Submit</button>
     </div>
 
   </div>
