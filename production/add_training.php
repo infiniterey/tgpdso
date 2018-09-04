@@ -36,6 +36,8 @@
 										<form method='post' name='myform' onsubmit="CheckForm()">
 												<?php
 												$trainingid="";
+												$trainingname="";
+												$trainingdate="";
 												 $pat=""; $pot=""; $pit=""; $tempAgentName=""; $tempAgentID=""; $tempTrainingID=""; $tempTrainingName=""; $contain=""; $contain1="";?>
 
 											<input style = "width:130px;"  style="border:none" type="text" class="form-control" name="temp" id="temp">
@@ -54,6 +56,7 @@
 												tgpdso::deleteTraining();
 											}
 									?>
+
 				<button style="float:left" type="button" class="btn btn-primary" id="addTraining" name="addTraining" data-toggle="modal" data-target="#momodal"><i class="fa fa-file-text"></i>Add training</button>
 				<table method="post" name="datatable-fixed-header"id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
 				<thead>
@@ -82,9 +85,17 @@
 										<div class="row">
 											<center>
 												<form method='post' name='myform' onsubmit="CheckForm()">
-													<a data-toggle="modal" data-target="#addtrainingqualifications" title="add Data" href="add=<?php echo $row['trainingNo']; ?>" name="addbutton" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+													<a onclick="showButtons()" title="Delete Data" href="add_training.php?trainingno=<?php echo $row['trainingNo'];?>&trainingname=<?php echo $row['trainingName'];?>&trainingdate=<?php echo $row['trainingDate'];?>" name="addbutton2" id="addbutton2" class="btn btn-primary"><i class="fa fa-plus"></i></a>
 												  <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_training.php?delete=<?php echo $row['trainingNo']; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 												</form>
+												<script>
+   										function getPaperCode(paperCode)
+   										{
+												alert(paperCode);
+												return paperCode;
+   										}
+
+											</script>
 											</center>
 										</div>
 									</td>
@@ -99,115 +110,110 @@
 
 				</form>
 			</table>
-			<!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification -->
-
-			<div id="addtrainingqualifications" name="addtrainingqualifications" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog modal-sm" style="width:800px">
-					<div class="modal-content">
-						<div class="modal-header">
-
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-							<h4 class="modal-title" id="myModalLabel2">Add Qualification</h4>
-						</div>
-						 <div class="row">
-							<div class="modal-body">
-								<div class="col-sm-3">
-								<form method='post' name='myform' action="<?php $_PHP_SELF ?>">
-								<input type="text" class="form-control"  style="width: 195px" id="trainingid" name="trainingid" value=""><br>
-								Training Name:<br><input type="text" class="form-control"  style="width: 195px" id="TrainingName" name="TrainingName" value=""><br>
-								Training Required Position: <br>
-								<select style = "width:195px" name="TrainingRequired" id="TrainingRequired"class="form-control" >
-								<?php tgpdso::dropdown_position(); ?>
-
-							</select><br>
-							Date of training<input  type="date" class="form-control" style="width:195px" name="utraindate" id="utraindate" value="<?php echo $pit?>">
-							<br><br>
-						 	</div>
-						 <?php
-
-						  ?>
-						 <div class="col-sm-9">
-							 <?php
-							 ?>
-							 <table method ="post" style="width:500px;margin-left:70px" id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
-							 <thead>
-								 <tr role="row">
-										 <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"aria-sort="ascending" style="width:200px" aria-label="Trans. Date: activate to sort column descending">Training Name</th>
-										 <th class="sorting" tabindex="0"rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"style="width:200px" aria-label="Name of Insured: activate to sort column ascending">Training Required</th>
-										 <th class="sorting" tabindex="0"rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"style="width:200px" aria-label="Rate: activate to sort column ascending">Action</th>
-									 <th class="sorting" tabindex="0"rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"style="width:200px" aria-label="Action: activate to sort column ascending" hidden>training no</th>
-									 </tr>
-							 </thead>
-							 <tbody>
-								 <?php
-
-									 $DB_con = Database::connect();
-									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-									 $sql = "SELECT * FROM trainingqualifications";
-
-									 $result = $DB_con->query($sql);
-									 if($result->rowCount()>0){
-										 while($row=$result->fetch(PDO::FETCH_ASSOC)){
-											 ?>
-											 <tr>
-												 <td><?php print($row['trainingQName']); ?></td>
-												 <td><?php print($row['trainingQualification']); ?></td>
-												 <td>
-													 <div class="row">
-														 <center>
-															 <form method='post' name='myform' onsubmit="CheckForm()">
-																 <a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_training.php?deletetraining=<?php echo $row['trainingID'] ?>&deletequalification=<?php echo $row['trainingQualification']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-														 </center>
-													 </div>
-												 </td>
-											 <td hidden><?php print($row['trainingID']); ?></td>
-											 </tr>
-											 <?php
-										 }
-									 }
-									 else{}
-
-								 ?>
-
-								 </tbody>
-						 </table>
-						 <script>
-						 var table = document.getElementById('datatable-fixed-header10');
-						 for(var counter = 1; counter < table.rows.length; counter++)
-						 {
-							 table.rows[counter].onclick = function()
-							 {;
-
-										document.getElementById("TrainingName").value = this.cells[0].innerHTML;
-										document.getElementById("TrainingDate").value = this.cells[2].innerHTML;
-								document.getElementById("trainingid").value = this.cells[4].innerHTML;
-						};
-							 }
-						 </script>
-
-					 </div>
-					 <?php
-
-				 ?>
-						</div>
-						<div 	<div  class="col-sm-12">
-							<div method="post" class="modal-footer">
-								<button type="submit" class="btn btn-primary" id="addqualifications" name="addqualifications"><i class="fa fa-plus"></i>Add Qualification</button>
-									<button type="submit" style="float:left" class="btn btn-primary" id="iupdateko" name="iupdateko"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
-								<?php if(isset($_POST['addqualifications']))
-								{tgpdso::addTrainingQualifications();
-								}?>
+			<br>
+			<?php if(isset($_GET['trainingno']) && isset($_GET['trainingname']) && isset($_GET['trainingdate']))
+			{
+				$trainingid = $_GET['trainingno'];
+				$trainingname=$_GET['trainingname'];
+				$trainingdate=$_GET['trainingdate'];
+				
+			 ?>
+				<div method="post" class="col-md-12 col-sm-12 col-xs-12">
+					<br><br><br>
+						<div class="form-group">
+								<div class="row">
+										<input type="text" class="form-control"  style="width: 195px" id="trainingid" name="trainingid" value="<?php echo $trainingid ?>"><br>
+									<div class="col-xs-3">
+										 Training Name
+										 <input type="text" class="form-control"  style="width: 195px" id="TrainingName" name="TrainingName" value="<?php echo $trainingname?>"><br>
+								 </div>
+								<div class="col-xs-3">
+										 Training Required Position
+										 <select style = "width:195px" name="TrainingRequired" id="TrainingRequired"class="form-control" >
+										<?php tgpdso::dropdown_position(); ?>
+		 								</select>
+								</div>
+								<div class="col-xs-3">
+									 Date of training
+									 <input  type="date" class="form-control" style="width:195px" name="utraindate" id="utraindate" value="<?php echo $trainingdate?>">
 							 </div>
-						 </div>
-						</form>
+							 <div class="col-xs-3">
+							 	<button style="margin-top:19px;margin-left:-50px" type="submit" style="float:left" class="btn btn-primary" id="iupdateko" name="iupdateko"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
+								<?php 	if(isset($_POST['iupdateko']))
+								{tgpdso::updateTraining();}?>
+								</div>
+								<div class="col-xs-3">
+ 							 		<button style="margin-left:600px; margin-top:-60px" type="submit" class="btn btn-primary" id="addqualifications" name="addqualifications"><i class="fa fa-plus"></i>Add Qualification</button>
+									<?php if(isset($_POST['addqualifications']))
+									{tgpdso::addTrainingQualifications();
+									}?>
+								</div>
+						</div>
 					</div>
-					</div>
-				</div>
-			</div>
-			<?php
+					<div class="col-sm-12">
+						<?php
+						?>
+						<table method ="post" style="width:1000px;	table-layout: auto" id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+						<thead>
+							<tr role="row">
+									<th class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"aria-sort="ascending" style="text-align:center" aria-label="Trans. Date: activate to sort column descending">Training Name</th>
+									<th class="sorting" tabindex="0"rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"style="text-align:center" aria-label="Name of Insured: activate to sort column ascending">Training Required</th>
+									<th class="sorting" tabindex="0"rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"style="text-align:center" aria-label="Rate: activate to sort column ascending">Action</th>
+								<th class="sorting" tabindex="0"rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"style="text-align:center" aria-label="Action: activate to sort column ascending" hidden>training no</th>
+								</tr>
+						</thead>
+						<tbody>
+							<?php
 
-		?>
-			<!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification --><!-- add qualification -->
+								$DB_con = Database::connect();
+								$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+								$sql = "SELECT * FROM trainingqualifications where '$trainingname' = trainingQName";
+
+								$result = $DB_con->query($sql);
+								if($result->rowCount()>0){
+									while($row=$result->fetch(PDO::FETCH_ASSOC)){
+										?>
+										<tr>
+											<td style="max-width: 20%;width: 20%;text-align:center"><?php print($row['trainingQName']); ?></td>
+											<td style="max-width: 20%;width: 20%;text-align:center"><?php print($row['trainingQualification']); ?></td>
+											<td style="max-width: 20%;width: 20%;text-align:center">
+												<div class="row">
+													<center>
+														<form method='post' name='myform' onsubmit="CheckForm()">
+															<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_training.php?deletetraining=<?php echo $row['trainingID'] ?>&deletequalification=<?php echo $row['trainingQualification']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+													</center>
+												</div>
+											</td>
+										<td style="max-width: 20%;width: 20%;text-align:center" hidden><?php print($row['trainingID']); ?></td>
+										</tr>
+										<?php
+									}
+								}
+								else{}
+
+							?>
+
+							</tbody>
+					</table>
+					<script>
+					var table = document.getElementById('datatable-fixed-header10');
+					for(var counter = 1; counter < table.rows.length; counter++)
+					{
+						table.rows[counter].onclick = function()
+						{;
+
+								 document.getElementById("TrainingName").value = this.cells[0].innerHTML;
+								 document.getElementById("TrainingDate").value = this.cells[2].innerHTML;
+						 document.getElementById("trainingid").value = this.cells[4].innerHTML;
+				 };
+						}
+					</script>
+
+				</div>
+				</div>
+				<?php
+			}
+			?>
 
 				<br><br>
 			</form>
@@ -230,9 +236,12 @@
 							?>
 								Training Name:<br><input type="text" class="form-control"  style="width: 195px" id="TrainingName" name="TrainingName" value=""><br>
 								Training Date:<br><input type="date" class="form-control"  style="width: 195px" id="TrainingDate" name="TrainingDate" value=""><br>
+							<br><br>
+							 <br>
 
 						</div>
 							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-primary" name="btn-addrEquirements"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
 						   </div>
 						</form>
@@ -251,8 +260,6 @@
 					<h4 class="modal-title" id="myModalLabel2">Update Training</h4>
 				</div>
 		<form method='post' name='myform' onsubmit="CheckForm()">
-			<?php 	if(isset($_POST['iupdateko']))
-			{tgpdso::updateTraining();}?>
 				<div class="modal-body">
 
 
@@ -643,10 +650,13 @@ function ClickCancel()
 }
 function showButtons()
 {
+
 }
-$("#addbutton").click(function(){
-    $("#addtrainingqualifications").modal();
-});
+
+$('#addbutton2').on('click', function() {
+	$('#addtrainingqualifications').show();
+		});
+
 
 
 </script>
@@ -715,7 +725,7 @@ else {
 		}
 		?>
 		<script>
-		window.location="add_training.php";
+		window.location="add_training.php?&trainingno=<?php echo $delete?>";
 		</script>
 		<?php
 		$conn->close();

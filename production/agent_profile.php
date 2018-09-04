@@ -67,6 +67,8 @@
 															 $variableAgentCode=" ";
 															 $variableLastName =" ";
 															 $variableFirstName =" ";
+															 $variablePositon2="";
+															 $variableAgentName="";
 															 $variableMiddleName =" ";
 															 $variableBirthdate = " ";
 															 $variableApplicationDate =" ";
@@ -96,7 +98,7 @@
 																			$variableBirthdate = $row['agentBirthdate'];
 																			$variableApplicationDate = $row['agentApptDate'];
 																			$variableTeam = $row['agentTeam'];
-
+																			$variablePositon = $row['agentPosition'];
 
 																			$DB_con = Database::connect();
 																			 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -187,12 +189,10 @@
 						                              <th style="width: 100px;text-align:center;" class="sorting" tabindex="0" rowspan="1"colspan="1" aria-controls="datatable-fixed-header"  aria-label="Action: activate to sort column ascending">Action</th>
 																				</tr>
 						                          </thead>
-
-
-
 																			<tbody>
 
 						                              <?php
+
 																					if(isset($_GET['display']))
 																					{
 																						$display = $_GET['display'];
@@ -272,6 +272,23 @@
 																			</tbody>
 
 																				<?php
+																				try {
+																				$DB_con = Database::connect();
+																				 $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+																				 //$stmt->bindValue(':search', '%' . $var1 . '%', PDO::PARAM_INT);
+																				 $sql = "SELECT * FROM agents where '$display' = agentCode";
+																				 $q = $DB_con->prepare($sql);
+																				 $q->execute();
+																				 $result =  $q->fetchall();
+																				 foreach($result as $row)
+																					 {
+																						 	 $variablePositon2 = $row['agentPosition'];
+																							 $variableAgentName = $row['agentLastname'].' '. $row['agentFirstname'];
+																					 }
+																				 }
+																				 catch (PDOException $msg) {
+																					 die("Connection Failed : " . $msg->getMessage());
+																				 }
 																					 $DB_con = Database::connect();
 											  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 											  									 $sql = "SELECT * FROM agentstraining,training, agents where '$display' = ATagentID and agentCode = '$display' and trainingName = ATtrainingName";
@@ -328,7 +345,18 @@
 																				<div class="modal-body">
 																				<input type="text" class="form-control" name="updateTrainingid" style="width:195px" id="updateTrainingid" value="" hidden><br>
 																					Date Application: <br> <input name="updatetrainingdateApplication" id="updatetrainingdateApplication" style = "width:195px" style="width:195px" class="date-picker form-control" required="required" type="date" required><br>
-																				  Training Name: <br><input type="text" class="form-control" name="updatetrainingName" style="width:195px" id="updatetrainingName"><br>
+																				  Training Name: <br>
+																					<select style = "width:200px" name="updatetrainingName" id="updatetrainingName" class="form-control" ><br>
+																					<?php 	$DB_con = Database::connect();
+																						$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+																						$result = $DB_con->prepare("SELECT * FROM trainingqualifications where '$variablePositon' = trainingQualification ");
+																						$result->execute();
+
+																						while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+																									echo "<option value='" . $row['trainingQName'] . "'>" . $row['trainingQName'] . "</option>";
+																						} ?>
+																					</select>
 																					Status: <br>
 																					<select style = "width:195px" name="updatetrainingStatus" id="updatetrainingStatus"class="form-control" >
 																					<option value="Active" >Active</option>
@@ -383,7 +411,7 @@
 
 																			<form method='post' name='myform' onsubmit="CheckForm()">
 																		<div class="modal-body" method='post'>
-																			<input name="position" id="position" style="width: 200px;" required="required" value="<?php echo $variablePositon?>"hidden ><br>
+																			<input name="position" id="position" style="width: 200px;" required="required" value="<?php echo $variablePositon?>" ><br>
 
 																			Application Date <span class="required">*</span><br>
 																			<input name="DateAdded" id="DateAdded" style="width: 200px;" class="date-picker form-control" required="required" type="date" required><br>
@@ -393,7 +421,7 @@
 																			<?php 	$DB_con = Database::connect();
 																				$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-																				$result = $DB_con->prepare("SELECT * FROM trainingqualifications where '$variablePositon' = trainingQualification ");
+																				$result = $DB_con->prepare("SELECT * FROM trainingqualifications where '$variablePositon2' = trainingQualification ");
 																				$result->execute();
 
 																				while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -405,7 +433,7 @@
 																				<div class="col-xs-6">
 
 																			Agent Name <span class="required">*</span><br>
-																			<input name="agentName" id="agentName" readonly class="form-control" value="<?php echo $agentname ?>" placeholder="" style="width: 200px;"><br>
+																			<input name="agentName" id="agentName" readonly class="form-control" value="<?php echo $variableAgentName ?>" placeholder="" style="width: 200px;"><br>
 
 																			Status <span class="required">*</span><br>
 																			<select style = "width:195px" name="status" id="status"class="form-control" >
@@ -564,7 +592,7 @@
 													document.getElementById('applicationInputBox').value = "<?php echo $variableApplicationDate;?>"
 													document.getElementById('teamInputTextBox').value = "<?php echo $teamname;?>"
 													document.getElementById('positionInputText').value = "<?php echo $variablePositon;?>"
-
+													document.getElementById('position').value = "<?php echo $variablePositon;?>";
 													document.getElementById('hay').value = "<?php echo $variableAgentCode;?>"
 											 </script>
 												<?php
@@ -653,6 +681,8 @@ $("#agentTable tr").click(function() {
 $(document).on("dblclick","#agentTable tr",function() {
 							$("#agentTable tr").removeClass("highlight1");
 });
+
+
 
 $("#agentTrainingTable tr").click(function() {
 	var selected = $(this).hasClass("highlight");
