@@ -48,6 +48,7 @@
 												<?php if(isset($_POST['temp2'])) { $pot = $_POST['temp2']; } ?>
 												<?php if(isset($_POST['temp3'])) { $pit = $_POST['temp3']; } ?>
  											</div>
+											<button style="float:right" type="button" class="btn btn-primary" id="addTraining" name="addTraining" data-toggle="modal" data-target="#momodal"><i class="fa fa-file-text"></i>Add training</button>
 										<h2><b>Add Training</b></h2><br><br><br>
 										<div class="clearfix"></div>
 
@@ -57,7 +58,7 @@
 											}
 									?>
 
-				<button style="float:left" type="button" class="btn btn-primary" id="addTraining" name="addTraining" data-toggle="modal" data-target="#momodal"><i class="fa fa-file-text"></i>Add training</button>
+
 				<table method="post" name="datatable-fixed-header"id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
 				<thead>
 					<tr role="row">
@@ -116,7 +117,7 @@
 				$trainingid = $_GET['trainingno'];
 				$trainingname=$_GET['trainingname'];
 				$trainingdate=$_GET['trainingdate'];
-				
+
 			 ?>
 				<div method="post" class="col-md-12 col-sm-12 col-xs-12">
 					<br><br><br>
