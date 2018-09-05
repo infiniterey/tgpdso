@@ -520,7 +520,8 @@
 																																	<div class="row">
 																																		<center>
 																																			<form method='post' name='myform' onsubmit="CheckForm()">
-																																				<a tittle="Edit Data" id="fundEdit" name="fundEdit" class="btn btn-primary" href="records.php?edit=<?php echo $row['polFund_policyNo']; ?>&fund=<?php echo $row['polFund_fund'];?>&rate=<?php echo $row['polFund_rate'];?>#fundModal"><i class="fa fa-pencil"></i></a>
+																																				<a tittle="Edit Data" id="fundEdit" name="fundEdit" class="btn btn-primary" href="records.php?edit=<?php echo $row['polFund_policyNo']; ?>&fund=<?php echo $row['polFund_fund'];?>&rate=<?php echo $row['polFund_rate'];?>#
+																																					"><i class="fa fa-pencil"></i></a>
 																																				<!--<button  type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>-->
 																																				<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteFund=<?php echo $row['polFund_policyNo'] ?>&fund=<?php echo $row['polFund_fund']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																																		</center>
