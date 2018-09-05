@@ -11,51 +11,51 @@
         <label class="control-label">
         Policy #:
         </label>
-       <input type="text" readonly="readonly" class="form-control aswidth" name="paymentPolicyNo" id="paymentPolicyNo">
+       <input type="text" readonly="readonly" class="form-control aswidth" name="paymentPolicyNo1" id="paymentPolicyNo1">
        <br>
         <label class="control-label">
         Issue Date:
-      </label><input type="date" class="form-control aswidth" name="paymentIssueDate" id="paymentIssueDate" readonly>
+      </label><input type="date" class="form-control aswidth" name="paymentIssueDate1" id="paymentIssueDate1" readonly>
       <br>
       <label class="control-label">
       Mode of Payment:
     </label>
-      <select name="paymentmodeOfPayment" id="paymentmodeOfPayment" class="form-control aswidth" required>
-      <option value = "" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Select a MOP</option>
-      <option value="Monthly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Monthly</option>
-      <option value="Quarterly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Quarterly</option>
-      <option value="Semi-Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Semi-Annual</option>
-      <option value="Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Annual</option>
+      <select name="paymentmodeOfPayment1" id="paymentmodeOfPayment1" class="form-control aswidth" required>
+      <option value = "" name="paymentmodeOfPayment1" id="paymentmodeOfPayment1">Select a MOP</option>
+      <option value="Monthly" name="paymentmodeOfPayment1" id="paymentmodeOfPayment1">Monthly</option>
+      <option value="Quarterly" name="paymentmodeOfPayment1" id="paymentmodeOfPayment1">Quarterly</option>
+      <option value="Semi-Annual" name="paymentmodeOfPayment1" id="paymentmodeOfPayment1">Semi-Annual</option>
+      <option value="Annual" name="paymentmodeOfPayment1" id="paymentmodeOfPayment1">Annual</option>
       </select>
       <br>
       <label class="control-label">
       Amount:
       </label>
-      <input  type="text" class="form-control aswidth" id="paymentAmount" name="paymentAmount">
+      <input  type="text" class="form-control aswidth" id="paymentAmount1" name="paymentAmount1">
       </div>
       <div class="col-sm-6">
         <label class="control-label">
         Transaction Date:
-      </label><input type="date" class="form-control aswidth" name="paymentTransDate" id="paymentTransDate"><br>
+      </label><input type="date" class="form-control aswidth" name="paymentTransDate1" id="paymentTransDate1"><br>
         <label class="control-label">
         OR #:
-      </label><input type="text" class="form-control aswidth" name="paymentORNo" id="paymentORNo"><br>
+      </label><input type="text" class="form-control aswidth" name="paymentORNo1" id="paymentORNo1"><br>
         <label class="control-label">
         APR #:
-      </label><input type="text" class="form-control aswidth" name="paymentAPR" id="paymentAPR"><br>
+      </label><input type="text" class="form-control aswidth" name="paymentAPR1" id="paymentAPR1"><br>
         <label class="control-label">
         Due Date:
       </label>
-      <input type="date" class="form-control aswidth" name="paymentDueDate" id="paymentDueDate">
-      <input type="date" name="paymentNextDue" id="paymentNextDue" hidden>
-      <input type="date" name="paymentNextDueADD" id="paymentNextDueADD" hidden>
+      <input type="date" class="form-control aswidth" name="paymentDueDate1" id="paymentDueDate1">
+      <input type="date" name="paymentNextDue1" id="paymentNextDue1" hidden>
+      <input type="date" name="paymentNextDueADD1" id="paymentNextDueADD1" hidden>
       <br>
        <br>
      </div>
  </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" style="width: 100px;" name="paymentSaveButton" id="paymentSaveButton" onclick="openPolicy(event, 'Payment')"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+        <button type="submit" class="btn btn-primary" style="width: 100px;" name="paymentSaveButton1" id="paymentSaveButton1" onclick="openPolicy(event, 'Payment')"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
         <!--<button type="button" class="btn btn-default" style="width: 100px;" data-dismiss="modal">Close</button>-->
       </div>
     </form>
@@ -92,7 +92,7 @@ include 'PHPFile/Connection_Database.php';
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_POST['paymentSaveButton']))
+				if(isset($_POST['paymentSaveButton1']))
 				{
           $paymentPolicyNo = $_POST['paymentPolicyNo'];
           $paymentAmount = $_POST['paymentAmount'];
@@ -154,7 +154,7 @@ include 'PHPFile/Connection_Database.php';
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
       else {
-				if(isset($_POST['paymentSaveButton']))
+				if(isset($_POST['paymentSaveButton1']))
 				{
 					$paymentPolicyNo = $_POST['paymentPolicyNo'];
 					$paymentAmount = $_POST['paymentAmount'];
