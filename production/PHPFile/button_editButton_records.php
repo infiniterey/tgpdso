@@ -77,9 +77,11 @@ include 'PHPFile/Connection_Database.php';
       else {
 				if(isset($_GET['edit']))
 				{
+					$data = $_GET['edit'];
           $query = "SELECT * FROM insuredpolicy, production WHERE policyNo = insured_policyNo AND policyNo = '$edit'";
           $data = mysqli_query($conn, $query);
           $result = mysqli_num_rows($data);
+					?><script>alert('hi <?php echo $data?>');</script><?
           if($result == 1)
           {
 						$sql=mysqli_query($conn,"SELECT * from production, client, policystatus, insuredpolicy, plans WHERE insured_policyNo = policyNo AND plan = planID AND clientID = prodclientID AND policyStat = policyID AND policyNo = '$edit'");

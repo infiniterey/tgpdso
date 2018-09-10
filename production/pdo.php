@@ -88,17 +88,18 @@
 
 				$DB_con = Database::connect();
 				 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-					 $sql = "SELECT * FROM requirements, client ,production where requirements.RProdID = '$PprodID' and production.prodID='$PprodID'";
+					 $sql = "SELECT * FROM requirements, client ,production where production.prodID='$PprodID'";
 				 $result = $DB_con->query($sql);
 			 ?>
+			 <script>alert('hi <?php echo $PprodID ?>');</script>
 				 <?php
 				 while($row=$result->fetch(PDO::FETCH_ASSOC)){
-					 if($row['issuedDate']=="0000-00-00")
+					 if($row['issuedDate']!="0000-00-00")
 					 {
 					 }
 					 else
 					 {
-						 $sql = "INSERT INTO requirements (RagentCode, Rrequirements, RProdID, RtransDate)
+						 $sql = "INSERT INTO requirements(RagentCode, Rrequirements, RProdID, RtransDate)
 						 values ('$AgentCode','$Requirement','$PprodID','$TransactTdate')";
 					}
 			}
@@ -170,6 +171,7 @@
 					$newAgentRequirementStatus = $_POST['modalstats'];
 					$newAgentRequirementSubmitDate = $_POST['modalsubdate'];
 					$requirementNo=  $_POST['modalRequirementNo'];
+					?><script>alert('hi');</script><?php
 					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RequirementNo = '$requirementNo'";
 				}
 						if($conn->query($sql))
@@ -563,7 +565,7 @@
 					$newtrainingStatus = $_POST['updatetrainingStatus'];
 						?>
 					<?php
-						$sql = "UPDATE agentstraining SET ATstatus = '$newtrainingStatus', ATtrainingName = '$newTrainingName', ATapplicationdate = '$newTrainingDate' where ATagentTrainingID = '$newtrainingid'";
+						$sql = "UPDATE agentstraining SET ATstatus = '$newtrainingStatus', ATtrainingName = '$newTrainingName', ATdate = '$newTrainingDate' where ATagentTrainingID = '$newtrainingid'";
 						if($conn->query($sql))
 						{
 							?>

@@ -246,6 +246,7 @@
 																							if(isset($_GET['edit']))
 																							{
 																						$edit = $_GET['edit'];
+																					
 																						$sql = "SELECT * FROM policyfund, fund WHERE polFund_fund = fundID AND polFund_policyNo = '$edit'";
 																						$result = $DB_con->query($sql);
 																						if($result->rowCount()>0)
@@ -393,14 +394,14 @@
 																												{
 																													?>
 																												<tr>
-																													<td><?php echo $row['bene_lastName']?></td>
-																													<td><?php echo $row['bene_firstName']; ?></td>
-																													<td><?php echo $row['bene_middleName']; ?></td>
-																													<td><?php echo $row['bene_address']; ?></td>
-																													<td><?php echo $row['bene_birthDate']; ?></td>
-																													<td><?php echo $row['bene_contactNo']; ?></td>
-																													<td><?php echo $row['bene_relationShip']; ?></td>
-																													<td>
+																													<td style="width: 100px;"><?php echo $row['bene_lastName']?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_firstName']; ?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_middleName']; ?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_address']; ?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_birthDate']; ?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_contactNo']; ?></td>
+																													<td  style="width: 100px;"><?php echo $row['bene_relationShip']; ?></td>
+																													<td style="width: 100px;">
 																														<div class = "row" align="center">
 																																<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_ID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 																																<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_ID']?>&name=<?php echo $row['bene_lastName']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
@@ -520,8 +521,7 @@
 																																	<div class="row">
 																																		<center>
 																																			<form method='post' name='myform' onsubmit="CheckForm()">
-																																				<a tittle="Edit Data" id="fundEdit" name="fundEdit" class="btn btn-primary" href="records.php?edit=<?php echo $row['polFund_policyNo']; ?>&fund=<?php echo $row['polFund_fund'];?>&rate=<?php echo $row['polFund_rate'];?>#
-																																					"><i class="fa fa-pencil"></i></a>
+																																				<a tittle="Edit Data" id="fundEdit" name="fundEdit" class="btn btn-primary" href="records.php?edit=<?php echo $row['polFund_policyNo']; ?>&fund=<?php echo $row['polFund_fund'];?>&rate=<?php echo $row['polFund_rate'];?>#fundModal"><i class="fa fa-pencil"></i></a>
 																																				<!--<button  type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>-->
 																																				<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteFund=<?php echo $row['polFund_policyNo'] ?>&fund=<?php echo $row['polFund_fund']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																																		</center>
@@ -684,6 +684,7 @@
 																						<th hidden></th>
 																						<th hidden></th>
 																						<th hidden></th>
+																						<th hidden></th>
 																						</tr>
 																					</thead>
 																					<tbody>
@@ -719,8 +720,8 @@
 																											{
 																												?>
 																												<div align="center">
-																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-																													<button type="button" title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary" style="font-size: 16px;"><i class="fa fa-pencil"></i></button>
+																													<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"style="font-size: 16px;"><i class="fa fa-trash"></i></a>
 																												</div>
 																												<?php
 																											}
@@ -728,7 +729,7 @@
 																											{
 																													?>
 																													<div align="center">
-																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="glyphicon glyphicon-edit" style="font-size: 22px;"></i></a>
 																													</div>
 																													<?php
 																											}
@@ -742,6 +743,7 @@
 																									<td hidden><?php echo $row['payment_OR']; ?></td>
 																									<td hidden><?php echo $row['payment_APR']; ?></td>
 																									<td hidden><?php echo $row['payment_dueDate']; ?></td>
+																									<td hidden><?php echo $row['payment_nextDue']; ?></td>
 																							 </tr>
 																									<?php
 																								}
@@ -759,10 +761,11 @@
 			 																			 document.getElementById("paymentPolicyNo1").value = this.cells[10].innerHTML;
 			 																			 document.getElementById("paymentIssueDate1").value = this.cells[11].innerHTML;
 			 																			 document.getElementById("paymentAmount1").value = this.cells[13].innerHTML;
-			 																			 document.getElementById("payment").value = this.cells[14].innerHTML;
-			 																			 document.getElementById("").value = this.cells[15].innerHTML;
-																						 document.getElementById("").value = this.cells[16].innerHTML;
-																						 document.getElementById("").value = this.cells[17].innerHTML;
+			 																			 document.getElementById("paymentTransDate1").value = this.cells[14].innerHTML;
+			 																			 document.getElementById("paymentORNo1").value = this.cells[15].innerHTML;
+																						 document.getElementById("paymentAPR1").value = this.cells[16].innerHTML;
+																						 document.getElementById("paymentDueDate1").value = this.cells[17].innerHTML;
+																						 document.getElementById("paymentNextDue1").value = this.cells[18].innerHTML;
 			 																				};
 			 																			}
 			 																		</script>

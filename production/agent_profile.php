@@ -77,9 +77,9 @@
 																$valueToSearch=" ";
 																$teamname="";
 																$bool = False;
-																	if(isset($_GET['searchAgentCodeText']))
+																	if(isset($_GET['display']))
 																{
-																	$valueToSearch = $_GET['searchAgentCodeText'];
+																	$valueToSearch = $_GET['display'];
 																	}
 																	try {
 																	$DB_con = Database::connect();
@@ -257,15 +257,15 @@
 																	<table style="text-align:center" id="agentTrainingTable" name ="agentTrainingTable"  class="table table-bordered table-hover no-footer" aria-describedby="datatable-fixed-header_info" role="grid" onclick="showForm()">
 																			<thead>
 																				<tr role="row">
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>AT id</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>AT agent id</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>AT agent name</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;"hidden>AT required position</th>
-																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Date Application</th>
-																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Date of Training</th>
-																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="width: 35px;text-align:center;">Training Name</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Status</th>
-																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="text-align:center;"hidden>AT id</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="text-align:center;"hidden>AT agent id</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="text-align:center;"hidden>AT agent name</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="text-align:center;"hidden>AT required position</th>
+																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="text-align:center;">Date Application</th>
+																				<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="text-align:center;">Date of Training</th>
+																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Policy No.: activate to sort column ascending"  style="text-align:center;">Training Name</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="text-align:center;">Status</th>
+																					<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="OR No.: activate to sort column ascending" style="text-align:center;">Action</th>
 																				</tr>
 																			</thead>
 																				<tbody>
@@ -302,7 +302,7 @@
 																							 <script>
 																							 </script>
 																							 <tr>
-											  												 <td><?php print($row['ATapplicationdate']); ?></td>
+											  												 <td><?php print($row['ATdate']); ?></td>
 																								 <td><?php print($row['trainingDate']); ?></td>
 											  												 <td><?php print($row['ATtrainingName']); ?></td>
 																							 <td hidden><?php print($row['ATagentTrainingID']); ?></td>
@@ -750,18 +750,19 @@ function openPolicy(evt, cityName) {
 			$ATposition = $_POST['position'];
 			$check="";
 			?>
+			<script>alert('hi');</script>
 			<?php
 
 			$DB_con = Database::connect();
 			$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql="SELECT * FROM training,trainingqualifications where trainingID = trainingNo and trainingQName = '$ATtrainingName' and trainingQualification = '$ATposition'";
+				$sql="SELECT * FROM training,trainingqualifications where trainingID = trainingNo and trainingQName = '$ATtrainingName'";
 			$q = $DB_con->prepare($sql);
 		 $q->execute();
 		 $result =  $q->fetchall();
 		 foreach($result as $row)
 			{
 				$check = 'TRUE';
-			$sql = "INSERT Into agentstraining (ATagentID, ATagentName, ATtrainingName,ATposition, ATapplicationdate, ATstatus) values ('$ATagentID','$ATagentName','$ATtrainingName','$ATposition', '$ATdate', '$ATstatus')";
+			$sql = "INSERT Into agentstraining (ATagentID, ATagentName, ATtrainingName,ATrequiredPosition, ATdate, ATstatus) values ('$ATagentID','$ATagentName','$ATtrainingName','$ATposition', '$ATdate', '$ATstatus')";
 		}
 		}
 

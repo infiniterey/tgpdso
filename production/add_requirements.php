@@ -125,7 +125,7 @@
 																			<div class="col-xs-3">
 																				Plan
 																				 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myplan" id="myplan" value='<?php echo $Pplan; ?>'>
-																				
+
 																		 </div>
 																			<div class="col-md-3">
 																					Face Amount
@@ -719,6 +719,11 @@ $(document).on("dblclick","#tableko tr",function() {
 <script>
 $(document).ready(function() {
     $('#tableko').DataTable( {
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    } );
+} );
+$(document).ready(function() {
+    $('#tablekoto').DataTable( {
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
     } );
 } );
