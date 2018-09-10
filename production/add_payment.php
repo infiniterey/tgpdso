@@ -106,12 +106,17 @@ include 'PHPFile/Connection_Database.php';
           $paymentRemarks = "New";
 
           $add = $_POST['paymentPolicyNo'];
+<<<<<<< HEAD
           //$query = "SELECT * FROM payment, production WHERE payment_nextDue = dueDate AND payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC";
           $query = "SELECT * FROM payment WHERE payment_policyNo = '$add' ORDER BY payment_ID DESC LIMIT 1";
+=======
+          $query = "SELECT * FROM payment, production WHERE payment_nextDue = dueDate AND payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC";
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
           $data = mysqli_query($conn, $query);
           $result = mysqli_num_rows($data);
           if($result == 1)
           {
+<<<<<<< HEAD
             while($row=mysqli_fetch_Array($data))
             {
               $paymentYearRemarks = $paymentYearRemarks.$row['payment_remarks_year'];
@@ -201,17 +206,27 @@ include 'PHPFile/Connection_Database.php';
               // }
             }
 
+=======
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
             $sql = "INSERT INTO payment (payment_policyNo,
               payment_Amount, payment_issueDate,
               payment_MOP, payment_transDate,
               payment_OR, payment_APR, payment_dueDate,
+<<<<<<< HEAD
               payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+=======
+              payment_nextDue, payment_remarks)
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
             values ('$paymentPolicyNo','$paymentAmount',
               '$paymentIssueDate','$paymentMOP',
               '$paymentTransDate','$paymentORNo',
               '$paymentAPR','$paymentDueDate',
                '$paymentNextDue',
+<<<<<<< HEAD
               '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+=======
+              '$paymentRemarks')";
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 
             if($conn->query($sql))
             {

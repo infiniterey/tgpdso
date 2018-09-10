@@ -125,6 +125,7 @@
 																			<div class="col-xs-3">
 																				Plan
 																				 <input style="cursor:auto" style="border:none" type="text" class="form-control" name="myplan" id="myplan" value='<?php echo $Pplan; ?>'>
+																				
 																		 </div>
 																			<div class="col-md-3">
 																					Face Amount
@@ -463,7 +464,7 @@
 																						<center>
 																							<form method='post' name='myform' onsubmit="CheckForm()">
 																							<?php
-																							if($row['issuedDate']=="0000-00-00")
+																							if($row['issuedDate']!="0000-00-00")
 																							{
 
 																							}

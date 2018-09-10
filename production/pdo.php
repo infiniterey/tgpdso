@@ -522,6 +522,7 @@
 					$newTrainingName = $_POST['TrainingName'];
 					$newTrainingDate = $_POST['utraindate'];
 						?>
+						<script>alert('hi <?php echo $newTrainingNo?>');</script>
 					<?php
 						$sql = "UPDATE training SET trainingNo = '$newTrainingNo', trainingName = '$newTrainingName', trainingDate = '$newTrainingDate' where trainingNo = '$newTrainingNo'";
 
@@ -529,7 +530,7 @@
 						{
 							?>
 							<script>
-								window.location='add_training.php';
+								window.location='add_training.php?';
 							</script>
 							<?php
 						}
@@ -593,27 +594,39 @@
 				else {
 					if(isset($_POST['addqualifications']))
 					{
-						$add= $_POST['add'];
-						$newTrainingNo = $_POST['trainingid'];
+					$newTrainingNo = $_POST['trainingid'];
 					$newTrainingName = $_POST['TrainingName'];
 					$newTrainingPosition = $_POST['TrainingRequired'];
+					$newtrainingdate = $_POST['utraindate'];
 					?>
 					<?php
-					$sql = "INSERT INTO trainingqualifications (trainingID, trainingQName, trainingQualification)
-					values ('$newTrainingNo','$newTrainingName','$newTrainingPosition')";
+										$sql = "INSERT INTO trainingqualifications (trainingID, trainingQName, trainingQualification)
+								values ('$newTrainingNo','$newTrainingName','$newTrainingPosition')";
+						}
 						if($conn->query($sql))
 						{
 							?>
 							<script>
-								window.location='add_training.php?add=<?php $add ?>&#addtrainingqualifications';
+								window.location='add_training.php?trainingno=<?php $newTrainingNo; ?>&trainingname = <?php echo $newTrainingName; ?>&trainingdate =<?php echo $newtrainingdate; ?>';
 							</script>
 							<?php
 						}
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
 						}
-					}
+
+
 					$conn->close();
+				}
+			}
+
+			public function gettrainingid(){
+				$trainingid="";
+				if(isset($_POST['addbutton']))
+				{
+			$trainingid = $_POST['addbutton'];
+
+			?><?php
 				}
 			}
 			public function addFund(){

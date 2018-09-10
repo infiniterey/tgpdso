@@ -94,6 +94,7 @@ include 'PHPFile/Connection_Database.php';
       else {
 				if(isset($_POST['paymentSaveButton1']))
 				{
+<<<<<<< HEAD
           $paymentPolicyNo = $_POST['paymentPolicyNo1'];
           $paymentAmount = $_POST['paymentAmount1'];
           $paymentIssueDate = $_POST['paymentIssueDate1'];
@@ -123,6 +124,36 @@ include 'PHPFile/Connection_Database.php';
               payment_nextDue = '$paymentNextDue',
               payment_remarks = '$paymentRemarks'
               WHERE payment_policyNo = '$paymentPolicyNo' AND payment_dueDate = '$paymentDueDate'";
+=======
+          $paymentPolicyNo = $_POST['paymentPolicyNo'];
+          $paymentAmount = $_POST['paymentAmount'];
+          $paymentIssueDate = $_POST['paymentIssueDate'];
+          $paymentMOP = $_POST['paymentmodeOfPayment'];
+          $paymentTransDate = $_POST['paymentTransDate'];
+          $paymentORNo = $_POST['paymentORNo'];
+          $paymentAPR = $_POST['paymentAPR'];
+          $paymentDueDate = $_POST['paymentNextDueADD'];
+          $paymentNextDue = $_POST['paymentNextDue'];
+          $paymentRemarks = "New";
+
+          $add = $_POST['paymentPolicyNo'];
+          $query = "SELECT * FROM payment, production WHERE payment_nextDue = dueDate AND payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC";
+          $data = mysqli_query($conn, $query);
+          $result = mysqli_num_rows($data);
+          if($result == 1)
+          {
+            $sql = "INSERT INTO payment (payment_policyNo,
+              payment_Amount, payment_issueDate,
+              payment_MOP, payment_transDate,
+              payment_OR, payment_APR, payment_dueDate,
+              payment_nextDue, payment_remarks)
+            values ('$paymentPolicyNo','$paymentAmount',
+              '$paymentIssueDate','$paymentMOP',
+              '$paymentTransDate','$paymentORNo',
+              '$paymentAPR','$paymentDueDate',
+               '$paymentNextDue',
+              '$paymentRemarks')";
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 
             if($conn->query($sql))
             {
@@ -147,6 +178,57 @@ include 'PHPFile/Connection_Database.php';
     }
 ?>
 
+<<<<<<< HEAD
+=======
+<?php
+include 'PHPFile/Connection_Database.php';
+
+      if(mysqli_connect_error())
+      {
+        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+      }
+      else {
+				if(isset($_POST['paymentSaveButton1']))
+				{
+					$paymentPolicyNo = $_POST['paymentPolicyNo'];
+					$paymentAmount = $_POST['paymentAmount'];
+					$paymentIssueDate = $_POST['paymentIssueDate'];
+					$paymentMOP = $_POST['paymentmodeOfPayment'];
+					$paymentTransDate = $_POST['paymentTransDate'];
+					$paymentORNo = $_POST['paymentORNo'];
+					$paymentAPR = $_POST['paymentAPR'];
+
+					$paymentNextDue = $_POST['paymentNextDue'];
+					$paymentRemarks = "New";
+
+          $sql = "UPDATE production SET
+          transDate='$paymentTransDate',
+          policyNo='$paymentPolicyNo',
+          receiptNo='$paymentORNo',
+          faceAmount='$paymentAmount',
+          modeOfPayment='$paymentMOP',
+          dueDate='$paymentNextDue',
+          remarks='$paymentRemarks'
+          WHERE policyNo = '$paymentPolicyNo' OR receiptNo = '$paymentORNo'";
+
+
+						if($conn->query($sql))
+						{
+              ?>
+							<script>
+              window.location="records.php?edit=<?php echo $paymentPolicyNo ?>";
+								</script>
+								<?php
+						}
+						else {
+							echo "Error:". $sql."<br>".$conn->error;
+						}
+						$conn->close();
+      }
+    }
+?>
+
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 <script>
 
 document.getElementById("paymentSaveButton").addEventListener("click", function(){
@@ -155,6 +237,7 @@ document.getElementById("paymentSaveButton").addEventListener("click", function(
   }
 });
 
+<<<<<<< HEAD
 $(function() {
 
 		$('#paymentmodeOfPayment1').change(function()
@@ -197,4 +280,6 @@ $(function() {
 			}
 		});
 });
+=======
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 </script>

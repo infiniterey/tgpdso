@@ -162,6 +162,7 @@ include 'PHPFile/Connection_Database.php';
                 $policyIssueDate = $_POST['policyIssueDate'];
 
 
+<<<<<<< HEAD
 
                 $query1 = "SELECT * FROM production WHERE policyNo = '$add'";
               //  $transdate = payment.transDate;
@@ -176,6 +177,20 @@ include 'PHPFile/Connection_Database.php';
                   }
                   $sql = "INSERT INTO payment (payment_policyNo, payment_Amount, payment_issueDate, payment_MOP, payment_transDate, payment_OR, payment_APR, payment_dueDate, payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
                   values ('$add', '$faceAmount', '$policyIssueDate', '$MOP', '$transdate', '$productionOR', '', '$policyIssueDate', '$policyDueDate', 'New', '1', '1')";
+=======
+                $query1 = "SELECT * FROM payment, production WHERE payment_policyNo = policyNo AND policyNo = '$add'";
+                $transdate = payment.transDate;
+                $data1 = mysqli_query($conn, $query1);
+                // while($row = mysql_fetch_assoc($data1))
+                // {
+                //   $transdate1 = $row['transDate'];
+                // }
+                $paymentRes = mysqli_num_rows($data1);
+                if($paymentRes == 0)
+                {
+                  $sql = "INSERT INTO payment (payment_policyNo, payment_Amount, payment_issueDate, payment_MOP, payment_transDate, payment_OR, payment_APR, payment_dueDate, payment_nextDue, payment_remarks)
+                  values ('$add', '$faceAmount', '$policyIssueDate', '$MOP', now(), '', '', '$policyIssueDate', '$policyDueDate', 'New')";
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 
                   if($conn->query($sql))
                   {

@@ -520,7 +520,8 @@
 																																	<div class="row">
 																																		<center>
 																																			<form method='post' name='myform' onsubmit="CheckForm()">
-																																				<a tittle="Edit Data" id="fundEdit" name="fundEdit" class="btn btn-primary" href="records.php?edit=<?php echo $row['polFund_policyNo']; ?>&fund=<?php echo $row['polFund_fund'];?>&rate=<?php echo $row['polFund_rate'];?>#fundModal"><i class="fa fa-pencil"></i></a>
+																																				<a tittle="Edit Data" id="fundEdit" name="fundEdit" class="btn btn-primary" href="records.php?edit=<?php echo $row['polFund_policyNo']; ?>&fund=<?php echo $row['polFund_fund'];?>&rate=<?php echo $row['polFund_rate'];?>#
+																																					"><i class="fa fa-pencil"></i></a>
 																																				<!--<button  type="button" id="fundEdit" name="fundEdit" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>-->
 																																				<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteFund=<?php echo $row['polFund_policyNo'] ?>&fund=<?php echo $row['polFund_fund']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																																		</center>
@@ -683,7 +684,10 @@
 																						<th hidden></th>
 																						<th hidden></th>
 																						<th hidden></th>
+<<<<<<< HEAD
 																						<th hidden></th>
+=======
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 																						</tr>
 																					</thead>
 																					<tbody>
@@ -733,8 +737,13 @@
 																											{
 																												?>
 																												<div align="center">
+<<<<<<< HEAD
 																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary" style="font-size: 16px;"><i class="fa fa-pencil"></i></button>
 																													<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"style="font-size: 16px;"><i class="fa fa-trash"></i></a>
+=======
+																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+																													<button type="button" title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 																												</div>
 																												<?php
 																											}
@@ -742,7 +751,11 @@
 																											{
 																													?>
 																													<div align="center">
+<<<<<<< HEAD
 																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="glyphicon glyphicon-edit" style="font-size: 22px;"></i></a>
+=======
+																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 																													</div>
 																													<?php
 																											}
@@ -756,7 +769,10 @@
 																									<td hidden><?php echo $row['payment_OR']; ?></td>
 																									<td hidden><?php echo $row['payment_APR']; ?></td>
 																									<td hidden><?php echo $row['payment_dueDate']; ?></td>
+<<<<<<< HEAD
 																									<td hidden><?php echo $row['payment_nextDue']; ?></td>
+=======
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 																							 </tr>
 																									<?php
 																								}
@@ -774,11 +790,18 @@
 			 																			 document.getElementById("paymentPolicyNo1").value = this.cells[10].innerHTML;
 			 																			 document.getElementById("paymentIssueDate1").value = this.cells[11].innerHTML;
 			 																			 document.getElementById("paymentAmount1").value = this.cells[13].innerHTML;
+<<<<<<< HEAD
 			 																			 document.getElementById("paymentTransDate1").value = this.cells[14].innerHTML;
 			 																			 document.getElementById("paymentORNo1").value = this.cells[15].innerHTML;
 																						 document.getElementById("paymentAPR1").value = this.cells[16].innerHTML;
 																						 document.getElementById("paymentDueDate1").value = this.cells[17].innerHTML;
 																						 document.getElementById("paymentNextDue1").value = this.cells[18].innerHTML;
+=======
+			 																			 document.getElementById("payment").value = this.cells[14].innerHTML;
+			 																			 document.getElementById("").value = this.cells[15].innerHTML;
+																						 document.getElementById("").value = this.cells[16].innerHTML;
+																						 document.getElementById("").value = this.cells[17].innerHTML;
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 			 																				};
 			 																			}
 			 																		</script>
