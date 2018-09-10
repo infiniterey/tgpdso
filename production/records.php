@@ -684,7 +684,14 @@
 																						<th hidden></th>
 																						<th hidden></th>
 																						<th hidden></th>
+<<<<<<< HEAD
 																						<th hidden></th>
+=======
+<<<<<<< HEAD
+																						<th hidden></th>
+=======
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
+>>>>>>> 395786fba79c448149268aa335c268603408eb7e
 																						</tr>
 																					</thead>
 																					<tbody>
@@ -706,7 +713,21 @@
 																									?>
 																								<tr>
 																									<td><?php echo $row['payment_transDate']; ?></td>
-																									<td style="width: 10px;"><?php echo $row['payment_remarks']; ?></td>
+																									<?php
+																									if($row['payment_remarks_year'] == '1' && $row['payment_remarks_month'] == '1')
+																									{
+																										?>
+																											<td style="width: 10px;"><?php echo $row['payment_remarks']; ?></td>
+																										<?php
+																									}
+																									else {
+																										?>
+																										<td style="width: 10px;"><?php echo $row['payment_remarks_year']." year(s) and ".$row['payment_remarks_month']." month(s)"; ?></td>
+																										<?php
+																									}
+																									?>
+
+
 																									<td style="width: 10px;"><?php echo $row['payment_MOP']; ?></td>
 																									<td><?php echo $row['payment_dueDate']; ?></td>
 																									<td><?php echo $row['payment_nextDue']; ?></td>
@@ -720,8 +741,18 @@
 																											{
 																												?>
 																												<div align="center">
+<<<<<<< HEAD
 																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary" style="font-size: 16px;"><i class="fa fa-pencil"></i></button>
 																													<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"style="font-size: 16px;"><i class="fa fa-trash"></i></a>
+=======
+<<<<<<< HEAD
+																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary" style="font-size: 16px;"><i class="fa fa-pencil"></i></button>
+																													<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"style="font-size: 16px;"><i class="fa fa-trash"></i></a>
+=======
+																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+																													<button type="button" title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
+>>>>>>> 395786fba79c448149268aa335c268603408eb7e
 																												</div>
 																												<?php
 																											}
@@ -729,7 +760,15 @@
 																											{
 																													?>
 																													<div align="center">
+<<<<<<< HEAD
 																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="glyphicon glyphicon-edit" style="font-size: 22px;"></i></a>
+=======
+<<<<<<< HEAD
+																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="glyphicon glyphicon-edit" style="font-size: 22px;"></i></a>
+=======
+																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
+>>>>>>> 395786fba79c448149268aa335c268603408eb7e
 																													</div>
 																													<?php
 																											}
@@ -743,7 +782,14 @@
 																									<td hidden><?php echo $row['payment_OR']; ?></td>
 																									<td hidden><?php echo $row['payment_APR']; ?></td>
 																									<td hidden><?php echo $row['payment_dueDate']; ?></td>
+<<<<<<< HEAD
 																									<td hidden><?php echo $row['payment_nextDue']; ?></td>
+=======
+<<<<<<< HEAD
+																									<td hidden><?php echo $row['payment_nextDue']; ?></td>
+=======
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
+>>>>>>> 395786fba79c448149268aa335c268603408eb7e
 																							 </tr>
 																									<?php
 																								}
@@ -761,11 +807,24 @@
 			 																			 document.getElementById("paymentPolicyNo1").value = this.cells[10].innerHTML;
 			 																			 document.getElementById("paymentIssueDate1").value = this.cells[11].innerHTML;
 			 																			 document.getElementById("paymentAmount1").value = this.cells[13].innerHTML;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 395786fba79c448149268aa335c268603408eb7e
 			 																			 document.getElementById("paymentTransDate1").value = this.cells[14].innerHTML;
 			 																			 document.getElementById("paymentORNo1").value = this.cells[15].innerHTML;
 																						 document.getElementById("paymentAPR1").value = this.cells[16].innerHTML;
 																						 document.getElementById("paymentDueDate1").value = this.cells[17].innerHTML;
 																						 document.getElementById("paymentNextDue1").value = this.cells[18].innerHTML;
+<<<<<<< HEAD
+=======
+=======
+			 																			 document.getElementById("payment").value = this.cells[14].innerHTML;
+			 																			 document.getElementById("").value = this.cells[15].innerHTML;
+																						 document.getElementById("").value = this.cells[16].innerHTML;
+																						 document.getElementById("").value = this.cells[17].innerHTML;
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
+>>>>>>> 395786fba79c448149268aa335c268603408eb7e
 			 																				};
 			 																			}
 			 																		</script>

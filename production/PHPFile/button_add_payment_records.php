@@ -94,6 +94,37 @@ include 'PHPFile/Connection_Database.php';
       else {
 				if(isset($_POST['paymentSaveButton1']))
 				{
+<<<<<<< HEAD
+          $paymentPolicyNo = $_POST['paymentPolicyNo1'];
+          $paymentAmount = $_POST['paymentAmount1'];
+          $paymentIssueDate = $_POST['paymentIssueDate1'];
+          $paymentMOP = $_POST['paymentmodeOfPayment1'];
+          $paymentTransDate = $_POST['paymentTransDate1'];
+          $paymentORNo = $_POST['paymentORNo1'];
+          $paymentAPR = $_POST['paymentAPR1'];
+          $paymentDueDate = $_POST['paymentDueDate1'];
+          $paymentNextDue = $_POST['paymentNextDue1'];
+          $paymentRemarks = "New";
+
+          $add = $_POST['paymentPolicyNo1'];
+          $query = "SELECT * FROM payment, production WHERE payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC";
+          $data = mysqli_query($conn, $query);
+          $result = mysqli_num_rows($data);
+          if($result == 0)
+          {
+              $sql = "UPDATE payment
+              SET payment_policyNo = '$paymentPolicyNo',
+              payment_Amount = '$paymentAmount',
+              payment_issueDate = '$paymentIssueDate',
+              payment_MOP = '$paymentMOP',
+              payment_transDate = '$paymentTransDate',
+              payment_OR = '$paymentORNo',
+              payment_APR = '$paymentAPR',
+              payment_dueDate = '$paymentDueDate',
+              payment_nextDue = '$paymentNextDue',
+              payment_remarks = '$paymentRemarks'
+              WHERE payment_policyNo = '$paymentPolicyNo' AND payment_dueDate = '$paymentDueDate'";
+=======
           $paymentPolicyNo = $_POST['paymentPolicyNo'];
           $paymentAmount = $_POST['paymentAmount'];
           $paymentIssueDate = $_POST['paymentIssueDate'];
@@ -122,6 +153,7 @@ include 'PHPFile/Connection_Database.php';
               '$paymentAPR','$paymentDueDate',
                '$paymentNextDue',
               '$paymentRemarks')";
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 
             if($conn->query($sql))
             {
@@ -146,6 +178,8 @@ include 'PHPFile/Connection_Database.php';
     }
 ?>
 
+<<<<<<< HEAD
+=======
 <?php
 include 'PHPFile/Connection_Database.php';
 
@@ -194,6 +228,7 @@ include 'PHPFile/Connection_Database.php';
     }
 ?>
 
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 <script>
 
 document.getElementById("paymentSaveButton").addEventListener("click", function(){
@@ -202,4 +237,49 @@ document.getElementById("paymentSaveButton").addEventListener("click", function(
   }
 });
 
+<<<<<<< HEAD
+$(function() {
+
+		$('#paymentmodeOfPayment1').change(function()
+		{
+			var selectPayment = $("#paymentmodeOfPayment1").val();
+			if(selectPayment == "Monthly")
+			{
+				var datehere = document.getElementById("paymentDueDate1").value;
+				var dateObj = new Date(datehere);
+				var dt = dateObj.addMonths(1);
+				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+				$('#paymentNextDue1').val(newdate);
+			}
+			else if(selectPayment == "Quarterly")
+			{
+				var datehere = document.getElementById("paymentDueDate1").value;
+				var dateObj = new Date(datehere);
+				var dt = dateObj.addMonths(4);
+				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+
+				$('#paymentNextDue1').val(newdate);
+			}
+			else if(selectPayment == "Semi-Annual")
+			{
+				var datehere = document.getElementById("paymentDueDate1").value;
+				var dateObj = new Date(datehere);
+				var dt = dateObj.addMonths(6);
+				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+
+				$('#paymentNextDue1').val(newdate);
+			}
+			else if(selectPayment == "Annual")
+			{
+				var datehere = document.getElementById("paymentDueDate1").value;
+				var dateObj = new Date(datehere);
+				var dt = dateObj.addMonths(12);
+				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+
+				$('#paymentNextDue1').val(newdate);
+			}
+		});
+});
+=======
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 </script>

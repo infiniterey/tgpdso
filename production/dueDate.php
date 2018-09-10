@@ -123,7 +123,7 @@
 																					<td style="text-align:center; width: 100px;"><?php print($row['payment_dueDate']); ?></td>
 																					<td style="text-align:center; width: 30px;">
 																						<div class="row">
-																							<button type="button" style='float:center' class="btn btn-primary" data-target="#paymentModal" data-toggle="modal" name="duedatebutton" id="duedatebutton"><i class="glyphicon glyphicon-copy"></i>&nbsp;Edit</button>
+																							<button type="button" style='float:center' class="btn btn-primary" data-target="#paymentModal" data-toggle="modal" name="duedatebutton" id="duedatebutton"><i class="glyphicon glyphicon-copy"></i></button>
 																						</div>
 																					</td>
 																					<td hidden><?php echo $row['payment_policyNo'] ?></td>

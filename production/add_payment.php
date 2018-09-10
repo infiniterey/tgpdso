@@ -106,22 +106,127 @@ include 'PHPFile/Connection_Database.php';
           $paymentRemarks = "New";
 
           $add = $_POST['paymentPolicyNo'];
+<<<<<<< HEAD
+          //$query = "SELECT * FROM payment, production WHERE payment_nextDue = dueDate AND payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC";
+          $query = "SELECT * FROM payment WHERE payment_policyNo = '$add' ORDER BY payment_ID DESC LIMIT 1";
+=======
           $query = "SELECT * FROM payment, production WHERE payment_nextDue = dueDate AND payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC";
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
           $data = mysqli_query($conn, $query);
           $result = mysqli_num_rows($data);
           if($result == 1)
           {
+<<<<<<< HEAD
+            while($row=mysqli_fetch_Array($data))
+            {
+              $paymentYearRemarks = $paymentYearRemarks.$row['payment_remarks_year'];
+              $paymentMonthRemarks = $paymentMonthRemarks.$row['payment_remarks_month'];
+              $paymentModeOfPayment = $paymentModeOfPayment.$row['payment_MOP'];
+
+              switch($paymentModeOfPayment)
+              {
+                  case "Monthly":
+                    if($paymentMonthRemarks <= '10')
+                    {
+                      $calculateMonth = $paymentMonthRemarks + "1";
+                      $calculateYear = $paymentYearRemarks;
+                    }
+                    else if($paymentMonthRemarks == '11')
+                    {
+                      $calculateMonth = ($paymentMonthRemarks + "1") / "12";
+                      $calculateYear = $paymentYearRemarks + "1";
+                    }
+
+                  break;
+                  case "Quarterly":
+
+                  if($paymentMonthRemarks == '3')
+                  {
+                    $calculateMonth = $paymentMonthRemarks / "3";
+                    $calculateYear = $paymentYearRemarks;
+                  }
+                  if($paymentMonthRemarks == '6')
+                  {
+                    $calculateMonth = $paymentMonthRemarks / "3";
+                    $calculateYear = $paymentYearRemarks;
+                  }
+                  if($paymentMonthRemarks == '12')
+                  {
+                    $calculateMonth = $paymentMonthRemarks / "3";
+                    $calculateYear = $paymentYearRemarks + "1";
+                  }
+                  else
+                  {
+                      ?>
+                      <script>alert('Does not allow to use Quarterly within that month');</script>
+                      <?php
+                  }
+                  break;
+                  case "Semi-Annual":
+                  {
+                    if($calculateMonth == "6")
+                    {
+                      $calculateMonth = $paymentMonthRemarks / "6";
+                      $calculateYear = $paymentYearRemarks;
+                    }
+                    else if($calculateMonth == "12")
+                    {
+                      $calculateMonth = $paymentMonthRemarks / "6";
+                      $calculateYear = $paymentYearRemarks + "1";
+                    }
+
+                  }
+
+                  case "Annual":
+                    $calculateYear = $paymentYearRemarks + "1";
+                    $calculateMonth = "1";
+                  break;
+
+                  break;
+                  default:
+              }
+
+
+
+
+              // switch ($paymentMonthRemarks)
+              // {
+              //   case "":
+              //     $calculateYear = "1";
+              //     $calculateMonth = "1";
+              //   break;
+              //   case "1":
+              //     $calculateYear = "1";
+              //     $calculateMonth = "1" + "1";
+              //   break;
+              //
+              //   break;
+              //   default:
+              //
+              // }
+            }
+
+=======
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
             $sql = "INSERT INTO payment (payment_policyNo,
               payment_Amount, payment_issueDate,
               payment_MOP, payment_transDate,
               payment_OR, payment_APR, payment_dueDate,
+<<<<<<< HEAD
+              payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+=======
               payment_nextDue, payment_remarks)
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
             values ('$paymentPolicyNo','$paymentAmount',
               '$paymentIssueDate','$paymentMOP',
               '$paymentTransDate','$paymentORNo',
               '$paymentAPR','$paymentDueDate',
                '$paymentNextDue',
+<<<<<<< HEAD
+              '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+=======
               '$paymentRemarks')";
+>>>>>>> 2a453f63f6fa32d19ea2c5e05f2ddeeac6319213
 
             if($conn->query($sql))
             {
