@@ -129,4 +129,9 @@ $(function() {
 				$('#sample').val(selectedValue);
 
 });
+
+$(".readonly").on('keydown paste', function(e){
+		e.preventDefault();
+});
+
 </script>

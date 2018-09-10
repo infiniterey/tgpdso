@@ -5,7 +5,8 @@ include 'PHPFile/Connection_Database.php';
       {
         die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
       }
-      else {
+      else
+      {
 				if(isset($_POST['saveButton']))
 				{
 					$insuredLastname = $_POST['insuredLastName'];
@@ -56,7 +57,6 @@ include 'PHPFile/Connection_Database.php';
             policyStat = '$policyStatus',
             dueDate = '$policyDueDate'";
 
-<<<<<<< HEAD
             if($conn->query($sql))
             {
               ?>
@@ -74,35 +74,7 @@ include 'PHPFile/Connection_Database.php';
           else if($result == 0)
           {
             $sql = "INSERT INTO insuredpolicy (insured_policyNo, insured_lastName, insured_firstName, insured_middleName, insured_birthDate, insured_address, insured_contactNo)
-						values ('$add','$insuredLastname','$insuredFirstname','$insuredMiddlename','$insuredBirthdate','$insuredAddress','$insuredContact')";
-=======
-      if(mysqli_connect_error())
-      {
-        die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
-      }
-      else {
-				if(isset($_REQUEST['saveButton']))
-				{
-					$policyNo = $_REQUEST['policyNoOwner'];
-					$plan = $_REQUEST['policyPlan'];
-					$faceAmount = $_REQUEST['policyFaceAmount'];
-					$MOP = $_REQUEST['policyMOP'];
-					$issueDate = $_REQUEST['policyIssueDate'];
-					$premium = $_REQUEST['policyPremium'];
-					$policyStatus = $_REQUEST['policyStatusSelect'];
-          $policyDueDate = $_REQUEST['policyDueDate'];
-
-						$sql = "UPDATE production
-						SET policyNo = '$policyNo',
-						plan = '$plan',
-						faceAmount = '$faceAmount',
-						modeOfPayment = '$MOP',
-						issuedDate = '$issueDate',
-						premium = '$premium',
-						policyStat = '$policyStatus',
-            dueDate = '$policyDueDate'
-						WHERE policyNo = '$policyNo'";
->>>>>>> d667b034233f48e827574aef756d3dbd175686ba
+            values ('$add','$insuredLastname','$insuredFirstname','$insuredMiddlename','$insuredBirthdate','$insuredAddress','$insuredContact')";
 
 						if($conn->query($sql))
 						{
@@ -113,7 +85,8 @@ include 'PHPFile/Connection_Database.php';
 								</script>
 								<?php
 						}
-						else {
+						else
+            {
 							echo "Error:". $sql."<br>".$conn->error;
 						}
           }
@@ -164,3 +137,61 @@ include 'PHPFile/Connection_Database.php';
           $conn->close();
         }
       }
+      ?>
+
+      <?php
+      include 'PHPFile/Connection_Database.php';
+
+            if(mysqli_connect_error())
+            {
+              die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+            }
+            else {
+              if(isset($_POST['saveButton']))
+              {
+                $add = $_POST['policyNoOwner'];
+
+                $policyNo = $_POST['policyNoOwner'];
+                $plan = $_POST['policyPlan'];
+                $faceAmount = $_POST['policyFaceAmount'];
+                $MOP = $_POST['policyMOP'];
+                $issueDate = $_POST['policyIssueDate'];
+                $premium = $_POST['policyPremium'];
+                $policyStatus = $_POST['policyStatusSelect'];
+                $policyDueDate = $_POST['policyDueDate'];
+                $policyIssueDate = $_POST['policyIssueDate'];
+
+
+
+                $query1 = "SELECT * FROM production WHERE policyNo = '$add'";
+              //  $transdate = payment.transDate;
+                $data1 = mysqli_query($conn, $query1);
+                $paymentRes = mysqli_num_rows($data1);
+                if($paymentRes == 1)
+                {
+                  while($row=mysqli_fetch_Array($data1))
+                  {
+                    $transdate = $transdate.$row['transDate'];
+                    $productionOR = $productionOR.$row['receiptNo'];
+                  }
+                  $sql = "INSERT INTO payment (payment_policyNo, payment_Amount, payment_issueDate, payment_MOP, payment_transDate, payment_OR, payment_APR, payment_dueDate, payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                  values ('$add', '$faceAmount', '$policyIssueDate', '$MOP', '$transdate', '$productionOR', '', '$policyIssueDate', '$policyDueDate', 'New', '1', '1')";
+
+                  if($conn->query($sql))
+                  {
+                    ?>
+                    <script>
+                      alert("Updated record successfully added");
+                      window.location = "records.php?edit=<?php echo $add ?>";
+                      </script>
+                      <?php
+                  }
+                  else
+                  {
+                    echo "Error:". $sql."<br>".$conn->error;
+                  }
+                }
+                $conn->close();
+              }
+            }
+            ?>

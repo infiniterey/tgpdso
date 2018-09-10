@@ -7,22 +7,43 @@
     <form method="post" name="myform" action="<?php $_PHP_SELF ?>">
       <div class="modal-body">
         <div class="row">
+
+          <div class="col-md-5">
+          <label class="control-label">
+          Policy No.:
+        </label><input type="text" class="form-control" name="soa_policyNo" id="soa_policyNo"/>
+      </div>
+
+    <div class="col-md-2">
+        <button type="button" class="btn btn-primary"name="soaSearch" id="soaSearch" data-dismiss="modal" data-toggle="modal" data-target="#addSOASearchPolicy" style="margin-top: 24px; margin-left: -14px;"><i class="fa fa-search"></i></button>
+      </div>
+        </div>
+<div class="row">
           <div class="col-md-6">
+            <label class="control-label">
+              SOA Date:
+              </label>
+             <input type="month" class="form-control" name="soa_date" id="soa_date" required><br>
+             <hr>
+             <label class="control-label">
+             Month Select:
+             </label>
+        <div class="row" style="background-color: lightgray;">
+          <div class="col-md-5">
+            <br>
         <label class="control-label">
         Mid Month:
         </label>
-       <input type="month" class="form-control" name="soa_mid" id="soa_mid"><br>
+       <input type="radio"  name="soa_select" id="soa_select" value="Mid Month">
+     </div>
+     <div class="col-md-5" style="margin-top:18px;">
        <label class="control-label">
        Month End:
        </label>
-      <input type="month" class="form-control" name="soa_end" id="soa_end"><br>
-      SOA Date:
-      </label>
-     <input type="date" class="form-control" name="soa_date" id="soa_date"><br>
-       <label class="control-label">
-       Policy No.:
-     </label><input type="text" class="form-control" name="soa_policyNo" id="soa_policyNo"/>
-     <button type="button" class="form-control btn btn-primary"name="soaSearch" id="soaSearch" data-dismiss="modal" data-toggle="modal" data-target="#addSOASearchPolicy"><i class="fa fa-search"></i>&nbsp;Search Policy</button><br>
+      <input type="radio"  name="soa_select" id="soa_select" value="Month End">
+    </div>
+    </div>
+        <hr>
         <label class="control-label">
         Transaction Date:
       </label><input type="date" class="form-control" name="soa_transDate" id="soa_transDate"><br>
@@ -57,10 +78,27 @@
       <label class="control-label">
       Commission:
     </label><input type="text" class="form-control" name="soa_commission" id="soa_commission"><br>
+
+    <div class="row">
+
+      <div class="col-md-10">
     <label class="control-label">
     Agent:
   </label><input type="text" hidden name="soa_agent" id="soa_agent">
-  <input type="text" class="form-control" name="soa_agentname" id="soa_agentname"><br>
+  <input type="text" class="form-control" name="soa_agentname" id="soa_agentname">
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary"name="soaAgent" id="soaAgent" data-dismiss="modal" data-toggle="modal" data-target="#searchAgent" style="margin-top: 24px; margin-left: -14px;"><i class="fa fa-search"></i></button>
+    </div>
+
+  </div>
+  <br>
+  <label class="control-label">
+  Due Date:
+</label>
+<input type="text" class="form-control" name="soa_dueDate" id="soa_dueDate">
+
+
        <br>
      </div>
      </div>

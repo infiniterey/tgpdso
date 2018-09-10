@@ -20,7 +20,8 @@
       <label class="control-label">
       Mode of Payment:
     </label>
-      <select name="paymentmodeOfPayment" id="paymentmodeOfPayment" class="form-control aswidth">
+      <select name="paymentmodeOfPayment" id="paymentmodeOfPayment" class="form-control aswidth" required>
+        <option value="" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Select a MOP</option>
       <option value="Monthly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Monthly</option>
       <option value="Quarterly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Quarterly</option>
       <option value="Semi-Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Semi-Annual</option>
@@ -44,8 +45,10 @@
       </label><input type="text" class="form-control aswidth" name="paymentAPR" id="paymentAPR"><br>
         <label class="control-label">
         Due Date:
-      </label><input type="date" class="form-control aswidth" name="paymentNextDue" id="paymentNextDue">
-      <input type="date" class="aswidth" name="paymentNextDueADD" id="paymentNextDueADD"><br>
+      </label>
+      <input type="date" class="form-control aswidth readonly" name="paymentDueDate" id="paymentDueDate">
+      <input type="date" name="paymentNextDue" id="paymentNextDue" hidden>
+      <input type="date" class="aswidth" name="paymentNextDueADD" id="paymentNextDueADD" hidden><br>
        <br>
      </div>
  </div>
@@ -80,18 +83,19 @@
 					$paymentTransDate = $_POST['paymentTransDate'];
 					$paymentORNo = $_POST['paymentORNo'];
 					$paymentAPR = $_POST['paymentAPR'];
+          $paymentDueDate = $_POST['paymentNextDueADD'];
 					$paymentNextDue = $_POST['paymentNextDue'];
 					$paymentRemarks = "New";
 
 						$sql = "INSERT INTO payment (payment_policyNo,
 							payment_Amount, payment_issueDate,
 							payment_MOP, payment_transDate,
-							payment_OR, payment_APR,
+							payment_OR, payment_APR, payment_dueDate,
 							payment_nextDue, payment_remarks)
 						values ('$paymentPolicyNo','$paymentAmount',
 							'$paymentIssueDate','$paymentMOP',
 							'$paymentTransDate','$paymentORNo',
-							'$paymentAPR', '$paymentNextDue',
+							'$paymentAPR', '$paymentDueDate','$paymentNextDue',
 							'$paymentRemarks')";
 
 						if($conn->query($sql))

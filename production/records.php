@@ -201,8 +201,15 @@
 																			 <div class="row">
 																		 			 <div class="col-xs-3">
 																						 Plan
-																						 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="planName" id="planName"><br>
-																						 <input style="cursor:auto" style="border:none" type="text" name="policyPlan" id="policyPlan" hidden>
+																						 <div class="row">
+																						 	<div class="col-md-10">
+																						 		<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="planName" id="planName"><br>
+																						 		<input style="cursor:auto" style="border:none" type="text" name="policyPlan" id="policyPlan" hidden>
+																					 		</div>
+																							<div class="col-md-2" style="margin-left: -16px;">
+																								<button type="button" class="btn btn-primary" name="planButton" id="planButton"><i class="fa fa-search"></i></button>
+																					 		</div>
+																					 </div>
 																					 </div>
 																				 	 <div class="col-md-3">
 																						 Face Amount
@@ -231,43 +238,46 @@
 																					</div>
 																					<div class="col-xs-3">
 																						Fund
-																						<div>
+																						<div class="row">
+																							<?php
+																							$name = "";
+																							$DB_con = Database::connect();
+																							$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																							if(isset($_GET['edit']))
+																							{
+																						$edit = $_GET['edit'];
+																						$sql = "SELECT * FROM policyfund, fund WHERE polFund_fund = fundID AND polFund_policyNo = '$edit'";
+																						$result = $DB_con->query($sql);
+																						if($result->rowCount()>0)
+																						{
+																							while($row=$result->fetch(PDO::FETCH_ASSOC))
+																							{
+																								$name = $name.$row['fundName'] .", " ;
+																							}
+																						}
+																					}
+																					else if (isset($_GET['editBene']))
+																					{
+																						$edit = $_GET['editBene'];
+																						$sql = "SELECT * FROM policyfund, fund WHERE polFund_fund = fundID AND polFund_policyNo = '$edit'";
+																						$result = $DB_con->query($sql);
+																						if($result->rowCount()>0)
+																						{
+																							while($row=$result->fetch(PDO::FETCH_ASSOC))
+																							{
+																								$name = $name.$row['fundName'] .", " ;
+																							}
+																						}
+																					}
+																					?>
+																							<div class="col-md-10">
+																								<input data-target="#fundModal" data-toggle="modal" value="<?php echo $name; ?>" readonly="readonly" style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyFund" id="policyFund">
+																							</div>
+																							<div class="col-md-2" style="margin-left: -19px;">
 																								<input id="policyRate" name="policyRate" hidden>
 																								<input id="getFundID" name="getFundID" hidden>
 																								<button disabled="disabled" style="cursor:auto; width: 40px;" style="border:none" type="button" data-toggle="modal" data-target="#fundModal" class="form-control btn btn-primary" name="fundButton" id="fundButton"><i class="fa fa-plus" hidden></i></button>
-																								<?php
-																								$name = "";
-																								$DB_con = Database::connect();
-																								$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																								if(isset($_GET['edit']))
-																								{
-																							$edit = $_GET['edit'];
-																							$sql = "SELECT * FROM policyfund, fund WHERE polFund_fund = fundID AND polFund_policyNo = '$edit'";
-																							$result = $DB_con->query($sql);
-																							if($result->rowCount()>0)
-																							{
-																								while($row=$result->fetch(PDO::FETCH_ASSOC))
-																								{
-																									$name = $name.$row['fundName'] .", " ;
-																								}
-																							}
-																						}
-																						else if (isset($_GET['editBene']))
-																						{
-																							$edit = $_GET['editBene'];
-																							$sql = "SELECT * FROM policyfund, fund WHERE polFund_fund = fundID AND polFund_policyNo = '$edit'";
-																							$result = $DB_con->query($sql);
-																							if($result->rowCount()>0)
-																							{
-																								while($row=$result->fetch(PDO::FETCH_ASSOC))
-																								{
-																									$name = $name.$row['fundName'] .", " ;
-																								}
-																							}
-																						}
-																						?>
-																						<input data-target="#fundModal" data-toggle="modal" value="<?php echo $name; ?>" readonly="readonly" style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyFund" id="policyFund">
-
+																					</div>
 																					</div>
 																					</div>
 																					<div class="col-sm-3 ">
@@ -311,6 +321,7 @@
 																				<form method="POST" action="<?php $_PHP_SELF ?>">
 																					<div class="row">
 																						<div class="col-xs-3">
+																							<input type="text" name="beneID" id="beneID" hidden>
 																							Last Name
 																							<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="beneLastName" id="beneLastName"><br>
 																						</div>
@@ -382,22 +393,22 @@
 																												{
 																													?>
 																												<tr>
-																													<td><?php echo $row['bene_lastName']?></td>
-																													<td><?php echo $row['bene_firstName']; ?></td>
-																													<td><?php echo $row['bene_middleName']; ?></td>
-																													<td><?php echo $row['bene_address']; ?></td>
-																													<td><?php echo $row['bene_birthDate']; ?></td>
-																													<td><?php echo $row['bene_contactNo']; ?></td>
-																													<td><?php echo $row['bene_relationShip']; ?></td>
-																													<td>
+																													<td style="width: 100px;"><?php echo $row['bene_lastName']?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_firstName']; ?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_middleName']; ?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_address']; ?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_birthDate']; ?></td>
+																													<td style="width: 100px;"><?php echo $row['bene_contactNo']; ?></td>
+																													<td  style="width: 100px;"><?php echo $row['bene_relationShip']; ?></td>
+																													<td style="width: 100px;">
 																														<div class = "row" align="center">
-																																<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																																<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_ID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 																																<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_ID']?>&name=<?php echo $row['bene_lastName']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																														 </div>
 																													</td>
 																											 </tr>
 																													<?php
-																													
+
 																											}
 
 																										?>
@@ -425,8 +436,8 @@
 																												<td><?php echo $row['bene_relationShip']; ?></td>
 																												<td>
 																													<div class = "row" align="center">
-																															<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-																															<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_contactNo']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																															<a title="Edit Data" onclick="return confirm('Are you sure to to edit?')" href="records.php?editBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_ID'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+																															<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deleteBene=<?php echo $row['bene_policyNo'] ?>&number=<?php echo $row['bene_ID']?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 																													 </div>
 																												</td>
 																										 </tr>
@@ -664,6 +675,15 @@
 																							<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Premium: activate to sort column ascending" style="width: 30px;text-align:center;">Premium</th>
 																								<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Due Date: activate to sort column ascending" style="width: 30px;text-align:center;">SOA date</th>
 																						<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header1" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 30px;text-align:center;">Action</th>
+																						<th hidden></th>
+																						<th hidden></th>
+																						<th hidden></th>
+																						<th hidden></th>
+																						<th hidden></th>
+																						<th hidden></th>
+																						<th hidden></th>
+																						<th hidden></th>
+																						<th hidden></th>
 																						</tr>
 																					</thead>
 																					<tbody>
@@ -685,20 +705,58 @@
 																									?>
 																								<tr>
 																									<td><?php echo $row['payment_transDate']; ?></td>
-																									<td style="width: 10px;"><?php echo $row['payment_remarks']; ?></td>
+																									<?php
+																									if($row['payment_remarks_year'] == '1' && $row['payment_remarks_month'] == '1')
+																									{
+																										?>
+																											<td style="width: 10px;"><?php echo $row['payment_remarks']; ?></td>
+																										<?php
+																									}
+																									else {
+																										?>
+																										<td style="width: 10px;"><?php echo $row['payment_remarks_year']." year(s) and ".$row['payment_remarks_month']." month(s)"; ?></td>
+																										<?php
+																									}
+																									?>
+
+
 																									<td style="width: 10px;"><?php echo $row['payment_MOP']; ?></td>
 																									<td><?php echo $row['payment_dueDate']; ?></td>
 																									<td><?php echo $row['payment_nextDue']; ?></td>
 																									<td style="width: 10px;"><?php echo $row['payment_OR']; ?></td>
 																									<td style="width: 10px;"><?php echo $row['payment_APR']; ?></td>
 																									<td style="width: 20px;"><?php echo $row['premium']; ?></td>
-																									<td><?php echo $row['SOAdate']; ?></td>
+																									<td><?php echo $row['payment_soaDate']; ?></td>
 																									<td>
-																										<div align="center">
-																											<a title="Edit Data" data-toggle="modal" data-target="#paymentModal" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-																											<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-																										</div>
+																										<?php
+																											if($row['payment_soaDate'] == '')
+																											{
+																												?>
+																												<div align="center">
+																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary" style="font-size: 16px;"><i class="fa fa-pencil"></i></button>
+																													<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"style="font-size: 16px;"><i class="fa fa-trash"></i></a>
+																												</div>
+																												<?php
+																											}
+																											else
+																											{
+																													?>
+																													<div align="center">
+																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="glyphicon glyphicon-edit" style="font-size: 22px;"></i></a>
+																													</div>
+																													<?php
+																											}
+																										?>
 																									</td>
+																									<td hidden><?php echo $row['payment_policyNo']; ?></td>
+																									<td hidden><?php echo $row['payment_issueDate']; ?></td>
+																									<td hidden><?php echo $row['payment_MOP']; ?></td>
+																									<td hidden><?php echo $row['payment_Amount']; ?></td>
+																									<td hidden><?php echo $row['payment_transDate']; ?></td>
+																									<td hidden><?php echo $row['payment_OR']; ?></td>
+																									<td hidden><?php echo $row['payment_APR']; ?></td>
+																									<td hidden><?php echo $row['payment_dueDate']; ?></td>
+																									<td hidden><?php echo $row['payment_nextDue']; ?></td>
 																							 </tr>
 																									<?php
 																								}
@@ -713,12 +771,14 @@
 			 																		{
 			 																			table.rows[counter].onclick = function()
 			 																			{
-			 																			 document.getElementById("planCode").value = this.cells[0].innerHTML;
-			 																			 document.getElementById("planC").value = this.cells[0].innerHTML;
-			 																			 document.getElementById("planDesc").value = this.cells[1].innerHTML;
-			 																			 document.getElementById("planRate").value = this.cells[2].innerHTML;
-			 																			 document.getElementById("plan").value = this.cells[0].innerHTML;
-
+			 																			 document.getElementById("paymentPolicyNo1").value = this.cells[10].innerHTML;
+			 																			 document.getElementById("paymentIssueDate1").value = this.cells[11].innerHTML;
+			 																			 document.getElementById("paymentAmount1").value = this.cells[13].innerHTML;
+			 																			 document.getElementById("paymentTransDate1").value = this.cells[14].innerHTML;
+			 																			 document.getElementById("paymentORNo1").value = this.cells[15].innerHTML;
+																						 document.getElementById("paymentAPR1").value = this.cells[16].innerHTML;
+																						 document.getElementById("paymentDueDate1").value = this.cells[17].innerHTML;
+																						 document.getElementById("paymentNextDue1").value = this.cells[18].innerHTML;
 			 																				};
 			 																			}
 			 																		</script>
@@ -761,6 +821,9 @@
 
 <div id="paymentModal" name="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<?php include 'add_payment.php';?>
+</div>
+<div id="paymentModalEdit" name="paymentModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<?php include 'PHPFile/button_add_payment_records.php';?>
 </div>
 	</body>
 </html>

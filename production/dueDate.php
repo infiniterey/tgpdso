@@ -120,10 +120,10 @@
                                           <td style="text-align:center; width: 10px;"><?php print($row['planCode']); ?></td>
 																					<td style="text-align:center; width: 20px;"><?php print($row['modeOfPayment']); ?></td>
 																					<td style="text-align:center; width: 20px;"><?php print($row['premium']); ?></td>
-																					<td style="text-align:center; width: 100px;"><?php print($row['payment_nextDue']); ?></td>
+																					<td style="text-align:center; width: 100px;"><?php print($row['payment_dueDate']); ?></td>
 																					<td style="text-align:center; width: 30px;">
 																						<div class="row">
-																							<button type="button" style='float:center' class="btn btn-primary" data-target="#paymentModal" data-toggle="modal" name="duedatebutton" id="duedatebutton"><i class="glyphicon glyphicon-copy"></i>&nbsp;Edit</button>
+																							<button type="button" style='float:center' class="btn btn-primary" data-target="#paymentModal" data-toggle="modal" name="duedatebutton" id="duedatebutton"><i class="glyphicon glyphicon-copy"></i></button>
 																						</div>
 																					</td>
 																					<td hidden><?php echo $row['payment_policyNo'] ?></td>
@@ -155,13 +155,14 @@
 																			{
 																				document.getElementById('paymentPolicyNo').value = this.cells[7].innerHTML;
 																	      document.getElementById('paymentIssueDate').value = this.cells[8].innerHTML;
-																      	document.getElementById('paymentmodeOfPayment').value = this.cells[9].innerHTML;
+																      	//document.getElementById('paymentmodeOfPayment').value = this.cells[9].innerHTML;
 																	      document.getElementById('paymentAmount').value = this.cells[10].innerHTML;
 																	     	document.getElementById('paymentTransDate').value = this.cells[11].innerHTML;
 																	      document.getElementById('paymentORNo').value = this.cells[12].innerHTML;
 																      	document.getElementById('paymentAPR').value = this.cells[13].innerHTML;
-																	    	document.getElementById('paymentNextDue').value = this.cells[14].innerHTML;
+																	    	//document.getElementById('paymentNextDue').value = this.cells[14].innerHTML;
 																				document.getElementById('paymentNextDueADD').value = this.cells[14].innerHTML;
+																				document.getElementById('paymentDueDate').value = this.cells[5].innerHTML;
 																			};
 																}
 														</script>
