@@ -22,6 +22,29 @@ $(document).ready(function() {
 				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 		} );
 } );
+$(document).ready(function() {
+		$('#datatable-fixed-header09').DataTable( {
+				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+		} );
+} );
+$(document).ready(function() {
+		$('#datatable-fixed-header10').DataTable( {
+				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+		} );
+} );
+
+function viewCheckbox() {
+
+  var checkBox = document.getElementById("soaCheckBox");
+  var text = document.getElementById("text");
+  if (checkBox.checked == true){
+    alert('Viewing the SOA is still working');
+  } else {
+
+  }
+
+}
+
 </script>
 <?php
 $servername = "localhost";
@@ -88,7 +111,7 @@ else
 		{
 				$edit = $_REQUEST['edit'];
 
-					$sql=mysqli_query($conn,"SELECT * from production, client, agents WHERE agentCode = agent AND clientID = prodclientID AND policyNo = '$edit'");
+					$sql=mysqli_query($conn,"SELECT * from production, payment, client, agents WHERE policyNo = payment_policyNo AND agentCode = agent AND clientID = prodclientID AND policyNo = '$edit'");
 
 					while($row=mysqli_fetch_Array($sql))
 					{
@@ -104,6 +127,7 @@ else
 						<script> document.getElementById('soa_commission').value = '<?php echo $row['FYC'];?>';</script>
             <script> document.getElementById('soa_agent').value = '<?php echo $row['agentCode'];?>';</script>
             <script> document.getElementById('soa_agentname').value = '<?php echo $row['agentLastname'].", ".$row['agentFirstname']." ".$row['agentMiddlename']?>';</script>
+            <script> document.getElementById('soa_dueDate').value = '<?php echo $row['payment_dueDate'];?>';</script>
             <script>
               window.location="soa.php?edit=<?php echo $edit ?>&#addSOAModal";
             </script>
@@ -130,9 +154,6 @@ else
       else {
 				if(isset($_POST['soaSave']))
 				{
-
-          $soamid = $_POST['soa_mid'];
-          $soaend = $_POST['soa_end'];
           $soaDate = $_POST['soa_date'];
           $soaPolicyNo = $_POST['soa_policyNo'];
           $soaTransDate = $_POST['soa_transDate'];
@@ -143,18 +164,20 @@ else
           $soaRate = $_POST['soa_rate'];
           $soaCommission = $_POST['soa_commission'];
           $soaAgent = $_POST['soa_agent'];
+          $soaSelectMonth = $_POST['soa_select'];
+          $soadueDate = $_POST['soa_dueDate'];
 
 
 					$sql = "INSERT INTO soa (SOA_transDate, SOA_policyOwner, SOA_policyNo, SOA_paymentMode, SOA_premium, SOA_rate, SOA_commission,
-          SOA_agent, SOA_date, SOA_midMonth, SOA_endMonth)
-					values ('$soaTransDate', '$soaName', '$soaPolicyNo', '$soaMOP', '$soaPremium', '$soaRate','$soaCommission', '$soaAgent', '$soaDate', '$soamid', '$soaend')";
+          SOA_agent, SOA_date, SOA_selectMonth, SOA_dueDate)
+					values ('$soaTransDate', '$soaName', '$soaPolicyNo', '$soaMOP', '$soaPremium', '$soaRate','$soaCommission', '$soaAgent', '$soaDate', '$soaSelectMonth', '$soadueDate')";
 
 						if($conn->query($sql))
 						{
 							?>
 							<script>
 								alert("New record production successfully added");
-                window.location="soa.php?edit=<?php echo $soaPolicyNo ?>"
+
 							</script>
 								<?php
 						}

@@ -9,6 +9,7 @@ include 'PHPFile/Connection_Database.php';
       {
 				if(isset($_POST['addBeneficiaryButton']))
 				{
+          $beneID = $_POST['beneID'];
 					$beneLastname = $_POST['beneLastName'];
 					$beneFirstname = $_POST['beneFirstName'];
 					$beneMiddlename = $_POST['beneMiddleName'];
@@ -19,7 +20,7 @@ include 'PHPFile/Connection_Database.php';
 					$add = $_POST['policyNoOwner'];
 
 
-          $query = "SELECT * from beneficiary, production WHERE policyNo = bene_policyNo AND policyNo = '$add'";
+          $query = "SELECT * from beneficiary WHERE bene_ID = '$beneID'";
           $data = mysqli_query($conn, $query);
           $result = mysqli_num_rows($data);
           if($result == 0)
@@ -52,7 +53,7 @@ include 'PHPFile/Connection_Database.php';
             bene_address = '$beneAddress',
             bene_contactNo = '$beneContact',
             bene_relationShip = '$beneRelationship'
-            WHERE bene_policyNo = '$add' AND bene_contactNo = '$beneContact'";
+            WHERE bene_policyNo = '$add' AND bene_ID = '$beneID'";
 
             if($conn->query($sql))
             {
@@ -79,9 +80,7 @@ include 'PHPFile/Connection_Database.php';
       $edit = $_GET['editBene'];
       $number = $_GET['number'];
 
-        $result=mysqli_query($conn,"SELECT * from production, client, beneficiary, policystatus WHERE policyStat = policyID AND clientID = prodclientID AND bene_policyNo = policyNo AND policyNo = '$edit' AND bene_ID = '$number'");
-
-        $query = "SELECT * from insuredpolicy, production WHERE policyNo = insured_policyNo AND policyNo = '$edit'";
+        $query = "SELECT * from production WHERE policyNo = '$edit'";
         $data = mysqli_query($conn, $query);
         $result = mysqli_num_rows($data);
         if($result == 1)
@@ -106,6 +105,7 @@ include 'PHPFile/Connection_Database.php';
           <script> document.getElementById('policyDueDate').value = '<?php echo $row['dueDate'];?>';</script>
           <script> document.getElementById('planName').value = '<?php echo $row['planCode'];?>';</script>
 
+          <script> document.getElementById('beneID').value = '<?php echo $row['bene_ID'];?>';</script>
           <script> document.getElementById('beneLastName').value = '<?php echo $row['bene_lastName'];?>';</script>
           <script> document.getElementById('beneFirstName').value = '<?php echo $row['bene_firstName'];?>';</script>
           <script> document.getElementById('beneMiddleName').value = '<?php echo $row['bene_middleName'];?>';</script>

@@ -30,7 +30,6 @@ Date.prototype.addMonths = function (value) {
 
 <script>
 
-<<<<<<< HEAD
 function handler()
 {
 	var selectPayment = $("#paymentmodeOfPayment").val();
@@ -67,19 +66,9 @@ function handler()
 		policyDueDate.value = newdate;
 	}
 }
-=======
-
->>>>>>> d667b034233f48e827574aef756d3dbd175686ba
 
 $(document).ready(function () {
-	var date = $("#paymentNextDueADD").val();
-	var date1 = $("#paymentIssueDate").val();
-	if(date === "")
-	{
-		$('policyDueDate').val(date1);
-	}
-    $('#policyIssueDate').datepicker();
-    $('#policyDueDate').datepicker();
+
 });
 
 $(function() {
@@ -89,8 +78,7 @@ $(function() {
 			var selectPayment = $("#paymentmodeOfPayment").val();
 			if(selectPayment == "Monthly")
 			{
-				document.getElementById("policyMOP").value = selectPayment;
-				var datehere = document.getElementById("policyIssueDate").value;
+				var datehere = document.getElementById("paymentNextDueADD").value;
 				var dateObj = new Date(datehere);
 				var dt = dateObj.addMonths(1);
 				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
@@ -99,8 +87,7 @@ $(function() {
 			}
 			else if(selectPayment == "Quarterly")
 			{
-				document.getElementById("policyMOP").value = selectPayment;
-				var datehere = document.getElementById("policyIssueDate").value;
+				var datehere = document.getElementById("paymentNextDueADD").value;
 				var dateObj = new Date(datehere);
 				var dt = dateObj.addMonths(4);
 				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
@@ -109,8 +96,7 @@ $(function() {
 			}
 			else if(selectPayment == "Semi-Annual")
 			{
-				document.getElementById("policyMOP").value = selectPayment;
-				var datehere = document.getElementById("policyIssueDate").value;
+				var datehere = document.getElementById("paymentNextDueADD").value;
 				var dateObj = new Date(datehere);
 				var dt = dateObj.addMonths(6);
 				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
@@ -119,8 +105,7 @@ $(function() {
 			}
 			else if(selectPayment == "Annual")
 			{
-				document.getElementById("policyMOP").value = selectPayment;
-				var datehere = document.getElementById("policyIssueDate").value;
+				var datehere = document.getElementById("paymentNextDueADD").value;
 				var dateObj = new Date(datehere);
 				var dt = dateObj.addMonths(12);
 				var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
@@ -168,7 +153,6 @@ $(function() {
 					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
 					$('#policyDueDate').val(newdate);
 					$('#paymentNextDue').val(newdate);
-					document.getElementById("paymentmodeOfPayment").value = selectedValue;
 				}
     });
 
@@ -260,6 +244,12 @@ function openPolicy(evt, tabName) {
 
 						$(document).ready(function() {
 								$('#datatable-fixed-header10').DataTable( {
+										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+								} );
+						} );
+
+						$(document).ready(function() {
+								$('#datatable-fixed-header91').DataTable( {
 										"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 								} );
 						} );
