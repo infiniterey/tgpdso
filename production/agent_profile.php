@@ -4,6 +4,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
+	<script src="https://ajax.aspnetcdn.com/ajax/JQuery/jquery-3.3.1.min.js"></script>
 	</head>
 	<style>
 
@@ -13,7 +14,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+<script src="bootbox.min.js"></script>
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
@@ -49,7 +50,7 @@
 													cursor:pointer;transition: all .25s	ease-in-out;
 												}
 											</style>
-
+												<script>bootbox.alert("Hi");</script>
 												<div class="col-md-12 col-sm-12 col-xs-12">
 														<div class="x_title">
 															<form method='get' name='myform' onsubmit="CheckForm()">
@@ -64,17 +65,17 @@
 															 <?php
 															 $agentname = "";
 															 $agenttrainingID="";
-															 $variableAgentCode=" ";
-															 $variableLastName =" ";
-															 $variableFirstName =" ";
+															 $variableAgentCode="";
+															 $variableLastName ="";
+															 $variableFirstName ="";
 															 $variablePositon2="";
 															 $variableAgentName="";
-															 $variableMiddleName =" ";
-															 $variableBirthdate = " ";
-															 $variableApplicationDate =" ";
-															 $variableTeam = " ";
+															 $variableMiddleName ="";
+															 $variableBirthdate = "";
+															 $variableApplicationDate ="";
+															 $variableTeam = "";
 															 $variablePositon ="";
-																$valueToSearch=" ";
+																$valueToSearch="";
 																$teamname="";
 																$bool = False;
 																	if(isset($_GET['display']))
@@ -125,33 +126,33 @@
 																 <div class="row">
 																	 <div class="col-xs-3">
 																		 Last Name
-																		 <input style="cursor:auto" style="border:none" type="text"  class="form-control col-md-7 col-xs-12" name="lastNameInputBox" id="lastNameInputBox" value='<?php echo $variableLastName ?>'><br>
+																		 <input placeholder="Last Name" style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="lastNameInputBox" id="lastNameInputBox"  value='<?php echo $variableLastName ?>'><br>
 																	 </div>
 																	 <div class="col-xs-3">
 																		 First Name
-																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12"  name="firstNameInputBox" id="firstNameInputBox" value='<?php echo $variableFirstName ?>'>
+																		 <input placeholder="First Name" style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12"  name="firstNameInputBox" id="firstNameInputBox" value='<?php echo $variableFirstName ?>'>
 																	 </div>
 																	 <div class="col-xs-3">
 																		 Middle Name
-																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="middleNameInputBox" id="middleNameInputBox" value='<?php echo $variableMiddleName ?>'>
+																		 <input style="cursor:auto" placeholder="Middle Name" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="middleNameInputBox" id="middleNameInputBox" value='<?php echo $variableMiddleName ?>'>
 																	 </div>
 																	 <div class="col-xs-3">
 																		 Birthday
-																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="birthdayInputBox" id="birthdayInputBox" value='<?php echo $variableBirthdate ?>'>
+																		 <input style="cursor:auto" style="border:none" placeholder="Birthday" type="text" class="form-control col-md-7 col-xs-4"  name="birthdayInputBox" id="birthdayInputBox" value='<?php echo $variableBirthdate ?>'>
 																	 </div>
 																 </div>
 																 <div class="row">
 																	 <div class="col-xs-3">
 																			Application Date
-																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="applicationInputBox" id="applicationInputBox" value='<?php echo $variableApplicationDate ?>'>
+																		 <input placeholder="Application Date" style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="applicationInputBox" id="applicationInputBox" value='<?php echo $variableApplicationDate ?>'>
 																	 </div>
 																	 <div class="col-xs-3">
 																		 Team
-																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="teamInputTextBox" id="teamInputTextBox" value='<?php echo $teamname ?>'>
+																		 <input style="cursor:auto" placeholder="Team" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="teamInputTextBox" id="teamInputTextBox" value='<?php echo $teamname ?>'>
 																	 </div>
 																	 <div class="col-xs-3">
 																		 Position
-																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="positionInputText" id="positionInputText" value='<?php echo $variablePositon ?>'>
+																		 <input style="cursor:auto" placeholder="Position" style="border:none" type="text" class="form-control col-md-7 col-xs-4"  name="positionInputText" id="positionInputText" value='<?php echo $variablePositon ?>'>
 
 																		 <input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-4" name="codeInputTextBox" id="codeInputTextBox" value='<?php echo $variableAgentCode ?>'>
 
@@ -174,7 +175,7 @@
 																	<div id="production" class="tabcontent">
 
 						      <!-- table-striped dataTable-->
-																		<table name"datatable-fixed-header"  style="text-align:center" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+																		<table name"datatable-fixed-header"  style="text-align:center;float:center" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 						                          <thead>
 						                            <tr role="row">
 																					<th  style="width: 100px;text-align:center;" class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-controls="datatable-fixed-header"aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending"hidden>ProdID</th>
@@ -411,7 +412,7 @@
 
 																			<form method='post' name='myform' onsubmit="CheckForm()">
 																		<div class="modal-body" method='post'>
-																			<input name="position" id="position" style="width: 200px;" required="required" value="<?php echo $variablePositon?>" ><br>
+																			<input name="position" id="position" style="width: 200px;" required="required" value="<?php echo $variablePositon?>" hidden ><br>
 
 																			Application Date <span class="required">*</span><br>
 																			<input name="DateAdded" id="DateAdded" style="width: 200px;" class="date-picker form-control" required="required" type="date" required><br>
@@ -513,9 +514,10 @@
  							 <tbody>
 
  								 <?php
+								 include 'A_Login/PositionAndTeam.php';
  									 $DB_con = Database::connect();
  									 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
- 									 $sql = "SELECT * FROM agents";
+ 									 $sql = "SELECT * FROM agents, team where agentTeam = teamID AND teamName = '$teamUser'";
 
  									 $result = $DB_con->query($sql);
  									 if($result->rowCount()>0){
@@ -543,8 +545,38 @@
 
  										 }
  									 }
+ 								else if($positionUser == 'Administrator' || $positionUser == 'administrator'){
+									$DB_con = Database::connect();
+									$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+									$sql = "SELECT * FROM agents";
 
- 									 else{}
+									$result = $DB_con->query($sql);
+									if($result->rowCount()>0){
+										while($row=$result->fetch(PDO::FETCH_ASSOC)){
+
+											?>
+											<tr>
+												<td><?php print($row['agentCode']); ?></td>
+												<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']); ?></td>
+
+												<td hidden><?php print($row['agentLastname']); ?></td>
+												<td hidden><?php print($row['agentFirstname']); ?></td>
+												<td hidden><?php print($row['agentMiddlename']); ?></td>
+												<td hidden><?php print($row['agentBirthdate']); ?></td>
+												<td hidden><?php print($row['agentApptDate']); ?></td>
+												<td hidden><?php print($row['agentTeam']); ?></td>
+												<td hidden><?php print($row['agentPosition']); ?></td>
+												<td>
+												<div align="center" class="row">
+														<a title="Display Data" href="agent_profile.php?display=<?php echo $row['agentCode'];?>"  class="btn btn-primary"><i class="glyphicon glyphicon-copy"></i></a>
+													</div>
+												</td>
+												</tr>
+											<?php
+
+										}
+									}
+								}
  								 ?>
  								 </tbody>
  						 </table>
@@ -632,7 +664,7 @@
 		<script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
   </body>
 </html>
 <script>
@@ -749,19 +781,17 @@ function openPolicy(evt, cityName) {
 			$ATstatus = $_POST['status'];
 			$ATposition = $_POST['position'];
 			$check="";
-			?>
-			<script>alert('hi');</script>
-			<?php
 
 			$DB_con = Database::connect();
 			$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$sql="SELECT * FROM training,trainingqualifications where trainingID = trainingNo and trainingQName = '$ATtrainingName'";
+				$sql="SELECT * FROM agentstraining,training,trainingqualifications where trainingID = trainingNo and trainingQName = '$ATtrainingName' and ATtrainingName != '$ATtrainingName'";
 			$q = $DB_con->prepare($sql);
 		 $q->execute();
 		 $result =  $q->fetchall();
 		 foreach($result as $row)
 			{
 				$check = 'TRUE';
+
 			$sql = "INSERT Into agentstraining (ATagentID, ATagentName, ATtrainingName,ATrequiredPosition, ATdate, ATstatus) values ('$ATagentID','$ATagentName','$ATtrainingName','$ATposition', '$ATdate', '$ATstatus')";
 		}
 		}

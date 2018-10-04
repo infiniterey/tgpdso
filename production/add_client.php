@@ -56,27 +56,27 @@
                         <div class="row">
 													<div class="col-sm-3">
 															<form method="post" action="<?php $_PHP_SELF ?>">
-				                          First Name:
-				                          <input name="firstname" id="firstname" style="width: 195px;" class="date-picker form-control" type="text" required><br/>
-				                          Middle Name:
-				                          <input type="text" id="middlename" style="width: 195px;" placeholder="" name="middlename" required="required" class="form-control" required><br/>
+				                          First Name:</br>
+				                          <input placeholder="First Name" name="firstname" id="firstname" style="width: 195px;" class="date-picker form-control" type="text" required><br/><br>
+				                          Middle Name:</br>
+				                          <input placeholder="Middle Name" type="text" id="middlename" style="width: 195px;" placeholder="" name="middlename" required="required" class="form-control" required><br/><br>
 																  Last Name:
-																</br><input type="text" id="lastname" style="width: 195px;" placeholder="" name="lastname" required="required" class="form-control" required><br/>
-																 	Birthdate:
-																	<input type="date" id="birthdate" style="width: 195px;" placeholder="" name="birthdate" required="required" class="form-control" required><br/>
-																	Address:
-																	<br><input type="text" id="address" style="width: 195px;" placeholder="" name="address" required="required" class="form-control" required><br/>
+																</br><input placeholder="Last Name" type="text" id="lastname" style="width: 195px;" placeholder="" name="lastname" required="required" class="form-control" required><br/><br>
+																 	Birthdate:</br>
+																	<input  type="date" id="birthdate" style="width: 195px;" placeholder="" name="birthdate" required="required" class="form-control" required><br/><br>
+																	Address:</br>
+																	<input placeholder="Address" type="text" id="address" style="width: 195px;" placeholder="" name="address" required="required" class="form-control" required><br/><br>
 																	Cell No.:<br>
-																	<input type="text" id="cellno" style="width: 195px;" placeholder="" name="cellno" required="required" class="form-control" required><br/>
+																	<input placeholder="Cell No." type="text" id="cellno" style="width: 195px;" placeholder="" name="cellno" required="required" class="form-control" required><br/><br>
 																	<input type="text" id="clientID2" name="clientID2" hidden>
 
 																	<br><br>
 																	<center>
 
 
-																		<button type="submit" class="btn btn-primary" id="save" name="save"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-																		<button type="submit" class="btn btn-primary" id="update" name="update"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																		<a type="submit" id="reset" name="reset" value="Reset" class="btn btn-default" href="add_client.php">Cancel</a>
+																		<button style="float:left" type="submit" class="btn btn-primary" id="save" name="save"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+																		<button style="float:left" type="submit" class="btn btn-primary" id="update" name="update"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
+																		<a style="float:left;height:36px;" type="submit" id="reset" name="reset" value="Reset" class="btn btn-default" href="add_client.php">Cancel</a>
 
 																	</center>
 																</form>
@@ -85,7 +85,7 @@
 
           <!-- table-striped dataTable-->
 
-                            <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
+                            <table style="float:right" id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
                               <thead>
                                 <tr role="row">
 																	<th hidden class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="clientID" style="width: 25px;text-align:center;">Client ID</th>
@@ -102,13 +102,13 @@
                               <tbody>
 
                                   <?php
+																	include 'A_Login/PositionAndTeam.php';
                                     $DB_con = Database::connect();
                                     $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                                    $sql = "SELECT * FROM client";
-
+                                    $sql = "SELECT * FROM client, production, agents, team WHERE agentCode = agent and clientID = prodclientID and agentTeam = teamID AND teamName = '$teamUser'";
                                     $result = $DB_con->query($sql);
                                     if($result->rowCount()>0){
-                                      while($row=$result->fetch(PDO::FETCH_ASSOC)){
+                                      while($row=$result->fetch(PDO::FETCH_ASSOC)){;
                                         ?>
                                         <tr>
 																					<td hidden><?php print($row['clientID']);?></td>
@@ -126,7 +126,7 @@
 																					</td>
                                         </tr>
                                         <?php
-                                      }
+                                      };
                                     }
                                     else
 																		{

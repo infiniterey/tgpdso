@@ -24,7 +24,20 @@
        <?php
          $DB_con = Database::connect();
          $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-         $sql = "SELECT * FROM production, client, plans WHERE prodclientID = clientID AND plan = planID";
+
+         $team = $_SESSION['usertype'];
+         $team = $_SESSION['team'];
+
+
+
+         if($_SESSION['usertype'] == 'Secretary')
+         {
+           $sql = "SELECT * FROM production, client, plans, agents, team WHERE agentCode = agent AND agentTeam = teamID AND prodclientID = clientID AND plan = planID AND teamName = '$team'";
+         }
+         else
+         {
+           $sql = "SELECT * FROM production, client, plans WHERE prodclientID = clientID AND plan = planID";
+         }
 
 
        $result = $DB_con->query($sql);

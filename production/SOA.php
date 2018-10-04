@@ -4,6 +4,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 	<style>
 table tr:not(:first-child){
 	cursor:pointer;transition: all .25s	ease-in-out;
@@ -21,13 +22,11 @@ td {
 		width: 20%;
 		word-wrap: break-word;
 }
-.modal {
-overflow-y:auto;
-}
 
 </style>
 </head>
-<body class="nav-md footer_fixed">
+<body class="nav-md footer_fixed modal-open"  style="padding-right: -15px;">
+
 	<form method="post">
 		<div class="container body">
 			<div class="main_container">
@@ -58,23 +57,25 @@ overflow-y:auto;
 
 										<div class="clearfix"></div>
 									</div>
+
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<div class="row">
 												<div>
+													<input type="checkbox" name="soaCheckBox" id="soaCheckBox" onclick="viewCheckbox();" style="margin-top: 10px; margin-left: 20px;">&nbsp;View all SOA history
 													<!--<h2><input type="text" name="searchT" id="searchT" placeholder="Policy No."></input>-->
 													<!--<button type="button" name="buttonshowall" id="buttonshowall" class="fa fa-search btn btn-success" data-toggle="modal" data-target="#myModal" style="margin-bottom: -1px;" id="myBtn"></button></h2>-->
-													<button  type="button" style='float:right' data-toggle="modal" data-target="#addSOAModal" class="btn btn-primary" name="searchPolicy" id="searchPolicy"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add SOA</button>
+													<button  type="button" style='float:right' data-toggle="modal" data-target="#addSOAModal" class="btn btn-primary" name="addThis" id="addThis"><i class="fa fa-plus" hidden></i>&nbsp;&nbsp;Add SOA</button>
 													<br	><br>
 													<div class="clearfix"></div>
 												</div>
 											</div>
-											<input type="checkbox" name="soaCheckBox" id="soaCheckBox" onclick="viewCheckbox();">&nbsp;View all SOA history
+
 											<br><br>
 												<div class="col-sm-12">
 
 				<!-- table-striped dataTable-->
-
-													<table id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+												<div id="tableFront" name="tableFront" style="margin-top: -10px;">
+													<table id="datatable-fixed-header12" name="datatable-fixed-header10" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 														<thead>
 															<tr role="row">
 																<th hidden>SOAID</th>
@@ -101,6 +102,9 @@ overflow-y:auto;
 																<th hidden></th>
 																<th hidden></th>
 																<th hidden></th>
+																<th hidden></th>
+																<th hidden></th>
+
 															</tr>
 														</thead>
 
@@ -110,21 +114,31 @@ overflow-y:auto;
 
 																	$DB_con = Database::connect();
 																	$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																	$sql = "SELECT * FROM production, payment, agents, client WHERE payment_policyNo = policyNo AND agent = agentCode AND clientID = prodclientID AND (payment_soaDate IS NULL OR payment_soaDate LIKE '')";
-
+																	$teamItSelf = $_SESSION["team"];
+																	$userTypeItSelf = $_SESSION["usertype"];
+																	if($_SESSION["usertype"] == "Secretary" || $_SESSION["usertype"] == "secretary")
+																	{
+																		$sql = "SELECT * FROM production, payment, agents, client, team, plans WHERE planID = plan AND agentCode = agent AND agentTeam = teamID AND teamName = '$teamItSelf' AND payment_policyNo = policyNo AND agent = agentCode AND clientID = prodclientID AND (payment_soaDate IS NULL OR payment_soaDate LIKE '')";
+																	}
+																	else
+																	{
+																		$sql = "SELECT * FROM production, payment, agents, client, plans WHERE planID = plan AND payment_policyNo = policyNo AND agent = agentCode AND clientID = prodclientID AND (payment_soaDate IS NULL OR payment_soaDate LIKE '')";
+																	}
 																	$result = $DB_con->query($sql);
 																	if($result->rowCount()>0){
 																		while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																			$originalDate = $row['payment_transDate'];
+																			$payTransdate = date("m/d/Y", strtotime($originalDate));
 																			?>
 																			<tr>
 																				<td hidden><?php print($row['payment_ID']); ?></td>
-																				<td><?php print($row['payment_transDate']); ?></td>
+																				<td><?php print($payTransdate); ?></td>
 																				<td><?php print($row['cLastname'].",".$row['cFirstname']." ".$row['cMiddlename']);?></td>
 																				<td><?php print($row['payment_policyNo']); ?></td>
 																				<td><?php print($row['payment_MOP']); ?></td>
-																				<td><?php print($row['premium']); ?></td>
+																				<td>Php&nbsp;<?php print($row['premium']); ?></td>
 																				<td><?php print($row['rate']); ?></td>
-																				<td><?php print($row['FYC']); ?></td>
+																				<td>Php&nbsp;<?php print($row['FYC']); ?></td>
 																				<td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
 																				<td>
 																					<div class="row">
@@ -147,6 +161,8 @@ overflow-y:auto;
 																				<td hidden><?php print($row['agentLastname'].", ".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
 																				<td hidden><?php print($row['payment_dueDate']); ?></td>
 																				<td hidden><?php print($row['payment_ID']); ?></td>
+																				<td hidden><?php print($row['planCode']); ?></td>
+																				<td hidden><?php print($row['planID']); ?></td>
 																			</tr>
 																			<?php
 																		}
@@ -154,9 +170,8 @@ overflow-y:auto;
 																?>
 															</tbody>
 													</table>
-
 													<script>
-													var table = document.getElementById('datatable-fixed-header10');
+													var table = document.getElementById('datatable-fixed-header12');
 													for(var counter = 1; counter < table.rows.length; counter++)
 													{
 														table.rows[counter].onclick = function()
@@ -173,11 +188,63 @@ overflow-y:auto;
 														 document.getElementById("soa_agent1").value = this.cells[20].innerHTML;
 														 document.getElementById("soa_agentname1").value = this.cells[21].innerHTML;
 														 document.getElementById("soa_dueDate1").value = this.cells[22].innerHTML;
-														 document.getElementById("soa_ID").value = this.cells[23].innerHTML;
+														 document.getElementById("soa_ID1").value = this.cells[23].innerHTML;
+														 document.getElementById("soa_plan1").value = this.cells[24].innerHTML;
+														 document.getElementById("soa_planID1").value = this.cells[25].innerHTML;
 															};
 														}
 													</script>
+												</div>
+												<div hidden id="tableView" name="tableView" style="margin-top: -10px;">
+													<table id="datatable-fixed-header11" name="datatable-fixed-header11" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header11" rowspan="1" colspan="1" aria-label="PolicyNo" style="width: 50px;text-align:center;">Policy No.</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable-fixed-header11" rowspan="1" colspan="1" aria-label="PolicyOwner" style="width: 500px;text-align:center;">Policy Owner</th>
+																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header11" rowspan="1" colspan="1" aria-label="Agent" style="width: 50px;text-align:center;">Agent</th>
+																<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header11" rowspan="1" colspan="1" aria-label="Action" style="width: 10px;text-align:center;">Action</th>
+															</tr>
+														</thead>
 
+														<tbody>
+
+																<?php
+
+																	$DB_con = Database::connect();
+																	$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																	$teamItSelf = $_SESSION["team"];
+																	$userTypeItSelf = $_SESSION["usertype"];
+																	if($_SESSION["usertype"] == "Secretary" || $_SESSION["usertype"] == "secretary")
+																	{
+																		$sql = "SELECT * FROM production, agents, client, team, soa WHERE SOA_policyNo = policyNo AND agentCode = agent AND agentTeam = teamID AND teamName = '$teamItSelf' AND agent = agentCode AND clientID = prodclientID";
+																	}
+																	else
+																	{
+																		$sql = "SELECT * FROM production, agents, client, soa WHERE SOA_policyNo = policyNo AND agent = agentCode AND clientID = prodclientID ORDER BY prodID DESC LIMIT 1";
+																	}
+																	$result = $DB_con->query($sql);
+																	if($result->rowCount()>0){
+																		while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																			?>
+																			<tr>
+																				<td><?php print($row['policyNo']); ?></td>
+																				<td><?php print($row['cLastname'].",".$row['cFirstname']." ".$row['cMiddlename']);?></td>
+																				<td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
+																				<td>
+																					<div class="row">
+																						<a type="button" id="buttonPol" href="soa.php?view='<?php echo $row['policyNo']?>'" class="btn btn-primary" style="margin-left:60px;" name="editSoaButton"><i class="glyphicon glyphicon-new-window"></i>&nbsp;View Details</a>
+																					</div>
+
+																				</td>
+																			</tr>
+																			<?php
+																		}
+																	}
+																?>
+															</tbody>
+													</table>
+
+												</div>
 											</div>
 										</div>
 									</div>
@@ -200,11 +267,29 @@ overflow-y:auto;
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 	<?php include 'PHPFile/button_updateSOA.php'; ?>
 </div>
-<div class="modal fade" name="addSOASearchPolicy" id="addSOASearchPolicy" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+<div class="modal fade" name="addSOASearchPolicy" id="addSOASearchPolicy" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static" style="margin-top: 20px;">
 	<?php include 'PHPFile/button_searchPolicy_addSOA.php'; ?>
 </div>
-<div class="modal fade" name="searchAgent" id="searchAgent" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+<div class="modal fade" name="searchAgent" id="searchAgent" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static" style="margin-top: 20px;">
 	<?php include 'PHPFile/button_searchAgent_addSOA.php'; ?>
+</div>
+<div class="modal fade" name="searchAgentUpdate" id="searchAgentUpdate" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static" style="margin-top: 20px;">
+	<?php include 'PHPFile/button_searchAgent_updateSOA.php'; ?>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="clientSearchSOA" name="clientSearchSOA" data-keyboard="false" data-backdrop="static" style="margin-top: 20px;">
+	<?php include 'PHPFile/button_searchClient_updateSOA.php'; ?>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="clientSearchAddSOA" name="clientSearchAddSOA" data-keyboard="false" data-backdrop="static" style="margin-top: 20px;">
+	<?php include 'PHPFile/button_searchClient_updateSOA.php'; ?>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="planSearchSOA" name="planSearchSOA" data-keyboard="false" data-backdrop="static" style="margin-top: 30px;">
+	<?php include 'PHPFile/button_add_plan_SOA.php'; ?>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="planSearchAddSOA" name="planSearchAddSOA" data-keyboard="false" data-backdrop="static" style="margin-top: 30px;">
+	<?php include 'PHPFile/button_add_plan_AddSOA.php'; ?>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="viewSOA" name="viewSOA" data-keyboard="false" data-backdrop="static" style="margin-top: 30px;">
+	<?php include 'PHPFile/button_ViewDetails_SOA.php'?>
 </div>
 	<footer style="margin-bottom: -15px;">
 		<center>

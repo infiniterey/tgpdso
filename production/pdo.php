@@ -88,14 +88,17 @@
 
 				$DB_con = Database::connect();
 				 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-					 $sql = "SELECT * FROM requirements, client ,production where production.prodID='$PprodID'";
+					 $sql = "SELECT * FROM requirements ,production where production.prodID='$PprodID'";
 				 $result = $DB_con->query($sql);
-			 ?>
-			 <script>alert('hi <?php echo $PprodID ?>');</script>
-				 <?php
-				 while($row=$result->fetch(PDO::FETCH_ASSOC)){
+			 	 while($row=$result->fetch(PDO::FETCH_ASSOC)){
 					 if($row['issuedDate']!="0000-00-00")
 					 {
+						 return;
+					 }
+					 else if($row['Rrequirements']==$Requirement)
+					 {
+
+						 return;
 					 }
 					 else
 					 {
@@ -140,7 +143,7 @@
 					{
 						?>
 						<script>
-						window.location="add_requirements.php";
+
 						</script>
 						<?php
 					}
@@ -163,17 +166,28 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['iupdateko']))
-					{
-						$agentRequirementCode = $_POST['modalcode'];
-					  $newAgentRequirement = $_POST['modalreq'];
-					$newAgentRequirementTransDate =$_POST['modaltrans'];
-					$newAgentRequirementStatus = $_POST['modalstats'];
-					$newAgentRequirementSubmitDate = $_POST['modalsubdate'];
-					$requirementNo=  $_POST['modalRequirementNo'];
-					?><script>alert('hi');</script><?php
-					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RequirementNo = '$requirementNo'";
+					$agentRequirementCode = $_POST['modalcode'];
+					$newAgentRequirement = $_POST['modalreq'];
+				$newAgentRequirementTransDate =$_POST['modaltrans'];
+				$newAgentRequirementStatus = $_POST['modalstats'];
+				$newAgentRequirementSubmitDate = $_POST['modalsubdate'];
+				$requirementNo=  $_POST['modalRequirementNo'];
+
+					$DB_con = Database::connect();
+					 $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+				 $sql = "SELECT * FROM requirements";
+					 $result = $DB_con->query($sql);
+					 	while($row=$result->fetch(PDO::FETCH_ASSOC)){
+						if($row['Rrequirements']==$newAgentRequirement)
+						{
+
+						return;
 				}
+				else{
+					$sql = "UPDATE requirements SET Rrequirements = '$newAgentRequirement',RtransDate = '$newAgentRequirementTransDate',SubmitDate = '$newAgentRequirementSubmitDate',Status = '$newAgentRequirementStatus' where RequirementsNo = '$requirementNo'";
+				}
+}
+
 						if($conn->query($sql))
 						{
 							?>
@@ -278,9 +292,24 @@
 					else {
 						$teamID=$_POST['teamid'];
 						$teamName=$_POST['teamname'];
+						$DB_con = Database::connect();
+						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+						$sql = "SELECT * FROM team";
 
+						$result = $DB_con->query($sql);
+						if($result->rowCount()>0){
+							while($row=$result->fetch(PDO::FETCH_ASSOC)){
+									if($row['teamID']==$teamID || $row['teamName']==$teamName)
+									{
+										?><script>alert('Team code or team name already existed.');</script><?php
+										return;
+									}
+						else {
 						$sql = "INSERT INTO team (teamID, teamName)
 						values ('$teamID','$teamName')";
+					}
+				}
+			}
 
 						if($conn->query($sql))
 						{
@@ -308,11 +337,26 @@
 						die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 					}
 					else {
-						if(isset($_POST['ButtonUpdate']))
-						{
-							$newTeamID = $_POST['newTeamID'];
-						$newTeamName = $_POST['newTeamName'];
-							$sql = "UPDATE team SET teamName = '$newTeamName' where teamID = '$newTeamID'";
+						$newTeamID = $_POST['newTeamID'];
+					$newTeamName = $_POST['newTeamName'];
+
+						$DB_con = Database::connect();
+						$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+						$sql = "SELECT * FROM team";
+
+						$result = $DB_con->query($sql);
+						if($result->rowCount()>0){
+							while($row=$result->fetch(PDO::FETCH_ASSOC)){
+									if($row['teamName']==$newTeamName)
+									{
+										?><script>alert('Team code or team name already existed.');</script><?php
+										return;
+									}
+						else {
+						$sql = "UPDATE team SET teamName = '$newTeamName' where teamID = '$newTeamID'";
+					}
+				}
+			}
 							if($conn->query($sql)===true)
 							{
 								?>
@@ -324,7 +368,7 @@
 							else {
 								echo "Error:". $sql."<br>".$conn->error;
 							}
-						}
+
 						$conn->close();
 					}
 				}
@@ -451,12 +495,24 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['btn-addrEquirements']))
-					{
-						$trainingName = $_POST['TrainingName'];
-						$trainingdate = $_POST['TrainingDate'];
+					$trainingName = $_POST['TrainingName'];
+					$trainingdate = $_POST['TrainingDate'];
+					$DB_con = Database::connect();
+					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+					$sql = "SELECT * FROM training";
 
-						$sql = "INSERT Into training (trainingName, trainingDate) values ('$trainingName','$trainingdate')";
+					$result = $DB_con->query($sql);
+					if($result->rowCount()>0){
+						while($row=$result->fetch(PDO::FETCH_ASSOC)){
+								if($row['trainingName']==$trainingName)
+								{
+									?><script>alert("Training name already exist");</script><?php
+									return;
+								}
+								else {
+								$sql = "INSERT Into training (trainingName, trainingDate) values ('$trainingName','$trainingdate')";
+							}
+						}
 					}
 					if($conn->query($sql))
 					{
@@ -645,14 +701,27 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-						if(isset($_POST['btn-save']))
-						{
 					$fundID=$_POST['fundID'];
 					$fundName=$_POST['fundName'];
+					$DB_con = Database::connect();
+					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+					$sql = "SELECT * FROM fund";
 
+					$result = $DB_con->query($sql);
+					if($result->rowCount()>0){
+						while($row=$result->fetch(PDO::FETCH_ASSOC)){
+								if($row['fundName']==$fundName)
+								{
+									?><script>alert('Fund name already existed.');</script><?php
+									return;
+								}
+							else {
 					$sql = "INSERT INTO fund (fundID, fundName)
 					values ('$fundID','$fundName')";
+						}
+					}
 				}
+			}
 					if($conn->query($sql))
 					{
 						?>
@@ -665,7 +734,8 @@
 					}
 					$conn->close();
 				}
-			}
+
+
 			public function updateFund(){
 				$host = "localhost";
 				$dbusername = "root";
@@ -679,12 +749,25 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['ButtonUpdate']))
-					{
-						$newFundNo = $_POST['newFundID'];
+					$newFundNo = $_POST['newFundID'];
 					$newFundName = $_POST['newFundName'];
+					$DB_con = Database::connect();
+					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+					$sql = "SELECT * FROM fund";
 
+					$result = $DB_con->query($sql);
+					if($result->rowCount()>0){
+						while($row=$result->fetch(PDO::FETCH_ASSOC)){
+								if($row['fundName']==$newFundName)
+								{
+									?><script>alert('Fund name already existed.');</script><?php
+									return;
+								}
+					else {
 						$sql = "UPDATE fund SET fundName = '$newFundName' where fundID = '$newFundNo'";
+					}
+				}
+			}
 						if($conn->query($sql)===true)
 						{
 							?>
@@ -696,9 +779,6 @@
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
 						}
-					}
-
-
 					$conn->close();
 
 				}
@@ -791,13 +871,27 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-						if(isset($_POST['btn-save']))
-						{
 					$positionName=$_POST['positionName'];
 
+					$DB_con = Database::connect();
+					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+					$sql = "SELECT * FROM position";
+
+					$result = $DB_con->query($sql);
+					if($result->rowCount()>0){
+						while($row=$result->fetch(PDO::FETCH_ASSOC)){
+								if($row['positionName']==$positionName)
+								{
+									?><script>alert('Position name already existed.');</script><?php
+									return;
+								}
+					else {
 					$sql = "INSERT INTO position (positionName)
 					values ('$positionName')";
 				}
+					}
+			}
+		}
 					if($conn->query($sql))
 					{
 						?>
@@ -810,7 +904,7 @@
 					}
 					$conn->close();
 				}
-			}
+
 			public function updatePosition(){
 				$host = "localhost";
 				$dbusername = "root";
@@ -824,11 +918,25 @@
 					die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
 				}
 				else {
-					if(isset($_POST['ButtonUpdate']))
-					{
 					$newPositionName = $_POST['newPositionName'];
 					$newPositionID = $_POST['newPositionID'];
+
+					$DB_con = Database::connect();
+					$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+					$sql = "SELECT * FROM position";
+
+					$result = $DB_con->query($sql);
+					if($result->rowCount()>0){
+						while($row=$result->fetch(PDO::FETCH_ASSOC)){
+								if($row['positionName']==$newPositionName)
+								{
+									?><script>alert('Position name already existed.');</script><?php
+									return;
+								}
+					else {
 						$sql = "UPDATE position SET positionName = '$newPositionName' where positionID = '$newPositionID'";
+					}
+				}
 						if($conn->query($sql)===true)
 						{
 							?>
@@ -840,13 +948,11 @@
 						else {
 							echo "Error:". $sql."<br>".$conn->error;
 						}
-					}
-
-
 					$conn->close();
-
 				}
 			}
+		}
+
 			public function updateAgent(){
 				$host = "localhost";
 				$dbusername = "root";

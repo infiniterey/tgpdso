@@ -14,6 +14,19 @@ $(document).ready(function() {
     } );
 } );
 
+
+$(document).ready(function() {
+    $('#datatable-fixed-header009').DataTable( {
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
+
+$(document).ready(function() {
+    $('#datatable-fixed-header087').DataTable( {
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
+
 </script>
 
 <script>
@@ -27,32 +40,67 @@ $(document).ready(function() {
 				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 		} );
 } );
+
 $(document).ready(function() {
-		$('#datatable-fixed-header10').DataTable( {
+		$('#datatable-fixed-header11').DataTable( {
+				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+		} );
+} );
+$(document).ready(function() {
+		$('#datatable-fixed-header12').DataTable( {
 				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 		} );
 } );
 
+$(document).ready(function() {
+    $('#datatable-fixed-header81').DataTable( {
+        "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
+
+
+  $(document).ready(function() {
+      $('#datatable-fixed-header001').DataTable( {
+          "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+      } );
+  } );
+
+  $(document).ready(function() {
+      $('#datatable-fixed-header089').DataTable( {
+          "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+      } );
+  } );
 function viewCheckbox() {
 
   var checkBox = document.getElementById("soaCheckBox");
   var text = document.getElementById("text");
   if (checkBox.checked == true){
-    alert('Viewing the SOA is still working');
+    document.getElementById("addThis").disabled = true;
+    document.getElementById('tableFront').style.display = "none";
+    document.getElementById('tableView').style.display = "block";
   } else {
-
+    
+    document.getElementById("addThis").disabled = false;
+    document.getElementById('tableFront').style.display = "block";
+    document.getElementById('tableView').style.display = "none";
   }
 
 }
+// function clickClosetos(){
+//
+//   window.location = "soa.php";
+// }
+// function clickClose(){
+//
+//   document.getElementById('tableFront').style.display = "none";
+//   document.getElementById('tableView').style.display = "block";
+// }
+
+
 
 </script>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tgpdso_db";
-
-$conn = new mysqli ($servername, $username, $password, $dbname);
+include 'PHPFile/Connection_Database.php';
 
 if(mysqli_connect_error())
 {
@@ -94,12 +142,7 @@ else
 }
 ?>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tgpdso_db";
-
-$conn = new mysqli ($servername, $username, $password, $dbname);
+include 'PHPFile/Connection_Database.php';
 
 if(mysqli_connect_error())
 {
@@ -111,7 +154,8 @@ else
 		{
 				$edit = $_REQUEST['edit'];
 
-					$sql=mysqli_query($conn,"SELECT * from production, payment, client, agents WHERE policyNo = payment_policyNo AND agentCode = agent AND clientID = prodclientID AND policyNo = '$edit'");
+					$sql=mysqli_query($conn,"SELECT * from production, payment, client, agents, plans WHERE planID = plan AND policyNo = payment_policyNo AND agentCode = agent AND clientID = prodclientID AND policyNo = '$edit'");
+
 
 					while($row=mysqli_fetch_Array($sql))
 					{
@@ -128,24 +172,23 @@ else
             <script> document.getElementById('soa_agent').value = '<?php echo $row['agentCode'];?>';</script>
             <script> document.getElementById('soa_agentname').value = '<?php echo $row['agentLastname'].", ".$row['agentFirstname']." ".$row['agentMiddlename']?>';</script>
             <script> document.getElementById('soa_dueDate').value = '<?php echo $row['payment_dueDate'];?>';</script>
-            <script>
-              window.location="soa.php?edit=<?php echo $edit ?>&#addSOAModal";
-            </script>
+            <script> document.getElementById('soa_plan').value = '<?php echo $row['planCode'];?>';</script>
+            <script> document.getElementById('soa_planID').value = '<?php echo $row['planID'];?>';</script>
 					<?php
-
 				}
+        ?>
+          <script>
+          $(document).ready(function () {
+            $('#addSOAModal').modal('show');
+          });</script>
+        <?php
 				$conn->close();
 	}
 }
 ?>
 
 <?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+include 'PHPFile/Connection_Database.php';
 
       if(mysqli_connect_error())
       {
@@ -154,6 +197,7 @@ else
       else {
 				if(isset($_POST['soaSave']))
 				{
+          $soaPlan = $_POST['soa_planID'];
           $soaDate = $_POST['soa_date'];
           $soaPolicyNo = $_POST['soa_policyNo'];
           $soaTransDate = $_POST['soa_transDate'];
@@ -168,16 +212,15 @@ else
           $soadueDate = $_POST['soa_dueDate'];
 
 
-					$sql = "INSERT INTO soa (SOA_transDate, SOA_policyOwner, SOA_policyNo, SOA_paymentMode, SOA_premium, SOA_rate, SOA_commission,
+					$sql = "INSERT INTO soa (SOA_plan, SOA_transDate, SOA_policyOwner, SOA_policyNo, SOA_paymentMode, SOA_premium, SOA_rate, SOA_commission,
           SOA_agent, SOA_date, SOA_selectMonth, SOA_dueDate)
-					values ('$soaTransDate', '$soaName', '$soaPolicyNo', '$soaMOP', '$soaPremium', '$soaRate','$soaCommission', '$soaAgent', '$soaDate', '$soaSelectMonth', '$soadueDate')";
+					values ('$soaPlan', '$soaTransDate', '$soaName', '$soaPolicyNo', '$soaMOP', '$soaPremium', '$soaRate','$soaCommission', '$soaAgent', '$soaDate', '$soaSelectMonth', '$soadueDate')";
 
 						if($conn->query($sql))
 						{
 							?>
 							<script>
-								alert("New record production successfully added");
-
+                window.location="soa.php";
 							</script>
 								<?php
 						}
@@ -190,12 +233,7 @@ else
 ?>
 
 <?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+include 'PHPFile/Connection_Database.php';
 
       if(mysqli_connect_error())
       {
@@ -215,7 +253,7 @@ else
 						{
 							?>
 							<script>
-                window.location="soa.php?edit=<?php echo $soaPolicyNo ?>"
+                window.location="soa.php";
 							</script>
 								<?php
 						}
@@ -230,12 +268,7 @@ else
 
 
 <?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+include 'PHPFile/Connection_Database.php';
 
       if(mysqli_connect_error())
       {
@@ -272,7 +305,6 @@ else
 						{
 							?>
 							<script>
-								alert("New record production successfully added");
                 window.location="soa.php?edit=<?php echo $soaPolicyNo ?>"
 							</script>
 								<?php

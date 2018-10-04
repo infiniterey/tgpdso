@@ -45,7 +45,7 @@
                <td><?php echo $row['cLastname']. ", " .$row['cFirstname']; ?></td>
                <td><?php echo $row['issuedDate']; ?></td>
                <td><?php echo $row['planCode']; ?></td>
-               <td><?php echo $row['premium']; ?></td>
+               <td>Php&nbsp;<?php echo $row['premium']; ?></td>
                <td><?php echo $row['receiptNo']; ?></td>
                <td>
                  <div class = "row" align="center">

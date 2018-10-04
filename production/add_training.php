@@ -59,7 +59,7 @@
 									?>
 
 
-				<table method="post" name="datatable-fixed-header"id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
+				<table method="post" style="float:center" name="datatable-fixed-header"id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
 				<thead>
 					<tr role="row">
 									<th class="sorting"	 tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 50px;text-align:center;" hidden>Training ID</th>
@@ -138,13 +138,13 @@
 									 Date of training
 									 <input  type="date" class="form-control" style="width:195px" name="utraindate" id="utraindate" value="<?php echo $trainingdate?>">
 							 </div>
-							 <div class="col-xs-3">
+							 <div style="float:right" class="col-xs-3">
 							 	<button style="margin-top:19px;margin-left:-50px" type="submit" style="float:left" class="btn btn-primary" id="iupdateko" name="iupdateko"><i class="fa fa-plus"></i>&nbsp;&nbsp;Update</button>
 								<?php 	if(isset($_POST['iupdateko']))
 								{tgpdso::updateTraining();}?>
 								</div>
-								<div class="col-xs-3">
- 							 		<button style="margin-left:600px; margin-top:-60px" type="submit" class="btn btn-primary" id="addqualifications" name="addqualifications"><i class="fa fa-plus"></i>Add Qualification</button>
+								<div style="float:right" class="col-xs-3">
+ 							 		<button style="margin-left:350px; margin-top:-50px" type="submit" class="btn btn-primary" id="addqualifications" name="addqualifications"><i class="fa fa-plus"></i>Add Qualification</button>
 									<?php if(isset($_POST['addqualifications']))
 									{tgpdso::addTrainingQualifications();
 									}?>
@@ -154,7 +154,7 @@
 					<div class="col-sm-12">
 						<?php
 						?>
-						<table method ="post" style="width:1000px;	table-layout: auto" id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+						<table method ="post" style="width:1000px;table-layout:auto;float:center" id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 						<thead>
 							<tr role="row">
 									<th class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-controls="datatable-fixed-header10"aria-sort="ascending" style="text-align:center" aria-label="Trans. Date: activate to sort column descending">Training Name</th>

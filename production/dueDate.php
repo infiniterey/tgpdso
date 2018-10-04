@@ -4,6 +4,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 	<style>
 		table tr:not(:first-child){
 			cursor:pointer;transition: all .25s	ease-in-out;
@@ -101,6 +102,7 @@
 																	<th hidden></th>
 																	<th hidden></th>
 																	<th hidden></th>
+																	<th hidden></th>
                               </thead>
 
                               <tbody>
@@ -108,19 +110,29 @@
                                   <?php
                                     $DB_con = Database::connect();
                                     $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                                    $sql = "SELECT * FROM production, client, payment, plans WHERE planID = plan AND policyno = payment_policyNo and clientID = prodclientID AND dueDate = payment_nextDue";
+																		$teamItSelf = $_SESSION["team"];
+																		if($_SESSION["usertype"] == "Secretary" || $_SESSION["usertype"] == "secretary")
+																		{
+                                    	$sql = "SELECT * FROM production, client, payment, plans, agents, team WHERE teamID = agentTeam AND agentCode = agent AND teamName = '$teamItSelf' AND planID = plan AND policyno = payment_policyNo and clientID = prodclientID AND dueDate = payment_nextDue";
+																		}
+																		else
+																		{
+																			$sql = "SELECT * FROM production, client, payment, plans WHERE planID = plan AND policyno = payment_policyNo and clientID = prodclientID AND dueDate = payment_nextDue";
+																		}
 
                                     $result = $DB_con->query($sql);
                                     if($result->rowCount()>0){
                                       while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																				$date1 = $row['payment_dueDate'];
+																				$dateR1 = date("m/d/Y", strtotime($date1));
                                         ?>
 																			  <tr>
 																					<td style="text-align:center; width: 200px;"><?php print($row['cLastname'].", ".$row['cFirstname']." ".$row['cMiddlename']);?></td>
                                           <td style="text-align:center; width: 10px;"><?php print($row['policyNo']); ?></td>
                                           <td style="text-align:center; width: 10px;"><?php print($row['planCode']); ?></td>
 																					<td style="text-align:center; width: 20px;"><?php print($row['modeOfPayment']); ?></td>
-																					<td style="text-align:center; width: 20px;"><?php print($row['premium']); ?></td>
-																					<td style="text-align:center; width: 100px;"><?php print($row['payment_dueDate']); ?></td>
+																					<td style="text-align:center; width: 20px;">Php&nbsp;<?php print($row['premium']); ?></td>
+																					<td style="text-align:center; width: 100px;"><?php echo $dateR1; ?></td>
 																					<td style="text-align:center; width: 30px;">
 																						<div class="row">
 																							<button type="button" style='float:center' class="btn btn-primary" data-target="#paymentModal" data-toggle="modal" name="duedatebutton" id="duedatebutton"><i class="glyphicon glyphicon-copy"></i></button>
@@ -134,8 +146,7 @@
 																					<td hidden><?php echo $row['payment_OR'] ?></td>
 																					<td hidden><?php echo $row['payment_APR'] ?></td>
 																					<td hidden><?php echo $row['payment_nextDue'] ?></td>
-
-
+																					<td hidden><?php echo $row['payment_dueDate'] ?></td>
 																					  </tr>
                                         <?php
                                       }
@@ -162,7 +173,7 @@
 																      	document.getElementById('paymentAPR').value = this.cells[13].innerHTML;
 																	    	//document.getElementById('paymentNextDue').value = this.cells[14].innerHTML;
 																				document.getElementById('paymentNextDueADD').value = this.cells[14].innerHTML;
-																				document.getElementById('paymentDueDate').value = this.cells[5].innerHTML;
+																				document.getElementById('paymentDueDate').value = this.cells[15].innerHTML;
 																			};
 																}
 														</script>

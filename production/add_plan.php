@@ -43,19 +43,22 @@
                         <div class="row">
 													<div class="col-sm-3">
 															<form method="post" action="<?php $_PHP_SELF ?>">
-				                          Plan Code: <span class="required">*</span>
-				                          <input name="PlanCode" id="PlanCode" style="width: 195px;" class="date-picker form-control" required="required" type="text" required><br>
+				                          Plan Code: <span class="required">*</span></br>
+				                          <input placeholder="Plan code" name="PlanCode" id="PlanCode" style="width: 195px;" class="date-picker form-control" required="required" type="text" required><br>
 				                          Plan Description: <span class="required">*</span>
-				                          <input type="text" id="PlanDesc" style="width: 195px;" placeholder="" name="PlanDesc" required="required" class="form-control" required><br/>
+				                          <input placeholder="Plan Description"type="text" id="PlanDesc" style="width: 195px;" placeholder="" name="PlanDesc" required="required" class="form-control" required><br/>
 																  Plan Rate <span class="required">*</span></br>
-				                          <input type="text" id="PlanRate" style="width: 195px;" placeholder="" name="PlanRate" required="required" class="form-control" required><br/>
-																	<br><br>
+				                          <input placeholder="Plan Rate" type="text" id="PlanRate" style="width: 195px;" placeholder="" name="PlanRate" required="required" class="form-control" required><br/>
+																	Type of Payment <span class="required">*</span></br>
+																	<select style = "width:195px" name="TypeofPayment" id="TypeofPayment"class="form-control" >
+ 																 <option value="Single Pay" >Single Pay</option>
+ 																 <option value="Multiple Pay" >Multiple Pay</option>
+															 </select>
+ 																 	<br><br>
 																	<center>
-																	<button type="submit" class="btn btn-primary" id="SaveButton" name="SaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
-
-
-																		<button type="submit" class="btn btn-primary" id="UpdateButton" name="UpdateButton"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
-																		<a href="add_plan.php" class="btn btn-default" onclick="disableUpdateButton()">Cancel</a>
+																	<button type="submit" style="float:left" class="btn btn-primary" id="SaveButton" name="SaveButton"><i class="fa fa-check"></i>&nbsp;&nbsp;Save</button>
+																		<button type="submit" style="float:left" class="btn btn-primary" id="UpdateButton" name="UpdateButton"><i class="fa fa-file-text"></i>&nbsp;&nbsp;Update</button>
+																		<a href="add_plan.php" style="float:left;height:36px" class="btn btn-default" onclick="disableUpdateButton()">Cancel</a>
 
 																	</center>
 																</form>
@@ -67,10 +70,11 @@
                             <table id="datatable-fixed-header" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
                               <thead>
                                 <tr role="row">
-                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 50px;text-align:center;">Plan Code</th>
-	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 250px;text-align:center;">Plan Description</th>
-                                  	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 50px;text-align:center;">Plan Rate</th>
-																	  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Action" style="width: 10px;text-align:center;">Action</th>
+                                  <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Plan Code" style="width: 100px;text-align:center;">Plan Code</th>
+	                                  <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Description" style="width: 100px;text-align:center;">Plan Description</th>
+                                  	<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 100px;text-align:center;">Plan Rate</th>
+																		<th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Plan Rate" style="width: 100px;text-align:center;">Type of Payment</th>
+																	  <th class="sorting" tabindex="0"  aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Action" style="width: 100px;text-align:center;">Action</th>
 
 																</tr>
                               </thead>
@@ -90,6 +94,7 @@
                                           <td><?php print($row['planCode']); ?></td>
                                           <td><?php print($row['planDesc']);?></td>
                                           <td><?php print($row['planRate']); ?></td>
+																					<td><?php print($row['planTypeofPayment']); ?></td>
 																					<td align="center">
 																								<a title="Edit Data" href="add_plan.php?edit=<?php echo $row['planCode'] ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_plan.php?delete=<?php echo $row['planCode'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
@@ -205,7 +210,7 @@ function myFunction() {
 
 $(document).ready(function() {
     $('#datatable-fixed-header').DataTable( {
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
     } );
 } );
 
@@ -247,11 +252,15 @@ else {
 		$plancode = $_POST['PlanCode'];
 		$plandesc = $_POST['PlanDesc'];
 		$planrate = $_POST['PlanRate'];
+		$TypeofPayment = $_POST['TypeofPayment'];
+		$DB_con = Database::connect();
+		$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		$sql = "SELECT * FROM plans";
 
-
-		$sql = "UPDATE plans SET planCode = '$plancode', planDesc = '$plandesc', planRate = '$planrate' WHERE planCode = '$plancode'";
-
-
+		$result = $DB_con->query($sql);
+		if($result->rowCount()>0){
+			$sql = "UPDATE plans SET planCode = '$plancode', planDesc = '$plandesc', planRate = '$planrate',planTypeofPayment='$TypeofPayment' WHERE planCode = '$plancode'";
+		}
 		if($conn->query($sql))
 		{
 			?>
@@ -267,6 +276,8 @@ else {
 		$conn->close();
 	}
 	}
+
+
 ?>
 
 
@@ -326,10 +337,26 @@ else {
 		$plancode = $_POST['PlanCode'];
 		$plandesc = $_POST['PlanDesc'];
 		$planrate = $_POST['PlanRate'];
+		$TypeofPayment = $_POST['TypeofPayment'];
+		$DB_con = Database::connect();
+		$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		$sql = "SELECT * FROM plans";
 
-	$sql = "INSERT INTO plans (planCode, planDesc, planRate)
-	VALUES ('$plancode', '$plandesc', '$planrate')";
-
+		$result = $DB_con->query($sql);
+		if($result->rowCount()>0){
+			while($row=$result->fetch(PDO::FETCH_ASSOC)){
+					if($row['planDesc']==$plandesc || $row['planCode']==$plancode)
+					{
+						?><script>alert('Plan code or Plan Description already existed.');</script><?php
+						return;
+					}
+		else {
+	$sql = "INSERT INTO plans (planCode, planDesc, planRate,planTypeofPayment)
+	VALUES ('$plancode', '$plandesc', '$planrate','$TypeofPayment')";
+	}
+}
+}
+}
 	if ($conn->query($sql) === TRUE) {
 		?>
 			<script>
@@ -341,7 +368,8 @@ else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 	}
-}
+
+
 
 $conn->close();
 ?>

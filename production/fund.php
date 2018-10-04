@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
 </head>
+<style>
+#newFundID{display: none};
+</style>
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
@@ -33,36 +36,34 @@
 				<div class="right_col" role="main">
 					<div class="">
 						<div class="clearfix"></div>
-						<div class="row">
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="x_panel">
 									<div class="x_title">
 										<h2><b>Add Fund</b></h2>
 										<div class="clearfix"></div>
 									</div>
+										<div class="row">
 										<div id="datatable-fixed-header_wrapper"  class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 											<div class="row">
 												<div class="col-sm-3">
 																Fund ID<span class="required">*</span><br>
-																<input type="text" name="fundID" id="fundID" required="required" class="form-control" required><br>
+																<input placeholder="Fund ID" type="text" name="fundID" id="fundID" required="required" class="form-control" required><br>
+															</br>
 																Fund Name<span class="required">*</span>
-																<input type="text" style="margin-bottom:50px" name="fundName" id="fundName" required="required" class="form-control" required><br>
+																<br>
+																<input placeholder="Fund Name" type="text" style="margin-bottom:50px" name="fundName" id="fundName" required="required" class="form-control" required><br>
 																<center>
 			                    	<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
 	                             <button	style="float:left" type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
 													</div>
 												<div class="col-sm-9">
-													<style>
-
-													</style>
-
 													</form>
-														<table method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+														<table style="float:right" method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 														<thead>
 															<tr role="row">
-																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;"hidden>Fund ID</th>
-																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Fund Name</th>
-																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="width: 155px;text-align:center;">Action</th>
+																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="text-align:center;"hidden>Fund ID</th>
+																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="text-align:center;">Fund Name</th>
+																	<th class="sorting" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Name of Insured: activate to sort column ascending" style="text-align:center;">Action</th>
 																</tr>
 														</thead>
 														<tbody>
@@ -110,7 +111,7 @@
 															<form method="post" name='myform' onsubmit="CheckForm()">
 														<div method="post" class="modal-body">
 
-															New fund ID: <br><input type="text" readonly="readonly" class="form-control" name="newFundID" style="width:195px" id="newFundID" value="" ><br>
+														<input type="text" readonly="readonly" class="form-control" name="newFundID" style="width:195px" id="newFundID" value="" >
 															New fund Name: <br><input type="text" class="form-control" name="newFundName" style="width:195px" id="newFundName" value=""><br>
 
 														</div>

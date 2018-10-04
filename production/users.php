@@ -42,16 +42,16 @@
                         <div class="row">
 													<div class="col-sm-3">
 															<form method="post" action="<?php $_PHP_SELF ?>">
-				                          Username:
-				                          <input name="username" id="username" style="width: 195px;" class="date-picker form-control" required="required" type="text" required readonly><br/>
-				                          First Name:
-				                          <br><input type="text" id="firstname" style="width: 195px;" placeholder="" name="firstname" required="required" class="form-control" required disabled><br/>
-																  Last Name:
-				                          <br><input type="text" id="lastname" style="width: 195px;" placeholder="" name="lastname" required="required" class="form-control" required disabled><br/>
-																	User Type:
-																	<br><input type="text" id="usertype" style="width: 195px;" placeholder="" name="usertype" required="required" class="form-control" required disabled><br/>
-																	New Password:
-																	<input type="text" id="npassword" style="width: 195px;" placeholder="" name="npassword" required="required" class="form-control" value="" maxlength="25" required><br/>
+				                          Username:</br>
+				                          <input placeholder="Username" name="username" id="username" style="width: 195px;" class="date-picker form-control" required="required" type="text" required readonly><br>
+				                          <br>First Name:</br>
+				                        	<input placeholder="First Name" type="text" id="firstname" style="width: 195px;" placeholder="" name="firstname" required="required" class="form-control" required disabled><br/>
+																  <br>Last Name:</br>
+				                          <input placeholder="Last Name" type="text" id="lastname" style="width: 195px;" placeholder="" name="lastname" required="required" class="form-control" required disabled><br/>
+																	<br>User Type:</br>
+																	<input placeholder="User Type" type="text" id="usertype" style="width: 195px;" placeholder="" name="usertype" required="required" class="form-control" required disabled><br/>
+																	<br>New Password:</br>
+																	<input placeholder="Password" type="text" id="npassword" style="width: 195px;" placeholder="" name="npassword" required="required" class="form-control" value="" maxlength="25" required><br/>
 																	<br><br>
 																	<center>
 

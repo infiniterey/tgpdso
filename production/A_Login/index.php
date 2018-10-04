@@ -16,8 +16,13 @@
 			}
 			else
 			{
+
+
 				$username = trim(strip_tags($_POST['username']));
 				$password = trim(strip_tags($_POST['password']));
+
+
+
 
 				$conn = mysqli_connect("localhost", "root", "");
 				$db = mysqli_select_db($conn, "tgpdso_db");
@@ -26,8 +31,9 @@
 				if(mysqli_num_rows($query) == 1)
 				{
 					$validation = mysqli_fetch_Array($query);
+					$positionUser=strip_tags($validation["uusertype"]);
+					$teamUser=strip_tags($validation["uteam"]);
 					
-
 					$_SESSION["username"] = $username;
 					$_SESSION["password"] = strip_tags($validation["password"]);
 

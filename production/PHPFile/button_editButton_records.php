@@ -20,46 +20,37 @@ else
 						<script>var selectedValue = document.getElementById('policyMOP').value;</script>
 						<script> document.getElementById('sampleDueDate').value = '<?php echo $row['payment_nextDue'];?>';</script>
 						<script>
+					//	document.getElementById('paymentmodeOfPayment').value = '<?php echo $row['payment_MOP']?>';
 						var selectedValue = document.getElementById('policyMOP').value;
 						if(selectedValue == "Monthly")
 						{
-							var datehere = document.getElementById("sampleDueDate").value;
-							var dateObj = new Date(datehere);
-							var dt = dateObj.addMonths(1);
-							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-							$('#policyDueDate').val(newdate);
-							$('#paymentNextDue').val(newdate);
+							var editMOP = 1;
 						}
 						else if(selectedValue == "Quarterly")
 						{
-							var datehere = document.getElementById("sampleDueDate").value;
-							var dateObj = new Date(datehere);
-							var dt = dateObj.addMonths(4);
-							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-							$('#policyDueDate').val(newdate);
-							$('#paymentNextDue').val(newdate);
+							var editMOP = 3;
 						}
 						else if(selectedValue == "Semi-Annual")
 						{
-							var datehere = document.getElementById("sampleDueDate").value;
-							var dateObj = new Date(datehere);
-							var dt = dateObj.addMonths(6);
-							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-							$('#policyDueDate').val(newdate);
-							$('#paymentNextDue').val(newdate);
+							var editMOP = 6;
 						}
 						else if(selectedValue == "Annual")
 						{
-							var datehere = document.getElementById("sampleDueDate").value;
-							var dateObj = new Date(datehere);
-							var dt = dateObj.addMonths(12);
-							var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
-							$('#policyDueDate').val(newdate);
-							$('#paymentNextDue').val(newdate);
+							var editMOP = 12;
 						}
 						</script>
 						<?php
 					}
+					?>
+					<script>
+					var datehere = document.getElementById("sampleDueDate").value;
+					var dateObj = new Date(datehere);
+					var dt = dateObj.addMonths(editMOP);
+					var newdate = dt.getFullYear() + '-' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '-' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
+					$('#policyDueDate').val(newdate);
+					$('#paymentNextDue').val(newdate);
+				</script>
+				<?php
 				}
 				$conn->close();
 	}
@@ -77,11 +68,9 @@ include 'PHPFile/Connection_Database.php';
       else {
 				if(isset($_GET['edit']))
 				{
-					$data = $_GET['edit'];
           $query = "SELECT * FROM insuredpolicy, production WHERE policyNo = insured_policyNo AND policyNo = '$edit'";
           $data = mysqli_query($conn, $query);
           $result = mysqli_num_rows($data);
-					?><script>alert('hi <?php echo $data?>');</script><?
           if($result == 1)
           {
 						$sql=mysqli_query($conn,"SELECT * from production, client, policystatus, insuredpolicy, plans WHERE insured_policyNo = policyNo AND plan = planID AND clientID = prodclientID AND policyStat = policyID AND policyNo = '$edit'");
@@ -117,6 +106,7 @@ include 'PHPFile/Connection_Database.php';
 							<script> document.getElementById('policyDueDate').value = '<?php echo $row['dueDate'];?>';</script>
 							<script> document.getElementById('planName').value = '<?php echo $row['planCode'];?>';</script>
 
+
 							<script> document.getElementById('paymentPolicyNo').value = '<?php echo $row['policyNo'];?>';</script>
 							<script> document.getElementById('paymentAmount').value = '<?php echo $row['faceAmount'];?>';</script>
 							<script> document.getElementById('paymentIssueDate').value = '<?php echo $row['issuedDate'];?>';</script>
@@ -131,6 +121,7 @@ include 'PHPFile/Connection_Database.php';
 							<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
 							<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
 							<script>document.getElementById("fundButton").disabled = false;</script>
+							<script>document.getElementById("planButton").disabled = false;</script>
 
 							<script> document.getElementById('insuredLastName').value = '<?php echo $row['insured_lastName'];?>';</script>
 							<script> document.getElementById('insuredFirstName').value = '<?php echo $row['insured_firstName'];?>';</script>
@@ -190,6 +181,7 @@ include 'PHPFile/Connection_Database.php';
 						<script> document.getElementById('clientToRetrieve').value = '<?php echo $row['clientID'];?>';</script>
 						<script> document.getElementById('policyStatusSelect').value = '<?php echo $row['policyID'];?>';</script>
 						<script>document.getElementById("fundButton").disabled = false;</script>
+						<script>document.getElementById("planButton").disabled = false;</script>
 
 						<?php
 				}
@@ -197,3 +189,27 @@ include 'PHPFile/Connection_Database.php';
 		$conn->close();
 	}
 }
+?>
+<?php
+include 'PHPFile/Connection_Database.php';
+if(mysqli_connect_error())
+{
+ die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+}
+else
+{
+	if(isset($_GET['edit']))
+	{
+		$edit = $_GET['edit'];
+		$result=mysqli_query($conn,"SELECT * FROM production WHERE policyNo = '$edit'");
+		while($row=mysqli_fetch_Array($result))
+		{
+			?>
+			<script> document.getElementById('productionCommission1').value = '<?php echo $row['FYC'];?>';</script>
+			<script> document.getElementById('productionRate').value = '<?php echo $row['rate'];?>';</script>
+		<?php
+		}
+	$conn->close();
+	}
+}
+?>

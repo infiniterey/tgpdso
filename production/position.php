@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
 </head>
+<style>
+#newPositionID{display:none};
+</style>
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
@@ -43,8 +46,8 @@
 										<div id="datatable-fixed-header_wrapper"  class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 											<div class="row">
 												<div class="col-sm-3">
-																Position Name<span class="required">*</span>
-																<input type="text" style="margin-bottom:50px" name="positionName" id="positionName" required="required" class="form-control" required><br>
+																Position Name<span class="required">*</span></br>
+																<input placeholder="Position Name" type="text" style="margin-bottom:50px" name="positionName" id="positionName" required="required" class="form-control" required><br>
 																<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
 	                             <button type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
 													</div>
@@ -54,7 +57,7 @@
 													</style>
 
 													</form>
-														<table method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+														<table style="float:right" method ="post" id="datatable-fixed-header" name="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 														<thead>
 															<tr role="row">
 																<th class="sorting_asc" style="width:50px;text-align:center" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;"hidden>Position ID</th>
@@ -106,7 +109,7 @@
 
 															<form method="post" name='myform' onsubmit="CheckForm()">
 														<div method="post" class="modal-body">
-															New Position ID:<br><input type="text" readonly='readonly' class="form-control" name="newPositionID" style="width:195px" id="newPositionID" value="" ><br>
+														<br><input type="text" readonly='readonly' class="form-control" name="newPositionID" style="width:195px" id="newPositionID" value=""><br>
 															New Position Name: <br><input type="text" class="form-control" name="newPositionName" style="width:195px" id="newPositionName" value=""><br>
 														</div>
 														<form method="post" action="<?php $_PHP_SELF ?>">

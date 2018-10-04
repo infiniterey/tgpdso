@@ -49,33 +49,31 @@
 										<div id="datatable-fixed-header_wrapper"  class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 											<div class="row">
 												<div class="col-sm-3">
-																Agent Code<span class="required">*</span>
-																<input type="text" placeholder="Agent Code" name="agentCode" required="required" class="form-control" required><br>
-																Last Name <span class="required">*</span>
-																<input type="text" placeholder="Lastname" name="lastname" required="required" class="form-control" required><br>
-																First Name <span class="required">*</span>
-																<input type="text" name="firstname" placeholder="First Name" required="required" class="form-control " required><br>
-																Middle Name<span class="required">*</span>
-																<input type="text" name="middlename" placeholder="Middle Name" required="required" class="form-control" required><br>
-																Birthdate <span class="required">*</span> <br>
+																Agent Code<span class="required">*</span></br>
+																<input style="width:195px" type="text" placeholder="Agent Code" name="agentCode" required="required" class="form-control" required><br>
+																Last Name <span class="required">*</span></br>
+																<input style="width:195px" type="text" placeholder="Lastname" name="lastname" required="required" class="form-control" required><br>
+																First Name <span class="required">*</span></br>
+																<input style="width:195px" type="text" name="firstname" placeholder="First Name" required="required" class="form-control " required><br>
+																Middle Name<span class="required">*</span></br>
+																<input style="width:195px" type="text" name="middlename" placeholder="Middle Name" required="required" class="form-control" required><br>
+																Birthdate <span class="required">*</span></br>
 																<input style="width:195px" name="birthdate" placeholder="Birthdate" class="date-picker form-control" required="required" type="date" required><br>
-																Application Date<span class="required">*</span> <br>
+																Application Date<span class="required">*</span></br>
 																<input name="appDate" style="width:195px" placeholder="Application Date" class="date-picker form-control" required="required" type="date" required><br>
-																Team<span class="required">*</span> <br>
+																Team<span class="required">*</span></br>
 																<select style = "width:195px" name="team" id="team" class="form-control" >
 																<?php tgpdso::dropdown_team(); ?>
 																</select>
-																<br>Position <span class="required">*</span><br>
+																<br>Position <span class="required">*</span></br>
 																<select style = "width:195px" name="position" id="position"class="form-control" >
 																<?php tgpdso::dropdown_position(); ?>
-																</select><center><br><br>
-			                         <button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
-	                             <button type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
+																</select><center><br></br>
+																<button type="submit" style="float:left"class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
+			                         <button style="float:left;height:36px;" type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
+
 													</div>
 												<div class="col-sm-9">
-													<style>
-
-													</style>
 														<table id="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 														<thead>
 															<tr role="row">
@@ -90,13 +88,11 @@
 														</thead>
 														<tbody>
 															<?php
-															if($_SESSION['usertype'] == 'Secretary' || $_SESSION['usertype'] == 'secretary')
-															{
-																$team = $_SESSION['team'];
+																 include 'A_Login/PositionAndTeam.php';
 
 																$DB_con = Database::connect();
 																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																$sql = "SELECT * FROM agents, team WHERE agentTeam = teamID AND teamName = '$team'";
+																$sql = "SELECT * FROM agents, team WHERE agentTeam = teamID AND teamName = '$teamUser'";
 
 																$result = $DB_con->query($sql);
 																if($result->rowCount()>0){
@@ -110,46 +106,54 @@
 																			<td><?php print($row['agentApptDate']); ?></td>
 																			<td><?php print($row['teamName']); ?></td>
 																			<td><?php print($row['agentPosition']); ?></td>
-
+																			<td>
+																				<div class="row">
+																					<center>
+																						<form method='post' name='myform' onsubmit="CheckForm()">
+																							<button  type="button" id="update" name="update" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
+																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_agent.php?delete=<?php echo $row['agentCode'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																						</form>
+																					</center>
+																				</div>
+																			</td>
 
 																		</tr>
 																		<?php
 																	}
 																}
-																else{}
-																}
-																else {
-																	$DB_con = Database::connect();
-																	$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-																	$sql = "SELECT * FROM agents";
+															else if($positionUser == 'Administrator' || $positionUser == 'administrator'){
+																$DB_con = Database::connect();
+																$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+																$sql = "SELECT * FROM agents, team where agentTeam = teamID";
 
-																	$result = $DB_con->query($sql);
-																	if($result->rowCount()>0){
+																$result = $DB_con->query($sql);
+																if($result->rowCount()>0){
 
-																		while($row=$result->fetch(PDO::FETCH_ASSOC)){
-																			?>
-																			<tr>
-																				<td><?php print($row['agentCode']); ?></td>
-																				<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
-																				<td><?php print($row['agentBirthdate']); ?></td>
-																				<td><?php print($row['agentApptDate']); ?></td>
-																				<td><?php print($row['agentTeam']); ?></td>
-																				<td><?php print($row['agentPosition']); ?></td>
-																				<td>
-																					<div class="row">
-																						<center>
-																							<form method='post' name='myform' onsubmit="CheckForm()">
-																								<button  type="button" id="update" name="update" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
-																									<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_agent.php?delete=<?php echo $row['agentCode'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-																							</form>
-																						</center>
-																					</div>
-																				</td>
-																			</tr>
-																			<?php
-																		}
+																	while($row=$result->fetch(PDO::FETCH_ASSOC)){
+																		?>
+																		<tr>
+																			<td><?php print($row['agentCode']); ?></td>
+																			<td><?php print($row['agentLastname']. ", " .$row['agentFirstname']. " " .$row['agentMiddlename']); ?></td>
+																			<td><?php print($row['agentBirthdate']); ?></td>
+																			<td><?php print($row['agentApptDate']); ?></td>
+																			<td><?php print($row['teamName']); ?></td>
+																			<td><?php print($row['agentPosition']); ?></td>
+																			<td>
+																				<div class="row">
+																					<center>
+																						<form method='post' name='myform' onsubmit="CheckForm()">
+																							<button  type="button" id="update" name="update" data-toggle="modal" data-target="#myModal2" id="myBtn2" class="btn btn-primary"><i class="fa fa-pencil" ></i></button>
+																								<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="add_agent.php?delete=<?php echo $row['agentCode'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+																						</form>
+																					</center>
+																				</div>
+																			</td>
+
+																		</tr>
+																		<?php
 																	}
 																}
+															}
 															?>
 
 															</tbody>

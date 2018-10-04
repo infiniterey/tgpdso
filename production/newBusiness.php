@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include 'base/header.php'; ?>
+
 <head>
 	<style>
 	table {
@@ -30,7 +31,9 @@
 	      <!-- top navigation -->
 	      <div class="top_nav">
 	        <?php include 'base/topNavigation.php';?>
-	      </div>
+					<?php include 'A_Login/PositionAndTeam.php';?>
+
+	     </div>
 	      <!-- /top navigation -->
 
 	      <!-- page content -->
@@ -53,6 +56,8 @@
 					}
 
 				</script>
+
+
 				<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addplanmodal" data-keyboard="false" data-backdrop="static">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
@@ -564,10 +569,7 @@
 
 	                                  $DB_con = Database::connect();
 	                                  $DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
 	                                  	$sql = "SELECT * FROM production, client, agents, team WHERE prodclientID = clientID AND agentCode = agent AND agentTeam = teamID AND teamName = '$team'";
-
-
 	                                  $result = $DB_con->query($sql);
 	                                  if($result->rowCount()>0)
 																		{

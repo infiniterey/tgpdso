@@ -24,12 +24,14 @@
 				$conn = mysqli_connect("localhost", "root", "");
 				$db = mysqli_select_db($conn, "tgpdso_db");
 				$query = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+			
 
 				if(mysqli_num_rows($query) == 1)
 				{
 					$_SESSION['username'] = $username;
 					?>
 					<script>
+
 					alert('Successfully Login - Welcome to TGP');
 				  window.location="home.php";
 					</script>

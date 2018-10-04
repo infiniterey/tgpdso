@@ -39,12 +39,14 @@
 function commission()
 {
 	var premium = document.getElementById("premium").value;
+	premium = premium.replace(/,/g, "");
 	var rate = document.getElementById("rate").value;
 	var rate2 = premium / 100;
 	var str = rate.slice(0, -1) ;
 	str = str/100;
 	var result = premium*str;
-	fyc.value = premium*str;
+	result =  result.toLocaleString('en', {maximumSignificantDigits : 21});
+	fyc.value = result;
 	// window.alert(fyc.value);
 	// document.getElementById("myText").value
 }

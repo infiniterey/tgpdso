@@ -1,13 +1,13 @@
 <div class="modal-dialog modal-md" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" data-toggle="modal" data-target="#addSOAModal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
       <h4 class="modal-title" id="myModalLabel2">Search Agent</h4>
     </div>
     <form method="post" name="myform" action="<?php $_PHP_SELF ?>">
       <div class="modal-body">
 
-        <table id="datatable-fixed-header09" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
+        <table id="datatable-fixed-header009" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info" onclick="showButtons()">
           <thead>
             <tr role="row">
               <th hidden>AgentCode</th>
@@ -34,7 +34,7 @@
                       <td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
                       <td align="center">
                         <div class="row">
-                          <button  type="button" data-dismiss="modal" data-target="#searchAgent" class="btn btn-primary" name="buttonsearchAgent">Get&nbsp;<i class="fa fa-arrow-right"></i></a>
+                          <button  class="btn btn-primary" name="buttonsearchAgent" data-target="#searchAgentUpdate" data-dismiss="modal">Get&nbsp;<i class="fa fa-arrow-right"></i></a>
                         </div>
                       </td>
                     </tr>
@@ -57,7 +57,7 @@
                       <td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
                       <td align="center">
                         <div class="row">
-                          <button  onclick="VB1();" type="button" data-dismiss="modal" data-target="#searchAgent" class="btn btn-primary" name="buttonsearchAgent">Get&nbsp;<i class="fa fa-arrow-right"></i></a>
+                          <button  type="button" data-target="#searchAgentUpdate" data-dismiss="modal" class="btn btn-primary" name="buttonsearchAgent">Get&nbsp;<i class="fa fa-arrow-right"></i></a>
                         </div>
                       </td>
                     </tr>
@@ -70,18 +70,15 @@
         </table>
 
         <script>
-        function VB1(){
-        var table = document.getElementById('datatable-fixed-header09');
+        var table = document.getElementById('datatable-fixed-header009');
         for(var counter = 1; counter < table.rows.length; counter++)
         {
           table.rows[counter].onclick = function()
           {
-           document.getElementById("soa_agent").value = this.cells[0].innerHTML;
-           document.getElementById("soa_agentname").value = this.cells[1].innerHTML;
-         };
-        }
-        return false;
-        }
+           document.getElementById("soa_agent1").value = this.cells[0].innerHTML;
+           document.getElementById("soa_agentname1").value = this.cells[1].innerHTML;
+            };
+          }
         </script>
 
       </div>

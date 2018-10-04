@@ -11,7 +11,7 @@
         <label class="control-label">
         Policy #:
         </label>
-       <input type="text" readonly="readonly" class="form-control aswidth" name="paymentPolicyNo" id="paymentPolicyNo">
+       <input type="text" readonly="readonly" class="form-control aswidth pressingKey" name="paymentPolicyNo" id="paymentPolicyNo">
        <br>
         <label class="control-label">
         Issue Date:
@@ -31,7 +31,7 @@
       <label class="control-label">
       Amount:
       </label>
-      <input  type="text" class="form-control aswidth" id="paymentAmount" name="paymentAmount">
+      <input  type="text" class="form-control aswidth pressingKey" id="paymentAmount" name="paymentAmount">
       </div>
       <div class="col-sm-6">
         <label class="control-label">
@@ -39,10 +39,10 @@
       </label><input type="date" class="form-control aswidth" name="paymentTransDate" id="paymentTransDate"><br>
         <label class="control-label">
         OR #:
-      </label><input type="text" class="form-control aswidth" name="paymentORNo" id="paymentORNo"><br>
+      </label><input type="text" class="form-control aswidth pressingKey" name="paymentORNo" id="paymentORNo"><br>
         <label class="control-label">
         APR #:
-      </label><input type="text" class="form-control aswidth" name="paymentAPR" id="paymentAPR"><br>
+      </label><input type="text" class="form-control aswidth pressingKey" name="paymentAPR" id="paymentAPR"><br>
         <label class="control-label">
         Due Date:
       </label>
@@ -62,12 +62,7 @@
 </div>
 
 <?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+include 'PHPFile/Connection_Database.php';
 
       if(mysqli_connect_error())
       {
@@ -76,51 +71,251 @@
       else {
 				if(isset($_POST['paymentSaveButton']))
 				{
-					$paymentPolicyNo = $_POST['paymentPolicyNo'];
-					$paymentAmount = $_POST['paymentAmount'];
-					$paymentIssueDate = $_POST['paymentIssueDate'];
-					$paymentMOP = $_POST['paymentmodeOfPayment'];
-					$paymentTransDate = $_POST['paymentTransDate'];
-					$paymentORNo = $_POST['paymentORNo'];
-					$paymentAPR = $_POST['paymentAPR'];
+          $paymentPolicyNo = $_POST['paymentPolicyNo'];
+          $paymentAmount = $_POST['paymentAmount'];
+          $paymentIssueDate = $_POST['paymentIssueDate'];
+          $paymentMOP = $_POST['paymentmodeOfPayment'];
+          $paymentTransDate = $_POST['paymentTransDate'];
+          $paymentORNo = $_POST['paymentORNo'];
+          $paymentAPR = $_POST['paymentAPR'];
+          $paymentDueDateResult = $_POST['paymentDueDate'];
           $paymentDueDate = $_POST['paymentNextDueADD'];
-					$paymentNextDue = $_POST['paymentNextDue'];
-					$paymentRemarks = "New";
+          $paymentNextDue = $_POST['paymentNextDue'];
+          $paymentRemarks = "New";
 
-						$sql = "INSERT INTO payment (payment_policyNo,
-							payment_Amount, payment_issueDate,
-							payment_MOP, payment_transDate,
-							payment_OR, payment_APR, payment_dueDate,
-							payment_nextDue, payment_remarks)
-						values ('$paymentPolicyNo','$paymentAmount',
-							'$paymentIssueDate','$paymentMOP',
-							'$paymentTransDate','$paymentORNo',
-							'$paymentAPR', '$paymentDueDate','$paymentNextDue',
-							'$paymentRemarks')";
+          $add = $_POST['paymentPolicyNo'];
+          //$query = "SELECT * FROM payment, production WHERE payment_nextDue = dueDate AND payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC
 
-						if($conn->query($sql))
-						{
-							?>
-							<script>
+          $query = "SELECT * FROM payment WHERE payment_policyNo = '$add' ORDER BY payment_ID DESC LIMIT 1";
+          $data = mysqli_query($conn, $query);
+          $result = mysqli_num_rows($data);
+          if($result == 1)
+          {
+            $paymentYearRemarks = "0";
+            $paymentMonthRemarks = "0";
+            $nextDueDateResult = "";
+
+            $paymentMOP = $_POST['paymentmodeOfPayment'];
+
+            while($row=mysqli_fetch_Array($data))
+            {
+              $paymentYearRemarks = $paymentYearRemarks.$row['payment_remarks_year'];
+              $paymentMonthRemarks = $paymentMonthRemarks.$row['payment_remarks_month'];
+
+              $nextDueDateResult = $nextDueDateResult.$row['payment_nextDue'];
+            }
+
+            switch($paymentMOP)
+            {
+                case "Monthly":
+
+                if($paymentMonthRemarks < "12")
+                {
+                  $calculateMonth = $paymentMonthRemarks + "1";
+                  $calculateYear = $paymentYearRemarks + "0";
+                }
+                else if($paymentMonthRemarks > "12")
+                {
+                  $calculateMonth = "1";
+                  $calculateYear = $paymentYearRemarks + "1";
+                }
+
+                ?>
+                <script>
+                    var month = 1;
+                </script>
+                <?php
+
+                break;
+                case "Quarterly":
+                if($paymentMonthRemarks == "3" || $paymentMonthRemarks == "6" || $paymentMonthRemarks == "9")
+                {
+                  $calculateMonth = $paymentMonthRemarks + "3";
+                  $calculateYear = $paymentYearRemarks + "0";
+                }
+                else if($paymentMonthRemarks >= "12")
+                {
+                  $calculateMonth = "1";
+                  $calculateYear = $paymentYearRemarks + "1";
+                }
+                else
+                {
+                  ?>
+                  <script>alert('Quarterly does not accept within that month.');</script>
+                  <?php
+                  return;
+                }
+
+
+
+                ?>
+                <script>
+                    var month = 3;
+                </script>
+                <?php
+
+                break;
+                case "Semi-Annual":
+                if($paymentMonthRemarks == "6")
+                {
+                  $calculateMonth = $paymentMonthRemarks + "6";
+                  $calculateYear = $paymentYearRemarks;
+                }
+                else if($paymentMonthRemarks >= "12")
+                {
+                  $calculateMonth = "1";
+                  $calculateYear = $paymentYearRemarks + "1";
+                }
+                else
+                {
+                  ?>
+                  <script>alert('Semi-Annual does not accept within that month.');</script>
+                  <?php
+                  return;
+                }
+
+
+                ?>
+                <script>
+                    var month = 6;
+                </script>
+                <?php
+
+                break;
+                case "Annual":
+
+                if($paymentMonthRemarks == "1")
+                {
+                  $calculateMonth = "1";
+                  $calculateYear = $paymentYearRemarks + "1";
+                }
+                else
+                {
+                  ?>
+                  <script>alert('Annual does not accept within that month.');</script>
+                  <?php
+                  return;
+                }
+
+                ?>
+                <script>
+                    var month = 12;
+                </script>
+                <?php
+
+                break;
+                default:
+                $paymentMOP = $paymentMOP;
+            }
+              ?>
+              <script>
+
+              Date.isLeapYear = function (year) {
+              		return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
+              };
+
+              Date.getDaysInMonth = function (year, month) {
+              		return [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+              };
+
+              Date.prototype.isLeapYear = function () {
+              		return Date.isLeapYear(this.getFullYear());
+              };
+
+              Date.prototype.getDaysInMonth = function () {
+              		return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
+              };
+
+              Date.prototype.addMonths = function (value) {
+              		var n = this.getDate();
+              		this.setDate(1);
+              		this.setMonth(this.getMonth() + value);
+              		this.setDate(Math.min(n, this.getDaysInMonth()));
+              		return this;
+              };
+
+              </script>
+              <script type="text/javascript" src="jquery.js">
+
+                var resultDate = "<?php echo $nextDueDateResult; ?>";
+                var dateObjective = new Date(resultDate);
+                alert(resultDate);
+                var dateTimeObject = dateObjective.addMonths(month);
+                var newdateResult= dateTimeObject.getFullYear() + '-' + (((dateTimeObject.getMonth() + 1) < 10) ? '0' : '') + (dateTimeObject.getMonth() + 1) + '-' + ((dateTimeObject.getDate() < 10) ? '0' : '') + dateTimeObject.getDate();
+
+                // document.getElementById('dateText').value = newdateResult;
+
+
+                function post()
+                {
+                  var dataDate = newdateResult;
+                  $.post('records.php', {webdate:dataDate},
+                  function(data)
+                  {
+                    $('#paymentNextDue').html(data);
+                  });
+                }
+
+              </script>
+              <?php
+              $nextDueResulter = $_POST['paymentNextDue'];
+
+
+              // if($paymentMonthRemarks == "12")
+              // {
+              //   $calculateMonth = $paymentMonthRemarks - "12";
+              //   $calculateYear = $paymentYearRemarks + "1";
+              // }
+
+              // if($paymentMonthRemarks == "3" || $paymentMonthRemarks == "6")
+              // {
+              //   $calculateMonth = $paymentMonthRemarks + "3";
+              //   $calculateYear = $paymentYearRemarks;
+              // }
+              // else if($paymentMonthRemarks == "12")
+              // {
+              //   $calculateMonth = $paymentMonthRemarks - "12";
+              //   $calculateYear = $paymentYearRemarks + "1";
+              // }
+
+            $sql = "INSERT INTO payment (payment_policyNo,
+              payment_Amount, payment_issueDate,
+              payment_MOP, payment_transDate,
+              payment_OR, payment_APR, payment_dueDate,
+              payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+            values ('$paymentPolicyNo','$paymentAmount',
+              '$paymentIssueDate','$paymentMOP',
+              '$paymentTransDate','$paymentORNo',
+              '$paymentAPR','$nextDueDateResult',
+               '$nextDueResulter',
+              '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+
+            if($conn->query($sql))
+            {
+              ?>
+              <script>
               window.location="dueDate.php";
-								</script>
-								<?php
-						}
-						else {
-							echo "Error:". $sql."<br>".$conn->error;
-						}
-						$conn->close();
+                </script>
+                <?php
+            }
+            else {
+              echo "Error:". $sql."<br>".$conn->error;
+            }
+            $conn->close();
+          }
+          else
+          {
+            ?>
+            <script>alert('Failed');</script>
+            <?php
+          }
       }
     }
 ?>
 
 <?php
-  $host = "localhost";
-  $dbusername = "root";
-  $dbpassword = "";
-  $dbname = "tgpdso_db";
-
-      $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+include 'PHPFile/Connection_Database.php';
 
       if(mysqli_connect_error())
       {
@@ -136,6 +331,7 @@
 					$paymentTransDate = $_POST['paymentTransDate'];
 					$paymentORNo = $_POST['paymentORNo'];
 					$paymentAPR = $_POST['paymentAPR'];
+
 					$paymentNextDue = $_POST['paymentNextDue'];
 					$paymentRemarks = "New";
 
@@ -152,17 +348,9 @@
 
 						if($conn->query($sql))
 						{
-							?>
+              ?>
 							<script>
-
-              window.location="dueDate.php"
-//              $(document).ready(function() {
-
-  //if(window.location.href.indexOf('#paymentModal') != -1) {
-  //  $('#paymentModal').modal('show');
-  //}
-
-//});
+              window.location="records.php?edit=<?php echo $paymentPolicyNo ?>";
 								</script>
 								<?php
 						}
@@ -173,3 +361,33 @@
       }
     }
 ?>
+
+<script>
+
+document.getElementById("paymentSaveButton").addEventListener("click", function(){
+  if($("#paymentNextDue").datepicker("getDate") === null) {
+    alert("Choose first the Mode of Payment");
+  }
+});
+
+$(document).ready(function(){
+    $('#paymentSaveButton').attr('disabled',true);
+    $('input.pressingKey').keyup(function(){
+        if($(this).val().length !=0)
+            $('#paymentSaveButton').attr('disabled', false);
+        else
+            $('#paymentSaveButton').attr('disabled',true);
+    })
+
+    $('#paymentmodeOfPayment').change(function() {
+    var option = $(this).val();
+    if(option !='') {
+        $('#paymentSaveButton').attr('disabled', false);
+    } else {
+        $('#paymentSaveButton').attr('disabled',true);
+    }
+    });
+});
+
+
+</script>

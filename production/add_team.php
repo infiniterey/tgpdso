@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
 </head>
+<style>
+#newTeamID{display:none};
+</style>
 <body class="nav-md footer_fixed">
 	<form method="post">
 		<div class="container body">
@@ -44,9 +47,9 @@
 											<div class="row">
 												<div class="col-sm-3">
 																Team ID<span class="required">*</span><br>
-																<input type="text" name="teamid" required="required" class="form-control" required><br>
-																Team Name<span class="required">*</span>
-																<input type="text" style="margin-bottom:50px" name="teamname" required="required" class="form-control" required><br>
+																<input placeholder="Team ID" type="text" name="teamid" required="required" class="form-control" required><br>
+																Team Name<span class="required">*</span></br>
+																<input placeholder="Team Name" type="text" style="margin-bottom:50px" name="teamname" required="required" class="form-control" required><br>
 
 																<button type="reset" name="reset" id="reset" class="btn btn-default">Cancel</button>
 	                             <button type="submit" class="btn btn-primary" name="btn-save"><i class="fa fa-check"></i>&nbsp;Save</button>
@@ -57,7 +60,7 @@
 													</style>
 
 													</form>
-														<table id="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+														<table style="float:right" id="datatable-fixed-header" class="table table-bordered dataTable table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
 														<thead>
 															<tr role="row">
 																<th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Trans. Date: activate to sort column descending" style="width: 15px;text-align:center;"hidden>Team ID</th>
@@ -108,8 +111,7 @@
 
 															<form method="post" name='myform' onsubmit="CheckForm()">
 														<div method="post" class="modal-body">
-
-															New Team ID: <br><input type="text" readonly="readonly" class="form-control" name="newTeamID" style="width:195px" id="newTeamID" value="" ><br>
+															<input type="text" readonly="readonly" class="form-control" name="newTeamID" style="width:195px" id="newTeamID" value="" >
 															New Team Name: <br><input type="text" class="form-control" name="newTeamName" style="width:195px" id="newTeamName" value=""><br>
 
 														</div>
