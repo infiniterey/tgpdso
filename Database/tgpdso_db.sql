@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Sep 05, 2018 at 09:17 AM
+=======
+-- Generation Time: Sep 10, 2018 at 11:39 AM
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -100,7 +104,12 @@ CREATE TABLE `beneficiary` (
 
 INSERT INTO `beneficiary` (`bene_ID`, `bene_policyNo`, `bene_lastName`, `bene_firstName`, `bene_middleName`, `bene_birthDate`, `bene_address`, `bene_contactNo`, `bene_relationShip`) VALUES
 (20, '3421', 'asas', 'asas', 'asas', '0000-00-00', 'asas', 'asas', 'asas'),
+<<<<<<< HEAD
 (21, '353533', 'fred', 'ca', 'mm', '2018-09-17', 'bbb', '9090', 'mother');
+=======
+(21, '353533', 'fred', 'ca', 'mm', '2018-09-17', 'bbb', '9090', 'mother'),
+(22, '60013', 'mnmnm', 'nmnmn', 'mnmnmnm', '2018-09-25', 'nmnm', '2352352', 'mother');
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 -- --------------------------------------------------------
 
@@ -179,7 +188,26 @@ INSERT INTO `insuredpolicy` (`pol`, `insured_policyNo`, `insured_lastName`, `ins
 (3, '3421', 'ffffffqqq', 'asssssqqq', 'ddddd', '2018-07-19', 'zcxvzx', '67858'),
 (4, 'W100411', 'mm12', 'mm12', 'mm', '2018-08-20', 'Sitio12', '2222'),
 (5, '353533', 'Bartar', 'Marvelrb', 'Ar', '2018-08-13', 'Sitio Atis Baniladr', '87364587643'),
+<<<<<<< HEAD
 (6, '60013', 'Bartar', 'Marvelrb', 'Araa', '2018-08-13', 'Sitio Atis Baniladr', '87364587643');
+=======
+(6, '60013', 'Bartar', 'Marvelrb', 'Araa', '2018-08-13', 'Sitio Atis Baniladr', '87364587643'),
+(11, '65767', '', '', '', '0000-00-00', '', ''),
+(12, '764756', 'Bartar', 'Marvelrb', 'Ar', '2018-08-13', 'Sitio Atis Baniladr', '87364587643'),
+(13, '909888', 'Bartar', 'Marvelrb', 'Ar', '2018-08-13', 'Sitio Atis Baniladr', '87364587643'),
+(14, '838582', '', '', '', '0000-00-00', '', ''),
+(15, '9898383', '', '', '', '0000-00-00', '', ''),
+(16, '8838822', '', '', '', '0000-00-00', '', ''),
+(17, '70000', 'Bartar', 'Marvelrb', 'Ar', '2018-08-13', 'Sitio Atis Baniladr', '87364587643'),
+(18, '79797', '', '', '', '0000-00-00', '', ''),
+(19, '9938773', '', '', '', '0000-00-00', '', ''),
+(20, '8000', '', '', '', '0000-00-00', '', ''),
+(21, '909568', '', '', '', '0000-00-00', '', ''),
+(22, '980808080w', '', '', '', '0000-00-00', '', ''),
+(23, '68684658', '', '', '', '0000-00-00', '', ''),
+(24, '8849939', '', '', '', '0000-00-00', '', ''),
+(25, '9009000', '', '', '', '0000-00-00', '', '');
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 -- --------------------------------------------------------
 
@@ -209,6 +237,7 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`payment_ID`, `payment_policyNo`, `payment_Amount`, `payment_issueDate`, `payment_MOP`, `payment_transDate`, `payment_OR`, `payment_APR`, `payment_dueDate`, `payment_nextDue`, `payment_soaDate`, `payment_remarks`, `payment_remarks_year`, `payment_remarks_month`) VALUES
+<<<<<<< HEAD
 (82, '60013', '80000', '2018-09-18', 'Monthly', '2018-09-05', '', '', '2018-09-18', '2018-10-18', '2018-11', 'New', '', ''),
 (83, '60013', '80000', '2018-09-18', 'Monthly', '2018-09-25', '4155515', '', '2018-10-18', '2018-11-18', '', 'New', '', ''),
 (84, '60013', '80000', '2018-09-18', 'Monthly', '2018-09-25', '4155515', '', '2018-11-18', '2018-12-18', '', 'New', '', ''),
@@ -218,6 +247,19 @@ INSERT INTO `payment` (`payment_ID`, `payment_policyNo`, `payment_Amount`, `paym
 (88, '60013', '12000', '2018-09-18', 'Monthly', '2019-03-21', '4155515', '', '2019-06-18', '2019-07-18', '', 'New', '', ''),
 (89, '60013', '12000', '2018-09-18', 'Monthly', '2019-03-21', '4155515', '', '2019-07-18', '2019-08-18', '', 'New', '', ''),
 (90, '60013', '12000', '2018-09-18', 'Monthly', '2019-03-21', '4155515', '', '2019-08-18', '2019-09-18', '', 'New', '', '');
+=======
+(204, '909888', '80000', '2018-09-18', 'Monthly', '2018-12-26', '90000', '', '2018-09-18', '2018-10-18', '', 'New', '1', '1'),
+(205, '909888', '80000', '2018-09-18', 'Monthly', '2018-12-26', '90000', '', '2018-09-18', '2018-10-18', '', 'New', '1', '1'),
+(210, '8707777', '8080808', '2018-09-17', 'Monthly', '2018-12-11', '80', '', '2018-09-17', '2018-10-17', '', 'New', '1', '1'),
+(212, '70000', '12000', '2018-10-31', 'Monthly', '2019-03-06', '7737282', '', '2018-10-31', '2018-11-30', '', 'New', '1', '1'),
+(213, '70000', '12000', '2018-10-31', 'Monthly', '2019-03-06', '7737282', '', '2018-11-30', '2018-12-30', '', 'New', '1', '2'),
+(214, '70000', '12000', '2018-10-31', 'Monthly', '2019-03-06', '7737282', '', '2018-10-31', '2018-12-30', '', 'New', '1', '1'),
+(215, '79797', '57275729', '2018-09-05', 'Monthly', '2019-01-24', '9579275', '', '2018-09-05', '2018-10-05', '', 'New', '1', '1'),
+(218, '980808080w', '93759027358', '2018-09-27', 'Monthly', '0000-00-00', '', '', '2018-09-27', '2018-10-27', '', 'New', '1', '1'),
+(219, '68684658', '43000', '2018-09-11', 'Monthly', '0000-00-00', '', '', '2018-09-11', '2018-10-11', '', 'New', '1', '1'),
+(220, '8849939', '80000', '2019-04-24', 'Monthly', '2019-10-18', '9939292', '', '2019-04-24', '2019-05-24', '', 'New', '1', '1'),
+(230, '9009000', '80000', '2018-09-20', 'Quarterly', '2018-09-14', '70000', '', '2018-09-20', '2019-07-20', '', 'New', '1', '1');
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 -- --------------------------------------------------------
 
@@ -282,7 +324,16 @@ INSERT INTO `policyfund` (`polFund_policyNo`, `polFund_fund`, `polFund_rate`) VA
 ('353533', '322', '90'),
 ('353533', '321', '10'),
 ('60013', '322', '80'),
+<<<<<<< HEAD
 ('60013', '123', '10');
+=======
+('56456456', '321', '90'),
+('798797', '321', '80'),
+('65767', '321', '90'),
+('764756', '123', '80'),
+('909888', '322', '70'),
+('70000', '322', '90');
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 -- --------------------------------------------------------
 
@@ -356,7 +407,11 @@ CREATE TABLE `production` (
 --
 
 INSERT INTO `production` (`prodID`, `transDate`, `prodclientID`, `policyNo`, `plan`, `premium`, `receiptNo`, `faceAmount`, `rate`, `FYC`, `modeOfPayment`, `issuedDate`, `SOAdate`, `agent`, `remarks`, `policyStat`, `dueDate`) VALUES
+<<<<<<< HEAD
 (260, '2019-03-21', '85860', '60013', '86', '12000', '4155515', '12000', '60%', '54000', 'Monthly', '2018-09-18', '2018-12', '567', 'New', '2', '2019-09-18');
+=======
+(278, '2018-09-14', '85860', '9009000', '86', '600000', '70000', '80000', '60%', '540000', 'Quarterly', '2018-09-20', NULL, '111', 'New', '2', '2019-07-20');
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 -- --------------------------------------------------------
 
@@ -411,7 +466,14 @@ INSERT INTO `soa` (`SOA_ID`, `SOA_transDate`, `SOA_policyOwner`, `SOA_policyNo`,
 (9, '2019-03-21', '85860', '60013', 'Monthly', '90000', '60%', '54000', '567', '2018-09', '2019-05-18', 'Mid Month'),
 (10, '2018-09-05', '85860', '60013', 'Monthly', '90000', '60%', '54000', '567', '2018-11', '2018-09-18', 'Mid Month'),
 (11, '2018-09-25', '85860', '60013', 'Monthly', '90000', '60%', '54000', '567', '2019-01', '2019-04-18', 'Month End'),
+<<<<<<< HEAD
 (12, '2019-03-21', '85860', '60013', 'Monthly', '90000', '60%', '54000', '567', '2018-12', '2019-05-18', 'Month End');
+=======
+(12, '2019-03-21', '85860', '60013', 'Monthly', '90000', '60%', '54000', '567', '2018-12', '2019-05-18', 'Month End'),
+(13, '2018-09-25', '85860', '60013', 'Monthly', '12000', '60%', '54000', '567', '2018-12', '2018-10-18', 'Mid Month'),
+(14, '2018-09-27', '85860', '60013', 'Monthly', '12000', '60%', '54000', '567', '2018-09', '2018-11-18', 'Month End'),
+(15, '2018-09-14', '85860', '9009000', 'Monthly', '600000', '90%', '540000', '111', '2018-09', '2018-09-20', 'Mid Month');
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 -- --------------------------------------------------------
 
@@ -456,6 +518,25 @@ INSERT INTO `training` (`trainingNo`, `trainingName`, `trainingRequired`) VALUES
 (5, 'A1', 'Junior'),
 (7, 'A2', 'Senior'),
 (8, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trainingqualifications`
+--
+
+CREATE TABLE `trainingqualifications` (
+  `trainingID` varchar(50) NOT NULL,
+  `trainingQName` varchar(50) NOT NULL,
+  `trainingQualification` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `trainingqualifications`
+--
+
+INSERT INTO `trainingqualifications` (`trainingID`, `trainingQName`, `trainingQualification`) VALUES
+('5', 'A1', 'Senior');
 
 -- --------------------------------------------------------
 
@@ -646,7 +727,11 @@ ALTER TABLE `agentstraining`
 -- AUTO_INCREMENT for table `beneficiary`
 --
 ALTER TABLE `beneficiary`
+<<<<<<< HEAD
   MODIFY `bene_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+=======
+  MODIFY `bene_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 --
 -- AUTO_INCREMENT for table `client`
@@ -664,13 +749,21 @@ ALTER TABLE `fund`
 -- AUTO_INCREMENT for table `insuredpolicy`
 --
 ALTER TABLE `insuredpolicy`
+<<<<<<< HEAD
   MODIFY `pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+=======
+  MODIFY `pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
+<<<<<<< HEAD
   MODIFY `payment_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+=======
+  MODIFY `payment_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 --
 -- AUTO_INCREMENT for table `plans`
@@ -694,13 +787,21 @@ ALTER TABLE `position`
 -- AUTO_INCREMENT for table `production`
 --
 ALTER TABLE `production`
+<<<<<<< HEAD
   MODIFY `prodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
+=======
+  MODIFY `prodID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 --
 -- AUTO_INCREMENT for table `soa`
 --
 ALTER TABLE `soa`
+<<<<<<< HEAD
   MODIFY `SOA_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+=======
+  MODIFY `SOA_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 --
 -- AUTO_INCREMENT for table `training`

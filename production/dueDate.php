@@ -131,8 +131,13 @@
                                           <td style="text-align:center; width: 10px;"><?php print($row['policyNo']); ?></td>
                                           <td style="text-align:center; width: 10px;"><?php print($row['planCode']); ?></td>
 																					<td style="text-align:center; width: 20px;"><?php print($row['modeOfPayment']); ?></td>
+<<<<<<< HEAD
 																					<td style="text-align:center; width: 20px;">Php&nbsp;<?php print($row['premium']); ?></td>
 																					<td style="text-align:center; width: 100px;"><?php echo $dateR1; ?></td>
+=======
+																					<td style="text-align:center; width: 20px;"><?php print($row['premium']); ?></td>
+																					<td style="text-align:center; width: 100px;"><?php print($row['payment_dueDate']); ?></td>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																					<td style="text-align:center; width: 30px;">
 																						<div class="row">
 																							<button type="button" style='float:center' class="btn btn-primary" data-target="#paymentModal" data-toggle="modal" name="duedatebutton" id="duedatebutton"><i class="glyphicon glyphicon-copy"></i></button>
@@ -173,7 +178,11 @@
 																      	document.getElementById('paymentAPR').value = this.cells[13].innerHTML;
 																	    	//document.getElementById('paymentNextDue').value = this.cells[14].innerHTML;
 																				document.getElementById('paymentNextDueADD').value = this.cells[14].innerHTML;
+<<<<<<< HEAD
 																				document.getElementById('paymentDueDate').value = this.cells[15].innerHTML;
+=======
+																				document.getElementById('paymentDueDate').value = this.cells[5].innerHTML;
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																			};
 																}
 														</script>

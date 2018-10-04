@@ -40,6 +40,7 @@ $(document).ready(function() {
 				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 		} );
 } );
+<<<<<<< HEAD
 
 $(document).ready(function() {
 		$('#datatable-fixed-header11').DataTable( {
@@ -48,10 +49,15 @@ $(document).ready(function() {
 } );
 $(document).ready(function() {
 		$('#datatable-fixed-header12').DataTable( {
+=======
+$(document).ready(function() {
+		$('#datatable-fixed-header10').DataTable( {
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 		} );
 } );
 
+<<<<<<< HEAD
 $(document).ready(function() {
     $('#datatable-fixed-header81').DataTable( {
         "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
@@ -70,11 +76,14 @@ $(document).ready(function() {
           "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
       } );
   } );
+=======
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 function viewCheckbox() {
 
   var checkBox = document.getElementById("soaCheckBox");
   var text = document.getElementById("text");
   if (checkBox.checked == true){
+<<<<<<< HEAD
     document.getElementById("addThis").disabled = true;
     document.getElementById('tableFront').style.display = "none";
     document.getElementById('tableView').style.display = "block";
@@ -97,6 +106,14 @@ function viewCheckbox() {
 // }
 
 
+=======
+    alert('Viewing the SOA is still working');
+  } else {
+
+  }
+
+}
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 </script>
 <?php
@@ -154,8 +171,12 @@ else
 		{
 				$edit = $_REQUEST['edit'];
 
+<<<<<<< HEAD
 					$sql=mysqli_query($conn,"SELECT * from production, payment, client, agents, plans WHERE planID = plan AND policyNo = payment_policyNo AND agentCode = agent AND clientID = prodclientID AND policyNo = '$edit'");
 
+=======
+					$sql=mysqli_query($conn,"SELECT * from production, payment, client, agents WHERE policyNo = payment_policyNo AND agentCode = agent AND clientID = prodclientID AND policyNo = '$edit'");
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 					while($row=mysqli_fetch_Array($sql))
 					{
@@ -172,8 +193,14 @@ else
             <script> document.getElementById('soa_agent').value = '<?php echo $row['agentCode'];?>';</script>
             <script> document.getElementById('soa_agentname').value = '<?php echo $row['agentLastname'].", ".$row['agentFirstname']." ".$row['agentMiddlename']?>';</script>
             <script> document.getElementById('soa_dueDate').value = '<?php echo $row['payment_dueDate'];?>';</script>
+<<<<<<< HEAD
             <script> document.getElementById('soa_plan').value = '<?php echo $row['planCode'];?>';</script>
             <script> document.getElementById('soa_planID').value = '<?php echo $row['planID'];?>';</script>
+=======
+            <script>
+              window.location="soa.php?edit=<?php echo $edit ?>&#addSOAModal";
+            </script>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 					<?php
 				}
         ?>
@@ -197,7 +224,10 @@ include 'PHPFile/Connection_Database.php';
       else {
 				if(isset($_POST['soaSave']))
 				{
+<<<<<<< HEAD
           $soaPlan = $_POST['soa_planID'];
+=======
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
           $soaDate = $_POST['soa_date'];
           $soaPolicyNo = $_POST['soa_policyNo'];
           $soaTransDate = $_POST['soa_transDate'];
@@ -212,15 +242,26 @@ include 'PHPFile/Connection_Database.php';
           $soadueDate = $_POST['soa_dueDate'];
 
 
+<<<<<<< HEAD
 					$sql = "INSERT INTO soa (SOA_plan, SOA_transDate, SOA_policyOwner, SOA_policyNo, SOA_paymentMode, SOA_premium, SOA_rate, SOA_commission,
           SOA_agent, SOA_date, SOA_selectMonth, SOA_dueDate)
 					values ('$soaPlan', '$soaTransDate', '$soaName', '$soaPolicyNo', '$soaMOP', '$soaPremium', '$soaRate','$soaCommission', '$soaAgent', '$soaDate', '$soaSelectMonth', '$soadueDate')";
+=======
+					$sql = "INSERT INTO soa (SOA_transDate, SOA_policyOwner, SOA_policyNo, SOA_paymentMode, SOA_premium, SOA_rate, SOA_commission,
+          SOA_agent, SOA_date, SOA_selectMonth, SOA_dueDate)
+					values ('$soaTransDate', '$soaName', '$soaPolicyNo', '$soaMOP', '$soaPremium', '$soaRate','$soaCommission', '$soaAgent', '$soaDate', '$soaSelectMonth', '$soadueDate')";
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 						if($conn->query($sql))
 						{
 							?>
 							<script>
+<<<<<<< HEAD
                 window.location="soa.php";
+=======
+								alert("New record production successfully added");
+
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 							</script>
 								<?php
 						}

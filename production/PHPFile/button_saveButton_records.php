@@ -8,6 +8,7 @@ include 'PHPFile/Connection_Database.php';
       {
 				if(isset($_POST['saveButton']))
 				{
+<<<<<<< HEAD
         $insuredLastname = $_POST['insuredLastName'];
         $insuredFirstname = $_POST['insuredFirstName'];
         $insuredMiddlename = $_POST['insuredMiddleName'];
@@ -15,6 +16,25 @@ include 'PHPFile/Connection_Database.php';
         $insuredAddress = $_POST['insuredAddress'];
         $insuredContact = $_POST['insuredContactno'];
         $add = $_POST['policyNoOwner'];
+=======
+					$insuredLastname = $_POST['insuredLastName'];
+					$insuredFirstname = $_POST['insuredFirstName'];
+					$insuredMiddlename = $_POST['insuredMiddleName'];
+					$insuredBirthdate = $_POST['insuredBirthdate'];
+					$insuredAddress = $_POST['insuredAddress'];
+					$insuredContact = $_POST['insuredContactno'];
+					$add = $_POST['policyNoOwner'];
+
+          $policyNo = $_POST['policyNoOwner'];
+          $plan = $_POST['policyPlan'];
+          $faceAmount = $_POST['policyFaceAmount'];
+          $MOP = $_POST['policyMOP'];
+          $issueDate = $_POST['policyIssueDate'];
+          $premium = $_POST['policyPremium'];
+          $policyStatus = $_POST['policyStatusSelect'];
+          $policyDueDate = $_POST['policyDueDate'];
+          $policyRate = $_POST['planRate'];
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
         $policyNo = $_POST['policyNoOwner'];
         $plan = $_POST['policyPlan'];
@@ -51,7 +71,11 @@ include 'PHPFile/Connection_Database.php';
             insured_address = '$insuredAddress',
             insured_contactNo = '$insuredContact',
             plan = '$plan',
+<<<<<<< HEAD
 
+=======
+            rate = '$policyRate',
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
             faceAmount = '$faceAmount',
             modeOfPayment = '$MOP',
             issuedDate = '$issueDate',
@@ -255,15 +279,23 @@ include 'PHPFile/Connection_Database.php';
                       {
                         $sql = "UPDATE production
                         SET plan = '$plan',
+<<<<<<< HEAD
+=======
+                        rate = '$policyRate',
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
                         faceAmount = '$faceAmount',
                         modeOfPayment = '$MOP',
                         issuedDate = '$issueDate',
                         premium = '$premium',
                         policyStat = '$policyStatus',
                         dueDate = '$policyDueDate',
+<<<<<<< HEAD
                         policyNo = '$add',
                         FYC = '$commission',
                         rate = '$rate'
+=======
+                        policyNo = '$add'
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
                         WHERE policyNo = '$add'";
 
                         if($conn->query($sql))
