@@ -21,7 +21,11 @@
       Mode of Payment:
     </label>
       <select name="paymentmodeOfPayment" id="paymentmodeOfPayment" class="form-control aswidth" required>
+<<<<<<< HEAD
       <option value = "na" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Select a MOP</option>
+=======
+      <option value = "" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Select a MOP</option>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
       <option value="Monthly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Monthly</option>
       <option value="Quarterly" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Quarterly</option>
       <option value="Semi-Annual" name="paymentmodeOfPayment" id="paymentmodeOfPayment">Semi-Annual</option>
@@ -46,10 +50,16 @@
         <label class="control-label">
         Due Date:
       </label>
+<<<<<<< HEAD
       <input type="date" class="form-control aswidth pressingKey" name="paymentDueDate" id="paymentDueDate" readonly placeholder="Due Date">
       <input type="date" name="paymentNextDue" id="paymentNextDue" hidden>
       <input type="date" name="paymentNextDueADD" id="paymentNextDueADD" hidden>
       <input type="date" name="dateText" id="dateText" hidden>
+=======
+      <input type="date" class="form-control aswidth" name="paymentDueDate" id="paymentDueDate">
+      <input type="date" name="paymentNextDue" id="paymentNextDue" hidden>
+      <input type="date" name="paymentNextDueADD" id="paymentNextDueADD" hidden>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
       <br>
        <br>
      </div>
@@ -70,6 +80,7 @@
 
 <?php
 include 'PHPFile/Connection_Database.php';
+<<<<<<< HEAD
 
       if(mysqli_connect_error())
       {
@@ -94,6 +105,8 @@ include 'PHPFile/Connection_Database.php';
 ?>
 <?php
 include 'PHPFile/Connection_Database.php';
+=======
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
       if(mysqli_connect_error())
       {
@@ -109,6 +122,7 @@ include 'PHPFile/Connection_Database.php';
           $paymentTransDate = $_POST['paymentTransDate'];
           $paymentORNo = $_POST['paymentORNo'];
           $paymentAPR = $_POST['paymentAPR'];
+<<<<<<< HEAD
           $paymentDueDateResult = $_POST['paymentDueDate'];
           $paymentDueDate = $_POST['paymentNextDueADD'];
           $paymentNextDue = $_POST['paymentNextDue'];
@@ -299,6 +313,212 @@ include 'PHPFile/Connection_Database.php';
             if($conn->query($sql))
             {
 
+=======
+          $paymentDueDate = $_POST['paymentNextDueADD'];
+          $paymentNextDue = $_POST['paymentNextDue'];
+          $paymentRemarks = "New";
+
+          $add = $_POST['paymentPolicyNo'];
+          //$query = "SELECT * FROM payment, production WHERE payment_nextDue = dueDate AND payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC";
+          $query = "SELECT * FROM payment WHERE payment_policyNo = '$add' ORDER BY payment_ID DESC LIMIT 1";
+          $data = mysqli_query($conn, $query);
+          $result = mysqli_num_rows($data);
+          if($result == 1)
+          {
+            while($row=mysqli_fetch_Array($data))
+            {
+              $paymentYearRemarks = $paymentYearRemarks.$row['payment_remarks_year'];
+              $paymentMonthRemarks = $paymentMonthRemarks.$row['payment_remarks_month'];
+              $paymentModeOfPayment = $paymentModeOfPayment.$row['payment_MOP'];
+
+              switch($paymentModeOfPayment)
+              {
+                  case "Monthly":
+                    if($paymentMonthRemarks <= '10')
+                    {
+                      $calculateMonth = $paymentMonthRemarks + "1";
+                      $calculateYear = $paymentYearRemarks;
+                      $sql = "INSERT INTO payment (payment_policyNo,
+                        payment_Amount, payment_issueDate,
+                        payment_MOP, payment_transDate,
+                        payment_OR, payment_APR, payment_dueDate,
+                        payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                      values ('$paymentPolicyNo','$paymentAmount',
+                        '$paymentIssueDate','$paymentMOP',
+                        '$paymentTransDate','$paymentORNo',
+                        '$paymentAPR','$paymentDueDate',
+                         '$paymentNextDue',
+                        '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+                    }
+                    else if($paymentMonthRemarks == '11')
+                    {
+                      $calculateMonth = ($paymentMonthRemarks + "1") / "12";
+                      $calculateYear = $paymentYearRemarks + "1";
+                      $sql = "INSERT INTO payment (payment_policyNo,
+                        payment_Amount, payment_issueDate,
+                        payment_MOP, payment_transDate,
+                        payment_OR, payment_APR, payment_dueDate,
+                        payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                      values ('$paymentPolicyNo','$paymentAmount',
+                        '$paymentIssueDate','$paymentMOP',
+                        '$paymentTransDate','$paymentORNo',
+                        '$paymentAPR','$paymentDueDate',
+                         '$paymentNextDue',
+                        '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+                    }
+
+                  break;
+                  case "Quarterly":
+
+                  if($paymentMonthRemarks == '3')
+                  {
+                    $calculateMonth = $paymentMonthRemarks / "3";
+                    $calculateYear = $paymentYearRemarks;
+                    $sql = "INSERT INTO payment (payment_policyNo,
+                      payment_Amount, payment_issueDate,
+                      payment_MOP, payment_transDate,
+                      payment_OR, payment_APR, payment_dueDate,
+                      payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                    values ('$paymentPolicyNo','$paymentAmount',
+                      '$paymentIssueDate','$paymentMOP',
+                      '$paymentTransDate','$paymentORNo',
+                      '$paymentAPR','$paymentDueDate',
+                       '$paymentNextDue',
+                      '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+                  }
+                  else if($paymentMonthRemarks == '6')
+                  {
+                    $calculateMonth = $paymentMonthRemarks / "3";
+                    $calculateYear = $paymentYearRemarks;
+                    $sql = "INSERT INTO payment (payment_policyNo,
+                      payment_Amount, payment_issueDate,
+                      payment_MOP, payment_transDate,
+                      payment_OR, payment_APR, payment_dueDate,
+                      payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                    values ('$paymentPolicyNo','$paymentAmount',
+                      '$paymentIssueDate','$paymentMOP',
+                      '$paymentTransDate','$paymentORNo',
+                      '$paymentAPR','$paymentDueDate',
+                       '$paymentNextDue',
+                      '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+                  }
+                  else if($paymentMonthRemarks == '12')
+                  {
+                    $calculateMonth = $paymentMonthRemarks / "3";
+                    $calculateYear = $paymentYearRemarks + "1";
+                    $sql = "INSERT INTO payment (payment_policyNo,
+                      payment_Amount, payment_issueDate,
+                      payment_MOP, payment_transDate,
+                      payment_OR, payment_APR, payment_dueDate,
+                      payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                    values ('$paymentPolicyNo','$paymentAmount',
+                      '$paymentIssueDate','$paymentMOP',
+                      '$paymentTransDate','$paymentORNo',
+                      '$paymentAPR','$paymentDueDate',
+                       '$paymentNextDue',
+                      '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+                  }
+                  else
+                  {
+                      ?>
+                      <script>
+                        alert('Does not allow to use Quarterly within that month');
+                        window.location='records.php?edit=<?php echo $add ?>';
+                      </script>
+                      <?php
+                  }
+                  break;
+                  case "Semi-Annual":
+                  {
+                    if($paymentMonthRemarks == "6")
+                    {
+                      $calculateMonth = $paymentMonthRemarks / "6";
+                      $calculateYear = $paymentYearRemarks;
+                      $sql = "INSERT INTO payment (payment_policyNo,
+                        payment_Amount, payment_issueDate,
+                        payment_MOP, payment_transDate,
+                        payment_OR, payment_APR, payment_dueDate,
+                        payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                      values ('$paymentPolicyNo','$paymentAmount',
+                        '$paymentIssueDate','$paymentMOP',
+                        '$paymentTransDate','$paymentORNo',
+                        '$paymentAPR','$paymentDueDate',
+                         '$paymentNextDue',
+                        '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+                    }
+                    else if($paymentMonthRemarks == "12")
+                    {
+                      $calculateMonth = $paymentMonthRemarks / "6";
+                      $calculateYear = $paymentYearRemarks + "1";
+                      $sql = "INSERT INTO payment (payment_policyNo,
+                        payment_Amount, payment_issueDate,
+                        payment_MOP, payment_transDate,
+                        payment_OR, payment_APR, payment_dueDate,
+                        payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                      values ('$paymentPolicyNo','$paymentAmount',
+                        '$paymentIssueDate','$paymentMOP',
+                        '$paymentTransDate','$paymentORNo',
+                        '$paymentAPR','$paymentDueDate',
+                         '$paymentNextDue',
+                        '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+                    }
+
+                  }
+
+                  case "Annual":
+                  if($paymentMonthRemarks == "12")
+                  {
+                    $calculateYear = $paymentYearRemarks / "12";
+                    $calculateMonth = "1";
+                    $sql = "INSERT INTO payment (payment_policyNo,
+                      payment_Amount, payment_issueDate,
+                      payment_MOP, payment_transDate,
+                      payment_OR, payment_APR, payment_dueDate,
+                      payment_nextDue, payment_remarks, payment_remarks_year, payment_remarks_month)
+                    values ('$paymentPolicyNo','$paymentAmount',
+                      '$paymentIssueDate','$paymentMOP',
+                      '$paymentTransDate','$paymentORNo',
+                      '$paymentAPR','$paymentDueDate',
+                       '$paymentNextDue',
+                      '$paymentRemarks', '$calculateYear', '$calculateMonth')";
+
+                  }
+                  break;
+
+                  break;
+                  default:
+              }
+
+
+
+
+              // switch ($paymentMonthRemarks)
+              // {
+              //   case "":
+              //     $calculateYear = "1";
+              //     $calculateMonth = "1";
+              //   break;
+              //   case "1":
+              //     $calculateYear = "1";
+              //     $calculateMonth = "1" + "1";
+              //   break;
+              //
+              //   break;
+              //   default:
+              //
+              // }
+            }
+
+            if($conn->query($sql))
+            {
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
               ?>
               <script>
               window.location="records.php?edit=<?php echo $paymentPolicyNo ?>";
@@ -376,6 +596,7 @@ document.getElementById("paymentSaveButton").addEventListener("click", function(
   }
 });
 
+<<<<<<< HEAD
 $(document).ready(function(){
     $('#paymentSaveButton').attr('disabled',true);
     $('input.pressingKey').keyup(function(){
@@ -396,4 +617,6 @@ $(document).ready(function(){
 });
 
 
+=======
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 </script>

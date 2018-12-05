@@ -58,7 +58,12 @@
                  document.getElementById("policyPlan").value = this.cells[0].innerHTML;
                  document.getElementById("planRate").value = this.cells[3].innerHTML;
                  document.getElementById("planName").value = this.cells[1].innerHTML;
+<<<<<<< HEAD
                  document.getElementById("productionRate").value = this.cells[3].innerHTML;
+=======
+
+
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
                   };
                 }
 

@@ -71,6 +71,7 @@ include 'PHPFile/Connection_Database.php';
       else {
 				if(isset($_POST['paymentSaveButton']))
 				{
+<<<<<<< HEAD
           $paymentPolicyNo = $_POST['paymentPolicyNo'];
           $paymentAmount = $_POST['paymentAmount'];
           $paymentIssueDate = $_POST['paymentIssueDate'];
@@ -85,6 +86,29 @@ include 'PHPFile/Connection_Database.php';
 
           $add = $_POST['paymentPolicyNo'];
           //$query = "SELECT * FROM payment, production WHERE payment_nextDue = dueDate AND payment_policyNo = policyNo AND policyNo = '$add' ORDER BY DESC
+=======
+					$paymentPolicyNo = $_POST['paymentPolicyNo'];
+					$paymentAmount = $_POST['paymentAmount'];
+					$paymentIssueDate = $_POST['paymentIssueDate'];
+					$paymentMOP = $_POST['paymentmodeOfPayment'];
+					$paymentTransDate = $_POST['paymentTransDate'];
+					$paymentORNo = $_POST['paymentORNo'];
+					$paymentAPR = $_POST['paymentAPR'];
+          $paymentDueDate = $_POST['paymentNextDueADD'];
+					$paymentNextDue = $_POST['paymentNextDue'];
+					$paymentRemarks = "New";
+
+						$sql = "INSERT INTO payment (payment_policyNo,
+							payment_Amount, payment_issueDate,
+							payment_MOP, payment_transDate,
+							payment_OR, payment_APR, payment_dueDate,
+							payment_nextDue, payment_remarks)
+						values ('$paymentPolicyNo','$paymentAmount',
+							'$paymentIssueDate','$paymentMOP',
+							'$paymentTransDate','$paymentORNo',
+							'$paymentAPR', '$paymentDueDate','$paymentNextDue',
+							'$paymentRemarks')";
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
           $query = "SELECT * FROM payment WHERE payment_policyNo = '$add' ORDER BY payment_ID DESC LIMIT 1";
           $data = mysqli_query($conn, $query);

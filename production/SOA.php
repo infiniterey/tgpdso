@@ -22,6 +22,12 @@ td {
 		width: 20%;
 		word-wrap: break-word;
 }
+<<<<<<< HEAD
+=======
+.modal {
+overflow-y:auto;
+}
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 
 </style>
 </head>
@@ -69,13 +75,22 @@ td {
 													<div class="clearfix"></div>
 												</div>
 											</div>
+<<<<<<< HEAD
 
+=======
+											<input type="checkbox" name="soaCheckBox" id="soaCheckBox" onclick="viewCheckbox();">&nbsp;View all SOA history
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 											<br><br>
 												<div class="col-sm-12">
 
 				<!-- table-striped dataTable-->
+<<<<<<< HEAD
 												<div id="tableFront" name="tableFront" style="margin-top: -10px;">
 													<table id="datatable-fixed-header12" name="datatable-fixed-header10" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+=======
+
+													<table id="datatable-fixed-header10" name="datatable-fixed-header10" class="table table-bordered table-hover no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 														<thead>
 															<tr role="row">
 																<th hidden>SOAID</th>
@@ -102,9 +117,12 @@ td {
 																<th hidden></th>
 																<th hidden></th>
 																<th hidden></th>
+<<<<<<< HEAD
 																<th hidden></th>
 																<th hidden></th>
 
+=======
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 															</tr>
 														</thead>
 
@@ -114,6 +132,7 @@ td {
 
 																	$DB_con = Database::connect();
 																	$DB_con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+<<<<<<< HEAD
 																	$teamItSelf = $_SESSION["team"];
 																	$userTypeItSelf = $_SESSION["usertype"];
 																	if($_SESSION["usertype"] == "Secretary" || $_SESSION["usertype"] == "secretary")
@@ -124,6 +143,10 @@ td {
 																	{
 																		$sql = "SELECT * FROM production, payment, agents, client, plans WHERE planID = plan AND payment_policyNo = policyNo AND agent = agentCode AND clientID = prodclientID AND (payment_soaDate IS NULL OR payment_soaDate LIKE '')";
 																	}
+=======
+																	$sql = "SELECT * FROM production, payment, agents, client WHERE payment_policyNo = policyNo AND agent = agentCode AND clientID = prodclientID AND (payment_soaDate IS NULL OR payment_soaDate LIKE '')";
+
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																	$result = $DB_con->query($sql);
 																	if($result->rowCount()>0){
 																		while($row=$result->fetch(PDO::FETCH_ASSOC)){
@@ -132,11 +155,19 @@ td {
 																			?>
 																			<tr>
 																				<td hidden><?php print($row['payment_ID']); ?></td>
+<<<<<<< HEAD
 																				<td><?php print($payTransdate); ?></td>
 																				<td><?php print($row['cLastname'].",".$row['cFirstname']." ".$row['cMiddlename']);?></td>
 																				<td><?php print($row['payment_policyNo']); ?></td>
 																				<td><?php print($row['payment_MOP']); ?></td>
 																				<td>Php&nbsp;<?php print($row['premium']); ?></td>
+=======
+																				<td><?php print($row['payment_transDate']); ?></td>
+																				<td><?php print($row['cLastname'].",".$row['cFirstname']." ".$row['cMiddlename']);?></td>
+																				<td><?php print($row['payment_policyNo']); ?></td>
+																				<td><?php print($row['payment_MOP']); ?></td>
+																				<td><?php print($row['premium']); ?></td>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																				<td><?php print($row['rate']); ?></td>
 																				<td>Php&nbsp;<?php print($row['FYC']); ?></td>
 																				<td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
@@ -232,10 +263,34 @@ td {
 																				<td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
 																				<td>
 																					<div class="row">
+<<<<<<< HEAD
 																						<a type="button" id="buttonPol" href="soa.php?view=<?php echo $row['SOA_policyNo']?>" class="btn btn-primary" style="margin-left:60px;" name="editSoaButton"><i class="glyphicon glyphicon-new-window"></i>&nbsp;View Details</a>
+=======
+<<<<<<< HEAD
+																						<a type="button" id="buttonPol" href="soa.php?view='<?php echo $row['policyNo']?>'" class="btn btn-primary" style="margin-left:60px;" name="editSoaButton"><i class="glyphicon glyphicon-new-window"></i>&nbsp;View Details</a>
+=======
+																						<div class="col-md-6">
+																						<button type="button" data-modal="modal" data-toggle="modal" data-target="#updateModal" class="btn btn-primary" style="margin-left: 10px;" name="editSoaButton"><i class="glyphicon glyphicon-copy"></i></a>
+																					</div>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
+>>>>>>> 0d2c8347e3b0e0f23fd32947a121522ef01ca06b
 																					</div>
 
 																				</td>
+																				<td hidden><?php print($row['payment_policyNo']); ?></td>
+																				<td hidden><?php print($row['payment_soaDate']); ?></td>
+																				<td hidden><?php print($row['payment_transDate']); ?></td>
+																				<td hidden><?php print($row['clientID']); ?></td>
+																				<td hidden><?php print($row['cLastname'].", ".$row['cFirstname']." ".$row['cMiddlename']); ?></td>
+																				<td hidden><?php print($row['payment_issueDate']); ?></td>
+																				<td hidden><?php print($row['payment_MOP']); ?></td>
+																				<td hidden><?php print($row['premium']); ?></td>
+																				<td hidden><?php print($row['rate']); ?></td>
+																				<td hidden><?php print($row['FYC']); ?></td>
+																				<td hidden><?php print($row['agentCode']); ?></td>
+																				<td hidden><?php print($row['agentLastname'].", ".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
+																				<td hidden><?php print($row['payment_dueDate']); ?></td>
+																				<td hidden><?php print($row['payment_ID']); ?></td>
 																			</tr>
 																			<?php
 																		}
@@ -244,7 +299,33 @@ td {
 															</tbody>
 													</table>
 
+<<<<<<< HEAD
 												</div>
+=======
+													<script>
+													var table = document.getElementById('datatable-fixed-header10');
+													for(var counter = 1; counter < table.rows.length; counter++)
+													{
+														table.rows[counter].onclick = function()
+														{
+														 document.getElementById("soa_policyNo1").value = this.cells[10].innerHTML;
+														 document.getElementById("soa_transDate1").value = this.cells[12].innerHTML;
+														 document.getElementById("soa_name1").value = this.cells[13].innerHTML;
+														 document.getElementById("soa_client1").value = this.cells[14].innerHTML;
+														 document.getElementById("soa_issueDate1").value = this.cells[15].innerHTML;
+														 document.getElementById("soaMOP1").value = this.cells[16].innerHTML;
+														 document.getElementById("soa_premium1").value = this.cells[17].innerHTML;
+														 document.getElementById("soa_rate1").value = this.cells[18].innerHTML;
+														 document.getElementById("soa_commission1").value = this.cells[19].innerHTML;
+														 document.getElementById("soa_agent1").value = this.cells[20].innerHTML;
+														 document.getElementById("soa_agentname1").value = this.cells[21].innerHTML;
+														 document.getElementById("soa_dueDate1").value = this.cells[22].innerHTML;
+														 document.getElementById("soa_ID").value = this.cells[23].innerHTML;
+															};
+														}
+													</script>
+
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 											</div>
 										</div>
 									</div>
@@ -270,6 +351,7 @@ td {
 <div class="modal fade" name="addSOASearchPolicy" id="addSOASearchPolicy" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static" style="margin-top: 20px;">
 	<?php include 'PHPFile/button_searchPolicy_addSOA.php'; ?>
 </div>
+<<<<<<< HEAD
 <div class="modal fade" name="searchAgent" id="searchAgent" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static" style="margin-top: 20px;">
 	<?php include 'PHPFile/button_searchAgent_addSOA.php'; ?>
 </div>
@@ -291,6 +373,11 @@ td {
 <div class="modal fade" tabindex="-1" role="dialog" id="viewSOA" name="viewSOA" data-keyboard="false" data-backdrop="static" style="margin-top: 30px;">
 	<?php include 'PHPFile/button_ViewDetails_SOA.php'?>
 </div>
+=======
+<div class="modal fade" name="searchAgent" id="searchAgent" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<?php include 'PHPFile/button_searchAgent_addSOA.php'; ?>
+</div>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 	<footer style="margin-bottom: -15px;">
 		<center>
 			COPYRIGHT 2018 | TGP DISTRICT SALES OFFICE

@@ -34,7 +34,11 @@
                       <td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
                       <td align="center">
                         <div class="row">
+<<<<<<< HEAD
                           <button  type="button" data-dismiss="modal" data-target="#searchAgent" class="btn btn-primary" name="buttonsearchAgent">Get&nbsp;<i class="fa fa-arrow-right"></i></a>
+=======
+                          <button  class="btn btn-primary" name="buttonsearchAgent">Get&nbsp;<i class="fa fa-arrow-right"></i></a>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
                         </div>
                       </td>
                     </tr>
@@ -57,7 +61,11 @@
                       <td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
                       <td align="center">
                         <div class="row">
+<<<<<<< HEAD
                           <button  onclick="VB1();" type="button" data-dismiss="modal" data-target="#searchAgent" class="btn btn-primary" name="buttonsearchAgent">Get&nbsp;<i class="fa fa-arrow-right"></i></a>
+=======
+                          <button  type="button" data-dismiss="modal" data-toggle="modal" data-target="#addSOAModal" class="btn btn-primary" name="buttonsearchAgent">Get&nbsp;<i class="fa fa-arrow-right"></i></a>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
                         </div>
                       </td>
                     </tr>
@@ -70,7 +78,10 @@
         </table>
 
         <script>
+<<<<<<< HEAD
         function VB1(){
+=======
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
         var table = document.getElementById('datatable-fixed-header09');
         for(var counter = 1; counter < table.rows.length; counter++)
         {
@@ -78,10 +89,15 @@
           {
            document.getElementById("soa_agent").value = this.cells[0].innerHTML;
            document.getElementById("soa_agentname").value = this.cells[1].innerHTML;
+<<<<<<< HEAD
          };
         }
         return false;
         }
+=======
+            };
+          }
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
         </script>
 
       </div>

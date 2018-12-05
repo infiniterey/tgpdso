@@ -233,12 +233,20 @@
 																						 Plan
 																						 <div class="row">
 																						 	<div class="col-md-10">
+<<<<<<< HEAD
 																						 		<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="planName" id="planName" placeholder="Plan" readonly><br>
+=======
+																						 		<input style="cursor:auto" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="planName" id="planName"><br>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																						 		<input style="cursor:auto" style="border:none" type="text" name="policyPlan" id="policyPlan" hidden>
 																								<input name="planRate" id="planRate" hidden>
 																					 		</div>
 																							<div class="col-md-2" style="margin-left: -16px;">
+<<<<<<< HEAD
 																								<button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#addplanmodal" name="planButton" id="planButton" disabled><i class="fa fa-search"></i></button>
+=======
+																								<button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#addplanmodal" name="planButton" id="planButton"><i class="fa fa-search"></i></button>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																					 		</div>
 																					 </div>
 																					 </div>
@@ -305,12 +313,20 @@
 																					}
 																					?>
 																							<div class="col-md-10">
+<<<<<<< HEAD
 																								<input placeholder="Fund" value="<?php echo $name; ?>" readonly="readonly" type="text" class="form-control" name="policyFund" id="policyFund">
+=======
+																								<input data-target="#fundModal" data-toggle="modal" value="<?php echo $name; ?>" readonly="readonly" style="cursor:auto; width: 180px;" style="border:none" type="text" class="form-control col-md-7 col-xs-12" name="policyFund" id="policyFund">
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																							</div>
 																							<div class="col-md-2" style="margin-left: -19px;">
 																								<input id="policyRate" name="policyRate" hidden>
 																								<input id="getFundID" name="getFundID" hidden>
+<<<<<<< HEAD
 																								<button style="margin-left: 4px;width: 40px;" type="button" data-toggle="modal" data-target="#fundModal" class="btn btn-primary" name="fundButton" id="fundButton" disabled><i class="fa fa-plus"></i></button>
+=======
+																								<button disabled="disabled" style="cursor:auto; width: 40px;" style="border:none" type="button" data-toggle="modal" data-target="#fundModal" class="form-control btn btn-primary" name="fundButton" id="fundButton"><i class="fa fa-plus" hidden></i></button>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																					</div>
 																					</div>
 																					</div>
@@ -799,7 +815,11 @@
 																							$dateR3 = date("m/Y", strtotime($date3));
 																									?>
 																								<tr>
+<<<<<<< HEAD
 																									<td><?php echo $dateR0; ?></td>
+=======
+																									<td><?php echo $row['payment_transDate']; ?></td>
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																									<?php
 																									if($row['payment_remarks_year'] == '1' && $row['payment_remarks_month'] == '1')
 																									{
@@ -807,6 +827,7 @@
 																											<td style="width: 10px;"><?php echo $row['payment_remarks']; ?></td>
 																										<?php
 																									}
+<<<<<<< HEAD
 																									else
 																									{
 																										if($row['payment_MOP'] == "Monthly")
@@ -853,11 +874,22 @@
 																										}
 																									}
 																									?>
+=======
+																									else {
+																										?>
+																										<td style="width: 10px;"><?php echo $row['payment_remarks_year']." year(s) and ".$row['payment_remarks_month']." month(s)"; ?></td>
+																										<?php
+																									}
+																									?>
+
+
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																									<td style="width: 10px;"><?php echo $row['payment_MOP']; ?></td>
 																									<td><?php echo $dateR1; ?></td>
 																									<td><?php echo $dateR2; ?></td>
 																									<td style="width: 10px;"><?php echo $row['payment_OR']; ?></td>
 																									<td style="width: 10px;"><?php echo $row['payment_APR']; ?></td>
+<<<<<<< HEAD
 																									<td style="width: 20px;">Php&nbsp;<?php echo $row['premium'] ?></td>
 																									<td>
 																											<?php
@@ -895,6 +927,29 @@
 																									</div>
 																									<?php
 																									}
+=======
+																									<td style="width: 20px;"><?php echo $row['premium']; ?></td>
+																									<td><?php echo $row['payment_soaDate']; ?></td>
+																									<td>
+																										<?php
+																											if($row['payment_soaDate'] == '')
+																											{
+																												?>
+																												<div align="center">
+																													<button type="button" title="Edit Data" data-toggle="modal" data-target="#paymentModalEdit" class="btn btn-primary" style="font-size: 16px;"><i class="fa fa-pencil"></i></button>
+																													<a title="Delete Data" onclick="return confirm('Are you sure to delete?')" href="records.php?deletePayment=<?php echo $row['payment_policyNo'] ?>" class="btn btn-danger"style="font-size: 16px;"><i class="fa fa-trash"></i></a>
+																												</div>
+																												<?php
+																											}
+																											else
+																											{
+																													?>
+																													<div align="center">
+																														<button type="button" title="Edit Data" data-toggle="modal" style="width: 84px;" data-target="#paymentModalEdit" class="btn btn-primary"><i class="glyphicon glyphicon-edit" style="font-size: 22px;"></i></a>
+																													</div>
+																													<?php
+																											}
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 																										?>
 																									</td>
 																									<td hidden><?php echo $row['payment_policyNo']; ?></td>
@@ -971,7 +1026,10 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9843b792cca4e107b6eabdb16ad5006e4a07e1b5
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="addplanmodal" data-keyboard="false" data-backdrop="static">
 	<?php include 'PHPFile/button_add_plan_records.php';?>
 </div>
