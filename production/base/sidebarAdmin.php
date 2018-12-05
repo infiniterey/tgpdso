@@ -14,9 +14,13 @@
 
       <li><a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-list-alt"></i> Report <span class="fa fa-chevron-down"></span></a></br>
         <ul class="collapse list-unstyled" id="homeSubmenu3">
-          <li><a href="payment.php" style="color: white"><i style="color:red;"class="fa fa-money"></i>Payment</a></li></br>
-          <li><a href="none.php" style="color: white"><i style="color:red;" class="fa fa-calendar"></i>Due Date</a></li></br>
-          <li><a href="SOA.php" style="color: white"><i style="color:red;" class="fa fa-cog"></i>SOA</a></li></br>
+          <li><a href="reportRecords.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;"class="fa fa-money"></i>Payment</a></li></br>
+          <li><a href="reports_DueDate.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-calendar"></i>Due Date</a></li></br>
+          <li><a href="reports_DailyProduction.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-book"></i>Daily Production</a></li></br>
+          <li><a href="reports_MonthlyProduction.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-book"></i>Monthly Production</a></li></br>
+          <li><a href="reports_CumulativeProduction.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-book"></i>Cumulative Production</a></li></br>
+          <li><a href="reports_IndividualProduction.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-book"></i>GA Individual Production</a></li></br>
+          <li><a href="reportSOA.php" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color:lightgreen;" class="fa fa-cog"></i>SOA</a></li></br>
                         <br>
         </ul>
       </li>

@@ -232,7 +232,7 @@ td {
 																				<td><?php print($row['agentLastname'].",".$row['agentFirstname']." ".$row['agentMiddlename']); ?></td>
 																				<td>
 																					<div class="row">
-																						<a type="button" id="buttonPol" href="soa.php?view='<?php echo $row['policyNo']?>'" class="btn btn-primary" style="margin-left:60px;" name="editSoaButton"><i class="glyphicon glyphicon-new-window"></i>&nbsp;View Details</a>
+																						<a type="button" id="buttonPol" href="soa.php?view=<?php echo $row['SOA_policyNo']?>" class="btn btn-primary" style="margin-left:60px;" name="editSoaButton"><i class="glyphicon glyphicon-new-window"></i>&nbsp;View Details</a>
 																					</div>
 
 																				</td>
